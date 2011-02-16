@@ -3,7 +3,7 @@
 	<name>BokslMusic</name>
 	<comment></comment>
 	<projects>
-		<project>literatureboy</project>
+		<project>BokslMusic</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
