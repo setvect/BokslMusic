@@ -107,8 +107,7 @@ public class MP3Test {
 		MP3AudioHeader header = (MP3AudioHeader) mp3.getAudioHeader();
 		long mp3Start = header.getMp3StartByte();
 
-		File bufferFile = new File("buffer");
-		ByteBufferPool byteBufferPool = new ByteBufferPool(4096 << 6, 0, bufferFile);
+		ByteBufferPool byteBufferPool = ByteBufferPool.getInstance();
 
 		FileInputStream fis = new FileInputStream(mp3.getFile());
 		FileChannel fc = fis.getChannel();

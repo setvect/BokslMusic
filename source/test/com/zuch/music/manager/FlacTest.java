@@ -84,8 +84,7 @@ public class FlacTest
 		
 		System.out.printf("StartOfFlacInFile: [%d]\n", stramReader.getStartOfFlacInFile());
 		
-		File bufferFile = new File("buffer");
-		ByteBufferPool byteBufferPool = new ByteBufferPool(4096<<6, 0, bufferFile);
+		ByteBufferPool byteBufferPool = ByteBufferPool.getInstance();
 		
 		FileInputStream fis = new FileInputStream(flacfile.getFile());
 		FileChannel fc = fis.getChannel();

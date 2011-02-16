@@ -8,7 +8,7 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ByteBufferPool {
+public class ByteBufferPool implements IByteBufferPool {
 	public static final int MEMORY_BLOCKSIZE = 4096;
 	public static final int FILE_BLOCKSIZE = 16384;
 
@@ -28,7 +28,7 @@ public class ByteBufferPool {
 	 *            Path of file buffer
 	 * @throws IOException
 	 */
-	public ByteBufferPool(int memorySize, int fileSize, File file) throws IOException {
+	private ByteBufferPool(int memorySize, int fileSize, File file) throws IOException {
 		if (memorySize > 0)
 			initMemoryBuffer(memorySize);
 
@@ -208,5 +208,27 @@ public class ByteBufferPool {
 	 */
 	public synchronized boolean isWait() {
 		return isWait;
+	}
+
+	/**
+	 * @return
+	 */
+	public static ByteBufferPool getInstance() {
+		return ByteBufferPoolSingletone.instance;
+	}
+
+	/**
+	 * syncrhonized를 사용하지 않고 싱글톤을 구현
+	 */
+	static class ByteBufferPoolSingletone {
+		private static final ByteBufferPool instance;
+		static {
+			File bufferFile = new File("temp_buffer");
+			try {
+				instance = new ByteBufferPool(4096 << 6, 0, bufferFile);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 }
