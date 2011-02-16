@@ -40,7 +40,7 @@ public class MP3Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		File sourceFile = new File("E:\\10.멀티미디어\\03.음악\\01_가요\\대학가요제\\1988년 9회 강변 대상 - 이상은 - 담다디 (LP).mp3");
+		File sourceFile = new File("sample_data/youlightup.mp3");
 		try {
 			MP3File f = (MP3File) AudioFileIO.read(sourceFile);
 			MP3AudioHeader audioHeader = (MP3AudioHeader) f.getAudioHeader();
