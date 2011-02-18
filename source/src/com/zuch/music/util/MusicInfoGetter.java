@@ -22,7 +22,7 @@ import com.setvect.common.http.HttpPageGetter;
  * 
  * @version $Id$
  */
-public final class LyricGetter {
+public final class MusicInfoGetter {
 	private static final int HEADER_LENGTH = 160 * 1024;
 	private String md5Str;
 	/** 가사를 분석한 XML */
@@ -35,7 +35,7 @@ public final class LyricGetter {
 	 * @param audioFile
 	 *            음원 파일
 	 */
-	public LyricGetter(File audioFile) {
+	public MusicInfoGetter(File audioFile) {
 		this.md5Str = Md5Util.getMD5Checksum(audioFile, 0, HEADER_LENGTH);
 		downloadLyric();
 	}
@@ -44,7 +44,7 @@ public final class LyricGetter {
 	 * @param md5
 	 *            가사 추출 MD5
 	 */
-	public LyricGetter(String md5) {
+	public MusicInfoGetter(String md5) {
 		this.md5Str = md5;
 		downloadLyric();
 	}
