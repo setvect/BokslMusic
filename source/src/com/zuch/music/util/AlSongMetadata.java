@@ -11,18 +11,22 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.mp3.MP3AudioHeader;
+import org.jaudiotagger.audio.mp3.MP3File;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.setvect.common.http.HttpPageGetter;
+import com.setvect.common.util.FileUtil;
 
 /**
- * 알쏭 가서 서버에 접속하여 음악 가사를 가져옴
+ * 알쏭 가서 서버에 접속하여 음악 가사를 비롯한 메타정보를 가져옴
  * 
  * @version $Id$
  */
-public final class MusicInfoGetter {
+public final class AlSongMetadata {
 	private static final int HEADER_LENGTH = 160 * 1024;
 	private String md5Str;
 	/** 가사를 분석한 XML */
@@ -35,8 +39,9 @@ public final class MusicInfoGetter {
 	 * @param audioFile
 	 *            음원 파일
 	 */
-	public MusicInfoGetter(File audioFile) {
-		this.md5Str = Md5Util.getMD5Checksum(audioFile, 0, HEADER_LENGTH);
+	public AlSongMetadata(File audioFile) {
+		long audioStartBytePosition = getAudioStartBytePosition(audioFile);
+		this.md5Str = Md5Util.getMD5Checksum(audioFile, audioStartBytePosition, HEADER_LENGTH);
 		downloadLyric();
 	}
 
@@ -44,7 +49,7 @@ public final class MusicInfoGetter {
 	 * @param md5
 	 *            가사 추출 MD5
 	 */
-	public MusicInfoGetter(String md5) {
+	public AlSongMetadata(String md5) {
 		this.md5Str = md5;
 		downloadLyric();
 	}
@@ -138,6 +143,25 @@ public final class MusicInfoGetter {
 		// ByteArrayInputStream은 close()안해도 됨.
 		InputStream is = new ByteArrayInputStream(resultXml.getBytes("UTF-8"));
 		saxParser.parse(is, lyricParse);
+	}
+
+	/**
+	 * @param audioFile
+	 *            음원파일
+	 * @return 오디오 시작 위치
+	 */
+	private long getAudioStartBytePosition(File audioFile) {
+		String ext = FileUtil.getExt(audioFile.getName());
+		if (ext.equalsIgnoreCase(".mp3")) {
+			try {
+				MP3File f = (MP3File) AudioFileIO.read(audioFile);
+				MP3AudioHeader header = (MP3AudioHeader) f.getAudioHeader();
+				long mp3Start = header.getMp3StartByte();
+				return mp3Start;
+			} catch (Exception e) {
+			}
+		}
+		return 0;
 	}
 
 	/**

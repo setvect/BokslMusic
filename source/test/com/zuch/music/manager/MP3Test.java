@@ -40,7 +40,7 @@ public class MP3Test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		File sourceFile = new File("sample_data/youlightup.mp3");
+		File sourceFile = new File("sample_data/a.mp3");
 		try {
 			MP3File f = (MP3File) AudioFileIO.read(sourceFile);
 			MP3AudioHeader audioHeader = (MP3AudioHeader) f.getAudioHeader();
@@ -261,7 +261,7 @@ public class MP3Test {
 
 				System.out.printf("Encoding: [%s]\n", endcode);
 
-				String text = new String(orgText.getBytes(endcode), "euc-kr");
+				String text = orgText;
 
 				System.out.printf("String: [%s]\n\n", text);
 			}
