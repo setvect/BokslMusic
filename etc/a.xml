@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<soap:Body>
+		<GetLyric5Response xmlns="ALSongWebServer">
+			<GetLyric5Result>
+				<strStatusID>1</strStatusID>
+				<strInfoID>2194710</strInfoID>
+				<strRegistDate>2010-08-14 12:59:57.000</strRegistDate>
+				<strTitle>언젠가는</strTitle>
+				<strArtist>이상은</strArtist>
+				<strAlbum>[이상은] 언젠가는</strAlbum>
+				<strCountGood>0</strCountGood>
+				<strCountBad>0</strCountBad>
+				<strLyric>[00:00.88]이상은 -
+					언젠가는&lt;br&gt;[00:00.00]&lt;br&gt;[00:29.93]젊은 날엔 젊음을
+					모르고&lt;br&gt;[00:37.97]사랑할 땐 사랑이 보이지 않았네&lt;br&gt;[00:44.99]하지만 이제
+					뒤돌아보니&lt;br&gt;[00:51.48]우린 젊고 서로 사랑을 했구나&lt;br&gt;[00:59.53]눈물같은
+					시간의 강 위에&lt;br&gt;[01:06.67]떠내려가는 건 한 다발의 추억&lt;br&gt;[01:13.94]그렇게
+					이제 뒤돌아보니&lt;br&gt;[01:21.35]젊음도 사랑도 아주
+					소중했구나&lt;br&gt;[01:27.41]언젠가는 우리 다시 만나리&lt;br&gt;[01:34.43]어디로 가는 지
+					아무도 모르지만&lt;br&gt;[01:41.81]언젠가는 우리 다시 만나리&lt;br&gt;[01:48.77]헤어진
+					모습 이대로&lt;br&gt;[00:00.00]&lt;br&gt;[02:25.80]젊은 날엔 젊음을
+					잊었고&lt;br&gt;[02:32.90]사랑할 땐 사랑이 흔해만 보였네&lt;br&gt;[02:40.12]하지만 이제
+					생각해보니&lt;br&gt;[02:47.23]우린 젊고 서로 사랑을 했구나&lt;br&gt;[02:53.57]언젠가는
+					우리 다시 만나리&lt;br&gt;[03:00.60]어디로 가는 지 아무도
+					모르지만&lt;br&gt;[03:08.12]언젠가는 우리 다시 만나리&lt;br&gt;[03:15.29]헤어진 모습
+					이대로&lt;br&gt;[03:23.62]언젠가는 우리 다시 만나리&lt;br&gt;[03:29.46]어디로 가는 지
+					아무도 모르지만&lt;br&gt;[03:36.73]언젠가는 우리 다시 만나리&lt;br&gt;[03:44.06]헤어진
+					모습 이대로&lt;br&gt;</strLyric>
+				<strRegisterFirstName>홍성현</strRegisterFirstName>
+				<strRegisterFirstEMail />
+				<strRegisterFirstURL />
+				<strRegisterFirstPhone />
+				<strRegisterFirstComment />
+				<strRegisterName>cool박</strRegisterName>
+				<strRegisterEMail />
+				<strRegisterURL />
+				<strRegisterPhone />
+				<strRegisterComment />
+			</GetLyric5Result>
+		</GetLyric5Response>
+	</soap:Body>
+</soap:Envelope>

@@ -16,13 +16,9 @@ public class Md5UtilTestCase {
 
 	@Test
 	public void testMd5Check() throws NoSuchAlgorithmException, IOException {
-		File file = new File("sample_data/youlightup.mp3");
+		File file = new File("sample_data/a.mp3");
 		String md5Str = Md5Util.getMD5Checksum(file);
-
-		Assert.assertThat(md5Str, is("81721b89ce1f183b38ea04201c6821fa"));
-
-		md5Str = Md5Util.getMD5Checksum(file, 0, 163840);
-		Assert.assertThat(md5Str, is("3f0511a0c3eef50b898a4ed132cbd8d3"));
+		Assert.assertThat(md5Str, is("d66bb7b17f31ef54ae3f82efde839bc7"));
 
 		file = new File("sample_data/notfound.aaaa");
 		md5Str = Md5Util.getMD5Checksum(file);

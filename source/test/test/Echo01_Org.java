@@ -1,4 +1,4 @@
-package com.setvect.bokslmusic.util;
+package test;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,12 +12,12 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-public class Echo01 extends DefaultHandler {
+public class Echo01_Org extends DefaultHandler {
 	public static void main(String argv[]) {
 		
 
 		// Use an instance of ourselves as the SAX event handler
-		DefaultHandler handler = new Echo01();
+		DefaultHandler handler = new Echo01_Org();
 		// Use the default (non-validating) parser
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		try {
