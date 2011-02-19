@@ -6,6 +6,31 @@
 		foreign key를 만들기 때문에  테이블의 생성 순서가 중요함.
 		foreign key가 만들어 질 수 있도록 부모 테이블이 먼저 생성 되도록 함. 
 	 -->
+	<table name="TBAA_MUSIC_ARTICLE">
+		<creation>
+			CREATE TABLE TBAA_MUSIC_ARTICLE(
+				MUSIC_ID			varchar(50) NOT NULL,
+				NAME					varchar(500) NOT NULL,
+				PATH					varchar(2000) NOT NULL,
+				LYRICS				varchar(4000),
+				FILE_SIZE			int NOT NULL,
+				SAMPLING_RATE	int NOT NULL,
+				BIT_RATE			int NOT NULL,
+				RUNNING_TIME	int NOT NULL,
+				TITLE_TAG			varchar(500),
+				ARTIST_TAG		varchar(500),
+				ALBUM_TAG			varchar(500),
+				YEAR_TAG			varchar(500),
+				GENRE_TAG			varchar(500),
+				TRACK_TAG			varchar(500),
+				TITLE_EXT			varchar(500),
+				ARTIST_EXT		varchar(500),
+			  PRIMARY KEY  (MUSIC_ID)
+			)
+		</creation>
+		<defaultValue>
+		</defaultValue>
+	</table>
 	
 	<!-- create table and basic data -->
 	<table name="TBZA_CODE">
@@ -19,35 +44,6 @@
 			)
 		</creation>
 		<defaultValue>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('ROOT','MM_COST','투입인력별 단가 ','1')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('ROOT','PRD_COST','원가 항목','2')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('ROOT','SALE','매출 항목','3')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('ROOT','PRJ_CLASSIFY','프로젝트 분류','4')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','수석부장(2010)','8000000','1')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','부장(2010)','7000000','2')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','차장(2010)','6500000','3')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','과장(2010)','6000000','4')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','대리(2010)','5500000','5')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','사원(2010)','5000000','6')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','MM','투입인력 원가','1')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','OUT_MM','외주인력 원가','2')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','GOODS','S/W 및 H/W 구매 원가','3')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','DIRECT','사업관리비용','4')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','BUSINESS','영업비용','5')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('SALE','SETTING','설치제품','1')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('SALE','DEVELOP','개발항목','2')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('SALE','MAINTENANCE','유상 유지보수','3')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRJ_CLASSIFY','DOR','DOR','1')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRJ_CLASSIFY','SOR','SOR','2')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRJ_CLASSIFY','TMS','TMS','3')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRJ_CLASSIFY','Z_ETC','기타','4')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P000','대표이사','1')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P100','이사','2')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P200','수석부장','3')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P300','부장','4')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P400','차장','5')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P500','과장','6')</query>
-			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P600','대리','7')</query>
 			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P700','사원','8')</query>
 		</defaultValue>		
 	</table>
