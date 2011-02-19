@@ -7,11 +7,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.setvect.bokslmusic.config.EnvirmentProperty;
 import com.setvect.common.util.FileUtil;
 
 public class MusicExtractor {
 
-	private static final String[] EXT = new String[] { ".mp3", ".ogg", ".wma" };
+	private static final String[] EXT;
+	static {
+		EXT = EnvirmentProperty.getStringArray("com.setvect.bokslmusic.audio_ext");
+	}
 
 	/**
 	 * @param baseDir
@@ -41,19 +45,6 @@ public class MusicExtractor {
 		/**
 		 * @param baseDir
 		 *            검색 시작 디렉토리
-		 * @param includeExt
-		 *            검색 대상 확장자. 확장자는 .(쩜)을 포함 <br>
-		 *            ex) .hwp, .mp3, ...
-		 */
-		FileFinder(File baseDir, Set<String> includeExt) {
-			this.baseDir = baseDir;
-			this.includeExt = includeExt;
-			setFile(this.baseDir);
-		}
-
-		/**
-		 * @param baseDir
-		 *            검색 시작 디렉토리
 		 * @param ext
 		 *            검색 대상 확장자. 확장자는 .(쩜)을 포함 <br>
 		 *            ex) .hwp, .mp3, ...
@@ -74,13 +65,6 @@ public class MusicExtractor {
 		 */
 		public List<File> getFiles() {
 			return Collections.unmodifiableList(files);
-		}
-
-		/**
-		 * @return 해당 조건에 맞는 파일
-		 */
-		public List<File> list() {
-			return files;
 		}
 
 		private void setFile(File dir) {

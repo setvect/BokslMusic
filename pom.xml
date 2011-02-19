@@ -276,5 +276,19 @@
     	<scope>system</scope>
     	<systemPath>${basedir}/WebContent/WEB-INF/lib/setvect.jar</systemPath>
     </dependency>    
+    <dependency>
+    	<groupId>com.jaudiotagger</groupId>
+    	<artifactId>jaudiotagger</artifactId>
+    	<version>1.0</version>
+    	<scope>system</scope>
+    	<systemPath>${basedir}/WebContent/WEB-INF/lib/jaudiotagger-2.0.3.jar</systemPath>
+    </dependency>    
+    <dependency>
+    	<groupId>javax.servlet</groupId>
+    	<artifactId>servlet-api</artifactId>
+    	<version>2.5</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
   </dependencies>
 </project>

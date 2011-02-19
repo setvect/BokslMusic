@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="WebContent/WEB-INF/classes" path="source/src"/>
-	<classpathentry kind="src" output="WebContent/WEB-INF/classes" path="source/resource"/>
-	<classpathentry kind="src" output="build/test-classes" path="source/test"/>
+	<classpathentry kind="src" path="source/src"/>
+	<classpathentry kind="src" path="source/resource"/>
+	<classpathentry kind="src" path="source/test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>

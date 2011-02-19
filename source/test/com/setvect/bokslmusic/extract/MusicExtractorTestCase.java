@@ -8,7 +8,9 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MusicExtractorTestCase {
+import com.setvect.bokslmusic.TestSystem;
+
+public class MusicExtractorTestCase extends TestSystem {
 	@Test
 	public void test() {
 		File baseDir = new File("sample_data");

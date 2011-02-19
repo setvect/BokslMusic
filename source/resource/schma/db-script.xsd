@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="dbScript">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="table" minOccurs="0" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="creation" type="xsd:string" minOccurs="1"/>
+							<xsd:element name="defaultValue" minOccurs="0" maxOccurs="1">
+								<xsd:complexType>
+									<xsd:choice>
+										<xsd:element name="query" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+									</xsd:choice>
+								</xsd:complexType>															
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="name" type="xsd:string" use="required"/>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

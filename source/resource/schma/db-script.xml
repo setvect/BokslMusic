@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dbScript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!-- 
+		표준 SQL이 아닌 전용 문법의 DBMS는 본 파일을 복사하여 해당 DBMS에 맞추어 사용한다. 
+		
+		foreign key를 만들기 때문에  테이블의 생성 순서가 중요함.
+		foreign key가 만들어 질 수 있도록 부모 테이블이 먼저 생성 되도록 함. 
+	 -->
+	
+	<!-- create table and basic data -->
+	<table name="TBZA_CODE">
+		<creation>
+			CREATE TABLE TBZA_CODE(
+				MAIN_CODE 	varchar(20) NOT NULL,
+				SUB_CODE 		varchar(20) NOT NULL,
+				VALUE				varchar(20) NOT NULL,
+				ORDER_NO		int NOT NULL,
+			  PRIMARY KEY  (MAIN_CODE, SUB_CODE)
+			)
+		</creation>
+		<defaultValue>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('ROOT','MM_COST','투입인력별 단가 ','1')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('ROOT','PRD_COST','원가 항목','2')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('ROOT','SALE','매출 항목','3')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('ROOT','PRJ_CLASSIFY','프로젝트 분류','4')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','수석부장(2010)','8000000','1')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','부장(2010)','7000000','2')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','차장(2010)','6500000','3')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','과장(2010)','6000000','4')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','대리(2010)','5500000','5')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('MM_COST','사원(2010)','5000000','6')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','MM','투입인력 원가','1')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','OUT_MM','외주인력 원가','2')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','GOODS','S/W 및 H/W 구매 원가','3')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','DIRECT','사업관리비용','4')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRD_COST','BUSINESS','영업비용','5')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('SALE','SETTING','설치제품','1')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('SALE','DEVELOP','개발항목','2')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('SALE','MAINTENANCE','유상 유지보수','3')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRJ_CLASSIFY','DOR','DOR','1')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRJ_CLASSIFY','SOR','SOR','2')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRJ_CLASSIFY','TMS','TMS','3')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('PRJ_CLASSIFY','Z_ETC','기타','4')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P000','대표이사','1')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P100','이사','2')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P200','수석부장','3')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P300','부장','4')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P400','차장','5')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P500','과장','6')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P600','대리','7')</query>
+			<query>insert into TBZA_CODE(MAIN_CODE, SUB_CODE, VALUE, ORDER_NO) values('POSITION','P700','사원','8')</query>
+		</defaultValue>		
+	</table>
+</dbScript>   

@@ -14,8 +14,9 @@ public class Mp3AudioMetadataTestCase {
 		AudioMetadata audio = new Mp3AudioMetadata(source);
 		Assert.assertThat(audio.getSamplingRate(), is(44100));
 		Assert.assertThat(audio.getBatRate(), is(192));
-		Assert.assertThat(audio.getTitle(), is("[6] 언젠가는"));
+		Assert.assertThat(audio.getTitle(), is("02. 언젠가는 (Someday)"));
 		Assert.assertThat(audio.getArtist(), is("이상은"));
 		Assert.assertThat(audio.getYear(), is("1993"));
+		Assert.assertThat(audio.getGenre(), is("Other"));
 	}
 }
