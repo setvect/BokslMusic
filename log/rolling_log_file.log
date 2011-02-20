@@ -1,4 +1,3 @@
-2011-02-19 10:54:59,437 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:73) | Log Manager Initialized
-2011-02-19 10:55:00,031 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:79) | Spring Initialized
-2011-02-19 10:55:01,328 INFO  [main] com.setvect.bokslmusic.db.h2.H2DBInitializer.createTable(H2DBInitializer.java:86) | TBAA_MUSIC_ARTICLE table created
-2011-02-19 10:55:01,343 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:97) | DB Initialized
+2011-02-21 08:08:31,339 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:73) | Log Manager Initialized
+2011-02-21 08:08:32,120 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:79) | Spring Initialized
+2011-02-21 08:08:33,526 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:97) | DB Initialized

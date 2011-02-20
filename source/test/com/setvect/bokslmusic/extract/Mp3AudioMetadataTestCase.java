@@ -6,9 +6,6 @@ import java.io.File;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.setvect.bokslmusic.service.music.MusicArticleService;
 
 public class Mp3AudioMetadataTestCase {
 
