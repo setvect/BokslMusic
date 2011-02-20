@@ -2,6 +2,7 @@ package com.setvect.bokslmusic.extract;
 
 import java.io.File;
 
+import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.common.util.FileUtil;
 import com.zuch.music.util.AlSongMetadata;
 
@@ -16,7 +17,7 @@ public class MusicMetadata {
 	private final File sourceFile;
 
 	/** */
-	private AlSongMetadata getter;
+	private AlSongMetadata alSongMetadata;
 
 	private AudioMetadata audioMetadata;
 
@@ -35,11 +36,11 @@ public class MusicMetadata {
 	 * 외부 서버에서 받아온 자료 <br>
 	 * 스레드에 안전하지 못함
 	 */
-	public AlSongMetadata getExtInfor() {
-		if (getter == null) {
-			getter = new AlSongMetadata(sourceFile);
+	public AlSongMetadata getAlSongMetadata() {
+		if (alSongMetadata == null) {
+			alSongMetadata = new AlSongMetadata(sourceFile);
 		}
-		return getter;
+		return alSongMetadata;
 	}
 
 	public AudioMetadata getAudioMetadata() {
@@ -59,5 +60,43 @@ public class MusicMetadata {
 			return new Mp3AudioMetadata(sourceFile);
 		}
 		return null;
+	}
+
+	/**
+	 * @return DB에 저장될 음원 정보 VO
+	 */
+	public MusicArticle getMusicArticle() {
+		load();
+
+		MusicArticle article = new MusicArticle();
+		article.setMusicId(alSongMetadata.getMd5());
+		article.setName(sourceFile.getName());
+		article.setPath(sourceFile.getPath());
+		article.setLyrics(alSongMetadata.getLyric());
+		article.setFileSize((int) sourceFile.length());
+		article.setSamplingRate(audioMetadata.getSamplingRate());
+		article.setBitRate(audioMetadata.getBatRate());
+		article.setRunningTime(audioMetadata.getRunningTime());
+		article.setTitleTag(audioMetadata.getTitle());
+		article.setArtistTag(audioMetadata.getArtist());
+		article.setAlbumTag(audioMetadata.getAlbum());
+		article.setYearTag(audioMetadata.getYear());
+		article.setGenreTag(audioMetadata.getGenre());
+		article.setTrackTag(audioMetadata.getTrack());
+		article.setTitleExt(alSongMetadata.getTitle());
+		article.setArtistExt(alSongMetadata.getArtist());
+		return article;
+	}
+
+	/**
+	 * 음원 정보 로드
+	 */
+	private void load() {
+		if (alSongMetadata == null) {
+			alSongMetadata = new AlSongMetadata(sourceFile);
+		}
+		if (audioMetadata == null) {
+			audioMetadata = newAudioInstance();
+		}
 	}
 }

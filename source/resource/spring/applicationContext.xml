@@ -64,6 +64,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.setvect.bokslmusic.vo.code.Code</value>			
+				<value>com.setvect.bokslmusic.vo.music.MusicArticle</value>			
 			</list>
 		</property>
 		<property name="packagesToScan">
@@ -90,13 +91,13 @@
 	</tx:advice>
 
 	<aop:config>
-		<aop:pointcut id="appDao" expression="execution(* com.setvect.bokslmusic.db..*DaoImpl.*(..))"/>
-		<aop:pointcut id="serivce" expression="execution(* com.setvect.bokslmusic.db..*DBInitializer.*(..))"/>
-		<aop:pointcut id="controller" expression="execution(* com.setvect.bokslmusic.web..*Controller.*(..))"/>
+		<aop:pointcut id="appDao" expression="execution(* com.setvect.bokslmusic.db..*Dao.*(..))"/>
+		<aop:pointcut id="serivce" expression="execution(* com.setvect.bokslmusic.service..*Service.*(..))"/>
+		<aop:pointcut id="init" expression="execution(* com.setvect.bokslmusic.db..*DBInitializer.*(..))"/>
 		
 		<aop:advisor advice-ref="hibernateTxAdvice" order="2" pointcut-ref="appDao" />
 		<aop:advisor advice-ref="hibernateTxAdvice" order="2" pointcut-ref="serivce" />
-		<!-- <aop:advisor advice-ref="hibernateTxAdvice" order="2" pointcut-ref="controller" /> -->
+		<aop:advisor advice-ref="hibernateTxAdvice" order="2" pointcut-ref="init" />
 	</aop:config>	
 
 	<!-- DataBase DAO -->

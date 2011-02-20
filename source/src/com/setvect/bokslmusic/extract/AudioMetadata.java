@@ -1,5 +1,6 @@
 package com.setvect.bokslmusic.extract;
 
+
 /**
  * @version $Id$ 오디오 메타 정보
  */
@@ -48,4 +49,5 @@ public interface AudioMetadata {
 	 * @return 트랙
 	 */
 	public String getTrack();
+
 }

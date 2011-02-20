@@ -116,5 +116,4 @@ public class Mp3AudioMetadata implements AudioMetadata {
 	public String getTrack() {
 		return null;
 	}
-
 }

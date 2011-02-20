@@ -2,7 +2,7 @@ package com.setvect.bokslmusic.db.h2;
 
 import org.springframework.stereotype.Service;
 
-import com.setvect.bokslmusic.db.common.AbstractCodeDao;
+import com.setvect.bokslmusic.db.common.AbstractMusicArticleDao;
 
 /**
  * H2 DB¿ë ÄÚµå DAO
@@ -10,5 +10,5 @@ import com.setvect.bokslmusic.db.common.AbstractCodeDao;
  * @version $Id$
  */
 @Service
-public class H2MusicArticleDao extends AbstractCodeDao {
+public class H2MusicArticleDao extends AbstractMusicArticleDao {
 }

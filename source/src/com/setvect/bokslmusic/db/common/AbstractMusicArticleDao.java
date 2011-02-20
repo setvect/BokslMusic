@@ -26,9 +26,9 @@ public abstract class AbstractMusicArticleDao implements MusicArticleDao {
 	 * 
 	 * @see com.setvect.bokslmusic.db.MusicArticleDao#getMusicArticle(int)
 	 */
-	public MusicArticle getMusicArticle(int musicArticleSeq) {
+	public MusicArticle getMusicArticle(String musicArticleId) {
 		Session session = sessionFactory.getCurrentSession();
-		return (MusicArticle) session.get(MusicArticle.class, musicArticleSeq);
+		return (MusicArticle) session.get(MusicArticle.class, musicArticleId);
 
 	}
 
@@ -93,9 +93,9 @@ public abstract class AbstractMusicArticleDao implements MusicArticleDao {
 	 * 
 	 * @see com.setvect.bokslmusic.db.MusicArticleDao#removeMusicArticle(int)
 	 */
-	public void removeMusicArticle(int musicArticleSeq) {
+	public void removeMusicArticle(String musicArticleId) {
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(getMusicArticle(musicArticleSeq));
+		session.delete(getMusicArticle(musicArticleId));
 		session.flush();
 	}
 }

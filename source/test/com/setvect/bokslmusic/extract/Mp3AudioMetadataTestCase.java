@@ -6,8 +6,12 @@ import java.io.File;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.setvect.bokslmusic.service.music.MusicArticleService;
 
 public class Mp3AudioMetadataTestCase {
+
 	@Test
 	public void test() {
 		File source = new File("sample_data/a.mp3");

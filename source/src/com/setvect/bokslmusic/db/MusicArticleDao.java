@@ -15,7 +15,7 @@ public interface MusicArticleDao {
 	 * @param musicArticleSeq
 	 * @return ¿Ωæ«¡§∫∏
 	 */
-	public MusicArticle getMusicArticle(int musicArticleSeq);
+	public MusicArticle getMusicArticle(String musicArticleId);
 
 	/**
 	 * @param pageCondition
@@ -40,7 +40,7 @@ public interface MusicArticleDao {
 	/**
 	 * ¿Ωæ« ªË¡¶
 	 * 
-	 * @param musicArticleSeq
+	 * @param musicArticleId
 	 */
-	public void removeMusicArticle(int musicArticleSeq);
+	public void removeMusicArticle(String musicArticleId);
 }
