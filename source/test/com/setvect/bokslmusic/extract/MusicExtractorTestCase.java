@@ -10,12 +10,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.setvect.bokslmusic.TestSystem;
-import com.setvect.bokslmusic.service.music.MusicArticleService;
+import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 
 public class MusicExtractorTestCase extends TestSystem {
 	@Autowired
-	private MusicArticleService musicArticleService;
+	private MusicService musicArticleService;
 
 	@Test
 	public void test() {

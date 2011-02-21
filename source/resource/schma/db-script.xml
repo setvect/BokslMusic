@@ -6,9 +6,21 @@
 		foreign key를 만들기 때문에  테이블의 생성 순서가 중요함.
 		foreign key가 만들어 질 수 있도록 부모 테이블이 먼저 생성 되도록 함. 
 	 -->
-	<table name="TBAA_MUSIC_ARTICLE">
+	<table name="TBAA_MUSIC_PATH">
 		<creation>
-			CREATE TABLE TBAA_MUSIC_ARTICLE(
+			CREATE TABLE TBAA_MUSIC_PATH(
+				BASE_PATH	varchar(2000) NOT NULL,
+				SYNC_DATE	DATE,				
+			  PRIMARY KEY  (BASE_PATH)
+			)
+		</creation>
+		<defaultValue>
+		</defaultValue>
+	</table>
+	
+	<table name="TBAB_MUSIC_ARTICLE">
+		<creation>
+			CREATE TABLE TBAB_MUSIC_ARTICLE(
 				MUSIC_ID			varchar(50) NOT NULL,
 				NAME					varchar(500) NOT NULL,
 				PATH					varchar(2000) NOT NULL,
@@ -31,7 +43,7 @@
 		<defaultValue>
 		</defaultValue>
 	</table>
-	
+
 	<!-- create table and basic data -->
 	<table name="TBZA_CODE">
 		<creation>

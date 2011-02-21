@@ -11,7 +11,7 @@ import com.setvect.bokslmusic.vo.music.MusicArticle;
 
 public class MusicArticleServiceTestCase extends TestSystem {
 	@Autowired
-	private MusicArticleService service;
+	private MusicService service;
 
 	@Test
 	public void test() {

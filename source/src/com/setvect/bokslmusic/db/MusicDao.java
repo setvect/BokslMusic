@@ -1,16 +1,30 @@
 package com.setvect.bokslmusic.db;
 
+import java.util.List;
+
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
+import com.setvect.bokslmusic.vo.music.MusicPath;
 import com.setvect.common.util.GenericPage;
 
 /**
- * À½¾Ç ¸ñ·Ï °ü¸® DAO
+ * À½¾Ç °ü¸® DAO
  * 
  * @version $Id$
  */
-public interface MusicArticleDao {
+public interface MusicDao {
+	// ------ À½¾Ç °æ·Î °ü¸®
+	public MusicPath getMusicPath(String basePath);
 
+	public List<MusicPath> getMusicPathList();
+
+	public void createMusicPath(MusicPath item);
+
+	public void updateMusicPath(MusicPath item);
+
+	public void removeMusicPath(String basePath);
+
+	// ------ À½¾Ç ¸ñ·Ï °ü¸®
 	/**
 	 * @param musicArticleSeq
 	 * @return À½¾ÇÁ¤º¸

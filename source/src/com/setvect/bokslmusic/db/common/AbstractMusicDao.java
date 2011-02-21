@@ -7,9 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.setvect.bokslmusic.db.MusicArticleDao;
+import com.setvect.bokslmusic.db.MusicDao;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
+import com.setvect.bokslmusic.vo.music.MusicPath;
 import com.setvect.common.util.GenericPage;
 
 /**
@@ -17,14 +18,14 @@ import com.setvect.common.util.GenericPage;
  * 
  * @version $Id$
  */
-public abstract class AbstractMusicArticleDao implements MusicArticleDao {
+public abstract class AbstractMusicDao implements MusicDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.setvect.bokslmusic.db.MusicArticleDao#getMusicArticle(int)
+	 * @see com.setvect.bokslmusic.db.MusicDao#getMusicArticle(int)
 	 */
 	public MusicArticle getMusicArticle(String musicArticleId) {
 		Session session = sessionFactory.getCurrentSession();
@@ -35,8 +36,9 @@ public abstract class AbstractMusicArticleDao implements MusicArticleDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.setvect.bokslmusic.db.MusicArticleDao#getMusicArticlePagingList(com.setvect.bokslmusic.service.music.
-	 * MusicArticleSearch)
+	 * @see
+	 * com.setvect.bokslmusic.db.MusicDao#getMusicArticlePagingList(com.setvect
+	 * .bokslmusic.service.music. MusicArticleSearch)
 	 */
 	public GenericPage<MusicArticle> getMusicArticlePagingList(MusicArticleSearch pageCondition) {
 		Session session = sessionFactory.getCurrentSession();
@@ -69,7 +71,9 @@ public abstract class AbstractMusicArticleDao implements MusicArticleDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.setvect.bokslmusic.db.MusicArticleDao#createMusicArticle(com.setvect.bokslmusic.vo.music.MusicArticle)
+	 * @see
+	 * com.setvect.bokslmusic.db.MusicDao#createMusicArticle(com.setvect.bokslmusic
+	 * .vo.music.MusicArticle)
 	 */
 	public void createMusicArticle(MusicArticle item) {
 		Session session = sessionFactory.getCurrentSession();
@@ -80,7 +84,9 @@ public abstract class AbstractMusicArticleDao implements MusicArticleDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.setvect.bokslmusic.db.MusicArticleDao#updateMusicArticle(com.setvect.bokslmusic.vo.music.MusicArticle)
+	 * @see
+	 * com.setvect.bokslmusic.db.MusicDao#updateMusicArticle(com.setvect.bokslmusic
+	 * .vo.music.MusicArticle)
 	 */
 	public void updateMusicArticle(MusicArticle item) {
 		Session session = sessionFactory.getCurrentSession();
@@ -91,11 +97,36 @@ public abstract class AbstractMusicArticleDao implements MusicArticleDao {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.setvect.bokslmusic.db.MusicArticleDao#removeMusicArticle(int)
+	 * @see com.setvect.bokslmusic.db.MusicDao#removeMusicArticle(int)
 	 */
 	public void removeMusicArticle(String musicArticleId) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(getMusicArticle(musicArticleId));
 		session.flush();
+	}
+
+	public MusicPath getMusicPath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<MusicPath> getMusicPathList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void createMusicPath(MusicPath item) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void updateMusicPath(MusicPath item) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void removeMusicPath(String basePath) {
+		// TODO Auto-generated method stub
+
 	}
 }

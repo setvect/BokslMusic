@@ -1,3 +1,0 @@
-2011-02-21 08:08:31,339 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:73) | Log Manager Initialized
-2011-02-21 08:08:32,120 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:79) | Spring Initialized
-2011-02-21 08:08:33,526 INFO  [main] com.setvect.bokslmusic.boot.EnvirmentInit.bootUp(EnvirmentInit.java:97) | DB Initialized

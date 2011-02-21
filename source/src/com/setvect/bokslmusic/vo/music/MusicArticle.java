@@ -14,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @version $Id$
  */
 @Entity
-@Table(name = "TBAA_MUSIC_ARTICLE")
+@Table(name = "TBAB_MUSIC_ARTICLE")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MusicArticle {
 	/** */
