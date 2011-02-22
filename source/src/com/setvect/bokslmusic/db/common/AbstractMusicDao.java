@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.setvect.bokslmusic.db.MusicDao;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
+import com.setvect.bokslmusic.service.music.MusicArticleSearch.Order;
+import com.setvect.bokslmusic.service.music.MusicArticleSearch.UnionCondition;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.common.util.GenericPage;
+import com.setvect.common.util.StringUtilAd;
 
 /**
  * 이슈관리 관리 DAO
@@ -85,7 +88,9 @@ public abstract class AbstractMusicDao implements MusicDao {
 		Query query = session.createQuery(q);
 		int totalCount = ((Long) query.uniqueResult()).intValue();
 
-		q = " from MusicArticle " + whereClause + " order by name ";
+		String order = orderClause(pageCondition);
+
+		q = " from MusicArticle " + whereClause + order;
 		query = session.createQuery(q);
 		query.setFirstResult(pageCondition.getStartNumber());
 		query.setMaxResults(pageCondition.getPagePerItemCount());
@@ -99,9 +104,61 @@ public abstract class AbstractMusicDao implements MusicDao {
 		return resultPage;
 	}
 
+	/**
+	 * @param pageCondition
+	 * @return 정렬 조건
+	 */
+	private String orderClause(MusicArticleSearch pageCondition) {
+		String order = " order by name ";
+		if (pageCondition.getOrder() == Order.FILE_NAME) {
+			order = " order by name ";
+		}
+		else if (pageCondition.getOrder() == Order.RUNNING_TIME) {
+			order = " order by runningTime ";
+		}
+		else if (pageCondition.getOrder() == Order.TITLE) {
+			order = " order by titleExt ";
+		}
+		return order;
+	}
+
+	/**
+	 * @param pageCondition
+	 * @return
+	 */
 	private String getMusicArticleWhereClause(MusicArticleSearch pageCondition) {
-		// TODO Auto-generated method stub
-		return null;
+		String artist = pageCondition.getSearchArtist();
+		String fileName = pageCondition.getSearchFileName();
+		String lyrics = pageCondition.getSearchLyrics();
+		String title = pageCondition.getSearchTitle();
+
+		String where;
+		UnionCondition cnd = pageCondition.getUnionCondition();
+
+		if (cnd == UnionCondition.AND) {
+			where = " where 1 = 1 ";
+		}
+		else {
+			where = " where 1 = 0 ";
+		}
+		if (StringUtilAd.isNotEmpty(artist)) {
+			where += cnd + " ( artistTag like " + StringUtilAd.getSqlStringLike(artist) + " OR artistExt like "
+					+ StringUtilAd.getSqlStringLike(artist) + ") ";
+		}
+
+		if (StringUtilAd.isNotEmpty(fileName)) {
+			where += cnd + " name like " + StringUtilAd.getSqlStringLike(fileName);
+		}
+
+		if (StringUtilAd.isNotEmpty(lyrics)) {
+			where += cnd + " lyrics like " + StringUtilAd.getSqlStringLike(lyrics);
+		}
+
+		if (StringUtilAd.isNotEmpty(title)) {
+			where += cnd + " ( titleTag like " + StringUtilAd.getSqlStringLike(title) + " OR titleExt like "
+					+ StringUtilAd.getSqlStringLike(title) + ") ";
+		}
+		return where;
 	}
 
 	/*

@@ -14,11 +14,16 @@ import com.setvect.bokslmusic.TestSystem;
  */
 public class MusicArticleSyncTestCase extends TestSystem {
 	@Autowired
-	private MusicService service;
+	private MusicSyncService service;
+
+	// @Test
+	public void testSyncDirectory() {
+		File baseDir = new File("D:\\90.멀티미디어");
+		service.syncDirectory(baseDir);
+	}
 
 	@Test
-	public void testArticle() {
-		File baseDir = new File("D:\\90.멀티미디어");
-		service.syncDiretory(baseDir);
+	public void testSyncDb() {
+		service.syncDb();
 	}
 }
