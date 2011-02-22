@@ -9,7 +9,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * 음악 정보
+ * 음악 정보<br>
+ * 음원파일 일부(0 ~163,840byte)에 대한 MD5구함 128bit(32자리)로 구성된 MD5<br>
+ * 다른 파일에 동일한 MD5 충돌의 가능성은 무시
  * 
  * @version $Id$
  */
@@ -17,53 +19,53 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "TBAB_MUSIC_ARTICLE")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MusicArticle {
-	/** */
+	/** 파일 MD5 */
 	@Id
 	@Column(name = "MUSIC_ID")
 	private String musicId;
-	/** */
+	/** NAME */
 	@Column(name = "NAME")
 	private String name;
-	/** */
+	/** OS 경로 상에 파일 경로, 파일 이름 포함 */
 	@Column(name = "PATH")
 	private String path;
-	/** */
+	/** 가사 */
 	@Column(name = "LYRICS")
 	private String lyrics;
-	/** */
+	/** 파일 사이즈 */
 	@Column(name = "FILE_SIZE")
 	private int fileSize;
-	/** */
+	/** 샘플링 비율 */
 	@Column(name = "SAMPLING_RATE")
 	private int samplingRate;
-	/** */
+	/** 비트레이트 */
 	@Column(name = "BIT_RATE")
 	private int bitRate;
-	/** */
+	/** 재생시간(초단위) */
 	@Column(name = "RUNNING_TIME")
 	private int runningTime;
-	/** */
+	/** 메타정보 추출 제목 */
 	@Column(name = "TITLE_TAG")
 	private String titleTag;
-	/** */
+	/** 메타정보 추출 가수/연주자 */
 	@Column(name = "ARTIST_TAG")
 	private String artistTag;
-	/** */
+	/** 메타정보 추출 앨범 */
 	@Column(name = "ALBUM_TAG")
 	private String albumTag;
-	/** */
+	/** 메타정보 추출 년도 */
 	@Column(name = "YEAR_TAG")
 	private String yearTag;
-	/** */
+	/** 메타정보 추출 장르 */
 	@Column(name = "GENRE_TAG")
 	private String genreTag;
-	/** */
+	/** 메타정보 추출 트랙 */
 	@Column(name = "TRACK_TAG")
 	private String trackTag;
-	/** */
+	/** 외부수집 제목 */
 	@Column(name = "TITLE_EXT")
 	private String titleExt;
-	/** */
+	/** 외부수집 가수/연주자 */
 	@Column(name = "ARTIST_EXT")
 	private String artistExt;
 
@@ -195,4 +197,12 @@ public class MusicArticle {
 		this.artistExt = artistExt;
 	}
 
+	@Override
+	public String toString() {
+		return "MusicArticle [musicId=" + musicId + ", name=" + name + ", path=" + path + ", lyrics=" + lyrics
+				+ ", fileSize=" + fileSize + ", samplingRate=" + samplingRate + ", bitRate=" + bitRate
+				+ ", runningTime=" + runningTime + ", titleTag=" + titleTag + ", artistTag=" + artistTag
+				+ ", albumTag=" + albumTag + ", yearTag=" + yearTag + ", genreTag=" + genreTag + ", trackTag="
+				+ trackTag + ", titleExt=" + titleExt + ", artistExt=" + artistExt + "]";
+	}
 }

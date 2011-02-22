@@ -63,7 +63,7 @@
 		</property>
 		<property name="annotatedClasses">
 			<list>
-				<value>com.setvect.bokslmusic.vo.music.MusicPath</value>			
+				<value>com.setvect.bokslmusic.vo.music.MusicDirectory</value>			
 				<value>com.setvect.bokslmusic.vo.music.MusicArticle</value>			
 				<value>com.setvect.bokslmusic.vo.code.Code</value>			
 			</list>

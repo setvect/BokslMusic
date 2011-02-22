@@ -23,32 +23,45 @@
 					value="%d %-5p [%t] %l%n                        > %m%n"/>
 		</layout>
 	</appender>
+	
+	<!-- 파일 정보 등록, 싱크 관련 로그 -->
+	<appender name="SYNC_FILELOG" class="org.apache.log4j.DailyRollingFileAppender">
+  	<param name="File"   value="D:/workspace/BokslMusic/log/music_sync.log" />
+    <param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+    <layout class="org.apache.log4j.PatternLayout"> 
+    	<param name="ConversionPattern" value="%m%n"/>
+    </layout>
+	</appender>		
 
   <!-- Level Priority : DEBUG < INFO < WARN < ERROR < FATAL -->
-	<category name="com.saltlux" additivity="false">
-		<priority value ="info" />
-	  <appender-ref ref="FILELOG"/>
-	  <appender-ref ref="CONSOLE"/>
-	</category>
-
 	<category name="com.setvect" additivity="false">
-		<priority value ="debug" />
+		<priority value ="DEBUG" />
 	  <appender-ref ref="FILELOG"/>
 	  <appender-ref ref="CONSOLE"/>
 	</category>
-
 
 	<category name="org.hibernate" additivity="false">
-	  <priority value ="error" />
+	  <priority value ="ERROR" />
 	  <appender-ref ref="CONSOLE"/>
 	</category>
 
 	<category name="net.sf.ehcache" additivity="false">
-	  <priority value ="error" />
+	  <priority value ="ERROR" />
 	  <appender-ref ref="CONSOLE"/>
 	</category>
 	
-	
+	<category name="org.jaudiotagger" additivity="false">
+	  <priority value ="WARN" />
+	  <appender-ref ref="CONSOLE"/>
+	</category>
+
+
+	<!-- 검색 정보 로그 -->
+	<category name="com.setvect.bokslmusic.log.SyncLogPrinter" additivity="false">
+		<priority value ="info" />
+	  <appender-ref ref="SYNC_FILELOG"/>
+	</category>
 	
 	<root>
 		<priority value ="WARN" />

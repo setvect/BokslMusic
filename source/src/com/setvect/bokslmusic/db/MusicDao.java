@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
-import com.setvect.bokslmusic.vo.music.MusicPath;
+import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.common.util.GenericPage;
 
 /**
@@ -14,14 +14,37 @@ import com.setvect.common.util.GenericPage;
  */
 public interface MusicDao {
 	// ------ 음악 경로 관리
-	public MusicPath getMusicPath(String basePath);
+	/**
+	 * @param basePath
+	 *            경로(키)
+	 * @return 음원 저장 경로
+	 */
+	public MusicDirectory getMusicPath(String basePath);
 
-	public List<MusicPath> getMusicPathList();
+	/**
+	 * @return 등록된 모든 음원 저장 경로
+	 */
+	public List<MusicDirectory> getMusicPathList();
 
-	public void createMusicPath(MusicPath item);
+	/**
+	 * 등록
+	 * @param item
+	 *            음원 저장 경로
+	 */
+	public void createMusicPath(MusicDirectory item);
 
-	public void updateMusicPath(MusicPath item);
+	/**
+	 * 수정
+	 * @param item
+	 *            음원 저장 경로
+	 */
+	public void updateMusicPath(MusicDirectory item);
 
+	/**
+	 * 삭제
+	 * @param basePath
+	 *            음원 경로(키)
+	 */
 	public void removeMusicPath(String basePath);
 
 	// ------ 음악 목록 관리

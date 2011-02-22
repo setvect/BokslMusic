@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.setvect.bokslmusic.config.EnvirmentProperty;
 import com.setvect.bokslmusic.db.DBInitializer;
+import com.setvect.bokslmusic.log.SyncLogPrinter;
 import com.setvect.common.http.MultiFileCommonsMultipartResolver;
 import com.setvect.common.log.LogPrinter;
 
@@ -70,6 +71,7 @@ public class EnvirmentInit extends HttpServlet {
 
 		File logFilePath = new File(webBase, EnvirmentProperty.getString("com.setvect.bokslmusic.log.config"));
 		LogPrinter.init(logFilePath);
+		SyncLogPrinter.init(logFilePath);
 		LogPrinter.out.info("Log Manager Initialized");
 
 		springContext = new ClassPathXmlApplicationContext(new String[] { "classpath:spring/applicationContext.xml" },

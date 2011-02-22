@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.setvect.bokslmusic.db.MusicDao;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
-import com.setvect.bokslmusic.vo.music.MusicPath;
+import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.common.util.GenericPage;
 
 /**
@@ -19,9 +19,46 @@ import com.setvect.common.util.GenericPage;
  * @version $Id$
  */
 public abstract class AbstractMusicDao implements MusicDao {
+	// ------ 음악 경로 관리
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	public MusicDirectory getMusicPath(String basePath) {
+		Session session = sessionFactory.getCurrentSession();
+		return (MusicDirectory) session.get(MusicDirectory.class, basePath);
+	}
+
+	public List<MusicDirectory> getMusicPathList() {
+		Session session = sessionFactory.getCurrentSession();
+		String q = " from MusicDirectory order by basePath ";
+		Query query = session.createQuery(q);
+
+		@SuppressWarnings("unchecked")
+		List<MusicDirectory> resultList = query.list();
+
+		return resultList;
+	}
+
+	public void createMusicPath(MusicDirectory item) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(item);
+		session.flush();
+
+	}
+
+	public void updateMusicPath(MusicDirectory item) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(item);
+		session.flush();
+	}
+
+	public void removeMusicPath(String basePath) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(getMusicPath(basePath));
+		session.flush();
+	}
+
+	// ------ 음악 목록 관리
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -60,7 +97,6 @@ public abstract class AbstractMusicDao implements MusicDao {
 				pageCondition.getCurrentPage(), totalCount, pageCondition.getPageUnit(),
 				pageCondition.getPagePerItemCount());
 		return resultPage;
-
 	}
 
 	private String getMusicArticleWhereClause(MusicArticleSearch pageCondition) {
@@ -103,30 +139,5 @@ public abstract class AbstractMusicDao implements MusicDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(getMusicArticle(musicArticleId));
 		session.flush();
-	}
-
-	public MusicPath getMusicPath(String basePath) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<MusicPath> getMusicPathList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void createMusicPath(MusicPath item) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void updateMusicPath(MusicPath item) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void removeMusicPath(String basePath) {
-		// TODO Auto-generated method stub
-
 	}
 }

@@ -28,10 +28,12 @@ public class Mp3AudioMetadata implements AudioMetadata {
 		try {
 			f = (MP3File) AudioFileIO.read(sourceFile);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("ÆÄÀÏ : " + sourceFile.getAbsolutePath(), e);
 		}
 		v1Tag = f.getID3v1Tag();
-		encode = v1Tag.getEncoding();
+		if (v1Tag != null) {
+			encode = v1Tag.getEncoding();
+		}
 		v24tag = f.getID3v2TagAsv24();
 		audioHeader = (MP3AudioHeader) f.getAudioHeader();
 	}

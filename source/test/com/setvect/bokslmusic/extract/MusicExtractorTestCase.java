@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.setvect.bokslmusic.TestSystem;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
+import com.setvect.common.log.LogPrinter;
 
 public class MusicExtractorTestCase extends TestSystem {
 	@Autowired
 	private MusicService musicArticleService;
 
-	@Test
-	public void test() {
+	// @Test
+	public void testSimple() {
 		File baseDir = new File("sample_data");
 		List<MusicMetadata> musicMetes = MusicExtractor.listForDir(baseDir);
 		Assert.assertThat(musicMetes.size(), is(1));
@@ -39,4 +40,25 @@ public class MusicExtractorTestCase extends TestSystem {
 		Assert.assertThat(marticle.getBitRate(), is(192));
 		musicArticleService.createMusicArticle(marticle);
 	}
+
+	@Test
+	public void testPlural() {
+		File baseDir = new File("D:\\90.멀티미디어");
+		List<MusicMetadata> musicMetes = MusicExtractor.listForDir(baseDir);
+		System.out.println(musicMetes.size());
+
+		for (MusicMetadata music : musicMetes) {
+			System.out.println(music.getSourceFile());
+			MusicArticle marticle = null;
+			try {
+				marticle = music.getMusicArticle();
+			} catch (Exception e) {
+				LogPrinter.out.error("파일 변환 안됨: " + e.getMessage());
+				continue;
+			}
+			System.out.println(marticle.toString());
+			System.out.println("========================================");
+		}
+	}
+
 }
