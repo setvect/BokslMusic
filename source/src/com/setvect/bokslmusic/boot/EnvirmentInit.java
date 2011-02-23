@@ -19,6 +19,10 @@ import com.setvect.common.log.LogPrinter;
  */
 @SuppressWarnings("serial")
 public class EnvirmentInit extends HttpServlet {
+	private static final String CONFIG_SPRING = "classpath:config/applicationContext.xml";
+	private static final String CONFIG_LOG4J_XML = "/config/log4j.xml";
+	private static final String CONFIG_CONFIG_PROPERTIES = "/config/config.properties";
+
 	/** 초기화 여부 */
 	private static boolean initialize = false;
 	private static ClassPathXmlApplicationContext springContext;
@@ -34,7 +38,7 @@ public class EnvirmentInit extends HttpServlet {
 	/**
 	 * @return the springContext
 	 */
-	public static ClassPathXmlApplicationContext getSpringContext() {
+	public static ClassPathXmlApplicationContext getConfigSpring() {
 		return springContext;
 	}
 
@@ -49,16 +53,15 @@ public class EnvirmentInit extends HttpServlet {
 			return;
 			// throw new IllegalStateException("aready initialized!");
 		}
-		URL configUrl = EnvirmentInit.class.getClassLoader().getResource("/config/config.properties");
+		URL configUrl = EnvirmentInit.class.getResource(CONFIG_CONFIG_PROPERTIES);
 		EnvirmentProperty.init(configUrl);
 
-		URL log4j = EnvirmentInit.class.getResource("/config/log4j.xml");
+		URL log4j = EnvirmentInit.class.getResource(CONFIG_LOG4J_XML);
 		LogPrinter.init(log4j);
 		SyncLogPrinter.init(log4j);
 		LogPrinter.out.info("Log Manager Initialized");
 
-		springContext = new ClassPathXmlApplicationContext(new String[] { "classpath:config/applicationContext.xml" },
-				false);
+		springContext = new ClassPathXmlApplicationContext(new String[] { CONFIG_SPRING }, false);
 		springContext.refresh();
 
 		LogPrinter.out.info("Spring Initialized");

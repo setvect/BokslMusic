@@ -14,8 +14,6 @@
 			  PRIMARY KEY  (BASE_PATH)
 			)
 		</creation>
-		<defaultValue>
-		</defaultValue>
 	</table>
 	
 	<table name="TBAB_MUSIC_ARTICLE">
@@ -40,9 +38,48 @@
 			  PRIMARY KEY  (MUSIC_ID)
 			)
 		</creation>
-		<defaultValue>
-		</defaultValue>
 	</table>
+	
+	<table name="TBAC_ALBUM">
+		<creation>
+			CREATE TABLE TBAC_ALBUM(
+				ALBUM_SEQ			INT NOT NULL,
+				NAME					varchar(100) NOT NULL,
+			  PRIMARY KEY  (ALBUM_SEQ)
+			)
+		</creation>
+	</table>	
+
+
+	<table name="TBAD_PLAY_LIST">
+		<creation>
+			CREATE TABLE TBAD_PLAY_LIST(
+				PLAY_LIST_SEQ			INT NOT NULL,
+				MUSIC_ID					varchar(50) NOT NULL,
+				ALBUM_SEQ					INT NOT NULL,
+				ORDER_NO					INT NOT NULL,
+			  PRIMARY KEY  (PLAY_LIST_SEQ)
+			)
+		</creation>
+		<defaultValue>
+			<query>ALTER TABLE TBAD_PLAY_LIST ADD FOREIGN KEY (MUSIC_ID) REFERENCES TBAB_MUSIC_ARTICLE(MUSIC_ID)</query>
+			<query>ALTER TABLE TBAD_PLAY_LIST ADD FOREIGN KEY (ALBUM_SEQ) REFERENCES TBAC_ALBUM(ALBUM_SEQ)</query>
+		</defaultValue>
+	</table>	
+	
+		<table name="TBAE_PLAY_TIME">
+		<creation>
+			CREATE TABLE TBAE_PLAY_TIME(
+				PLAY_TIME_SEQ			INT NOT NULL,
+				MUSIC_ID					varchar(50) NOT NULL,
+				PLAY_DATE					DATE NOT NULL,
+			  PRIMARY KEY  (PLAY_TIME_SEQ)
+			)
+		</creation>
+		<defaultValue>
+			<query>ALTER TABLE TBAE_PLAY_TIME ADD FOREIGN KEY (MUSIC_ID) REFERENCES TBAB_MUSIC_ARTICLE(MUSIC_ID)</query>
+		</defaultValue>
+	</table>	
 
 	<!-- create table and basic data -->
 	<table name="TBZA_CODE">
