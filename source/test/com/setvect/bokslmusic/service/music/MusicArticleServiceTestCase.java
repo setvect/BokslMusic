@@ -34,6 +34,7 @@ public class MusicArticleServiceTestCase extends TestSystem {
 		Assert.assertThat(saveItem, is(loadItem));
 	}
 
+	
 	@Test
 	public void testPath() {
 		MusicDirectory saveItem = new MusicDirectory();

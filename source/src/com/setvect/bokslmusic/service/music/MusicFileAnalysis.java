@@ -91,7 +91,8 @@ public class MusicFileAnalysis {
 			MP3AudioHeader header = (MP3AudioHeader) f.getAudioHeader();
 			long mp3Start = header.getMp3StartByte();
 			audioStartBytePosition = mp3Start;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LogPrinter.out.warn(e);
 		}
 		String s = Md5Util.getMD5Checksum(audioFile, audioStartBytePosition, HEADER_LENGTH);
@@ -103,7 +104,10 @@ public class MusicFileAnalysis {
 	 * @return Ogg Header 값
 	 */
 	private static String getOggMd5(File audioFile) {
-		return null;
+		// 오디오 시작 위치
+		long audioStartBytePosition = 0;
+		String s = Md5Util.getMD5Checksum(audioFile, audioStartBytePosition, HEADER_LENGTH);
+		return s;
 	}
 
 	/**
@@ -111,7 +115,10 @@ public class MusicFileAnalysis {
 	 * @return Wma Header 값
 	 */
 	private static String getWmaMd5(File audioFile) {
-		return null;
+		// 오디오 시작 위치
+		long audioStartBytePosition = 0;
+		String s = Md5Util.getMD5Checksum(audioFile, audioStartBytePosition, HEADER_LENGTH);
+		return s;
 	}
 
 	/**
@@ -127,13 +134,16 @@ public class MusicFileAnalysis {
 			FlacStreamReader stramReader = new FlacStreamReader(raf);
 			stramReader.findStream();
 			audioStartBytePosition = stramReader.getStartOfFlacInFile();
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			LogPrinter.out.warn(e);
-		} finally {
+		}
+		finally {
 			if (raf != null) {
 				try {
 					raf.close();
-				} catch (IOException e) {
+				}
+				catch (IOException e) {
 				}
 			}
 		}

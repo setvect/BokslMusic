@@ -60,7 +60,7 @@ public class MusicSyncService {
 
 			MusicArticle art = service.getMusicArticle(headerCode);
 			if (art != null) {
-				File dbPath = new File(art.getPath());
+				File dbPath = art.getFile();
 				boolean noChange = dbPath.equals(sourceFile);
 
 				if (noChange) {
@@ -81,14 +81,14 @@ public class MusicSyncService {
 			MusicArticle marticle = null;
 			try {
 				marticle = music.getMusicArticle();
-			} catch (Exception e) {
+				service.createMusicArticle(marticle);
+			}
+			catch (Exception e) {
 				SyncLogPrinter.log("[에러]" + e.getMessage());
 				LogPrinter.out.warn(e);
 				errorCount++;
 				continue;
 			}
-			service.createMusicArticle(marticle);
-
 			String msg = String.format("[신규] [%s] %s ", headerCode, marticle.getPath());
 			newCount++;
 			SyncLogPrinter.log(msg);

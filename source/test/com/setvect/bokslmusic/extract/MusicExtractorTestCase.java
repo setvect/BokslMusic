@@ -60,5 +60,4 @@ public class MusicExtractorTestCase extends TestSystem {
 			System.out.println("========================================");
 		}
 	}
-
 }

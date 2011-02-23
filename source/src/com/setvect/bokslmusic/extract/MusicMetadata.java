@@ -16,14 +16,16 @@ import com.zuch.music.util.AlSongMetadata;
  */
 public class MusicMetadata {
 
-	/** */
+	/** 음악 파일 원보 */
 	private final File sourceFile;
 
-	/** */
+	/** 알쏭 가사 데이터 수집 */
 	private AlSongMetadata alSongMetadata;
 
+	/** 음원 메타 정보 */
 	private AudioMetadata audioMetadata;
 
+	/** 음원 파일 종류*/
 	private MusicFileKind fileKind;
 
 	/**
