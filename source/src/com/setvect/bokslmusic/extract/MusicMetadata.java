@@ -101,7 +101,7 @@ public class MusicMetadata {
 		MusicArticle article = new MusicArticle();
 		article.setMusicId(alSongMetadata.getMd5());
 		article.setName(sourceFile.getName());
-		article.setPath(sourceFile.getPath());
+		article.setPath(sourceFile.getParent());
 		article.setLyrics(alSongMetadata.getLyric());
 		article.setFileSize((int) sourceFile.length());
 		article.setSamplingRate(audioMetadata.getSamplingRate());

@@ -21,7 +21,7 @@ public class MusicArticleServiceTestCase extends TestSystem {
 		MusicArticle saveItem = new MusicArticle();
 		saveItem.setMusicId("abcdef");
 		saveItem.setName("a.mp3");
-		saveItem.setPath("c:\\a.mp3");
+		saveItem.setPath("c:\\");
 		saveItem.setLyrics("¾È³ç");
 		saveItem.setFileSize(100);
 		saveItem.setSamplingRate(100);

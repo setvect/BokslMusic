@@ -1,5 +1,7 @@
 package com.setvect.bokslmusic.vo.music;
 
+import java.io.File;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,10 +25,10 @@ public class MusicArticle {
 	@Id
 	@Column(name = "MUSIC_ID")
 	private String musicId;
-	/** NAME */
+	/** 파일 이름 */
 	@Column(name = "NAME")
 	private String name;
-	/** OS 경로 상에 파일 경로, 파일 이름 포함 */
+	/** OS 경로 상에 파일 경로, 파일 이름 포함 하지 않음*/
 	@Column(name = "PATH")
 	private String path;
 	/** 가사 */
@@ -195,6 +197,10 @@ public class MusicArticle {
 
 	public void setArtistExt(String artistExt) {
 		this.artistExt = artistExt;
+	}
+
+	public File getFile() {
+		return new File(path, name);
 	}
 
 	@Override

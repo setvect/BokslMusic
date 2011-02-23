@@ -194,7 +194,7 @@ public class MusicSyncService {
 	 * @param art
 	 */
 	private void updatePath(File sourceFile, MusicArticle art) {
-		art.setPath(sourceFile.getAbsolutePath());
+		art.setPath(sourceFile.getParent());
 		art.setName(sourceFile.getName());
 		service.updateMusicArticle(art);
 	}
