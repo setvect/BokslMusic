@@ -16,13 +16,13 @@ public class MusicArticleSyncTestCase extends TestSystem {
 	@Autowired
 	private MusicSyncService service;
 
-	// @Test
+	@Test
 	public void testSyncDirectory() {
-		File baseDir = new File("D:\\90.멀티미디어");
+		File baseDir = new File("D:\\90.멀티미디어\\01_음악\\03_이상은");
 		service.syncDirectory(baseDir);
 	}
 
-	@Test
+	// @Test
 	public void testSyncDb() {
 		service.syncDb();
 	}

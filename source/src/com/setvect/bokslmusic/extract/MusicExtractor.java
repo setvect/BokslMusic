@@ -69,6 +69,9 @@ public class MusicExtractor {
 
 		private void setFile(File dir) {
 			File[] fileList = dir.listFiles();
+			if (fileList == null) {
+				return;
+			}
 			for (File f : fileList) {
 				if (f.isDirectory() == true) {
 					this.setFile(f);

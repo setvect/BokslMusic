@@ -24,7 +24,7 @@
 				MUSIC_ID			varchar(50) NOT NULL,
 				NAME					varchar(500) NOT NULL,
 				PATH					varchar(2000) NOT NULL,
-				LYRICS				varchar(4000),
+				LYRICS				varchar(8000),
 				FILE_SIZE			int NOT NULL,
 				SAMPLING_RATE	int NOT NULL,
 				BIT_RATE			int NOT NULL,

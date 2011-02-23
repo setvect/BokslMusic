@@ -2,14 +2,11 @@ package com.setvect.bokslmusic.extract;
 
 import java.io.File;
 
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.mp3.MP3AudioHeader;
-import org.jaudiotagger.audio.mp3.MP3File;
-
+import com.setvect.bokslmusic.service.music.MusicFileAnalysis;
+import com.setvect.bokslmusic.service.music.MusicFileAnalysis.MusicFileKind;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.common.util.FileUtil;
 import com.zuch.music.util.AlSongMetadata;
-import com.zuch.music.util.Md5Util;
 
 /**
  * 음원에 대한 metadata 분석<br>
@@ -18,8 +15,6 @@ import com.zuch.music.util.Md5Util;
  * @version $Id$
  */
 public class MusicMetadata {
-	/** 음원 첫 번째 프레임 */
-	private static final int HEADER_LENGTH = 160 * 1024;
 
 	/** */
 	private final File sourceFile;
@@ -32,11 +27,15 @@ public class MusicMetadata {
 	/** 음원 파일를 구별 하기위한 Key값 */
 	private String headerMd5;
 
+	private MusicFileKind fileKind;
+
 	/**
 	 * @param f
 	 */
 	public MusicMetadata(File f) {
 		sourceFile = f;
+		String ext = FileUtil.getExt(sourceFile.getName());
+		fileKind = MusicFileAnalysis.EXT_MAPPING.get(ext);
 	}
 
 	public File getSourceFile() {
@@ -47,10 +46,7 @@ public class MusicMetadata {
 	 * @return MD5 코드
 	 */
 	public String getHeaderCode() {
-		if (headerMd5 == null) {
-			headerMd5 = getHeaderMd5(sourceFile);
-		}
-		return headerMd5;
+		return fileKind.getHeaderMd5(sourceFile);
 	}
 
 	/**
@@ -59,28 +55,9 @@ public class MusicMetadata {
 	 * @return MD5 코드
 	 */
 	public static String getHeaderMd5(File audioFile) {
-		long audioStartBytePosition = getAudioStartBytePosition(audioFile);
-		String s = Md5Util.getMD5Checksum(audioFile, audioStartBytePosition, HEADER_LENGTH);
-		return s;
-	}
-
-	/**
-	 * @param audioFile
-	 *            음원파일
-	 * @return 오디오 시작 위치
-	 */
-	private static long getAudioStartBytePosition(File audioFile) {
 		String ext = FileUtil.getExt(audioFile.getName());
-		if (ext.equalsIgnoreCase(".mp3")) {
-			try {
-				MP3File f = (MP3File) AudioFileIO.read(audioFile);
-				MP3AudioHeader header = (MP3AudioHeader) f.getAudioHeader();
-				long mp3Start = header.getMp3StartByte();
-				return mp3Start;
-			} catch (Exception e) {
-			}
-		}
-		return 0;
+		MusicFileKind fileKind = MusicFileAnalysis.EXT_MAPPING.get(ext);
+		return fileKind.getHeaderMd5(audioFile);
 	}
 
 	/**
@@ -109,10 +86,13 @@ public class MusicMetadata {
 	private AudioMetadata newAudioInstance() {
 		String ext = FileUtil.getExt(sourceFile.getName());
 		ext = ext.toLowerCase();
-		if (ext.equals(".mp3")) {
-			return new Mp3AudioMetadata(sourceFile);
+		MusicFileKind kind = MusicFileAnalysis.EXT_MAPPING.get(ext);
+		if (kind == null) {
+			return null;
 		}
-		return null;
+
+		AudioMetadata newAudioMetadataInstance = kind.newAudioMetadataInstance(sourceFile);
+		return newAudioMetadataInstance;
 	}
 
 	/**
@@ -130,14 +110,18 @@ public class MusicMetadata {
 		article.setSamplingRate(audioMetadata.getSamplingRate());
 		article.setBitRate(audioMetadata.getBatRate());
 		article.setRunningTime(audioMetadata.getRunningTime());
-		article.setTitleTag(audioMetadata.getTitle());
-		article.setArtistTag(audioMetadata.getArtist());
-		article.setAlbumTag(audioMetadata.getAlbum());
-		article.setYearTag(audioMetadata.getYear());
-		article.setGenreTag(audioMetadata.getGenre());
-		article.setTrackTag(audioMetadata.getTrack());
 		article.setTitleExt(alSongMetadata.getTitle());
 		article.setArtistExt(alSongMetadata.getArtist());
+
+		if (audioMetadata instanceof Mp3AudioMetadata) {
+			Mp3AudioMetadata mp3Meta = (Mp3AudioMetadata) audioMetadata;
+			article.setTitleTag(mp3Meta.getTitle());
+			article.setArtistTag(mp3Meta.getArtist());
+			article.setAlbumTag(mp3Meta.getAlbum());
+			article.setYearTag(mp3Meta.getYear());
+			article.setGenreTag(mp3Meta.getGenre());
+			article.setTrackTag(mp3Meta.getTrack());
+		}
 		return article;
 	}
 

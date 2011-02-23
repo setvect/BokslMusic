@@ -16,6 +16,7 @@ import com.setvect.bokslmusic.extract.MusicMetadata;
 import com.setvect.bokslmusic.log.SyncLogPrinter;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.common.date.DateUtil;
+import com.setvect.common.log.LogPrinter;
 import com.setvect.common.util.LapTimeChecker;
 
 /**
@@ -82,6 +83,7 @@ public class MusicSyncService {
 				marticle = music.getMusicArticle();
 			} catch (Exception e) {
 				SyncLogPrinter.log("[에러]" + e.getMessage());
+				LogPrinter.out.warn(e);
 				errorCount++;
 				continue;
 			}
@@ -134,7 +136,6 @@ public class MusicSyncService {
 				service.removeMusicArticle(article.getMusicId());
 				deleteCount++;
 				SyncLogPrinter.log("[삭제]" + musicFile.getAbsolutePath());
-
 			}
 			else {
 				nothingCount++;

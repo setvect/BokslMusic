@@ -111,20 +111,20 @@ public final class Md5Util {
 					clsMd5.update(buf);
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
-		}
-		finally {
-			try {
-				fc.close();
+		} finally {
+			if (fc != null) {
+				try {
+					fc.close();
+				} catch (IOException ignor) {
+				}
 			}
-			catch (IOException ignor) {
-			}
-			try {
-				fis.close();
-			}
-			catch (IOException ignor) {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (IOException ignor) {
+				}
 			}
 		}
 

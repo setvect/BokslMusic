@@ -12,7 +12,7 @@ public class Mp3AudioMetadataTestCase {
 	@Test
 	public void test() {
 		File source = new File("sample_data/a.mp3");
-		AudioMetadata audio = new Mp3AudioMetadata(source);
+		Mp3AudioMetadata audio = new Mp3AudioMetadata(source);
 		Assert.assertThat(audio.getSamplingRate(), is(44100));
 		Assert.assertThat(audio.getBatRate(), is(192));
 		Assert.assertThat(audio.getTitle(), is("02. ¾ðÁ¨°¡´Â (Someday)"));
