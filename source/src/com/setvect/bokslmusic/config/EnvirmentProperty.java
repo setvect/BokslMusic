@@ -3,6 +3,7 @@ package com.setvect.bokslmusic.config;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
 /**
  * 프로젝트 설정 정보 제공
  * 
- * @version $Id: EnvirmentProperty.java 10 2010-07-21 01:32:43Z setvect@naver.com $
+ * @version $Id: EnvirmentProperty.java 10 2010-07-21 01:32:43Z
+ *          setvect@naver.com $
  */
 public class EnvirmentProperty {
 	private static PropertiesConfiguration config;
@@ -28,8 +30,22 @@ public class EnvirmentProperty {
 			// 파일 수정 자동 감지
 			conf.setReloadingStrategy(new FileChangedReloadingStrategy());
 			config = conf;
+		} catch (ConfigurationException e) {
+			throw new RuntimeException(e);
 		}
-		catch (ConfigurationException e) {
+	}
+
+	/**
+	 * @param propertise
+	 *            propertise 파일
+	 */
+	public static void init(URL propertise) {
+		try {
+			PropertiesConfiguration conf = new PropertiesConfiguration(propertise);
+			// 파일 수정 자동 감지
+			conf.setReloadingStrategy(new FileChangedReloadingStrategy());
+			config = conf;
+		} catch (ConfigurationException e) {
 			throw new RuntimeException(e);
 		}
 	}

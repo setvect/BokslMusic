@@ -41,7 +41,7 @@ public abstract class DBInitializer {
 	public List<TableCreateInfo> tableScript(URL dbScript) {
 
 		// XML 파일에서 만들 테이블 생성 스크립트를 가저옴
-		URL schema = this.getClass().getResource("/schma/db-script.xsd");
+		URL schema = this.getClass().getResource("/config/db-script.xsd");
 
 		Document d = null;
 		List<TableCreateInfo> tableCreate = new ArrayList<TableCreateInfo>();

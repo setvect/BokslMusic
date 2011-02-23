@@ -44,7 +44,7 @@ public class H2DBInitializer extends DBInitializer {
 	 */
 	public void makeTable() {
 
-		URL script = this.getClass().getResource("/schma/db-script.xml");
+		URL script = this.getClass().getResource("/config/db-script.xml");
 		List<TableCreateInfo> tableCreate = tableScript(script);
 
 		for (TableCreateInfo t : tableCreate) {

@@ -27,10 +27,6 @@
 	<servlet>
 		<servlet-name>EnvirmentInit</servlet-name>
 		<servlet-class>com.setvect.bokslmusic.boot.EnvirmentInit</servlet-class>
-		<init-param>
-			<param-name>config_file</param-name>
-			<param-value>/WEB-INF/config.properties</param-value>
-		</init-param>
 		<load-on-startup>10</load-on-startup>
 	</servlet>
 

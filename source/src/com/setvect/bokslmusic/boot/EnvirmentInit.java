@@ -1,9 +1,7 @@
 package com.setvect.bokslmusic.boot;
 
-import java.io.File;
+import java.net.URL;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
@@ -21,8 +19,6 @@ import com.setvect.common.log.LogPrinter;
  */
 @SuppressWarnings("serial")
 public class EnvirmentInit extends HttpServlet {
-	private static final String CONFIG_FILEPATH_PARAMETER_NAME = "config_file";
-
 	/** 초기화 여부 */
 	private static boolean initialize = false;
 	private static ClassPathXmlApplicationContext springContext;
@@ -32,16 +28,7 @@ public class EnvirmentInit extends HttpServlet {
 
 	public void init() throws ServletException {
 		super.init();
-
-		ServletConfig config = getServletConfig();
-
-		ServletContext sc = config.getServletContext();
-		/*
-		 * OS입장에서 웹루트 디렉토리
-		 */
-		File webBase = new File(sc.getRealPath("/"));
-		String conf = config.getInitParameter(CONFIG_FILEPATH_PARAMETER_NAME);
-		bootUp(webBase, conf);
+		bootUp();
 	}
 
 	/**
@@ -56,25 +43,21 @@ public class EnvirmentInit extends HttpServlet {
 	 * 
 	 * @param webBase
 	 *            웹루트 경로
-	 * @param configPath
-	 *            웹루트를 기준으로한 config 파일 path 경로
 	 */
-	public static void bootUp(File webBase, String configPath) {
-
+	public static void bootUp() {
 		if (initialize) {
 			return;
 			// throw new IllegalStateException("aready initialized!");
 		}
+		URL configUrl = EnvirmentInit.class.getClassLoader().getResource("/config/config.properties");
+		EnvirmentProperty.init(configUrl);
 
-		File configFile = new File(webBase, configPath);
-		EnvirmentProperty.init(configFile);
-
-		File logFilePath = new File(webBase, EnvirmentProperty.getString("com.setvect.bokslmusic.log.config"));
-		LogPrinter.init(logFilePath);
-		SyncLogPrinter.init(logFilePath);
+		URL log4j = EnvirmentInit.class.getResource("/config/log4j.xml");
+		LogPrinter.init(log4j);
+		SyncLogPrinter.init(log4j);
 		LogPrinter.out.info("Log Manager Initialized");
 
-		springContext = new ClassPathXmlApplicationContext(new String[] { "classpath:spring/applicationContext.xml" },
+		springContext = new ClassPathXmlApplicationContext(new String[] { "classpath:config/applicationContext.xml" },
 				false);
 		springContext.refresh();
 

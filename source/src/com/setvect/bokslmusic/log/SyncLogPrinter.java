@@ -1,6 +1,7 @@
 package com.setvect.bokslmusic.log;
 
 import java.io.File;
+import java.net.URL;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
@@ -27,8 +28,22 @@ public class SyncLogPrinter {
 			throw new RuntimeException("configuration already setting");
 		}
 		out = Logger.getLogger(SyncLogPrinter.class);
-		// Use a PropertyConfigurator to initialize from a property file.
 		DOMConfigurator.configure(logFilePath.getPath());
+	}
+
+	/**
+	 * 로그 설정을 초기화 함
+	 * 
+	 * @param logFilePath
+	 *            로그 파일 설정 경로
+	 */
+	public static void init(URL logFilePath) {
+		if (init) {
+			throw new RuntimeException("configuration already setting");
+		}
+		out = Logger.getLogger(SyncLogPrinter.class);
+
+		DOMConfigurator.configure(logFilePath);
 	}
 
 	/**
@@ -38,4 +53,5 @@ public class SyncLogPrinter {
 	public static void log(String message) {
 		out.info(message);
 	}
+
 }

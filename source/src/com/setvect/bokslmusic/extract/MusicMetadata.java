@@ -24,9 +24,6 @@ public class MusicMetadata {
 
 	private AudioMetadata audioMetadata;
 
-	/** 음원 파일를 구별 하기위한 Key값 */
-	private String headerMd5;
-
 	private MusicFileKind fileKind;
 
 	/**
