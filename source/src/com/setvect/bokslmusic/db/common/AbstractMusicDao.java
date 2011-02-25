@@ -8,11 +8,17 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.setvect.bokslmusic.db.MusicDao;
+import com.setvect.bokslmusic.service.music.AlbumSearch;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
+import com.setvect.bokslmusic.service.music.PlayItemSearch;
+import com.setvect.bokslmusic.service.music.PlayTimeSearch;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch.Order;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch.UnionCondition;
+import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
+import com.setvect.bokslmusic.vo.music.PlayItem;
+import com.setvect.bokslmusic.vo.music.PlayTime;
 import com.setvect.common.util.GenericPage;
 import com.setvect.common.util.StringUtilAd;
 
@@ -197,4 +203,156 @@ public abstract class AbstractMusicDao implements MusicDao {
 		session.delete(getMusicArticle(musicArticleId));
 		session.flush();
 	}
+
+	// ------ 앨범 정보
+	public Album getAlbum(int albumSeq) {
+		Session session = sessionFactory.getCurrentSession();
+		return (Album) session.get(Album.class, albumSeq);
+	}
+
+	public GenericPage<Album> getAlbumList(AlbumSearch pageCondition) {
+		Session session = sessionFactory.getCurrentSession();
+		String whereClause = getAlbumWhereClause(pageCondition);
+
+		String q = "select count(*) from Album " + whereClause;
+		Query query = session.createQuery(q);
+		int totalCount = ((Long) query.uniqueResult()).intValue();
+
+		q = " from Album " + whereClause + " order name";
+		query = session.createQuery(q);
+		query.setFirstResult(pageCondition.getStartNumber());
+		query.setMaxResults(pageCondition.getPagePerItemCount());
+
+		@SuppressWarnings("unchecked")
+		List<Album> resultList = query.list();
+
+		GenericPage<Album> resultPage = new GenericPage<Album>(resultList, pageCondition.getCurrentPage(), totalCount,
+				pageCondition.getPageUnit(), pageCondition.getPagePerItemCount());
+		return resultPage;
+	}
+
+	private String getAlbumWhereClause(AlbumSearch pageCondition) {
+		String where = " where 1 = 1 ";
+		return where;
+	}
+
+	public void createAlbum(Album item) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(item);
+		session.flush();
+	}
+
+	public void updateAlbum(Album item) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(item);
+		session.flush();
+	}
+
+	public void removeAlbum(int albumSeq) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(getAlbum(albumSeq));
+		session.flush();
+	}
+
+	// ------ Play Item 정보
+	public PlayItem getPlayItem(int playItemSeq) {
+		Session session = sessionFactory.getCurrentSession();
+		return (PlayItem) session.get(PlayItem.class, playItemSeq);
+	}
+
+	public GenericPage<PlayItem> getPlayItemList(PlayItemSearch pageCondition) {
+		Session session = sessionFactory.getCurrentSession();
+		String whereClause = getPlayItemWhereClause(pageCondition);
+
+		String q = "select count(*) from PlayItem " + whereClause;
+		Query query = session.createQuery(q);
+		int totalCount = ((Long) query.uniqueResult()).intValue();
+
+		q = " from PlayItem " + whereClause + " order orderNo";
+		query = session.createQuery(q);
+		query.setFirstResult(pageCondition.getStartNumber());
+		query.setMaxResults(pageCondition.getPagePerItemCount());
+
+		@SuppressWarnings("unchecked")
+		List<PlayItem> resultList = query.list();
+
+		GenericPage<PlayItem> resultPage = new GenericPage<PlayItem>(resultList, pageCondition.getCurrentPage(),
+				totalCount, pageCondition.getPageUnit(), pageCondition.getPagePerItemCount());
+		return resultPage;
+	}
+
+	private String getPlayItemWhereClause(PlayItemSearch pageCondition) {
+		String where = " where 1 = 1 ";
+		return where;
+	}
+
+	public void createPlayItem(PlayItem item) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(item);
+		session.flush();
+	}
+
+	public void updatePlayItem(PlayItem item) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(item);
+		session.flush();
+	}
+
+	public void removePlayItem(int playItemSeq) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(getPlayItem(playItemSeq));
+		session.flush();
+	}
+
+	// ------ Play Time 정보
+
+	public PlayTime getPlayTime(int playTimeSeq) {
+		Session session = sessionFactory.getCurrentSession();
+		return (PlayTime) session.get(PlayTime.class, playTimeSeq);
+	}
+
+	public GenericPage<PlayTime> getPlayTimeList(PlayTimeSearch pageCondition) {
+		Session session = sessionFactory.getCurrentSession();
+		String whereClause = getPlayTimeWhereClause(pageCondition);
+
+		String q = "select count(*) from PlayTime " + whereClause;
+		Query query = session.createQuery(q);
+		int totalCount = ((Long) query.uniqueResult()).intValue();
+
+		q = " from PlayTime " + whereClause + " order playTimeSeq";
+		query = session.createQuery(q);
+		query.setFirstResult(pageCondition.getStartNumber());
+		query.setMaxResults(pageCondition.getPagePerItemCount());
+
+		@SuppressWarnings("unchecked")
+		List<PlayTime> resultList = query.list();
+
+		GenericPage<PlayTime> resultPage = new GenericPage<PlayTime>(resultList, pageCondition.getCurrentPage(),
+				totalCount, pageCondition.getPageUnit(), pageCondition.getPagePerItemCount());
+		return resultPage;
+	}
+
+	private String getPlayTimeWhereClause(PlayTimeSearch pageCondition) {
+		String where = " where 1 = 1 ";
+		return where;
+	}
+
+	public void createPlayTime(PlayTime item) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(item);
+		session.flush();
+	}
+
+	public void updatePlayTime(PlayTime item) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(item);
+		session.flush();
+	}
+
+	public void removePlayTime(int playTimeSeq) {
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(getPlayTime(playTimeSeq));
+		session.flush();
+	}
+
 }

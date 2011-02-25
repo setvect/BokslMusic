@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.setvect.bokslmusic.db.MusicDao;
+import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
+import com.setvect.bokslmusic.vo.music.PlayItem;
+import com.setvect.bokslmusic.vo.music.PlayTime;
 import com.setvect.common.util.GenericPage;
 
 @Service("MusicService")
@@ -67,4 +70,70 @@ public class MusicService {
 	public void removeMusicArticle(String musicArticleId) {
 		musicArticleDao.removeMusicArticle(musicArticleId);
 	}
+
+	// ------ 앨범 정보
+
+	public Album getAlbum(int albumSeq) {
+		return musicArticleDao.getAlbum(albumSeq);
+	}
+
+	public GenericPage<Album> getAlbumList(AlbumSearch pageCondition) {
+		return musicArticleDao.getAlbumList(pageCondition);
+	}
+
+	public void createAlbum(Album item) {
+		musicArticleDao.createAlbum(item);
+	}
+
+	public void updateAlbum(Album item) {
+		musicArticleDao.updateAlbum(item);
+	}
+
+	public void removeAlbum(int albumSeq) {
+		musicArticleDao.removeAlbum(albumSeq);
+	}
+
+	// ------ Play Item 정보
+	public PlayItem getPlayItem(int playItemSeq) {
+		return musicArticleDao.getPlayItem(playItemSeq);
+	}
+
+	public GenericPage<PlayItem> getPlayItemList(PlayItemSearch pageCondition) {
+		return musicArticleDao.getPlayItemList(pageCondition);
+	}
+
+	public void createPlayItem(PlayItem item) {
+		musicArticleDao.createPlayItem(item);
+	}
+
+	public void updatePlayItem(PlayItem item) {
+		musicArticleDao.updatePlayItem(item);
+	}
+
+	public void removePlayItem(int playItemSeq) {
+		musicArticleDao.removePlayItem(playItemSeq);
+	}
+
+	// ------ Play Time 정보
+
+	public PlayTime getPlayTime(int playTimeSeq) {
+		return musicArticleDao.getPlayTime(playTimeSeq);
+	}
+
+	public GenericPage<PlayTime> getPlayTimeList(PlayTimeSearch pageCondition) {
+		return musicArticleDao.getPlayTimeList(pageCondition);
+	}
+
+	public void createPlayTime(PlayTime item) {
+		musicArticleDao.createPlayTime(item);
+	}
+
+	public void updatePlayTime(PlayTime item) {
+		musicArticleDao.updatePlayTime(item);
+	}
+
+	public void removePlayTime(int playTimeSeq) {
+		musicArticleDao.removePlayTime(playTimeSeq);
+	}
+
 }

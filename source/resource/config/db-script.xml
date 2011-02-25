@@ -51,10 +51,10 @@
 	</table>	
 
 
-	<table name="TBAD_PLAY_LIST">
+	<table name="TBAD_PLAY_ITEM">
 		<creation>
 			CREATE TABLE TBAD_PLAY_LIST(
-				PLAY_LIST_SEQ			INT NOT NULL,
+				PLAY_ITEM_SEQ			INT NOT NULL,
 				MUSIC_ID					varchar(50) NOT NULL,
 				ALBUM_SEQ					INT NOT NULL,
 				ORDER_NO					INT NOT NULL,

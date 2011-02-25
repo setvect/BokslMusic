@@ -14,13 +14,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @version $Id$
  */
 @Entity
-@Table(name = "TBAD_PLAY_LIST")
+@Table(name = "TBAD_PLAY_ITEM")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class PlayList {
+public class PlayItem {
 	/** 앨범일련번호 */
 	@Id
-	@Column(name = "PLAY_LIST_SEQ")
-	private int playListSeq;
+	@Column(name = "PLAY_ITEM_SEQ")
+	private int playItemSeq;
 
 	/** 파일 아이디 */
 	@Column(name = "MUSIC_ID")
@@ -34,12 +34,12 @@ public class PlayList {
 	@Column(name = "ORDER_NO")
 	private int orderNo;
 
-	public int getPlayListSeq() {
-		return playListSeq;
+	public int getPlayItemSeq() {
+		return playItemSeq;
 	}
 
-	public void setPlayListSeq(int playListSeq) {
-		this.playListSeq = playListSeq;
+	public void setPlayItemSeq(int playListSeq) {
+		this.playItemSeq = playListSeq;
 	}
 
 	public String getMusicId() {
