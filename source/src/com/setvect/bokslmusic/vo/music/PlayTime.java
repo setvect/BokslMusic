@@ -4,11 +4,14 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * 앨범 정보
@@ -22,6 +25,8 @@ public class PlayTime {
 	/** 일련번호 */
 	@Id
 	@Column(name = "PLAY_TIME_SEQ")
+	@GenericGenerator(name = "hibernate-increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "hibernate-increment")
 	private int playTimeSeq;
 
 	/** 파일 아이디 */

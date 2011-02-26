@@ -66,7 +66,7 @@
 				<value>com.setvect.bokslmusic.vo.music.MusicDirectory</value>			
 				<value>com.setvect.bokslmusic.vo.music.MusicArticle</value>	
 				<value>com.setvect.bokslmusic.vo.music.Album</value>		
-				<value>com.setvect.bokslmusic.vo.music.PlayList</value>		
+				<value>com.setvect.bokslmusic.vo.music.PlayItem</value>		
 				<value>com.setvect.bokslmusic.vo.music.PlayTime</value>
 				<value>com.setvect.bokslmusic.vo.code.Code</value>			
 			</list>
