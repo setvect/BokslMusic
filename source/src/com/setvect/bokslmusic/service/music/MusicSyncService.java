@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,9 +48,18 @@ public class MusicSyncService {
 		int newCount = 0;
 		int errorCount = 0;
 		int nothingCount = 0;
+		int count = 0;
 		Map<String, List<File>> overlapCheck = new HashMap<String, List<File>>();
 
+		Logger.getLogger("org.jaudiotagger.tag").setLevel(Level.WARNING);
+
+		ck.check("전체: " + musicMetes.size());
 		for (MusicMetadata music : musicMetes) {
+			count++;
+			if (count % 10 == 0) {
+				ck.check(count + "/" + musicMetes.size() + " 진행");
+			}
+
 			File sourceFile = music.getSourceFile();
 			String headerCode = music.getHeaderCode();
 			if (headerCode == null) {
@@ -82,8 +93,7 @@ public class MusicSyncService {
 			try {
 				marticle = music.getMusicArticle();
 				service.createMusicArticle(marticle);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				SyncLogPrinter.log("[에러]" + e.getMessage());
 				LogPrinter.out.warn(e);
 				errorCount++;
@@ -92,7 +102,9 @@ public class MusicSyncService {
 			String msg = String.format("[신규] [%s] %s ", headerCode, marticle.getPath());
 			newCount++;
 			SyncLogPrinter.log(msg);
+
 		}
+		ck.check(count + "/" + musicMetes.size() + " 완료");
 		SyncLogPrinter.log("\n같은 파일이지만 서로 경로가 다른 파일(즉 중복된 파일) 목록");
 		fileOverlapPrint(overlapCheck);
 
@@ -118,8 +130,14 @@ public class MusicSyncService {
 		Collection<MusicArticle> listAll = service.getMusicArticleAllList();
 		int deleteCount = 0;
 		int nothingCount = 0;
+		int count = 0;
 
 		for (MusicArticle article : listAll) {
+			count++;
+			if (count % 10 == 0) {
+				ck.check(count + "/" + listAll.size() + " 진행");
+			}
+
 			File musicFile = new File(article.getPath());
 			boolean delete = false;
 			if (!musicFile.exists()) {
@@ -142,6 +160,8 @@ public class MusicSyncService {
 				SyncLogPrinter.log("[통과]" + musicFile.getAbsolutePath());
 			}
 		}
+		ck.check(count + "/" + listAll.size() + " 완료");
+
 		String msg = String.format("총:%,d : 변화없음:%,d : 삭제:%,d ", listAll.size(), nothingCount, deleteCount);
 		SyncLogPrinter.log(msg);
 		SyncLogPrinter.log("-----" + DateUtil.getSysDateTime() + " DB 기준 싱크 종료\n\n");

@@ -233,6 +233,10 @@ public abstract class AbstractMusicDao implements MusicDao {
 
 	private String getAlbumWhereClause(AlbumSearch pageCondition) {
 		String where = " where 1 = 1 ";
+		String name = pageCondition.getSearchName();
+		if (StringUtilAd.isNotEmpty(name)) {
+			where += " and name = " + StringUtilAd.getSqlStringLike(name);
+		}
 		return where;
 	}
 
@@ -283,6 +287,10 @@ public abstract class AbstractMusicDao implements MusicDao {
 
 	private String getPlayItemWhereClause(PlayItemSearch pageCondition) {
 		String where = " where 1 = 1 ";
+		int album = pageCondition.getSearchAlbumSeq();
+		if (album != 0) {
+			where += " albumSeq = " + album;
+		}
 		return where;
 	}
 
@@ -305,7 +313,6 @@ public abstract class AbstractMusicDao implements MusicDao {
 	}
 
 	// ------ Play Time 정보
-
 	public PlayTime getPlayTime(int playTimeSeq) {
 		Session session = sessionFactory.getCurrentSession();
 		return (PlayTime) session.get(PlayTime.class, playTimeSeq);
@@ -334,6 +341,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 
 	private String getPlayTimeWhereClause(PlayTimeSearch pageCondition) {
 		String where = " where 1 = 1 ";
+		// 아직은 특별히 검색 조건을 넣을게 없음
 		return where;
 	}
 

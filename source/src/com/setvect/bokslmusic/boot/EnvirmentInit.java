@@ -1,10 +1,14 @@
 package com.setvect.bokslmusic.boot;
 
 import java.net.URL;
+import java.util.logging.Level;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.tag.datatype.AbstractDataType;
+import org.jaudiotagger.tag.id3.AbstractTagItem;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.setvect.bokslmusic.config.EnvirmentProperty;
@@ -83,6 +87,11 @@ public class EnvirmentInit extends HttpServlet {
 
 		conn.makeTable();
 		LogPrinter.out.info("DB Initialized");
+
+		// Audio Metadata 추출 모듈에서 불필요한 로그가 화면에 표시 되지 않도록
+		AbstractTagItem.logger.setLevel(Level.WARNING);
+		AbstractDataType.logger.setLevel(Level.WARNING);
+		AudioFile.logger.setLevel(Level.WARNING);
 
 		initialize = true;
 	}

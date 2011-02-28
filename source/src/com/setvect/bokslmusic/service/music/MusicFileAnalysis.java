@@ -91,9 +91,8 @@ public class MusicFileAnalysis {
 			MP3AudioHeader header = (MP3AudioHeader) f.getAudioHeader();
 			long mp3Start = header.getMp3StartByte();
 			audioStartBytePosition = mp3Start;
-		}
-		catch (Exception e) {
-			LogPrinter.out.warn(e);
+		} catch (Exception e) {
+			LogPrinter.out.warn(e, e);
 		}
 		String s = Md5Util.getMD5Checksum(audioFile, audioStartBytePosition, HEADER_LENGTH);
 		return s;
@@ -134,16 +133,13 @@ public class MusicFileAnalysis {
 			FlacStreamReader stramReader = new FlacStreamReader(raf);
 			stramReader.findStream();
 			audioStartBytePosition = stramReader.getStartOfFlacInFile();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			LogPrinter.out.warn(e);
-		}
-		finally {
+		} finally {
 			if (raf != null) {
 				try {
 					raf.close();
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 				}
 			}
 		}
