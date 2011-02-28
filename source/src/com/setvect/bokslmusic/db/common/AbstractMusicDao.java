@@ -128,6 +128,19 @@ public abstract class AbstractMusicDao implements MusicDao {
 		return order;
 	}
 
+	public List<String> getMusicArticlePath() {
+		Session session = sessionFactory.getCurrentSession();
+		String q = "SELECT DISTINCT path  from MusicArticle order by path";
+		Query query = session.createQuery(q);
+
+		query = session.createQuery(q);
+
+		@SuppressWarnings("unchecked")
+		List<String> resultList = query.list();
+
+		return resultList;
+	}
+
 	/**
 	 * @param pageCondition
 	 * @return

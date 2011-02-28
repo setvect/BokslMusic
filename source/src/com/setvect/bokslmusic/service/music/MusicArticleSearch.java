@@ -24,10 +24,16 @@ public class MusicArticleSearch extends SearchListVo {
 	private Order order = Order.FILE_NAME;
 	private UnionCondition unionCondition = UnionCondition.AND;
 
+	/** 아티스트(Like 검색) */
 	private String searchArtist;
+	/** 제목(Like 검색) */
 	private String searchTitle;
+	/** 파일 이름(Like 검색) */
 	private String searchFileName;
+	/** 가사(Like 검색) */
 	private String searchLyrics;
+	/** 디렉토리 경로(equals 검색) */
+	private String searchPath;
 
 	public MusicArticleSearch(int currentPage) {
 		super(currentPage);
@@ -80,4 +86,94 @@ public class MusicArticleSearch extends SearchListVo {
 	public void setSearchLyrics(String searchLyrics) {
 		this.searchLyrics = searchLyrics;
 	}
+
+	public String getSearchPath() {
+		return searchPath;
+	}
+
+	public void setSearchPath(String searchPath) {
+		this.searchPath = searchPath;
+	}
+
+	/**
+	 * 검색 결과를 캣싱 할때 이용
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
+		result = prime * result + ((searchArtist == null) ? 0 : searchArtist.hashCode());
+		result = prime * result + ((searchFileName == null) ? 0 : searchFileName.hashCode());
+		result = prime * result + ((searchLyrics == null) ? 0 : searchLyrics.hashCode());
+		result = prime * result + ((searchPath == null) ? 0 : searchPath.hashCode());
+		result = prime * result + ((searchTitle == null) ? 0 : searchTitle.hashCode());
+		result = prime * result + ((unionCondition == null) ? 0 : unionCondition.hashCode());
+		return result;
+	}
+
+	/**
+	 * 검색 결과를 캣싱 할때 이용
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof MusicArticleSearch)) {
+			return false;
+		}
+		MusicArticleSearch other = (MusicArticleSearch) obj;
+		if (order != other.order) {
+			return false;
+		}
+		if (searchArtist == null) {
+			if (other.searchArtist != null) {
+				return false;
+			}
+		}
+		else if (!searchArtist.equals(other.searchArtist)) {
+			return false;
+		}
+		if (searchFileName == null) {
+			if (other.searchFileName != null) {
+				return false;
+			}
+		}
+		else if (!searchFileName.equals(other.searchFileName)) {
+			return false;
+		}
+		if (searchLyrics == null) {
+			if (other.searchLyrics != null) {
+				return false;
+			}
+		}
+		else if (!searchLyrics.equals(other.searchLyrics)) {
+			return false;
+		}
+		if (searchPath == null) {
+			if (other.searchPath != null) {
+				return false;
+			}
+		}
+		else if (!searchPath.equals(other.searchPath)) {
+			return false;
+		}
+		if (searchTitle == null) {
+			if (other.searchTitle != null) {
+				return false;
+			}
+		}
+		else if (!searchTitle.equals(other.searchTitle)) {
+			return false;
+		}
+		if (unionCondition != other.unionCondition) {
+			return false;
+		}
+		return true;
+	}
+
 }

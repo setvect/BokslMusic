@@ -17,7 +17,7 @@ import com.setvect.bokslmusic.boot.EnvirmentInit;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/config/applicationContext.xml" })
-@TransactionConfiguration(transactionManager = "hibernateTxManager", defaultRollback = false)
+@TransactionConfiguration(transactionManager = "hibernateTxManager", defaultRollback = true)
 @Transactional
 public class TestSystem {
 	@BeforeClass

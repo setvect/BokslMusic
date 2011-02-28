@@ -1,7 +1,10 @@
 package com.setvect.bokslmusic.service.music;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +50,31 @@ public class MusicService {
 
 	public GenericPage<MusicArticle> getMusicArticlePagingList(MusicArticleSearch pageCondition) {
 		return musicArticleDao.getMusicArticlePagingList(pageCondition);
+	}
+
+	public List<String> getMusicArticlePath() {
+		return musicArticleDao.getMusicArticlePath();
+	}
+
+	/**
+	 * getMusicArticlePath()메소드와 비슷한 역할을 하지만, 검색된 음악파일 결과 내에서 path을 추출하여 중복제거해
+	 * 목록 리턴
+	 * 
+	 * @TODO 향후 캐싱을 이용해 속도 개선
+	 * @param pageCondition
+	 * @return
+	 */
+	public List<String> getMusicArticlePathSearch(MusicArticleSearch pageCondition) {
+		GenericPage<MusicArticle> page = musicArticleDao.getMusicArticlePagingList(pageCondition);
+		Collection<MusicArticle> allList = page.getList();
+		Set<String> pathSet = new TreeSet<String>();
+		for (MusicArticle m : allList) {
+			pathSet.add(m.getPath());
+		}
+
+		List<String> result = new ArrayList<String>();
+		result.addAll(pathSet);
+		return result;
 	}
 
 	/**

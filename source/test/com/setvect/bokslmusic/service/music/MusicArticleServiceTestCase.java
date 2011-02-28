@@ -3,6 +3,7 @@ package com.setvect.bokslmusic.service.music;
 import static org.hamcrest.CoreMatchers.is;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -69,5 +70,26 @@ public class MusicArticleServiceTestCase extends TestSystem {
 		service.createPlayTime(playTime);
 		PlayTime playTimeLoad = service.getPlayTime(playTime.getPlayTimeSeq());
 		Assert.assertThat(playTime, is(playTimeLoad));
+	}
+
+	@Test
+	public void testMusicArticlePath() {
+		System.out.println("testMusicArticlePath()");
+		List<String> path = service.getMusicArticlePath();
+		for (String p : path) {
+			System.out.println(p);
+		}
+	}
+
+	@Test
+	public void testMusicArticlePathSearch() {
+		System.out.println("testMusicArticlePathSearch()");
+		MusicArticleSearch pageCondition = new MusicArticleSearch(1);
+		pageCondition.setPagePerItemCount(Integer.MAX_VALUE);
+
+		List<String> path = service.getMusicArticlePathSearch(pageCondition);
+		for (String p : path) {
+			System.out.println(p);
+		}
 	}
 }

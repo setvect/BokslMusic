@@ -70,6 +70,11 @@ public interface MusicDao {
 	public GenericPage<MusicArticle> getMusicArticlePagingList(MusicArticleSearch pageCondition);
 
 	/**
+	 * @return 중복제거된 파일 저장 경로
+	 */
+	public List<String> getMusicArticlePath();
+
+	/**
 	 * 음악 등록
 	 * 
 	 * @param item
