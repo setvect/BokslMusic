@@ -53,10 +53,20 @@
 		</init-param>		
 	</servlet>
 
+  <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>com.setvect.gwt.server.GreetingServiceImpl</servlet-class>
+  </servlet>
+  
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/gwtfirst/greet</url-pattern>
+  </servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>

@@ -75,7 +75,7 @@ public class MusicSyncService {
 				boolean noChange = dbPath.equals(sourceFile);
 
 				if (noChange) {
-					String msg = String.format("[통과] [%s] %s ", headerCode, art.getPath());
+					String msg = String.format("[통과] [%s] %s ", headerCode, art.getFile());
 					SyncLogPrinter.log(msg);
 					nothingCount++;
 					continue;

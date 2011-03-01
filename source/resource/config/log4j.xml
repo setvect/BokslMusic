@@ -8,7 +8,7 @@
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 	<appender name="FILELOG" class="org.apache.log4j.DailyRollingFileAppender">
-  	<param name="File"   value="D:/workspace/BokslMusic/log/rolling_log_file.log" />
+  	<param name="File"   value="E:/workspace/BokslMusic/log/rolling_log_file.log" />
     <param name="Append" value="false" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
     <layout class="org.apache.log4j.PatternLayout"> 
@@ -26,7 +26,7 @@
 	
 	<!-- 파일 정보 등록, 싱크 관련 로그 -->
 	<appender name="SYNC_FILELOG" class="org.apache.log4j.DailyRollingFileAppender">
-  	<param name="File"   value="D:/workspace/BokslMusic/log/music_sync.log" />
+  	<param name="File"   value="E:/workspace/BokslMusic/log/music_sync.log" />
     <param name="Append" value="true" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
     <layout class="org.apache.log4j.PatternLayout"> 

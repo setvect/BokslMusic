@@ -100,7 +100,6 @@
 		<aop:pointcut id="init" expression="execution(* com.setvect.bokslmusic.db..*DBInitializer.*(..))"/>
 		
 		<aop:advisor advice-ref="hibernateTxAdvice" order="2" pointcut-ref="appDao" />
-		<aop:advisor advice-ref="hibernateTxAdvice" order="2" pointcut-ref="serivce" />
 		<aop:advisor advice-ref="hibernateTxAdvice" order="2" pointcut-ref="init" />
 	</aop:config>	
 
