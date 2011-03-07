@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.tag.datatype.AbstractDataType;
 import org.jaudiotagger.tag.id3.AbstractTagItem;
+import org.springframework.aop.Advisor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.TransactionStatus;
 
 import com.setvect.bokslmusic.config.EnvirmentProperty;
 import com.setvect.bokslmusic.db.DBInitializer;
@@ -65,6 +67,9 @@ public class EnvirmentInit extends HttpServlet {
 		SyncLogPrinter.init(log4j);
 		LogPrinter.out.info("Log Manager Initialized");
 
+		// Jetty 사용에서 발생되는 오류 해결
+		loadForSpringJarFile();
+
 		springContext = new ClassPathXmlApplicationContext(new String[] { CONFIG_SPRING }, false);
 		springContext.refresh();
 
@@ -94,6 +99,23 @@ public class EnvirmentInit extends HttpServlet {
 		AudioFile.logger.setLevel(Level.WARNING);
 
 		initialize = true;
+	}
+
+	/**
+	 * 직접적으로 프로그램 동작에 아무련 영향이 없음<br>
+	 * 다만 spring 초기화전에 관련 jar 파일을 로딩하기 위한 목적으로 사용<br>
+	 * 관련된 스키마 정보가 있는 jar 파일 로딩을 하지 않고 xml parsing 했기 때문이다. jetty는 jar 파일안에 있는
+	 * 클래스를 한번이라도 로딩 해야지 jar을 접근 할 수 있나 보다. (추측) 그래서 강제적으로 jar파일을 로딩 하기위해 아래와 같이
+	 * 소스를 넣었음<br>
+	 * 해당 메소드를 사용하지 않으면 jetty에서는 아래와 같이 오류가 나타남<br>
+	 * <br>
+	 * org.springframework.beans.factory.parsing.BeanDefinitionParsingException:
+	 * Configuration problem: Unable to locate Spring NamespaceHandler for XML
+	 * schema namespace [http://www.springframework.org/schema/aop]
+	 */
+	private static void loadForSpringJarFile() {
+		Class<Advisor> aop = Advisor.class;
+		Class<TransactionStatus> tx = TransactionStatus.class;
 	}
 
 	public void destroy() {

@@ -43,16 +43,6 @@
 		<servlet-name>ThumbnailServlet</servlet-name>
 		<servlet-class>com.setvect.common.img.ThumbnailImageServlet</servlet-class>
 	</servlet>
-
-	<servlet>
-		<servlet-name>dispatcherDwr</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:/config/applicationDwr.xml</param-value>
-		</init-param>		
-	</servlet>
-
   <servlet>
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>com.setvect.gwt.server.GreetingServiceImpl</servlet-class>
@@ -80,11 +70,6 @@
 	<servlet-mapping>
 		<servlet-name>ThumbnailServlet</servlet-name>
 		<url-pattern>/servlet/Thumbnail</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>dispatcherDwr</servlet-name>
-		<url-pattern>/dwr/*</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
