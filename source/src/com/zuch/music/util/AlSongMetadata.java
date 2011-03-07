@@ -19,22 +19,22 @@ import com.setvect.bokslmusic.extract.MusicMetadata;
 import com.setvect.common.http.HttpPageGetter;
 
 /**
- * ¾Ë½ö °¡¼­ ¼­¹ö¿¡ Á¢¼ÓÇÏ¿© À½¾Ç °¡»ç¸¦ ºñ·ÔÇÑ ¸ŞÅ¸Á¤º¸¸¦ °¡Á®¿È
+ * ì•Œì­ ê°€ì„œ ì„œë²„ì— ì ‘ì†í•˜ì—¬ ìŒì•… ê°€ì‚¬ë¥¼ ë¹„ë¡¯í•œ ë©”íƒ€ì •ë³´ë¥¼ ê°€ì ¸ì˜´
  * 
  * @version $Id$
  */
 public final class AlSongMetadata {
 
 	private String md5Str;
-	/** °¡»ç¸¦ ºĞ¼®ÇÑ XML */
+	/** ê°€ì‚¬ë¥¼ ë¶„ì„í•œ XML */
 	private String resultXml;
 
-	/** °¡»ç ºĞ¼® */
+	/** ê°€ì‚¬ ë¶„ì„ */
 	private LyricParseHandler lyricParse = new LyricParseHandler();
 
 	/**
 	 * @param audioFile
-	 *            À½¿ø ÆÄÀÏ
+	 *            ìŒì› íŒŒì¼
 	 */
 	public AlSongMetadata(File audioFile) {
 		this.md5Str = MusicMetadata.getHeaderMd5(audioFile);
@@ -43,7 +43,7 @@ public final class AlSongMetadata {
 
 	/**
 	 * @param md5
-	 *            °¡»ç ÃßÃâ MD5
+	 *            ê°€ì‚¬ ì¶”ì¶œ MD5
 	 */
 	public AlSongMetadata(String md5) {
 		this.md5Str = md5;
@@ -51,28 +51,28 @@ public final class AlSongMetadata {
 	}
 
 	/**
-	 * @return °¡»ç ÃßÃâ Å° MD5
+	 * @return ê°€ì‚¬ ì¶”ì¶œ í‚¤ MD5
 	 */
 	public String getMd5() {
 		return md5Str;
 	}
 
 	/**
-	 * @return Á¦¸ñ, ¾øÀ¸¸é null
+	 * @return ì œëª©, ì—†ìœ¼ë©´ null
 	 */
 	public String getTitle() {
 		return lyricParse.getTitle();
 	}
 
 	/**
-	 * @return ¾ÆÆ®¸®½ºÆ®, ¾øÀ¸¸é null
+	 * @return ì•„íŠ¸ë¦¬ìŠ¤íŠ¸, ì—†ìœ¼ë©´ null
 	 */
 	public String getArtist() {
 		return lyricParse.getArtist();
 	}
 
 	/**
-	 * @return °¡»ç, ¾øÀ¸¸é null
+	 * @return ê°€ì‚¬, ì—†ìœ¼ë©´ null
 	 */
 	public String getLyric() {
 		return lyricParse.getLyric().replace("<br>", "\n");
@@ -126,7 +126,7 @@ public final class AlSongMetadata {
 	}
 
 	/**
-	 * À½¿øÀÇ ¸ŞÅ¸ Á¤º¸¸¦ ÆÄ½Ì
+	 * ìŒì›ì˜ ë©”íƒ€ ì •ë³´ë¥¼ íŒŒì‹±
 	 * 
 	 * @throws SAXException
 	 * @throws ParserConfigurationException
@@ -136,13 +136,13 @@ public final class AlSongMetadata {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		SAXParser saxParser = factory.newSAXParser();
 
-		// ByteArrayInputStreamÀº close()¾ÈÇØµµ µÊ.
+		// ByteArrayInputStreamì€ close()ì•ˆí•´ë„ ë¨.
 		InputStream is = new ByteArrayInputStream(resultXml.getBytes("UTF-8"));
 		saxParser.parse(is, lyricParse);
 	}
 
 	/**
-	 * À½¿ø¿¡ ´ëÇÑ ¸ŞÅ¸ XML¸¦ ÀÌ¿ëÇÏ¿© ÇÊ¿äÇÑ Á¤º¸¸¦ ÆÄ½Ì
+	 * ìŒì›ì— ëŒ€í•œ ë©”íƒ€ XMLë¥¼ ì´ìš©í•˜ì—¬ í•„ìš”í•œ ì •ë³´ë¥¼ íŒŒì‹±
 	 * 
 	 * @version $Id$
 	 */
@@ -160,7 +160,7 @@ public final class AlSongMetadata {
 			}
 		}
 
-		// ÇöÀç Å½»ö ·Îµå ÀÌ¸§
+		// í˜„ì¬ íƒìƒ‰ ë¡œë“œ ì´ë¦„
 		private String currentExplorerNodeName;
 
 		public void startElement(String namespaceURI, String lName, String qName, Attributes attrs) throws SAXException {
@@ -172,7 +172,7 @@ public final class AlSongMetadata {
 			try {
 				node = NodeName.valueOf(currentExplorerNodeName);
 			} catch (IllegalArgumentException e) {
-				// ÇöÀç ·Îµå¿Í ¸ÅÇÎµÇ´Â ÀúÀå MapÅ° ¾øÀ½
+				// í˜„ì¬ ë¡œë“œì™€ ë§¤í•‘ë˜ëŠ” ì €ì¥ Mapí‚¤ ì—†ìŒ
 				return;
 			}
 

@@ -23,7 +23,7 @@ public class MusicArticleServiceTestCase extends TestSystem {
 	@Test
 	public void testPath() {
 		MusicDirectory saveItem = new MusicDirectory();
-		saveItem.setBasePath("D:\\90.¸ÖÆ¼¹Ìµğ¾î\\01_À½¾Ç");
+		saveItem.setBasePath("D:\\90.ë©€í‹°ë¯¸ë””ì–´\\01_ìŒì•…");
 		saveItem.setSyncDate(new Date());
 		service.createMusicPath(saveItem);
 
@@ -37,7 +37,7 @@ public class MusicArticleServiceTestCase extends TestSystem {
 		musicArticle.setMusicId("abcdef");
 		musicArticle.setName("a.mp3");
 		musicArticle.setPath("c:\\");
-		musicArticle.setLyrics("¾È³ç");
+		musicArticle.setLyrics("ì•ˆë…•");
 		musicArticle.setFileSize(100);
 		musicArticle.setSamplingRate(100);
 		musicArticle.setBitRate(200);
@@ -49,7 +49,7 @@ public class MusicArticleServiceTestCase extends TestSystem {
 		Assert.assertThat(musicArticle, is(musicArticleLoad));
 
 		Album album = new Album();
-		album.setName("¿ì¿ïÇÒ¶§ µè´Â À½¾Ç");
+		album.setName("ìš°ìš¸í• ë•Œ ë“£ëŠ” ìŒì•…");
 		service.createAlbum(album);
 		Album albumLoad = service.getAlbum(album.getAlbumSeq());
 		Assert.assertThat(album, is(albumLoad));

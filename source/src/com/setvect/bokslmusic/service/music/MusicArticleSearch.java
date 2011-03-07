@@ -8,14 +8,14 @@ public class MusicArticleSearch extends SearchListVo {
 	private static final long serialVersionUID = 7408199949914095804L;
 
 	/**
-	 * Á¤·Ä Á¶°Ç
+	 * ì •ë ¬ ì¡°ê±´
 	 */
 	public enum Order {
 		FILE_NAME, TITLE, RUNNING_TIME;
 	}
 
 	/**
-	 * °áÇÕ Á¶°Ç
+	 * ê²°í•© ì¡°ê±´
 	 */
 	public enum UnionCondition {
 		AND, OR
@@ -24,15 +24,15 @@ public class MusicArticleSearch extends SearchListVo {
 	private Order order = Order.FILE_NAME;
 	private UnionCondition unionCondition = UnionCondition.AND;
 
-	/** ¾ÆÆ¼½ºÆ®(Like °Ë»ö) */
+	/** ì•„í‹°ìŠ¤íŠ¸(Like ê²€ìƒ‰) */
 	private String searchArtist;
-	/** Á¦¸ñ(Like °Ë»ö) */
+	/** ì œëª©(Like ê²€ìƒ‰) */
 	private String searchTitle;
-	/** ÆÄÀÏ ÀÌ¸§(Like °Ë»ö) */
+	/** íŒŒì¼ ì´ë¦„(Like ê²€ìƒ‰) */
 	private String searchFileName;
-	/** °¡»ç(Like °Ë»ö) */
+	/** ê°€ì‚¬(Like ê²€ìƒ‰) */
 	private String searchLyrics;
-	/** µğ·ºÅä¸® °æ·Î(equals °Ë»ö) */
+	/** ë””ë ‰í† ë¦¬ ê²½ë¡œ(equals ê²€ìƒ‰) */
 	private String searchPath;
 
 	public MusicArticleSearch(int currentPage) {
@@ -96,7 +96,7 @@ public class MusicArticleSearch extends SearchListVo {
 	}
 
 	/**
-	 * °Ë»ö °á°ú¸¦ Ä¹½Ì ÇÒ¶§ ÀÌ¿ë
+	 * ê²€ìƒ‰ ê²°ê³¼ë¥¼ ìº£ì‹± í• ë•Œ ì´ìš©
 	 */
 	@Override
 	public int hashCode() {
@@ -113,7 +113,7 @@ public class MusicArticleSearch extends SearchListVo {
 	}
 
 	/**
-	 * °Ë»ö °á°ú¸¦ Ä¹½Ì ÇÒ¶§ ÀÌ¿ë
+	 * ê²€ìƒ‰ ê²°ê³¼ë¥¼ ìº£ì‹± í• ë•Œ ì´ìš©
 	 */
 	@Override
 	public boolean equals(Object obj) {

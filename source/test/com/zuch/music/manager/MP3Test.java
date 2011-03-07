@@ -206,7 +206,7 @@ public class MP3Test {
 
 	private static void printID3v1Tag(ID3v1Tag tag) throws UnsupportedEncodingException {
 		if (tag == null) {
-			System.out.println("ID3v1Tag ÅÂ±× ¾øÀ½!");
+			System.out.println("ID3v1Tag íƒœê·¸ ì—†ìŒ!");
 			return;
 		}
 		StringBuffer sb = new StringBuffer();
@@ -230,7 +230,7 @@ public class MP3Test {
 
 	private static void printID3v2Tag(AbstractID3v2Tag tag) {
 		if (tag == null) {
-			System.out.println("ID3v2Tag ÅÂ±× ¾øÀ½!");
+			System.out.println("ID3v2Tag íƒœê·¸ ì—†ìŒ!");
 			return;
 		}
 		System.out.printf("\ngetIdentifier: [%s]\n", tag.getIdentifier());
@@ -239,7 +239,7 @@ public class MP3Test {
 
 	private static void printID3v24Tag(ID3v24Tag tag) throws UnsupportedEncodingException {
 		if (tag == null) {
-			System.out.println("ID3v24 ÅÂ±× ¾øÀ½!");
+			System.out.println("ID3v24 íƒœê·¸ ì—†ìŒ!");
 			return;
 		}
 		System.out.printf("\ngetIdentifier: [%s]\n", tag.getIdentifier());

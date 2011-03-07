@@ -5,47 +5,47 @@ import com.setvect.bokslmusic.vo.code.Code;
 import com.setvect.common.util.GenericPage;
 
 /**
- * ÄÚµå °ü¸® DAO
+ * ì½”ë“œ ê´€ë¦¬ DAO
  * 
  * @version $Id$
  */
 public interface CodeDao {
 	/**
 	 * @param mainCode
-	 *            ¸ŞÀÎ ÄÚµå
+	 *            ë©”ì¸ ì½”ë“œ
 	 * @param subCode
-	 *            ¼­ºê ÄÚµå
-	 * @return ÇØ´ç ÄÚµå Á¤º¸
+	 *            ì„œë¸Œ ì½”ë“œ
+	 * @return í•´ë‹¹ ì½”ë“œ ì •ë³´
 	 */
 	public Code getCode(String mainCode, String subCode);
 
 	/**
 	 * @param pageCondition
-	 * @return ÄÚµå °Ë»ö
+	 * @return ì½”ë“œ ê²€ìƒ‰
 	 */
 	public GenericPage<Code> getCodePagingList(CodeSearch pageCondition);
 
 	/**
-	 * ÄÚµå µî·Ï
+	 * ì½”ë“œ ë“±ë¡
 	 * 
 	 * @param code
 	 */
 	public void createCode(Code code);
 
 	/**
-	 * ÄÚµå ¼öÁ¤
+	 * ì½”ë“œ ìˆ˜ì •
 	 * 
 	 * @param code
 	 */
 	public void updateCode(Code code);
 
 	/**
-	 * ÄÚµå »èÁ¦
+	 * ì½”ë“œ ì‚­ì œ
 	 * 
 	 * @param mainCode
-	 *            ¸ŞÀÎ ÄÚµå
+	 *            ë©”ì¸ ì½”ë“œ
 	 * @param subCode
-	 *            ¼­ºê ÄÚµå
+	 *            ì„œë¸Œ ì½”ë“œ
 	 */
 	public void removeCode(String mainCode, String subCode);
 

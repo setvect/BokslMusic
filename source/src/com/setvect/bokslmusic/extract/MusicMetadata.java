@@ -9,23 +9,23 @@ import com.setvect.common.util.FileUtil;
 import com.zuch.music.util.AlSongMetadata;
 
 /**
- * À½¿ø¿¡ ´ëÇÑ metadata ºĞ¼®<br>
- * ÃßÃâÁ¤º¸´Â ´ÊÀº(lazy)·Îµù ÇüÅÂ·Î µ¥ÀÌÅÍ¸¦ °¡Á®¿È
+ * ìŒì›ì— ëŒ€í•œ metadata ë¶„ì„<br>
+ * ì¶”ì¶œì •ë³´ëŠ” ëŠ¦ì€(lazy)ë¡œë”© í˜•íƒœë¡œ ë°ì´í„°ë¥¼ ê°€ì ¸ì˜´
  * 
  * @version $Id$
  */
 public class MusicMetadata {
 
-	/** À½¾Ç ÆÄÀÏ ¿øº¸ */
+	/** ìŒì•… íŒŒì¼ ì›ë³´ */
 	private final File sourceFile;
 
-	/** ¾Ë½ö °¡»ç µ¥ÀÌÅÍ ¼öÁı */
+	/** ì•Œì­ ê°€ì‚¬ ë°ì´í„° ìˆ˜ì§‘ */
 	private AlSongMetadata alSongMetadata;
 
-	/** À½¿ø ¸ŞÅ¸ Á¤º¸ */
+	/** ìŒì› ë©”íƒ€ ì •ë³´ */
 	private AudioMetadata audioMetadata;
 
-	/** À½¿ø ÆÄÀÏ Á¾·ù*/
+	/** ìŒì› íŒŒì¼ ì¢…ë¥˜*/
 	private MusicFileKind fileKind;
 
 	/**
@@ -42,7 +42,7 @@ public class MusicMetadata {
 	}
 
 	/**
-	 * @return MD5 ÄÚµå
+	 * @return MD5 ì½”ë“œ
 	 */
 	public String getHeaderCode() {
 		return fileKind.getHeaderMd5(sourceFile);
@@ -50,8 +50,8 @@ public class MusicMetadata {
 
 	/**
 	 * @param audioFile
-	 *            À½¿øÆÄÀÏ
-	 * @return MD5 ÄÚµå
+	 *            ìŒì›íŒŒì¼
+	 * @return MD5 ì½”ë“œ
 	 */
 	public static String getHeaderMd5(File audioFile) {
 		String ext = FileUtil.getExt(audioFile.getName());
@@ -60,7 +60,7 @@ public class MusicMetadata {
 	}
 
 	/**
-	 * ¿ÜºÎ ¼­¹ö¿¡¼­ ¹Ş¾Æ¿Â ÀÚ·á <br>
+	 * ì™¸ë¶€ ì„œë²„ì—ì„œ ë°›ì•„ì˜¨ ìë£Œ <br>
 	 */
 	public AlSongMetadata getAlSongMetadata() {
 		if (alSongMetadata == null) {
@@ -70,7 +70,7 @@ public class MusicMetadata {
 	}
 
 	/**
-	 * @return À½¿øÆÄÀÏ Á¾·ù¿¡ µû¸¥ AudioMetadata
+	 * @return ìŒì›íŒŒì¼ ì¢…ë¥˜ì— ë”°ë¥¸ AudioMetadata
 	 */
 	public AudioMetadata getAudioMetadata() {
 		if (audioMetadata == null) {
@@ -80,7 +80,7 @@ public class MusicMetadata {
 	}
 
 	/**
-	 * @return À½¿øÆÄÀÏ Á¾·ù¿¡ µû¸¥ AudioMetadata ÀÎ½ºÅÏ½º
+	 * @return ìŒì›íŒŒì¼ ì¢…ë¥˜ì— ë”°ë¥¸ AudioMetadata ì¸ìŠ¤í„´ìŠ¤
 	 */
 	private AudioMetadata newAudioInstance() {
 		String ext = FileUtil.getExt(sourceFile.getName());
@@ -95,7 +95,7 @@ public class MusicMetadata {
 	}
 
 	/**
-	 * @return DB¿¡ ÀúÀåµÉ À½¿ø Á¤º¸ VO
+	 * @return DBì— ì €ì¥ë  ìŒì› ì •ë³´ VO
 	 */
 	public MusicArticle getMusicArticle() {
 		load();
@@ -125,7 +125,7 @@ public class MusicMetadata {
 	}
 
 	/**
-	 * À½¿ø Á¤º¸ ·Îµå
+	 * ìŒì› ì •ë³´ ë¡œë“œ
 	 */
 	private void load() {
 		if (alSongMetadata == null) {

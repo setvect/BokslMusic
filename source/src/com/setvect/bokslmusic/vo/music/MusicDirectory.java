@@ -11,7 +11,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * À½¿ø ÀúÀå °æ·Î 
+ * ìŒì› ì €ì¥ ê²½ë¡œ 
  * 
  * @version $Id$
  */
@@ -19,11 +19,11 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "TBAA_MUSIC_DIRECTORY")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MusicDirectory {
-	/** À½¿ø ÆÄÀÏ °Ë»ö ½ÃÀÛ°æ·Î °æ·Î - OS °æ·Î */
+	/** ìŒì› íŒŒì¼ ê²€ìƒ‰ ì‹œì‘ê²½ë¡œ ê²½ë¡œ - OS ê²½ë¡œ */
 	@Id
 	@Column(name = "BASE_PATH")
 	private String basePath;
-	/** ¸¶Áö¸·µ¿±âÈ­ ½Ã°£ */
+	/** ë§ˆì§€ë§‰ë™ê¸°í™” ì‹œê°„ */
 	@Column(name = "SYNC_DATE")
 	private Date syncDate;
 

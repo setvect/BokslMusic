@@ -16,31 +16,31 @@ import com.setvect.common.db.TableCreateInfo;
 import com.setvect.common.xml.XMLParser;
 
 /**
- * µ¥ÀÌÅÍ º£ÀÌ½º ÃÊ±âÈ­ ¹× Ä¿³Ø¼Ç °´Ã¼¸¦ Á¦°ø ¹× È¸¼ö¸¦ ´ã´çÇÔ $Id: DBInitializer.java 33 2010-07-30 10:14:49Z setvect@naver.com $
+ * ë°ì´í„° ë² ì´ìŠ¤ ì´ˆê¸°í™” ë° ì»¤ë„¥ì…˜ ê°ì²´ë¥¼ ì œê³µ ë° íšŒìˆ˜ë¥¼ ë‹´ë‹¹í•¨ $Id: DBInitializer.java 33 2010-07-30 10:14:49Z setvect@naver.com $
  */
 public abstract class DBInitializer {
 	/**
-	 * DBMS ÃÊ±âÈ­<br>
+	 * DBMS ì´ˆê¸°í™”<br>
 	 * 
-	 * DB ¼³Á¤ ÃÊ±âÈ­. µ¥ÀÌÅÍº£ÀÌ½º »ı¼ºµÉ À§Ä¡ ÁöÁ¤ µî
+	 * DB ì„¤ì • ì´ˆê¸°í™”. ë°ì´í„°ë² ì´ìŠ¤ ìƒì„±ë  ìœ„ì¹˜ ì§€ì • ë“±
 	 * 
 	 */
 	public abstract void init();
 
 	/**
-	 * Å×ÀÌºí ½ºÅ°¸¶¸¦ °Ë»çÇÏ¿© ½ºÅ°¸¶°¡ ¾øÀ¸¸é <br>
-	 * xml ÆÄÀÏ¿¡ ÀúÀåµÈ Á¤º¸¸¦ ÀÌ¿ëÇÏ¿© ½ºÅ°¸¶¿Í ±âº» µ¥ÀÌÅÍ ¹× Á¦¾à Á¶°ÇÀ» µî·ÏÇÔ
+	 * í…Œì´ë¸” ìŠ¤í‚¤ë§ˆë¥¼ ê²€ì‚¬í•˜ì—¬ ìŠ¤í‚¤ë§ˆê°€ ì—†ìœ¼ë©´ <br>
+	 * xml íŒŒì¼ì— ì €ì¥ëœ ì •ë³´ë¥¼ ì´ìš©í•˜ì—¬ ìŠ¤í‚¤ë§ˆì™€ ê¸°ë³¸ ë°ì´í„° ë° ì œì•½ ì¡°ê±´ì„ ë“±ë¡í•¨
 	 */
 	public abstract void makeTable();
 
 	/**
 	 * @param dbScript
-	 *            Å×ÀÌºí »ı¼º ½ºÅ©¸³Æ®À» °¡Áö°í ÀÖ´Â ÆÄÀÏ
-	 * @return Å×ÀÌºí »ı¼º ½ºÅ©¸³Æ®
+	 *            í…Œì´ë¸” ìƒì„± ìŠ¤í¬ë¦½íŠ¸ì„ ê°€ì§€ê³  ìˆëŠ” íŒŒì¼
+	 * @return í…Œì´ë¸” ìƒì„± ìŠ¤í¬ë¦½íŠ¸
 	 */
 	public List<TableCreateInfo> tableScript(URL dbScript) {
 
-		// XML ÆÄÀÏ¿¡¼­ ¸¸µé Å×ÀÌºí »ı¼º ½ºÅ©¸³Æ®¸¦ °¡Àú¿È
+		// XML íŒŒì¼ì—ì„œ ë§Œë“¤ í…Œì´ë¸” ìƒì„± ìŠ¤í¬ë¦½íŠ¸ë¥¼ ê°€ì €ì˜´
 		URL schema = this.getClass().getResource("/config/db-script.xsd");
 
 		Document d = null;
@@ -51,7 +51,7 @@ public abstract class DBInitializer {
 			XPathFactory xpathFactory = XPathFactory.newInstance();
 			XPath xpath = xpathFactory.newXPath();
 
-			// ¸ŞÀÎ Å¸½ºÅ© Á¤º¸
+			// ë©”ì¸ íƒ€ìŠ¤í¬ ì •ë³´
 			NodeList tableList = (NodeList) xpath.evaluate("/dbScript/table", d, XPathConstants.NODESET);
 			for (int tableIdx = 0; tableIdx < tableList.getLength(); tableIdx++) {
 				Element table = (Element) tableList.item(tableIdx);
@@ -61,7 +61,7 @@ public abstract class DBInitializer {
 				Element eleDescription = (Element) xpath.evaluate("creation", table, XPathConstants.NODE);
 				tableInfo.setScript(eleDescription.getTextContent());
 
-				// ¸ŞÀÎ Task ÇÏÀ§ ¼­ºê Task
+				// ë©”ì¸ Task í•˜ìœ„ ì„œë¸Œ Task
 				NodeList queryList = (NodeList) xpath.evaluate("defaultValue/query", table, XPathConstants.NODESET);
 
 				for (int queryIdx = 0; queryIdx < queryList.getLength(); queryIdx++) {

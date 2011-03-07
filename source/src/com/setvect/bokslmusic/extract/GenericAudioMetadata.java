@@ -7,7 +7,7 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;
 
 /**
- * Flac ÆÄÀÏ ¸ŞÅ¸µ¥ÀÌÅÍ ºĞ¼®<br/>
+ * Flac íŒŒì¼ ë©”íƒ€ë°ì´í„° ë¶„ì„<br/>
  * 
  * @version $Id$
  */
@@ -21,7 +21,7 @@ public class GenericAudioMetadata implements AudioMetadata {
 		try {
 			aFile = AudioFileIO.read(sourceFile);
 		} catch (Exception e) {
-			throw new RuntimeException("ÆÄÀÏ : " + sourceFile.getAbsolutePath(), e);
+			throw new RuntimeException("íŒŒì¼ : " + sourceFile.getAbsolutePath(), e);
 		}
 		audioHeader = aFile.getAudioHeader();
 	}

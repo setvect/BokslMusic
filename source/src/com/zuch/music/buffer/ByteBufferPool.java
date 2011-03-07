@@ -218,7 +218,7 @@ public class ByteBufferPool implements IByteBufferPool {
 	}
 
 	/**
-	 * syncrhonized¸¦ »ç¿ëÇÏÁö ¾Ê°í ½Ì±ÛÅæÀ» ±¸Çö
+	 * syncrhonizedë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šê³  ì‹±ê¸€í†¤ì„ êµ¬í˜„
 	 */
 	static class ByteBufferPoolSingletone {
 		private static final ByteBufferPool instance;

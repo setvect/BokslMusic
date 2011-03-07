@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.setvect.bokslmusic.db.common.AbstractMusicDao;
 
 /**
- * H2 DB¿ë ÄÚµå DAO
+ * H2 DBìš© ì½”ë“œ DAO
  * 
  * @version $Id$
  */

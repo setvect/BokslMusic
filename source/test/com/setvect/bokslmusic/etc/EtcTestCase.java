@@ -7,7 +7,7 @@ public class EtcTestCase {
 	public void testFormat() {
 		System.out.println(String.format("%,d", 3223));
 
-		String msg = String.format("ÃÑ:%,d, º¯È­¾øÀ½:%,d, ½Å±Ôµî·Ï:%,d, °æ·Î¼öÁ¤:%,d, ¿¡·¯:%,d ", 13200, 100, 2220, 10, 2);
+		String msg = String.format("ì´:%,d, ë³€í™”ì—†ìŒ:%,d, ì‹ ê·œë“±ë¡:%,d, ê²½ë¡œìˆ˜ì •:%,d, ì—ëŸ¬:%,d ", 13200, 100, 2220, 10, 2);
 		System.out.println(msg);
 	}
 }

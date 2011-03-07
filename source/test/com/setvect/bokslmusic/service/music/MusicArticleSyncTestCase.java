@@ -10,7 +10,7 @@ import com.setvect.bokslmusic.TestSystem;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 
 /**
- * DB¿Í ½Ç ÀúÀåµÈ ÀÚ·á°£ÀÇ µ¿±âÈ­
+ * DBì™€ ì‹¤ ì €ì¥ëœ ìë£Œê°„ì˜ ë™ê¸°í™”
  * 
  * @version $Id$
  */
@@ -23,7 +23,7 @@ public class MusicArticleSyncTestCase extends TestSystem {
 
 	@Test
 	public void testSyncDirectory() {
-		File baseDir = new File("E:\\10.¸ÖÆ¼¹Ìµğ¾î\\03.À½¾Ç__ZZZ");
+		File baseDir = new File("E:\\10.ë©€í‹°ë¯¸ë””ì–´\\03.ìŒì•…__ZZZ");
 		serviceSync.syncDirectory(baseDir);
 	}
 

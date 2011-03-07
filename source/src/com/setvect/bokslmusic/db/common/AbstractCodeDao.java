@@ -15,7 +15,7 @@ import com.setvect.common.util.GenericPage;
 import com.setvect.common.util.StringUtilAd;
 
 /**
- * ÄÚµå DAO
+ * ì½”ë“œ DAO
  * 
  * @version $Id$
  */
@@ -64,7 +64,7 @@ public abstract class AbstractCodeDao implements CodeDao {
 
 	/**
 	 * @param pageCondition
-	 * @return where Àý
+	 * @return where ì ˆ
 	 */
 	private String getWhereClause(CodeSearch pageCondition) {
 		StringBuffer whereClause = new StringBuffer();

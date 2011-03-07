@@ -11,9 +11,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * À½¾Ç Á¤º¸<br>
- * À½¿øÆÄÀÏ ÀÏºÎ(0 ~163,840byte)¿¡ ´ëÇÑ MD5±¸ÇÔ 128bit(32ÀÚ¸®)·Î ±¸¼ºµÈ MD5<br>
- * ´Ù¸¥ ÆÄÀÏ¿¡ µ¿ÀÏÇÑ MD5 Ãæµ¹ÀÇ °¡´É¼ºÀº ¹«½Ã
+ * ìŒì•… ì •ë³´<br>
+ * ìŒì›íŒŒì¼ ì¼ë¶€(0 ~163,840byte)ì— ëŒ€í•œ MD5êµ¬í•¨ 128bit(32ìë¦¬)ë¡œ êµ¬ì„±ëœ MD5<br>
+ * ë‹¤ë¥¸ íŒŒì¼ì— ë™ì¼í•œ MD5 ì¶©ëŒì˜ ê°€ëŠ¥ì„±ì€ ë¬´ì‹œ
  * 
  * @version $Id$
  */
@@ -21,53 +21,53 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "TBAB_MUSIC_ARTICLE")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MusicArticle {
-	/** ÆÄÀÏ MD5 */
+	/** íŒŒì¼ MD5 */
 	@Id
 	@Column(name = "MUSIC_ID")
 	private String musicId;
-	/** ÆÄÀÏ ÀÌ¸§ */
+	/** íŒŒì¼ ì´ë¦„ */
 	@Column(name = "NAME")
 	private String name;
-	/** OS °æ·Î »ó¿¡ ÆÄÀÏ °æ·Î, ÆÄÀÏ ÀÌ¸§ Æ÷ÇÔ ÇÏÁö ¾ÊÀ½*/
+	/** OS ê²½ë¡œ ìƒì— íŒŒì¼ ê²½ë¡œ, íŒŒì¼ ì´ë¦„ í¬í•¨ í•˜ì§€ ì•ŠìŒ*/
 	@Column(name = "PATH")
 	private String path;
-	/** °¡»ç */
+	/** ê°€ì‚¬ */
 	@Column(name = "LYRICS")
 	private String lyrics;
-	/** ÆÄÀÏ »çÀÌÁî */
+	/** íŒŒì¼ ì‚¬ì´ì¦ˆ */
 	@Column(name = "FILE_SIZE")
 	private int fileSize;
-	/** »ùÇÃ¸µ ºñÀ² */
+	/** ìƒ˜í”Œë§ ë¹„ìœ¨ */
 	@Column(name = "SAMPLING_RATE")
 	private int samplingRate;
-	/** ºñÆ®·¹ÀÌÆ® */
+	/** ë¹„íŠ¸ë ˆì´íŠ¸ */
 	@Column(name = "BIT_RATE")
 	private int bitRate;
-	/** Àç»ı½Ã°£(ÃÊ´ÜÀ§) */
+	/** ì¬ìƒì‹œê°„(ì´ˆë‹¨ìœ„) */
 	@Column(name = "RUNNING_TIME")
 	private int runningTime;
-	/** ¸ŞÅ¸Á¤º¸ ÃßÃâ Á¦¸ñ */
+	/** ë©”íƒ€ì •ë³´ ì¶”ì¶œ ì œëª© */
 	@Column(name = "TITLE_TAG")
 	private String titleTag;
-	/** ¸ŞÅ¸Á¤º¸ ÃßÃâ °¡¼ö/¿¬ÁÖÀÚ */
+	/** ë©”íƒ€ì •ë³´ ì¶”ì¶œ ê°€ìˆ˜/ì—°ì£¼ì */
 	@Column(name = "ARTIST_TAG")
 	private String artistTag;
-	/** ¸ŞÅ¸Á¤º¸ ÃßÃâ ¾Ù¹ü */
+	/** ë©”íƒ€ì •ë³´ ì¶”ì¶œ ì•¨ë²” */
 	@Column(name = "ALBUM_TAG")
 	private String albumTag;
-	/** ¸ŞÅ¸Á¤º¸ ÃßÃâ ³âµµ */
+	/** ë©”íƒ€ì •ë³´ ì¶”ì¶œ ë…„ë„ */
 	@Column(name = "YEAR_TAG")
 	private String yearTag;
-	/** ¸ŞÅ¸Á¤º¸ ÃßÃâ Àå¸£ */
+	/** ë©”íƒ€ì •ë³´ ì¶”ì¶œ ì¥ë¥´ */
 	@Column(name = "GENRE_TAG")
 	private String genreTag;
-	/** ¸ŞÅ¸Á¤º¸ ÃßÃâ Æ®·¢ */
+	/** ë©”íƒ€ì •ë³´ ì¶”ì¶œ íŠ¸ë™ */
 	@Column(name = "TRACK_TAG")
 	private String trackTag;
-	/** ¿ÜºÎ¼öÁı Á¦¸ñ */
+	/** ì™¸ë¶€ìˆ˜ì§‘ ì œëª© */
 	@Column(name = "TITLE_EXT")
 	private String titleExt;
-	/** ¿ÜºÎ¼öÁı °¡¼ö/¿¬ÁÖÀÚ */
+	/** ì™¸ë¶€ìˆ˜ì§‘ ê°€ìˆ˜/ì—°ì£¼ì */
 	@Column(name = "ARTIST_EXT")
 	private String artistExt;
 

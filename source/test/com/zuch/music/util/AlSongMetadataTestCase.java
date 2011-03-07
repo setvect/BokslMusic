@@ -14,8 +14,8 @@ public class AlSongMetadataTestCase {
 		File file = new File("sample_data/a.mp3");
 		AlSongMetadata lyric = new AlSongMetadata(file);
 		Assert.assertThat(lyric.getMd5(), is("ce7681520effc58d30dd1cc3beb3d5f9"));
-		Assert.assertThat(lyric.getTitle(), is("¾ğÁ¨°¡´Â"));
-		Assert.assertThat(lyric.getArtist(), is("ÀÌ»óÀº"));
+		Assert.assertThat(lyric.getTitle(), is("ì–¸ì  ê°€ëŠ”"));
+		Assert.assertThat(lyric.getArtist(), is("ì´ìƒì€"));
 		Assert.assertThat(lyric.getLyric(), notNullValue());
 	}
 }

@@ -9,7 +9,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * ÄÚµå Á¤º¸
+ * ì½”ë“œ ì •ë³´
  * 
  * @version $Id$
  */
@@ -17,17 +17,17 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "TBZA_CODE")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Code {
-	/** ÃÖ»ó´Ü ÄÚµå Ç×¸ñ */
+	/** ìµœìƒë‹¨ ì½”ë“œ í•­ëª© */
 	public static final String MAIN_CODE = "ROOT";
 
 	@Id
 	private CodeKey key = new CodeKey();
 
-	/** ÄÚµå °ª */
+	/** ì½”ë“œ ê°’ */
 	@Column(name = "VALUE")
 	private String value;
 
-	/** »óÀ§ÄÚµå³» ¼ø¼­ */
+	/** ìƒìœ„ì½”ë“œë‚´ ìˆœì„œ */
 	@Column(name = "ORDER_NO")
 	private int orderNo;
 

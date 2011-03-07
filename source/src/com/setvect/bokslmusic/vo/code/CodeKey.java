@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
- * Äõ¸® Åë°è ¿£Æ¼Æ¼, ±âº»Å° Á¤º¸
+ * ì¿¼ë¦¬ í†µê³„ ì—”í‹°í‹°, ê¸°ë³¸í‚¤ ì •ë³´
  * 
  * @version $Id$
  */
@@ -16,11 +16,11 @@ public class CodeKey implements Serializable {
 	/** */
 	private static final long serialVersionUID = -7619550780176822366L;
 
-	/** »óÀ§ÄÚµå */
+	/** ìƒìœ„ì½”ë“œ */
 	@Column(name = "MAIN_CODE")
 	private String mainCode;
 
-	/** ÇÏÀ§ÄÚµå */
+	/** í•˜ìœ„ì½”ë“œ */
 	@Column(name = "SUB_CODE")
 	private String subCode;
 

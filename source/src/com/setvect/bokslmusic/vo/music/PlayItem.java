@@ -12,7 +12,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * ¾Ù¹ü Á¤º¸
+ * ì•¨ë²” ì •ë³´
  * 
  * @version $Id$
  */
@@ -20,22 +20,22 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "TBAD_PLAY_ITEM")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PlayItem {
-	/** ¾Ù¹üÀÏ·Ã¹øÈ£ */
+	/** ì•¨ë²”ì¼ë ¨ë²ˆí˜¸ */
 	@Id
 	@Column(name = "PLAY_ITEM_SEQ")
 	@GenericGenerator(name = "hibernate-increment", strategy = "increment")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "hibernate-increment")
 	private int playItemSeq;
 
-	/** ÆÄÀÏ ¾ÆÀÌµğ */
+	/** íŒŒì¼ ì•„ì´ë”” */
 	@Column(name = "MUSIC_ID")
 	private String musicId;
 
-	/** ¾Ù¹üÀÏ·Ã¹øÈ£ */
+	/** ì•¨ë²”ì¼ë ¨ë²ˆí˜¸ */
 	@Column(name = "ALBUM_SEQ")
 	private int albumSeq;
 
-	/** Á¤·Ä ¼ø¼­ */
+	/** ì •ë ¬ ìˆœì„œ */
 	@Column(name = "ORDER_NO")
 	private int orderNo;
 

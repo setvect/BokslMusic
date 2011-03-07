@@ -7,21 +7,21 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 /**
- * ÆÄÀÏ µ¿±âÈ­ ·Î±×
+ * íŒŒì¼ ë™ê¸°í™” ë¡œê·¸
  */
 public class SyncLogPrinter {
 
-	/** ·Î±× ±â·Ï */
+	/** ë¡œê·¸ ê¸°ë¡ */
 	private static Logger out;
 
-	/** ÃÊ±âÈ­ ¿©ºÎ */
+	/** ì´ˆê¸°í™” ì—¬ë¶€ */
 	private static boolean init = false;
 
 	/**
-	 * ·Î±× ¼³Á¤À» ÃÊ±âÈ­ ÇÔ
+	 * ë¡œê·¸ ì„¤ì •ì„ ì´ˆê¸°í™” í•¨
 	 * 
 	 * @param logFilePath
-	 *            ·Î±× ÆÄÀÏ ¼³Á¤ °æ·Î
+	 *            ë¡œê·¸ íŒŒì¼ ì„¤ì • ê²½ë¡œ
 	 */
 	public synchronized static void init(File logFilePath) {
 		if (init) {
@@ -32,10 +32,10 @@ public class SyncLogPrinter {
 	}
 
 	/**
-	 * ·Î±× ¼³Á¤À» ÃÊ±âÈ­ ÇÔ
+	 * ë¡œê·¸ ì„¤ì •ì„ ì´ˆê¸°í™” í•¨
 	 * 
 	 * @param logFilePath
-	 *            ·Î±× ÆÄÀÏ ¼³Á¤ °æ·Î
+	 *            ë¡œê·¸ íŒŒì¼ ì„¤ì • ê²½ë¡œ
 	 */
 	public static void init(URL logFilePath) {
 		if (init) {
@@ -48,7 +48,7 @@ public class SyncLogPrinter {
 
 	/**
 	 * @param message
-	 *            ·Î±× ¸Å½ÃÁö
+	 *            ë¡œê·¸ ë§¤ì‹œì§€
 	 */
 	public static void log(String message) {
 		out.info(message);

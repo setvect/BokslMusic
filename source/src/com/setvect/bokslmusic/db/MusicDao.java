@@ -14,202 +14,202 @@ import com.setvect.bokslmusic.vo.music.PlayTime;
 import com.setvect.common.util.GenericPage;
 
 /**
- * À½¾Ç °ü¸® DAO
+ * ìŒì•… ê´€ë¦¬ DAO
  * 
  * @version $Id$
  */
 public interface MusicDao {
-	// ------ À½¾Ç °æ·Î °ü¸®
+	// ------ ìŒì•… ê²½ë¡œ ê´€ë¦¬
 	/**
 	 * @param basePath
-	 *            °æ·Î(Å°)
-	 * @return À½¿ø ÀúÀå °æ·Î
+	 *            ê²½ë¡œ(í‚¤)
+	 * @return ìŒì› ì €ì¥ ê²½ë¡œ
 	 */
 	public MusicDirectory getMusicPath(String basePath);
 
 	/**
-	 * @return µî·ÏµÈ ¸ğµç À½¿ø ÀúÀå °æ·Î
+	 * @return ë“±ë¡ëœ ëª¨ë“  ìŒì› ì €ì¥ ê²½ë¡œ
 	 */
 	public List<MusicDirectory> getMusicPathList();
 
 	/**
-	 * µî·Ï
+	 * ë“±ë¡
 	 * 
 	 * @param item
-	 *            À½¿ø ÀúÀå °æ·Î
+	 *            ìŒì› ì €ì¥ ê²½ë¡œ
 	 */
 	public void createMusicPath(MusicDirectory item);
 
 	/**
-	 * ¼öÁ¤
+	 * ìˆ˜ì •
 	 * 
 	 * @param item
-	 *            À½¿ø ÀúÀå °æ·Î
+	 *            ìŒì› ì €ì¥ ê²½ë¡œ
 	 */
 	public void updateMusicPath(MusicDirectory item);
 
 	/**
-	 * »èÁ¦
+	 * ì‚­ì œ
 	 * 
 	 * @param basePath
-	 *            À½¿ø °æ·Î(Å°)
+	 *            ìŒì› ê²½ë¡œ(í‚¤)
 	 */
 	public void removeMusicPath(String basePath);
 
-	// ------ À½¾Ç ¸ñ·Ï °ü¸®
+	// ------ ìŒì•… ëª©ë¡ ê´€ë¦¬
 	/**
 	 * @param musicArticleSeq
-	 * @return À½¾ÇÁ¤º¸
+	 * @return ìŒì•…ì •ë³´
 	 */
 	public MusicArticle getMusicArticle(String musicArticleId);
 
 	/**
 	 * @param pageCondition
-	 * @return À½¾ÇÁ¤º¸
+	 * @return ìŒì•…ì •ë³´
 	 */
 	public GenericPage<MusicArticle> getMusicArticlePagingList(MusicArticleSearch pageCondition);
 
 	/**
-	 * @return Áßº¹Á¦°ÅµÈ ÆÄÀÏ ÀúÀå °æ·Î
+	 * @return ì¤‘ë³µì œê±°ëœ íŒŒì¼ ì €ì¥ ê²½ë¡œ
 	 */
 	public List<String> getMusicArticlePath();
 
 	/**
-	 * À½¾Ç µî·Ï
+	 * ìŒì•… ë“±ë¡
 	 * 
 	 * @param item
 	 */
 	public void createMusicArticle(MusicArticle item);
 
 	/**
-	 * À½¾Ç ¼öÁ¤
+	 * ìŒì•… ìˆ˜ì •
 	 * 
 	 * @param item
 	 */
 	public void updateMusicArticle(MusicArticle item);
 
 	/**
-	 * À½¾Ç »èÁ¦
+	 * ìŒì•… ì‚­ì œ
 	 * 
 	 * @param musicArticleId
 	 */
 	public void removeMusicArticle(String musicArticleId);
 
-	// ------ ¾Ù¹ü Á¤º¸
+	// ------ ì•¨ë²” ì •ë³´
 	/**
 	 * @param albumSeq
-	 *            ¾Ù¹ü ÀÏ·Ã¹øÈ£
-	 * @return ¾Ù¹ü Á¤º¸
+	 *            ì•¨ë²” ì¼ë ¨ë²ˆí˜¸
+	 * @return ì•¨ë²” ì •ë³´
 	 */
 	public Album getAlbum(int albumSeq);
 
 	/**
 	 * @param pageCondition
-	 *            °Ë»ö Á¶°Ç
-	 * @return ¾Ù¹ü Á¤º¸ ¸ñ·Ï
+	 *            ê²€ìƒ‰ ì¡°ê±´
+	 * @return ì•¨ë²” ì •ë³´ ëª©ë¡
 	 */
 	public GenericPage<Album> getAlbumList(AlbumSearch pageCondition);
 
 	/**
-	 * µî·Ï
+	 * ë“±ë¡
 	 * 
 	 * @param item
-	 *            ¾Ù¹ü Á¤º¸
+	 *            ì•¨ë²” ì •ë³´
 	 */
 	public void createAlbum(Album item);
 
 	/**
-	 * ¼öÁ¤
+	 * ìˆ˜ì •
 	 * 
 	 * @param item
-	 *            ¾Ù¹ü Á¤º¸
+	 *            ì•¨ë²” ì •ë³´
 	 */
 	public void updateAlbum(Album item);
 
 	/**
-	 * »èÁ¦
+	 * ì‚­ì œ
 	 * 
 	 * @param albumSeq
-	 *            ¾Ù¹ü ÀÏ·Ã¹øÈ£
+	 *            ì•¨ë²” ì¼ë ¨ë²ˆí˜¸
 	 */
 	public void removeAlbum(int albumSeq);
 
-	// ------ Play Item Á¤º¸
+	// ------ Play Item ì •ë³´
 	/**
 	 * @param playItemSeq
-	 *            Àç»ı ÆÄÀÏ ÀÏ·Ã¹øÈ£
-	 * @return ¾Ù¹ü Á¤º¸
+	 *            ì¬ìƒ íŒŒì¼ ì¼ë ¨ë²ˆí˜¸
+	 * @return ì•¨ë²” ì •ë³´
 	 */
 	public PlayItem getPlayItem(int playItemSeq);
 
 	/**
 	 * @param pageCondition
-	 *            °Ë»ö Á¶°Ç
-	 * @return ¾Ù¹ü Á¤º¸ ¸ñ·Ï
+	 *            ê²€ìƒ‰ ì¡°ê±´
+	 * @return ì•¨ë²” ì •ë³´ ëª©ë¡
 	 */
 	public GenericPage<PlayItem> getPlayItemList(PlayItemSearch pageCondition);
 
 	/**
-	 * µî·Ï
+	 * ë“±ë¡
 	 * 
 	 * @param item
-	 *            Àç»ı ÆÄÀÏ
+	 *            ì¬ìƒ íŒŒì¼
 	 */
 	public void createPlayItem(PlayItem item);
 
 	/**
-	 * ¼öÁ¤
+	 * ìˆ˜ì •
 	 * 
 	 * @param item
-	 *            Àç»ı ÆÄÀÏ
+	 *            ì¬ìƒ íŒŒì¼
 	 */
 	public void updatePlayItem(PlayItem item);
 
 	/**
-	 * »èÁ¦
+	 * ì‚­ì œ
 	 * 
 	 * @param playItemSeq
-	 *            Àç»ı ÆÄÀÏ ÀÏ·Ã¹øÈ£
+	 *            ì¬ìƒ íŒŒì¼ ì¼ë ¨ë²ˆí˜¸
 	 */
 	public void removePlayItem(int playItemSeq);
 
-	// ------ Play Time Á¤º¸
+	// ------ Play Time ì •ë³´
 
 	/**
 	 * @param playTimeSeq
 	 * 
-	 * @return Àç»ı ½Ã°£ Á¤º¸
+	 * @return ì¬ìƒ ì‹œê°„ ì •ë³´
 	 */
 	public PlayTime getPlayTime(int playTimeSeq);
 
 	/**
 	 * @param pageCondition
-	 *            °Ë»ö Á¶°Ç
-	 * @return ¾Ù¹ü Á¤º¸ ¸ñ·Ï
+	 *            ê²€ìƒ‰ ì¡°ê±´
+	 * @return ì•¨ë²” ì •ë³´ ëª©ë¡
 	 */
 	public GenericPage<PlayTime> getPlayTimeList(PlayTimeSearch pageCondition);
 
 	/**
-	 * µî·Ï
+	 * ë“±ë¡
 	 * 
 	 * @param item
-	 *            Àç»ı ÆÄÀÏ
+	 *            ì¬ìƒ íŒŒì¼
 	 */
 	public void createPlayTime(PlayTime item);
 
 	/**
-	 * ¼öÁ¤
+	 * ìˆ˜ì •
 	 * 
 	 * @param item
-	 *            Àç»ı ÆÄÀÏ
+	 *            ì¬ìƒ íŒŒì¼
 	 */
 	public void updatePlayTime(PlayTime item);
 
 	/**
-	 * »èÁ¦
+	 * ì‚­ì œ
 	 * 
 	 * @param playTimeSeq
-	 *            Àç»ı ÆÄÀÏ ÀÏ·Ã¹øÈ£
+	 *            ì¬ìƒ íŒŒì¼ ì¼ë ¨ë²ˆí˜¸
 	 */
 	public void removePlayTime(int playTimeSeq);
 

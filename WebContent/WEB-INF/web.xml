@@ -45,7 +45,7 @@
 	</servlet>
   <servlet>
     <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.setvect.gwt.server.GreetingServiceImpl</servlet-class>
+    <servlet-class>com.setvect.bokslmusic.ui.server.MainPageServiceImpl</servlet-class>
   </servlet>
   
 

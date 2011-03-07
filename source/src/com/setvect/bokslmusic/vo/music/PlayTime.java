@@ -14,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * ¾Ù¹ü Á¤º¸
+ * ì•¨ë²” ì •ë³´
  * 
  * @version $Id$
  */
@@ -22,18 +22,18 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "TBAE_PLAY_TIME")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PlayTime {
-	/** ÀÏ·Ã¹øÈ£ */
+	/** ì¼ë ¨ë²ˆí˜¸ */
 	@Id
 	@Column(name = "PLAY_TIME_SEQ")
 	@GenericGenerator(name = "hibernate-increment", strategy = "increment")
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "hibernate-increment")
 	private int playTimeSeq;
 
-	/** ÆÄÀÏ ¾ÆÀÌµğ */
+	/** íŒŒì¼ ì•„ì´ë”” */
 	@Column(name = "MUSIC_ID")
 	private String musicId;
 
-	/** ¾Ù¹üÀÏ·Ã¹øÈ£ */
+	/** ì•¨ë²”ì¼ë ¨ë²ˆí˜¸ */
 	@Column(name = "PLAY_DATE")
 	private Date playDate;
 

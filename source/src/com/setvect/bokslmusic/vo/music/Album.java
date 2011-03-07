@@ -9,7 +9,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * ¾Ù¹ü Á¤º¸
+ * ì•¨ë²” ì •ë³´
  * 
  * @version $Id$
  */
@@ -17,12 +17,12 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Table(name = "TBAC_ALBUM")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Album {
-	/** ¾Ù¹üÀÏ·Ã¹øÈ£ */
+	/** ì•¨ë²”ì¼ë ¨ë²ˆí˜¸ */
 	@Id
 	@Column(name = "ALBUM_SEQ")
 	private int albumSeq;
 
-	/** ¾Ù¹ü ÀÌ¸§ */
+	/** ì•¨ë²” ì´ë¦„ */
 	@Column(name = "NAME")
 	private String name;
 

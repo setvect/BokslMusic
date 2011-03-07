@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.setvect.bokslmusic.boot.EnvirmentInit;
 
 /**
- * Å×½ºÆ® ÇÏ±âÀ§ÇÑ ¾îÇÃ¸®ÄÉÀÌ¼Ç bootup °úÁ¤ ÁøÇà
+ * í…ŒìŠ¤íŠ¸ í•˜ê¸°ìœ„í•œ ì–´í”Œë¦¬ì¼€ì´ì…˜ bootup ê³¼ì • ì§„í–‰
  * 
  * @version $Id: TestSystem.java 54 2010-08-09 14:25:54Z setvect@naver.com $
  */

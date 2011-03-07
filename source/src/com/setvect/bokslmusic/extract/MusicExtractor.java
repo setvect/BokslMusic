@@ -32,8 +32,8 @@ public class MusicExtractor {
 	}
 
 	/**
-	 * ÇÏÀ§ Æú´õ¸¦ Å½»öÇÏ¿© Æ¯Á¤ È®ÀåÀÚ¸¦ °®´Â ÆÄÀÏ ¸ñ·ÏÀ» °Ë»ö <br>
-	 * TODO °øÅë ¶óÀÌºê·¯¸®·Î ÀÌµ¿
+	 * í•˜ìœ„ í´ë”ë¥¼ íƒìƒ‰í•˜ì—¬ íŠ¹ì • í™•ì¥ìë¥¼ ê°–ëŠ” íŒŒì¼ ëª©ë¡ì„ ê²€ìƒ‰ <br>
+	 * TODO ê³µí†µ ë¼ì´ë¸ŒëŸ¬ë¦¬ë¡œ ì´ë™
 	 * 
 	 * @version $Id$
 	 */
@@ -44,9 +44,9 @@ public class MusicExtractor {
 
 		/**
 		 * @param baseDir
-		 *            °Ë»ö ½ÃÀÛ µğ·ºÅä¸®
+		 *            ê²€ìƒ‰ ì‹œì‘ ë””ë ‰í† ë¦¬
 		 * @param ext
-		 *            °Ë»ö ´ë»ó È®ÀåÀÚ. È®ÀåÀÚ´Â .(ÂÀ)À» Æ÷ÇÔ <br>
+		 *            ê²€ìƒ‰ ëŒ€ìƒ í™•ì¥ì. í™•ì¥ìëŠ” .(ì©œ)ì„ í¬í•¨ <br>
 		 *            ex) .hwp, .mp3, ...
 		 */
 		FileFinder(File baseDir, String[] ext) {
@@ -61,7 +61,7 @@ public class MusicExtractor {
 		}
 
 		/**
-		 * @return ÆÄÀÏ ¸ñ·Ï
+		 * @return íŒŒì¼ ëª©ë¡
 		 */
 		public List<File> getFiles() {
 			return Collections.unmodifiableList(files);

@@ -29,13 +29,13 @@ public class MusicExtractorTestCase extends TestSystem {
 		Assert.assertThat(sf.getName(), is("a.mp3"));
 
 		String title = musicMetadata.getAlSongMetadata().getTitle();
-		Assert.assertThat(title, is("¾ğÁ¨°¡´Â"));
+		Assert.assertThat(title, is("ì–¸ì  ê°€ëŠ”"));
 
 		MusicArticle marticle = musicMetadata.getMusicArticle();
 		Assert.assertThat(marticle.getMusicId(), is("ce7681520effc58d30dd1cc3beb3d5f9"));
 		Assert.assertThat(marticle.getFileSize(), is(6099615));
-		Assert.assertThat(marticle.getTitleExt(), is("¾ğÁ¨°¡´Â"));
-		Assert.assertThat(marticle.getTitleTag(), is("02. ¾ğÁ¨°¡´Â (Someday)"));
+		Assert.assertThat(marticle.getTitleExt(), is("ì–¸ì  ê°€ëŠ”"));
+		Assert.assertThat(marticle.getTitleTag(), is("02. ì–¸ì  ê°€ëŠ” (Someday)"));
 		Assert.assertThat(marticle.getSamplingRate(), is(44100));
 		Assert.assertThat(marticle.getBitRate(), is(192));
 		musicArticleService.createMusicArticle(marticle);
@@ -43,7 +43,7 @@ public class MusicExtractorTestCase extends TestSystem {
 
 	@Test
 	public void testPlural() {
-		File baseDir = new File("D:\\90.¸ÖÆ¼¹Ìµğ¾î");
+		File baseDir = new File("D:\\90.ë©€í‹°ë¯¸ë””ì–´");
 		List<MusicMetadata> musicMetes = MusicExtractor.listForDir(baseDir);
 		System.out.println(musicMetes.size());
 
@@ -53,7 +53,7 @@ public class MusicExtractorTestCase extends TestSystem {
 			try {
 				marticle = music.getMusicArticle();
 			} catch (Exception e) {
-				LogPrinter.out.error("ÆÄÀÏ º¯È¯ ¾ÈµÊ: " + e.getMessage());
+				LogPrinter.out.error("íŒŒì¼ ë³€í™˜ ì•ˆë¨: " + e.getMessage());
 				continue;
 			}
 			System.out.println(marticle.toString());

@@ -22,8 +22,8 @@ import com.setvect.common.log.LogPrinter;
 import com.setvect.common.util.LapTimeChecker;
 
 /**
- * ÀüÃ¼ ½ÌÅ©¸¦ ÇÏ±â À§ÇØ¼­´Â <br>
- * syncDirectory() -> syncDb() ¼ø¼­·Î ÇÔ
+ * ì „ì²´ ì‹±í¬ë¥¼ í•˜ê¸° ìœ„í•´ì„œëŠ” <br>
+ * syncDirectory() -> syncDb() ìˆœì„œë¡œ í•¨
  * 
  * @version $Id$
  */
@@ -33,16 +33,16 @@ public class MusicSyncService {
 	private MusicService service;
 
 	/**
-	 * À½¾Ç ÆÄÀÏÀ» ±âÁØÀ¸·Î ÀúÀåµÈ DB¿Í ½ÌÅ©<br>
-	 * DB Á¤º¸¿¡´Â ¼öÁ¤/µî·ÏÀÌ ÀÏ¾î³².<br>
-	 * »èÁ¦ ÀÛ¾÷Àº ÀÏ¾î³ªÁö ¾ÊÀ½
+	 * ìŒì•… íŒŒì¼ì„ ê¸°ì¤€ìœ¼ë¡œ ì €ì¥ëœ DBì™€ ì‹±í¬<br>
+	 * DB ì •ë³´ì—ëŠ” ìˆ˜ì •/ë“±ë¡ì´ ì¼ì–´ë‚¨.<br>
+	 * ì‚­ì œ ì‘ì—…ì€ ì¼ì–´ë‚˜ì§€ ì•ŠìŒ
 	 * 
 	 * @param baseDir
-	 *            ½ÌÅ©ÇÒ À½¾Ç ÆÄÀÏÀÌ ÀÖ´Â µğ·ºÅä¸®
+	 *            ì‹±í¬í•  ìŒì•… íŒŒì¼ì´ ìˆëŠ” ë””ë ‰í† ë¦¬
 	 */
 	public void syncDirectory(File baseDir) {
 		LapTimeChecker ck = new LapTimeChecker("Sync Directory");
-		SyncLogPrinter.log("=====" + DateUtil.getSysDateTime() + " µğ·ºÅä¸® ±âÁØ ½ÌÅ© ½ÃÀÛ: " + baseDir.getAbsolutePath());
+		SyncLogPrinter.log("=====" + DateUtil.getSysDateTime() + " ë””ë ‰í† ë¦¬ ê¸°ì¤€ ì‹±í¬ ì‹œì‘: " + baseDir.getAbsolutePath());
 		List<MusicMetadata> musicMetes = MusicExtractor.listForDir(baseDir);
 		int modifyCount = 0;
 		int newCount = 0;
@@ -53,17 +53,17 @@ public class MusicSyncService {
 
 		Logger.getLogger("org.jaudiotagger.tag").setLevel(Level.WARNING);
 
-		ck.check("ÀüÃ¼: " + musicMetes.size());
+		ck.check("ì „ì²´: " + musicMetes.size());
 		for (MusicMetadata music : musicMetes) {
 			count++;
 			if (count % 10 == 0) {
-				ck.check(count + "/" + musicMetes.size() + " ÁøÇà");
+				ck.check(count + "/" + musicMetes.size() + " ì§„í–‰");
 			}
 
 			File sourceFile = music.getSourceFile();
 			String headerCode = music.getHeaderCode();
 			if (headerCode == null) {
-				SyncLogPrinter.log("[¿¡·¯]" + sourceFile.getAbsolutePath());
+				SyncLogPrinter.log("[ì—ëŸ¬]" + sourceFile.getAbsolutePath());
 				errorCount++;
 				continue;
 			}
@@ -75,14 +75,14 @@ public class MusicSyncService {
 				boolean noChange = dbPath.equals(sourceFile);
 
 				if (noChange) {
-					String msg = String.format("[Åë°ú] [%s] %s ", headerCode, art.getFile());
+					String msg = String.format("[í†µê³¼] [%s] %s ", headerCode, art.getFile());
 					SyncLogPrinter.log(msg);
 					nothingCount++;
 					continue;
 				}
 
 				updatePath(sourceFile, art);
-				String msg = String.format("[º¯°æ] [%s] %s -> %s", headerCode, dbPath.getPath(),
+				String msg = String.format("[ë³€ê²½] [%s] %s -> %s", headerCode, dbPath.getPath(),
 						sourceFile.getAbsoluteFile());
 				SyncLogPrinter.log(msg);
 				modifyCount++;
@@ -94,38 +94,38 @@ public class MusicSyncService {
 				marticle = music.getMusicArticle();
 				service.createMusicArticle(marticle);
 			} catch (Exception e) {
-				SyncLogPrinter.log("[¿¡·¯]" + e.getMessage());
+				SyncLogPrinter.log("[ì—ëŸ¬]" + e.getMessage());
 				LogPrinter.out.warn(e);
 				errorCount++;
 				continue;
 			}
-			String msg = String.format("[½Å±Ô] [%s] %s ", headerCode, marticle.getPath());
+			String msg = String.format("[ì‹ ê·œ] [%s] %s ", headerCode, marticle.getPath());
 			newCount++;
 			SyncLogPrinter.log(msg);
 
 		}
-		ck.check(count + "/" + musicMetes.size() + " ¿Ï·á");
-		SyncLogPrinter.log("\n°°Àº ÆÄÀÏÀÌÁö¸¸ ¼­·Î °æ·Î°¡ ´Ù¸¥ ÆÄÀÏ(Áï Áßº¹µÈ ÆÄÀÏ) ¸ñ·Ï");
+		ck.check(count + "/" + musicMetes.size() + " ì™„ë£Œ");
+		SyncLogPrinter.log("\nê°™ì€ íŒŒì¼ì´ì§€ë§Œ ì„œë¡œ ê²½ë¡œê°€ ë‹¤ë¥¸ íŒŒì¼(ì¦‰ ì¤‘ë³µëœ íŒŒì¼) ëª©ë¡");
 		fileOverlapPrint(overlapCheck);
 
-		String msg = String.format("ÃÑ:%,d : º¯È­¾øÀ½:%,d : ½Å±Ôµî·Ï:%,d : °æ·Î¼öÁ¤:%,d : ¿¡·¯:%,d ", musicMetes.size(), nothingCount,
+		String msg = String.format("ì´:%,d : ë³€í™”ì—†ìŒ:%,d : ì‹ ê·œë“±ë¡:%,d : ê²½ë¡œìˆ˜ì •:%,d : ì—ëŸ¬:%,d ", musicMetes.size(), nothingCount,
 				newCount, modifyCount, errorCount);
 		SyncLogPrinter.log(msg);
-		SyncLogPrinter.log("-----" + DateUtil.getSysDateTime() + " µğ·ºÅä¸® ±âÁØ ½ÌÅ© Á¾·á: " + baseDir.getAbsolutePath()
+		SyncLogPrinter.log("-----" + DateUtil.getSysDateTime() + " ë””ë ‰í† ë¦¬ ê¸°ì¤€ ì‹±í¬ ì¢…ë£Œ: " + baseDir.getAbsolutePath()
 				+ "\n\n");
-		ck.check("Á¾·á ½Ã°£");
+		ck.check("ì¢…ë£Œ ì‹œê°„");
 	}
 
 	/**
-	 * À½¾Ç ÆÄÀÏ°ú ÀúÀåµÈ DB¿Í ½ÌÅ©<br>
-	 * DB Á¤º¸¿¡´Â »èÁ¦ ÀÛ¾÷ÀÌ ÀÏ¾î³²<br>
+	 * ìŒì•… íŒŒì¼ê³¼ ì €ì¥ëœ DBì™€ ì‹±í¬<br>
+	 * DB ì •ë³´ì—ëŠ” ì‚­ì œ ì‘ì—…ì´ ì¼ì–´ë‚¨<br>
 	 * 
 	 * @param baseDir
-	 *            ½ÌÅ©ÇÒ À½¾Ç ÆÄÀÏÀÌ ÀÖ´Â µğ·ºÅä¸®
+	 *            ì‹±í¬í•  ìŒì•… íŒŒì¼ì´ ìˆëŠ” ë””ë ‰í† ë¦¬
 	 */
 	public void syncDb() {
 		LapTimeChecker ck = new LapTimeChecker("Sync DB");
-		SyncLogPrinter.log("=====" + DateUtil.getSysDateTime() + " DB ±âÁØ ½ÌÅ© ½ÃÀÛ: ");
+		SyncLogPrinter.log("=====" + DateUtil.getSysDateTime() + " DB ê¸°ì¤€ ì‹±í¬ ì‹œì‘: ");
 
 		Collection<MusicArticle> listAll = service.getMusicArticleAllList();
 		int deleteCount = 0;
@@ -135,7 +135,7 @@ public class MusicSyncService {
 		for (MusicArticle article : listAll) {
 			count++;
 			if (count % 10 == 0) {
-				ck.check(count + "/" + listAll.size() + " ÁøÇà");
+				ck.check(count + "/" + listAll.size() + " ì§„í–‰");
 			}
 
 			File musicFile = new File(article.getPath());
@@ -153,23 +153,23 @@ public class MusicSyncService {
 			if (delete) {
 				service.removeMusicArticle(article.getMusicId());
 				deleteCount++;
-				SyncLogPrinter.log("[»èÁ¦]" + musicFile.getAbsolutePath());
+				SyncLogPrinter.log("[ì‚­ì œ]" + musicFile.getAbsolutePath());
 			}
 			else {
 				nothingCount++;
-				SyncLogPrinter.log("[Åë°ú]" + musicFile.getAbsolutePath());
+				SyncLogPrinter.log("[í†µê³¼]" + musicFile.getAbsolutePath());
 			}
 		}
-		ck.check(count + "/" + listAll.size() + " ¿Ï·á");
+		ck.check(count + "/" + listAll.size() + " ì™„ë£Œ");
 
-		String msg = String.format("ÃÑ:%,d : º¯È­¾øÀ½:%,d : »èÁ¦:%,d ", listAll.size(), nothingCount, deleteCount);
+		String msg = String.format("ì´:%,d : ë³€í™”ì—†ìŒ:%,d : ì‚­ì œ:%,d ", listAll.size(), nothingCount, deleteCount);
 		SyncLogPrinter.log(msg);
-		SyncLogPrinter.log("-----" + DateUtil.getSysDateTime() + " DB ±âÁØ ½ÌÅ© Á¾·á\n\n");
-		ck.check("Á¾·á ½Ã°£");
+		SyncLogPrinter.log("-----" + DateUtil.getSysDateTime() + " DB ê¸°ì¤€ ì‹±í¬ ì¢…ë£Œ\n\n");
+		ck.check("ì¢…ë£Œ ì‹œê°„");
 	}
 
 	/**
-	 * Áßº¹µÈ ÆÄÀÏ Ç¥½Ã
+	 * ì¤‘ë³µëœ íŒŒì¼ í‘œì‹œ
 	 * 
 	 * @param overlapCheck
 	 */
@@ -181,18 +181,18 @@ public class MusicSyncService {
 			if (list.size() < 2) {
 				continue;
 			}
-			SyncLogPrinter.log("µ¿ÀÏÇÑ ÆÄÀÏ : " + headerCode);
+			SyncLogPrinter.log("ë™ì¼í•œ íŒŒì¼ : " + headerCode);
 			for (File f : list) {
 				SyncLogPrinter.log(" - " + f.getAbsolutePath());
 			}
 			overLapCount++;
 		}
-		SyncLogPrinter.log("ÃÑ: " + overLapCount + "°Ç\n");
+		SyncLogPrinter.log("ì´: " + overLapCount + "ê±´\n");
 	}
 
 	/**
-	 * À½¿ø Å°(md5)°¡ °°Àº ÆÄÀÏÀ» ÀúÀå <br>
-	 * ÇâÈÄ ÆÄÀÏ °æ·Î´Â ´Ù¸£Áö¸¸ °°Àº ÆÄÀÏ(md5ÄÚµå°ªÀÌ °°Àº)À» Ã£¾Æ³¿
+	 * ìŒì› í‚¤(md5)ê°€ ê°™ì€ íŒŒì¼ì„ ì €ì¥ <br>
+	 * í–¥í›„ íŒŒì¼ ê²½ë¡œëŠ” ë‹¤ë¥´ì§€ë§Œ ê°™ì€ íŒŒì¼(md5ì½”ë“œê°’ì´ ê°™ì€)ì„ ì°¾ì•„ëƒ„
 	 * 
 	 * @param overlapCheck
 	 * @param sourceFile
@@ -208,7 +208,7 @@ public class MusicSyncService {
 	}
 
 	/**
-	 * °æ·Î¿Í ÀÌ¸§Á¤º¸¸¸ º¯°æ
+	 * ê²½ë¡œì™€ ì´ë¦„ì •ë³´ë§Œ ë³€ê²½
 	 * 
 	 * @param sourceFile
 	 * @param art

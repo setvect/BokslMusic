@@ -15,8 +15,8 @@ public class Mp3AudioMetadataTestCase {
 		Mp3AudioMetadata audio = new Mp3AudioMetadata(source);
 		Assert.assertThat(audio.getSamplingRate(), is(44100));
 		Assert.assertThat(audio.getBatRate(), is(192));
-		Assert.assertThat(audio.getTitle(), is("02. ¾ğÁ¨°¡´Â (Someday)"));
-		Assert.assertThat(audio.getArtist(), is("ÀÌ»óÀº"));
+		Assert.assertThat(audio.getTitle(), is("02. ì–¸ì  ê°€ëŠ” (Someday)"));
+		Assert.assertThat(audio.getArtist(), is("ì´ìƒì€"));
 		Assert.assertThat(audio.getYear(), is("1993"));
 		Assert.assertThat(audio.getGenre(), is("Other"));
 	}

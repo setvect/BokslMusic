@@ -16,7 +16,7 @@ import com.setvect.common.util.FileUtil;
 import com.setvect.common.util.StringUtilAd;
 
 /**
- * ÇÁ·ÎÁ§Æ® ÀÇÁ¸ÀûÀÎ °øÅë ¸Ş¼Òµå ¸ğÀ½
+ * í”„ë¡œì íŠ¸ ì˜ì¡´ì ì¸ ê³µí†µ ë©”ì†Œë“œ ëª¨ìŒ
  * 
  * @version $Id$
  */
@@ -26,9 +26,9 @@ public class CommonUtil {
 	/**
 	 * @param request
 	 * @param listName
-	 *            displaytag ID ÀÌ¸§
-	 * @return displaytag ÆÄ¶ó¹ÌÅÍ°¡ ÀÖÀ¸¸é ÇØ´ç ÆÄ¶ó¹ÌÅÍÀÇ ÆäÀÌÁö °ª, ¾øÀ¸¸é "currentPage" ÆÄ¶ó¹ÌÅÍ °ª,
-	 *         ÀÌ°Íµµ ¾øÀ¸¸é 1
+	 *            displaytag ID ì´ë¦„
+	 * @return displaytag íŒŒë¼ë¯¸í„°ê°€ ìˆìœ¼ë©´ í•´ë‹¹ íŒŒë¼ë¯¸í„°ì˜ í˜ì´ì§€ ê°’, ì—†ìœ¼ë©´ "currentPage" íŒŒë¼ë¯¸í„° ê°’,
+	 *         ì´ê²ƒë„ ì—†ìœ¼ë©´ 1
 	 */
 	public static int getCurrentPage(HttpServletRequest request, String listName) {
 		String pageParam = getPageParamName(listName);
@@ -43,8 +43,8 @@ public class CommonUtil {
 
 	/**
 	 * @param listName
-	 *            displaytag ID ÀÌ¸§
-	 * @return diplaytag ÆäÀÌÁö Á¤º¸ ÆÄ¶ó¹ÌÅÍ ÀÌ¸§
+	 *            displaytag ID ì´ë¦„
+	 * @return diplaytag í˜ì´ì§€ ì •ë³´ íŒŒë¼ë¯¸í„° ì´ë¦„
 	 */
 	public static String getPageParamName(String listName) {
 		String pageParam = new ParamEncoder(listName).encodeParameterName(TableTagParameters.PARAMETER_PAGE);
@@ -52,10 +52,10 @@ public class CommonUtil {
 	}
 
 	/**
-	 * search·Î ½ÃÀÛµÇ´Â ¸Ş¼Òµå¸¦ ºĞ¼®ÇÏ¿© ÇØ´ç ÀÌ¸§°ú °ªÀ» ¸ÊÀ¸·Î ¸¸µë
+	 * searchë¡œ ì‹œì‘ë˜ëŠ” ë©”ì†Œë“œë¥¼ ë¶„ì„í•˜ì—¬ í•´ë‹¹ ì´ë¦„ê³¼ ê°’ì„ ë§µìœ¼ë¡œ ë§Œë“¬
 	 * 
 	 * @param pageCondition
-	 * @return °Ë»ö ¸Ê
+	 * @return ê²€ìƒ‰ ë§µ
 	 * @throws InvocationTargetException
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
@@ -76,7 +76,7 @@ public class CommonUtil {
 	}
 
 	/**
-	 * ÆÄÀÏ ¾÷·Îµå Ã¼Å©
+	 * íŒŒì¼ ì—…ë¡œë“œ ì²´í¬
 	 */
 	public static CheckAllowUploadFile checkAllowUploadFile() throws ApplicationException {
 		return new CheckAllowUploadFile() {

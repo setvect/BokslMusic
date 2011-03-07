@@ -14,7 +14,7 @@ import com.setvect.common.db.TableCreateInfo;
 import com.setvect.common.log.LogPrinter;
 
 /**
- * H2 DB ÃÊ±âÈ­ ÇÏ´Â °Í°ú °°À½.
+ * H2 DB ì´ˆê¸°í™” í•˜ëŠ” ê²ƒê³¼ ê°™ìŒ.
  * 
  * @version $Id: H2DBInitializer.java 112 2010-09-23 20:08:52Z setvect@naver.com $
  */
@@ -24,7 +24,7 @@ public class H2DBInitializer extends DBInitializer {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	/** »ç¿ëÀÚ Å×ÀÌºíÀ» ÀÇ¹ÌÇÏ´Â Å¸ÀÔ °ª */
+	/** ì‚¬ìš©ì í…Œì´ë¸”ì„ ì˜ë¯¸í•˜ëŠ” íƒ€ì… ê°’ */
 	private static final String DEFAULT_TABLE_TYPE = "TABLE";
 
 	/*
@@ -53,11 +53,11 @@ public class H2DBInitializer extends DBInitializer {
 	}
 
 	/**
-	 * Å×ÀÌºí°ú Å×ÀÌºí¿¡ °ü·ÃµÈ µ¥ÀÌÅÍ ¹× Á¦¾àÁ¶°Ç µî·Ï<br>
-	 * ¸¸¾à ÀÌÀü¿¡ Å×ÀÌºíÀÌ µî·ÏµÇ¾î ÀÖÀ¸¸é µî·Ï ÇÏÁö ¾ÊÀ½
+	 * í…Œì´ë¸”ê³¼ í…Œì´ë¸”ì— ê´€ë ¨ëœ ë°ì´í„° ë° ì œì•½ì¡°ê±´ ë“±ë¡<br>
+	 * ë§Œì•½ ì´ì „ì— í…Œì´ë¸”ì´ ë“±ë¡ë˜ì–´ ìˆìœ¼ë©´ ë“±ë¡ í•˜ì§€ ì•ŠìŒ
 	 * 
 	 * @param tableInfo
-	 *            Å×ÀÌºí »ı¼º Á¤º¸
+	 *            í…Œì´ë¸” ìƒì„± ì •ë³´
 	 */
 	private void createTable(TableCreateInfo tableInfo) {
 		Session session = sessionFactory.getCurrentSession();
@@ -70,14 +70,14 @@ public class H2DBInitializer extends DBInitializer {
 		List resultTable = query.list();
 
 		if (resultTable.size() != 0) {
-			// Å×ÀÌºí Á¸Àç
+			// í…Œì´ë¸” ì¡´ì¬
 			return;
 		}
 
 		query = session.createSQLQuery(tableInfo.getScript());
 		query.executeUpdate();
 
-		// ±âº»µ¥ÀÌÅÍ ¹× Á¦¾àÁ¶°Ç
+		// ê¸°ë³¸ë°ì´í„° ë° ì œì•½ì¡°ê±´
 		String[] qs = tableInfo.getQuerise();
 		for (String q : qs) {
 			query = session.createSQLQuery(q);

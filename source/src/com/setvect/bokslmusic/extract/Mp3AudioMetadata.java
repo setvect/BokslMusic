@@ -11,8 +11,8 @@ import org.jaudiotagger.tag.id3.ID3v1Tag;
 import org.jaudiotagger.tag.id3.ID3v24Tag;
 
 /**
- * MP3 ÆÄÀÏ ¸ŞÅ¸µ¥ÀÌÅÍ ºĞ¼®<br/>
- * ÅÂ±× ¹öÀü V1¸¸ ¼öÁ¤
+ * MP3 íŒŒì¼ ë©”íƒ€ë°ì´í„° ë¶„ì„<br/>
+ * íƒœê·¸ ë²„ì „ V1ë§Œ ìˆ˜ì •
  */
 public class Mp3AudioMetadata extends GenericAudioMetadata {
 	private final File sourceFile;
@@ -27,7 +27,7 @@ public class Mp3AudioMetadata extends GenericAudioMetadata {
 		try {
 			f = (MP3File) AudioFileIO.read(sourceFile);
 		} catch (Exception e) {
-			throw new RuntimeException("ÆÄÀÏ : " + sourceFile.getAbsolutePath(), e);
+			throw new RuntimeException("íŒŒì¼ : " + sourceFile.getAbsolutePath(), e);
 		}
 		v1Tag = f.getID3v1Tag();
 		if (v1Tag != null) {
@@ -37,7 +37,7 @@ public class Mp3AudioMetadata extends GenericAudioMetadata {
 	}
 
 	/**
-	 * @return Á¦¸ñ
+	 * @return ì œëª©
 	 */
 	public String getTitle() {
 		if (v1Tag == null) {
@@ -52,7 +52,7 @@ public class Mp3AudioMetadata extends GenericAudioMetadata {
 	}
 
 	/**
-	 * @return °¡¼ö/¿¬ÁÖÀÚ
+	 * @return ê°€ìˆ˜/ì—°ì£¼ì
 	 */
 	public String getArtist() {
 		if (v1Tag == null) {
@@ -76,14 +76,14 @@ public class Mp3AudioMetadata extends GenericAudioMetadata {
 	}
 
 	/**
-	 * @return ¾Ù¹ü
+	 * @return ì•¨ë²”
 	 */
 	public String getAlbum() {
 		return null;
 	}
 
 	/**
-	 * @return ³âµµ
+	 * @return ë…„ë„
 	 */
 	public String getYear() {
 		if (v1Tag == null) {
@@ -97,7 +97,7 @@ public class Mp3AudioMetadata extends GenericAudioMetadata {
 	}
 
 	/**
-	 * @return Àå¸£
+	 * @return ì¥ë¥´
 	 */
 	public String getGenre() {
 		if (v1Tag == null) {
@@ -111,9 +111,9 @@ public class Mp3AudioMetadata extends GenericAudioMetadata {
 	}
 
 	/**
-	 * Ç×ÈÄ ±¸Çö. ÇöÀç ±îÁöÁö´Â ¾Æ¹«·± Á¤º¸ ¾øÀ½
+	 * í•­í›„ êµ¬í˜„. í˜„ì¬ ê¹Œì§€ì§€ëŠ” ì•„ë¬´ëŸ° ì •ë³´ ì—†ìŒ
 	 * 
-	 * @return Æ®·¢.
+	 * @return íŠ¸ë™.
 	 */
 	public String getTrack() {
 		return null;

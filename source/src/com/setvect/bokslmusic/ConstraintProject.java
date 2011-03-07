@@ -5,61 +5,61 @@ import java.util.List;
 import com.setvect.bokslmusic.config.EnvirmentProperty;
 
 /**
- * ÇÁ·ÎÁ§Æ® ÀÇÁ¸ÀûÀÎ »ó¼ö ¸ğÀ½
+ * í”„ë¡œì íŠ¸ ì˜ì¡´ì ì¸ ìƒìˆ˜ ëª¨ìŒ
  * 
  * @version $Id: ConstraintProject.java 128 2010-10-10 11:54:38Z
  *          setvect@naver.com $
  */
 public class ConstraintProject {
-	/** ¹®ÇĞ¼Ò³â: ±âº» Æ²À» °¡Áø ºä ÀÌ¸§ */
+	/** ë¬¸í•™ì†Œë…„: ê¸°ë³¸ í‹€ì„ ê°€ì§„ ë·° ì´ë¦„ */
 	public final static String PMS_LAYOUT = "pms/layout";
 
-	/** ¾÷·Îµå ±âÁØ URL */
+	/** ì—…ë¡œë“œ ê¸°ì¤€ URL */
 	public final static String UPLOAD_URL_BASE = EnvirmentProperty.getString("com.setvect.bokslmusic.file_upload_url");
 
 	public enum AttributeKey {
-		// jsp¿¡ Àü´ŞÇÒ ÀÎÄğ·çµå ÆäÀÌÁö Á¤º¸
+		// jspì— ì „ë‹¬í•  ì¸ì¿¨ë£¨ë“œ í˜ì´ì§€ ì •ë³´
 		INCLUDE_PAGE,
-		// ¼­ºñ½º ÁÖ¼Ò ÀúÀå
+		// ì„œë¹„ìŠ¤ ì£¼ì†Œ ì €ì¥
 		SERVLET_URL,
-		// °Ô½ÃÆÇ ÀüÃ¼ Á¤º¸
+		// ê²Œì‹œíŒ ì „ì²´ ì •ë³´
 		BOARD_ITEMS,
-		// »óÀ§ ÄÁÆ®·Ñ·¯¿¡¼­ Àü´ŞÇÏ´Â ºä ¸ğµ¨
+		// ìƒìœ„ ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ì „ë‹¬í•˜ëŠ” ë·° ëª¨ë¸
 		MODEL_VIEW,
-		// Äõ¸®½ºÆ®¸µ±îÁö Æ÷ÇÔµÈ URL Á¤º¸
+		// ì¿¼ë¦¬ìŠ¤íŠ¸ë§ê¹Œì§€ í¬í•¨ëœ URL ì •ë³´
 		RETURN_URL,
 	}
 
 	/**
-	 * ´ëºĞ·ù ÄÚµå
+	 * ëŒ€ë¶„ë¥˜ ì½”ë“œ
 	 * 
 	 * @version $Id$
 	 */
 	public enum Code {
 		/** */
 		ROOT,
-		/** ÅõÀÔÀÎ·Âº° ´Ü°¡ */
+		/** íˆ¬ì…ì¸ë ¥ë³„ ë‹¨ê°€ */
 		MM_COST,
-		/** ¿ø°¡ Ç×¸ñ */
+		/** ì›ê°€ í•­ëª© */
 		PRD_COST,
-		/** ¸ÅÃâ Ç×¸ñ */
+		/** ë§¤ì¶œ í•­ëª© */
 		SALE,
-		/** ÇÁ·ÎÁ§Æ® ºĞ·ù */
+		/** í”„ë¡œì íŠ¸ ë¶„ë¥˜ */
 		PRJ_CLASSIFY,
-		/** Á÷±Ş ºĞ·ù */
+		/** ì§ê¸‰ ë¶„ë¥˜ */
 		POSITION
 	}
 
 	/**
-	 * Æ¯º°ÇÑ ÄÚµå °ª
+	 * íŠ¹ë³„í•œ ì½”ë“œ ê°’
 	 */
 	public enum CodeSpecial {
-		// ¿ø°¡ Ç×¸ñ
+		// ì›ê°€ í•­ëª©
 		MM, OUT_MM, GOODS, DIRECT, BUSINESS
 	}
 
 	/**
-	 * ÇÁ·ÎÁ§Æ® Æ®¸® Ç¥½Ã¿¡ °ü·ÃµÈ »ó¼ö °ª
+	 * í”„ë¡œì íŠ¸ íŠ¸ë¦¬ í‘œì‹œì— ê´€ë ¨ëœ ìƒìˆ˜ ê°’
 	 */
 	public static class TreeMenu {
 		public static final String COOKIE_NAME = "_tree_type";
@@ -67,10 +67,10 @@ public class ConstraintProject {
 		public static final String TYPE_SITE_NAME = "siteName";
 	}
 
-	/** ¾÷·Îµå ÆÄÀÏ È®ÀåÀÚ */
+	/** ì—…ë¡œë“œ íŒŒì¼ í™•ì¥ì */
 	public final static String[] ALLOW_UPLOAD_FILE;
 
-	/** ÇÇµå »ı¼º ¹öÀü */
+	/** í”¼ë“œ ìƒì„± ë²„ì „ */
 	public static String FEED_TYPE = "rss_2.0";
 
 	static {
@@ -82,29 +82,29 @@ public class ConstraintProject {
 		}
 	}
 
-	/** ÆĞ½º¿öµå ¾ÏÈ£È­ ¾Ë°í¸®Áò */
+	/** íŒ¨ìŠ¤ì›Œë“œ ì•”í˜¸í™” ì•Œê³ ë¦¬ì¦˜ */
 	public final static String PASSWD_ALGORITHM = "MD5";
 
-	/** ·Î±×ÀÎ ÄíÅ° Å°°ª */
+	/** ë¡œê·¸ì¸ ì¿ í‚¤ í‚¤ê°’ */
 	public static final String USER_COOKIE_KEY = "_user_cookie_key";
 
-	/** ¾ÆÀÌµğ ÀúÀå ÄíÅ° ÀÌ¸§ */
+	/** ì•„ì´ë”” ì €ì¥ ì¿ í‚¤ ì´ë¦„ */
 	public static final String USER_COOKIE_ID = "_user_cookie_id";
 
-	/** ·Î±×ÀÎ attribute Å°°ª */
+	/** ë¡œê·¸ì¸ attribute í‚¤ê°’ */
 	public static final String USER_SESSION_KEY = "_user_session_key";
 
-	/** ¸®ÅÏ URL ÆÄ¶ó¹ÌÅÍ ÀÌ¸§ */
+	/** ë¦¬í„´ URL íŒŒë¼ë¯¸í„° ì´ë¦„ */
 	public static final String RETURN_URL = "returnUrl";
 
-	/** ¸ŞÀÎÈ­¸é °Ô½ÃÆÇ ÄÚµå */
+	/** ë©”ì¸í™”ë©´ ê²Œì‹œíŒ ì½”ë“œ */
 	public static final String NOTICE_BOARD = "NOTICE";
 
 	/**
-	 * ÅõÀÔ ³¯Â¥¿¡ µû¸¥ Man Day <br>
+	 * íˆ¬ì… ë‚ ì§œì— ë”°ë¥¸ Man Day <br>
 	 * 21.5day == 1Man Day
 	 */
-	// 2011-02-09 »ç¿ë¾ÈÇÔ
+	// 2011-02-09 ì‚¬ìš©ì•ˆí•¨
 	// public static final double DAY_OF_MM = 21.5;
 
 }

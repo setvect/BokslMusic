@@ -22,7 +22,7 @@ public class MusicService {
 	@Autowired
 	private MusicDao musicArticleDao;
 
-	// ------ À½¾Ç °æ·Î °ü¸®
+	// ------ ìŒì•… ê²½ë¡œ ê´€ë¦¬
 	public MusicDirectory getMusicPath(String basePath) {
 		return musicArticleDao.getMusicPath(basePath);
 	}
@@ -43,7 +43,7 @@ public class MusicService {
 		musicArticleDao.removeMusicPath(basePath);
 	}
 
-	// ------ À½¾Ç ¸ñ·Ï °ü¸®
+	// ------ ìŒì•… ëª©ë¡ ê´€ë¦¬
 	public MusicArticle getMusicArticle(String musicArticleId) {
 		return musicArticleDao.getMusicArticle(musicArticleId);
 	}
@@ -57,10 +57,10 @@ public class MusicService {
 	}
 
 	/**
-	 * getMusicArticlePath()¸Ş¼Òµå¿Í ºñ½ÁÇÑ ¿ªÇÒÀ» ÇÏÁö¸¸, °Ë»öµÈ À½¾ÇÆÄÀÏ °á°ú ³»¿¡¼­ pathÀ» ÃßÃâÇÏ¿© Áßº¹Á¦°ÅÇØ
-	 * ¸ñ·Ï ¸®ÅÏ
+	 * getMusicArticlePath()ë©”ì†Œë“œì™€ ë¹„ìŠ·í•œ ì—­í• ì„ í•˜ì§€ë§Œ, ê²€ìƒ‰ëœ ìŒì•…íŒŒì¼ ê²°ê³¼ ë‚´ì—ì„œ pathì„ ì¶”ì¶œí•˜ì—¬ ì¤‘ë³µì œê±°í•´
+	 * ëª©ë¡ ë¦¬í„´
 	 * 
-	 * @TODO ÇâÈÄ Ä³½ÌÀ» ÀÌ¿ëÇØ ¼Óµµ °³¼±
+	 * @TODO í–¥í›„ ìºì‹±ì„ ì´ìš©í•´ ì†ë„ ê°œì„ 
 	 * @param pageCondition
 	 * @return
 	 */
@@ -78,7 +78,7 @@ public class MusicService {
 	}
 
 	/**
-	 * @return DB¿¡ ÀÖ´Â ÀüÃ¼ À½¿ø ¸ñ·Ï
+	 * @return DBì— ìˆëŠ” ì „ì²´ ìŒì› ëª©ë¡
 	 */
 	public Collection<MusicArticle> getMusicArticleAllList() {
 		MusicArticleSearch pageCondition = new MusicArticleSearch(1);
@@ -99,7 +99,7 @@ public class MusicService {
 		musicArticleDao.removeMusicArticle(musicArticleId);
 	}
 
-	// ------ ¾Ù¹ü Á¤º¸
+	// ------ ì•¨ë²” ì •ë³´
 
 	public Album getAlbum(int albumSeq) {
 		return musicArticleDao.getAlbum(albumSeq);
@@ -121,7 +121,7 @@ public class MusicService {
 		musicArticleDao.removeAlbum(albumSeq);
 	}
 
-	// ------ Play Item Á¤º¸
+	// ------ Play Item ì •ë³´
 	public PlayItem getPlayItem(int playItemSeq) {
 		return musicArticleDao.getPlayItem(playItemSeq);
 	}
@@ -142,7 +142,7 @@ public class MusicService {
 		musicArticleDao.removePlayItem(playItemSeq);
 	}
 
-	// ------ Play Time Á¤º¸
+	// ------ Play Time ì •ë³´
 
 	public PlayTime getPlayTime(int playTimeSeq) {
 		return musicArticleDao.getPlayTime(playTimeSeq);

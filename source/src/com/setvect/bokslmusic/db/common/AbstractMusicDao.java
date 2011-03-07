@@ -23,12 +23,12 @@ import com.setvect.common.util.GenericPage;
 import com.setvect.common.util.StringUtilAd;
 
 /**
- * ÀÌ½´°ü¸® °ü¸® DAO
+ * ì´ìŠˆê´€ë¦¬ ê´€ë¦¬ DAO
  * 
  * @version $Id$
  */
 public abstract class AbstractMusicDao implements MusicDao {
-	// ------ À½¾Ç °æ·Î °ü¸®
+	// ------ ìŒì•… ê²½ë¡œ ê´€ë¦¬
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -67,7 +67,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		session.flush();
 	}
 
-	// ------ À½¾Ç ¸ñ·Ï °ü¸®
+	// ------ ìŒì•… ëª©ë¡ ê´€ë¦¬
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -112,7 +112,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 
 	/**
 	 * @param pageCondition
-	 * @return Á¤·Ä Á¶°Ç
+	 * @return ì •ë ¬ ì¡°ê±´
 	 */
 	private String orderClause(MusicArticleSearch pageCondition) {
 		String order = " order by name ";
@@ -217,7 +217,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		session.flush();
 	}
 
-	// ------ ¾Ù¹ü Á¤º¸
+	// ------ ì•¨ë²” ì •ë³´
 	public Album getAlbum(int albumSeq) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Album) session.get(Album.class, albumSeq);
@@ -271,7 +271,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		session.flush();
 	}
 
-	// ------ Play Item Á¤º¸
+	// ------ Play Item ì •ë³´
 	public PlayItem getPlayItem(int playItemSeq) {
 		Session session = sessionFactory.getCurrentSession();
 		return (PlayItem) session.get(PlayItem.class, playItemSeq);
@@ -325,7 +325,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		session.flush();
 	}
 
-	// ------ Play Time Á¤º¸
+	// ------ Play Time ì •ë³´
 	public PlayTime getPlayTime(int playTimeSeq) {
 		Session session = sessionFactory.getCurrentSession();
 		return (PlayTime) session.get(PlayTime.class, playTimeSeq);
@@ -354,7 +354,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 
 	private String getPlayTimeWhereClause(PlayTimeSearch pageCondition) {
 		String where = " where 1 = 1 ";
-		// ¾ÆÁ÷Àº Æ¯º°È÷ °Ë»ö Á¶°ÇÀ» ³ÖÀ»°Ô ¾øÀ½
+		// ì•„ì§ì€ íŠ¹ë³„íˆ ê²€ìƒ‰ ì¡°ê±´ì„ ë„£ì„ê²Œ ì—†ìŒ
 		return where;
 	}
 

@@ -33,7 +33,7 @@ public class FlacTest
 	 */
 	public static void main(String[] args)
 	{
-		File sourceFile = new File("E:\\10.¸ÖÆ¼¹Ìµğ¾î\\03.À½¾Ç\\03_Å¬·¡½Ä\\³×Æ¼ÁğÀÌ »ÌÀº Å¬·¡½Ä º£½ºÆ®36-We Get Classics Requests(Vol.1)\\[FLAC] Classics Requests Vol.1_CD1\\11. ¿¤°¡ - À§Ç³´ç´ç ÇàÁø°î 1¹ø.flac");
+		File sourceFile = new File("E:\\10.ë©€í‹°ë¯¸ë””ì–´\\03.ìŒì•…\\03_í´ë˜ì‹\\ë„¤í‹°ì¦Œì´ ë½‘ì€ í´ë˜ì‹ ë² ìŠ¤íŠ¸36-We Get Classics Requests(Vol.1)\\[FLAC] Classics Requests Vol.1_CD1\\11. ì—˜ê°€ - ìœ„í’ë‹¹ë‹¹ í–‰ì§„ê³¡ 1ë²ˆ.flac");
 
 		try
 		{

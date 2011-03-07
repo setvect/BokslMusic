@@ -1,21 +1,21 @@
 package com.setvect.bokslmusic.extract;
 
 /**
- * @version $Id$ ¿Àµğ¿À ¸ŞÅ¸ Á¤º¸
+ * @version $Id$ ì˜¤ë””ì˜¤ ë©”íƒ€ ì •ë³´
  */
 public interface AudioMetadata {
 	/**
-	 * @return »ùÇÃ¸µ ºñÀ²
+	 * @return ìƒ˜í”Œë§ ë¹„ìœ¨
 	 */
 	public int getSamplingRate();
 
 	/**
-	 * @return ºñÆ®·¹ÀÌÆ®
+	 * @return ë¹„íŠ¸ë ˆì´íŠ¸
 	 */
 	public int getBatRate();
 
 	/**
-	 * @return Àç»ı½Ã°£(ÃÊ´ÜÀ§)
+	 * @return ì¬ìƒì‹œê°„(ì´ˆë‹¨ìœ„)
 	 */
 	public int getRunningTime();
 

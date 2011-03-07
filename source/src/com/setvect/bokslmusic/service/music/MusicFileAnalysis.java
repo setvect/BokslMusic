@@ -18,15 +18,15 @@ import com.setvect.common.log.LogPrinter;
 import com.zuch.music.util.Md5Util;
 
 /**
- * À½¿ø ÆÄÀÏ¿¡ µû¸¥ ºĞ¼® ÀÎ½ºÅÏ½º Á¦°ø
+ * ìŒì› íŒŒì¼ì— ë”°ë¥¸ ë¶„ì„ ì¸ìŠ¤í„´ìŠ¤ ì œê³µ
  * 
  * @version $Id$
  */
 public class MusicFileAnalysis {
-	/** À½¿ø Ã¹ ¹øÂ° ÇÁ·¹ÀÓ */
+	/** ìŒì› ì²« ë²ˆì§¸ í”„ë ˆì„ */
 	private static final int HEADER_LENGTH = 160 * 1024;
 
-	/** È®ÀåÀÚ¿¡ µû¸¥ À½¿ø Å¸ÀÔ ¸ÉÇÎ */
+	/** í™•ì¥ìì— ë”°ë¥¸ ìŒì› íƒ€ì… ë§´í•‘ */
 	public static final Map<String, MusicFileKind> EXT_MAPPING = new HashMap<String, MusicFileAnalysis.MusicFileKind>();
 	static {
 		EXT_MAPPING.put(".mp3", MusicFileKind.MP3);
@@ -36,7 +36,7 @@ public class MusicFileAnalysis {
 	}
 
 	/**
-	 * À½¿ø ÆÄÀÏ¿¡ µû¸¥ ºĞ¼® ÀÎ½ºÅÏ½º Á¦°ø
+	 * ìŒì› íŒŒì¼ì— ë”°ë¥¸ ë¶„ì„ ì¸ìŠ¤í„´ìŠ¤ ì œê³µ
 	 */
 	public enum MusicFileKind {
 		MP3, OGG, WMA, FLAC;
@@ -60,8 +60,8 @@ public class MusicFileAnalysis {
 
 		/**
 		 * @param audioFile
-		 *            À½¿øÆÄÀÏ
-		 * @return À½¿ø ÆÄÀÏÀÇ ÇØ´õ ºÎºĞ ¿µ¿ªÀÇ md5 ÄÚµå
+		 *            ìŒì›íŒŒì¼
+		 * @return ìŒì› íŒŒì¼ì˜ í•´ë” ë¶€ë¶„ ì˜ì—­ì˜ md5 ì½”ë“œ
 		 */
 		public String getHeaderMd5(File audioFile) {
 			switch (this) {
@@ -81,10 +81,10 @@ public class MusicFileAnalysis {
 
 	/**
 	 * @param audioFile
-	 * @return MP3 Header °ª
+	 * @return MP3 Header ê°’
 	 */
 	private static String getMp3Md5(File audioFile) {
-		// ¿Àµğ¿À ½ÃÀÛ À§Ä¡
+		// ì˜¤ë””ì˜¤ ì‹œì‘ ìœ„ì¹˜
 		long audioStartBytePosition = 0;
 		try {
 			MP3File f = (MP3File) AudioFileIO.read(audioFile);
@@ -100,10 +100,10 @@ public class MusicFileAnalysis {
 
 	/**
 	 * @param audioFile
-	 * @return Ogg Header °ª
+	 * @return Ogg Header ê°’
 	 */
 	private static String getOggMd5(File audioFile) {
-		// ¿Àµğ¿À ½ÃÀÛ À§Ä¡
+		// ì˜¤ë””ì˜¤ ì‹œì‘ ìœ„ì¹˜
 		long audioStartBytePosition = 0;
 		String s = Md5Util.getMD5Checksum(audioFile, audioStartBytePosition, HEADER_LENGTH);
 		return s;
@@ -111,10 +111,10 @@ public class MusicFileAnalysis {
 
 	/**
 	 * @param audioFile
-	 * @return Wma Header °ª
+	 * @return Wma Header ê°’
 	 */
 	private static String getWmaMd5(File audioFile) {
-		// ¿Àµğ¿À ½ÃÀÛ À§Ä¡
+		// ì˜¤ë””ì˜¤ ì‹œì‘ ìœ„ì¹˜
 		long audioStartBytePosition = 0;
 		String s = Md5Util.getMD5Checksum(audioFile, audioStartBytePosition, HEADER_LENGTH);
 		return s;
@@ -122,10 +122,10 @@ public class MusicFileAnalysis {
 
 	/**
 	 * @param audioFile
-	 * @return Flac Header °ª
+	 * @return Flac Header ê°’
 	 */
 	private static String getFlacMd5(File audioFile) {
-		// ¿Àµğ¿À ½ÃÀÛ À§Ä¡
+		// ì˜¤ë””ì˜¤ ì‹œì‘ ìœ„ì¹˜
 		long audioStartBytePosition = 0;
 		RandomAccessFile raf = null;
 		try {

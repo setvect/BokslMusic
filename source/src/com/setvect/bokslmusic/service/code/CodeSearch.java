@@ -3,7 +3,7 @@ package com.setvect.bokslmusic.service.code;
 import com.setvect.common.util.SearchListVo;
 
 /**
- * ÄÚµå ¸ñ·Ï ÆäÀÌÂ¡ ¹× °Ë»ö Á¶°Ç
+ * ì½”ë“œ ëª©ë¡ í˜ì´ì§• ë° ê²€ìƒ‰ ì¡°ê±´
  * 
  * @version $Id$
  */
@@ -12,10 +12,10 @@ public class CodeSearch extends SearchListVo {
 	/** */
 	private static final long serialVersionUID = -1949906111337073961L;
 
-	/** ¸ŞÀÎ ÄÚµå */
+	/** ë©”ì¸ ì½”ë“œ */
 	private String searchMainCode;
 
-	/** ÄÚµå°ª, like °Ë»ö */
+	/** ì½”ë“œê°’, like ê²€ìƒ‰ */
 	private String searchValue;
 
 	public CodeSearch(int currentPage) {

@@ -3,7 +3,7 @@ package com.setvect.bokslmusic.service.music;
 import com.setvect.common.util.SearchListVo;
 
 /**
- * Àç»ı ½Ã°£ Á¤º¸ 
+ * ì¬ìƒ ì‹œê°„ ì •ë³´ 
  */
 public class PlayTimeSearch extends SearchListVo {
 

@@ -12,7 +12,7 @@ import com.setvect.bokslmusic.vo.code.Code;
 import com.setvect.common.util.GenericPage;
 
 /**
- * ÄÚµå °ü¸® ¸ğµâ
+ * ì½”ë“œ ê´€ë¦¬ ëª¨ë“ˆ
  * 
  * @version $Id$
  */
@@ -35,7 +35,7 @@ public class CodeService {
 	/**
 	 * @param mainCode
 	 * @param subCode
-	 * @return ÄÚµå°ª
+	 * @return ì½”ë“œê°’
 	 */
 	public String getCodeValue(String mainCode, String subCode) {
 		Code c = codeDao.getCode(mainCode, subCode);
@@ -56,8 +56,8 @@ public class CodeService {
 
 	/**
 	 * @param mainCode
-	 *            »óÀ§ ÄÚµå
-	 * @return ÇØ´ç »óÀ§ÄÚµå¿¡ ¼ÓÇÑ ¸ñ·Ï
+	 *            ìƒìœ„ ì½”ë“œ
+	 * @return í•´ë‹¹ ìƒìœ„ì½”ë“œì— ì†í•œ ëª©ë¡
 	 */
 	public GenericPage<Code> getCodePagingList(String mainCode) {
 		CodeSearch codeSearch = new CodeSearch(1);
@@ -68,8 +68,8 @@ public class CodeService {
 
 	/**
 	 * @param mainCode
-	 *            »óÀ§
-	 * @return ÇØ´ç »óÀ§ÄÚµå¿¡ ¼ÓÇÑ ¸ñ·Ï
+	 *            ìƒìœ„
+	 * @return í•´ë‹¹ ìƒìœ„ì½”ë“œì— ì†í•œ ëª©ë¡
 	 */
 	public Collection<Code> getCodeList(String mainCode) {
 		GenericPage<Code> l = getCodePagingList(mainCode);
@@ -77,7 +77,7 @@ public class CodeService {
 	}
 
 	/**
-	 * ¼­ºê ÄÚµå¿Í °ªÀ» mapÀ¸·Î ¸¸µé¾î ÁÜ
+	 * ì„œë¸Œ ì½”ë“œì™€ ê°’ì„ mapìœ¼ë¡œ ë§Œë“¤ì–´ ì¤Œ
 	 * 
 	 * @param mainCode
 	 * @return
