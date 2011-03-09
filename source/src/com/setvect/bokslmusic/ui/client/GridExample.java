@@ -12,28 +12,18 @@ import java.util.List;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.FieldEvent;
-import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
-import com.extjs.gxt.ui.client.widget.form.ComboBox.TriggerAction;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
-import com.extjs.gxt.ui.client.widget.grid.CellSelectionModel;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
-import com.extjs.gxt.ui.client.widget.grid.GridSelectionModel;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.extjs.gxt.ui.client.widget.table.NumberCellRenderer;
 import com.extjs.gxt.ui.client.widget.tips.QuickTip;
-import com.extjs.gxt.ui.client.widget.toolbar.LabelToolItem;
-import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.Element;
 
@@ -100,7 +90,6 @@ public class GridExample extends LayoutContainer {
 
 		column = new ColumnConfig("date", "Last Updated", 100);
 		column.setAlignment(HorizontalAlignment.RIGHT);
-		column.setDateTimeFormat(DateTimeFormat.getShortDateFormat());
 		configs.add(column);
 
 		ListStore<Stock> store = new ListStore<Stock>();
@@ -109,9 +98,8 @@ public class GridExample extends LayoutContainer {
 		cm = new ColumnModel(configs);
 
 		ContentPanel cp = new ContentPanel();
-		cp.setBodyBorder(true);
 		// cp.setIcon(Resources.ICONS.table());
-		cp.setHeading("Basic Grid");
+		cp.setHeaderVisible(false);
 		cp.setButtonAlign(HorizontalAlignment.CENTER);
 		cp.setLayout(new FitLayout());
 		cp.getHeader().setIconAltText("Grid Icon");
@@ -124,37 +112,7 @@ public class GridExample extends LayoutContainer {
 		grid.setStripeRows(true);
 		grid.setColumnLines(true);
 		grid.setColumnReordering(true);
-		grid.getAriaSupport().setLabelledBy(cp.getHeader().getId() + "-label");
 		cp.add(grid);
-
-		ToolBar toolBar = new ToolBar();
-		toolBar.getAriaSupport().setLabel("Grid Options");
-
-		toolBar.add(new LabelToolItem("Selection Mode: "));
-		final SimpleComboBox<String> type = new SimpleComboBox<String>();
-		type.getAriaSupport().setLabelledBy(toolBar.getItem(0).getId());
-		type.setTriggerAction(TriggerAction.ALL);
-		type.setEditable(false);
-		type.setFireChangeEventOnSetValue(true);
-		type.setWidth(100);
-		type.add("Row");
-		type.add("Cell");
-		type.setSimpleValue("Row");
-		type.addListener(Events.Change, new Listener<FieldEvent>() {
-			public void handleEvent(FieldEvent be) {
-				boolean cell = type.getSimpleValue().equals("Cell");
-				grid.getSelectionModel().deselectAll();
-				if (cell) {
-					grid.setSelectionModel(new CellSelectionModel<Stock>());
-				}
-				else {
-					grid.setSelectionModel(new GridSelectionModel<Stock>());
-				}
-			}
-		});
-		toolBar.add(type);
-
-		cp.setTopComponent(toolBar);
 
 		add(cp);
 
@@ -188,28 +146,6 @@ public class GridExample extends LayoutContainer {
 		stocks.add(new Stock("Limelight Networks", "LLNW", 23, 22.11));
 		stocks.add(new Stock("Amazon.com, Inc.", "AMZN", 72.47, 72.23));
 
-		stocks.add(new Stock("E TRADE Financial Corporation", "ETFC", 24.32, 24.58));
-		stocks.add(new Stock("AVANIR Pharmaceuticals", "AVNR", 3.7, 3.52));
-		stocks.add(new Stock("Gemstar-TV Guide, Inc.", "GMST", 4.41, 4.55));
-		stocks.add(new Stock("Akamai Technologies, Inc.", "AKAM", 43.08, 45.32));
-		stocks.add(new Stock("Motorola, Inc.", "MOT", 17.74, 17.69));
-		stocks.add(new Stock("Advanced Micro Devices, Inc.", "AMD", 13.77, 13.98));
-		stocks.add(new Stock("General Electric Company", "GE", 36.8, 36.91));
-		stocks.add(new Stock("Texas Instruments Incorporated", "TXN", 35.02, 35.7));
-		stocks.add(new Stock("Qwest Communications", "Q", 9.9, 10.03));
-		stocks.add(new Stock("Tyco International Ltd.", "TYC", 33.48, 33.26));
-		stocks.add(new Stock("Pfizer Inc.", "PFE", 26.21, 26.19));
-		stocks.add(new Stock("Time Warner Inc.", "TWX", 20.3, 20.45));
-		stocks.add(new Stock("Sprint Nextel Corporation", "S", 21.85, 21.76));
-		stocks.add(new Stock("Bank of America Corporation", "BAC", 49.92, 49.73));
-		stocks.add(new Stock("Taiwan Semiconductor", "TSM", 10.4, 10.52));
-		stocks.add(new Stock("AT&T Inc.", "T", 39.7, 39.66));
-		stocks.add(new Stock("United States Steel Corporation", "X", 115.81, 114.62));
-		stocks.add(new Stock("Exxon Mobil Corporation", "XOM", 81.77, 81.86));
-		stocks.add(new Stock("Valero Energy Corporation", "VLO", 72.46, 72.6));
-		stocks.add(new Stock("Micron Technology, Inc.", "MU", 12.02, 12.27));
-		stocks.add(new Stock("Verizon Communications Inc.", "VZ", 42.5, 42.61));
-		stocks.add(new Stock("Avaya Inc.", "AV", 16.96, 16.96));
 		stocks.add(new Stock("The Home Depot, Inc.", "HD", 37.66, 37.79));
 
 		stocks.add(new Stock("First Data Corporation", "FDC", 32.7, 32.65));
