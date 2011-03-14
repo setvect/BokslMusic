@@ -7,7 +7,7 @@
 <link type="text/css" rel="stylesheet" href="ExtGWT/css/gxt-all.css"/>
 <script type="text/javascript" 
 		src="bokslmusic/bokslmusic.nocache.js"></script>
-<title>복슬 Music</title>
+<title></title>
 </head>
 <body>
 </body>
