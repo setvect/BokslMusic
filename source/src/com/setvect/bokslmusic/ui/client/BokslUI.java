@@ -9,6 +9,8 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -28,7 +30,7 @@ public class BokslUI implements EntryPoint {
 	}
 
 	private Widget headerPannel() {
-		Label titleHeader = new Label("복슬 Music");
+		Label titleHeader = new Label("ABC");
 		return titleHeader;
 	}
 
@@ -49,6 +51,13 @@ public class BokslUI implements EntryPoint {
 		syncHoriVerty1.add(syncHoriVerty1Top);
 		GridExample syncHoriVerty1Grid = new GridExample();
 		syncHoriVerty1.add(syncHoriVerty1Grid);
+
+		FlowPanel syncHoriVerty1Bottom = new FlowPanel();
+		TextBox syncHoriVerty1BottomText = new TextBox();
+		Button syncHoriVerty1BottomBtn = new Button("등록");
+		syncHoriVerty1Bottom.add(syncHoriVerty1BottomText);
+		syncHoriVerty1Bottom.add(syncHoriVerty1BottomBtn);
+		syncHoriVerty1.add(syncHoriVerty1Bottom);
 		syncHori.add(syncHoriVerty1);
 
 		VerticalPanel syncHoriVerty2 = new VerticalPanel();
