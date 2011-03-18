@@ -5,10 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link type="text/css" rel="stylesheet" href="ExtGWT/css/gxt-all.css"/>
+<link type="text/css" rel="stylesheet" href="css/boksl.css"/>
 <script type="text/javascript" 
 		src="bokslmusic/bokslmusic.nocache.js"></script>
 <title></title>
 </head>
 <body>
 </body>
-</html>
+</html> 

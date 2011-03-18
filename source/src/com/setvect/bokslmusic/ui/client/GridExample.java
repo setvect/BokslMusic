@@ -20,7 +20,6 @@ import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.BoxComponent;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
-import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
@@ -29,18 +28,16 @@ import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
-import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
 
 public class GridExample extends LayoutContainer {
-
+	private int gridHeight = 200;
 	private ColumnModel cm;
 
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
-		setLayout(new FlowLayout(10));
 		getAriaSupport().setPresentation(true);
 
 		GridCellRenderer<MusicDirectoryModel> gridNumber = new GridCellRenderer<MusicDirectoryModel>() {
@@ -87,10 +84,7 @@ public class GridExample extends LayoutContainer {
 
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 
-		ColumnConfig column = new ColumnConfig();
-		column.setId("basePath");
-		column.setHeader("BasePath");
-		column.setWidth(200);
+		ColumnConfig column = new ColumnConfig("basePath", "BasePath", 100);
 		column.setRowHeader(true);
 		configs.add(column);
 
@@ -99,13 +93,18 @@ public class GridExample extends LayoutContainer {
 		column.setRenderer(gridNumber);
 		configs.add(column);
 
-		column = new ColumnConfig("basePath", "하이", 100);
+		column = new ColumnConfig("basePath", "동기화", 100);
+		column.setAlignment(HorizontalAlignment.CENTER);
+		column.setRenderer(buttonRenderer);
+		configs.add(column);
+
+		column = new ColumnConfig("basePath", "삭제", 100);
 		column.setAlignment(HorizontalAlignment.CENTER);
 		column.setRenderer(buttonRenderer);
 		configs.add(column);
 
 		ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
-		store.add(getStocks());
+		store.add(getTempData());
 
 		cm = new ColumnModel(configs);
 
@@ -114,8 +113,7 @@ public class GridExample extends LayoutContainer {
 		cp.setHeaderVisible(false);
 		cp.setButtonAlign(HorizontalAlignment.CENTER);
 		cp.setLayout(new FitLayout());
-		cp.getHeader().setIconAltText("Grid Icon");
-		cp.setHeight(200);
+		cp.setHeight(gridHeight);
 
 		final Grid<MusicDirectoryModel> grid = new Grid<MusicDirectoryModel>(store, cm);
 		grid.setStyleAttribute("borderTop", "none");
@@ -129,7 +127,21 @@ public class GridExample extends LayoutContainer {
 		add(cp);
 	}
 
-	private List<MusicDirectoryModel> getStocks() {
+	/**
+	 * @return 그리드 높이 
+	 */
+	public int getGridHeight() {
+		return gridHeight;
+	}
+
+	/**
+	 * @param gridHeight 그리드 높이
+	 */
+	public void setGridHeight(int gridHeight) {
+		this.gridHeight = gridHeight;
+	}
+
+	private static List<MusicDirectoryModel> getTempData() {
 		List<MusicDirectoryModel> stocks = new ArrayList<MusicDirectoryModel>();
 
 		MusicDirectoryModel dir1Model = new MusicDirectoryModel("c:\\util", new Date());
@@ -139,5 +151,4 @@ public class GridExample extends LayoutContainer {
 		stocks.add(dir2Model);
 		return stocks;
 	}
-
 }

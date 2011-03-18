@@ -1,0 +1,43 @@
+﻿@CHARSET "utf-8";
+.subPannelTitle{
+	font-weight: bold;
+}
+
+
+#warp{
+	width: 100%;
+}
+
+#contentBody{
+	width: 98%;
+}
+
+#syncPannel .spliteHorizontal{
+	border:2px solid #c7dafa;
+	width: 100%;
+}
+#syncPannel .spliteHorizontal > tbody > tr > td{
+	border:2px solid #c7dafa;
+}
+
+#syncPannel .listTable{
+	width: 400px;
+}
+
+#syncPannel .log{
+	width: 100%;
+}
+
+#syncPannel .log .subPannelHeader{
+	width: 100%;  
+}
+
+#syncPannel .log .subPannelHeader td:nth-last-child(1){
+	text-align: right;
+}
+
+
+
+#syncPannel .log .scroll{
+	height: 200px;
+}

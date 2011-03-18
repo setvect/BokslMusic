@@ -2,7 +2,6 @@ package com.setvect.bokslmusic.ui.client;
 
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -23,17 +22,18 @@ public class BokslUI implements EntryPoint {
 
 		HorizontalPanel warp = new HorizontalPanel();
 		warp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		warp.setWidth("100%");
+		warp.getElement().setId("warp");
 
-		VerticalPanel body = new VerticalPanel();
-		warp.add(body);
-		body.setWidth("95%");
-		body.add(headerPannel());
-		body.add(syncPannel());
-		body.add(playPannel());
-		body.add(listPannel());
+		VerticalPanel contentBody = new VerticalPanel();
+		warp.add(contentBody);
+		contentBody.getElement().setId("contentBody");
+		contentBody.add(headerPannel());
+		contentBody.add(syncPannel());
+		contentBody.add(playPannel());
+		contentBody.add(listPannel());
 
 		RootPanel rootPanel = RootPanel.get();
+		// rootPanel에 추가는 맨 나중에 해야지 포함된 Element가 나타남
 		rootPanel.add(warp);
 	}
 
@@ -44,20 +44,21 @@ public class BokslUI implements EntryPoint {
 
 	private Widget syncPannel() {
 		ContentPanel sync = new ContentPanel();
+		sync.setId("syncPannel");
 		sync.setCollapsible(true);
 		sync.setHeading("동길화 설정");
 
 		HorizontalPanel syncHori = new HorizontalPanel();
 		sync.add(syncHori);
+		syncHori.setStyleName("spliteHorizontal");
 
-		syncHori.setBorderWidth(1);
-		syncHori.setWidth("100%");
-		
 		VerticalPanel syncHoriVerty1 = new VerticalPanel();
 		syncHori.add(syncHoriVerty1);
 		syncHori.setCellWidth(syncHoriVerty1, "420");
 
-		syncHoriVerty1.add(new HTML("동기화목록"));
+		Label syncHoriVerty1Label = new Label("동기화목록");
+		syncHoriVerty1.add(syncHoriVerty1Label);
+		syncHoriVerty1Label.setStyleName("elementTitle");
 
 		FlowPanel syncHoriVerty1Top = new FlowPanel();
 		Button syncHoriVerty1TopBtn1 = new Button("DB동기화");
@@ -65,8 +66,11 @@ public class BokslUI implements EntryPoint {
 		syncHoriVerty1Top.add(syncHoriVerty1TopBtn1);
 		syncHoriVerty1Top.add(syncHoriVerty1TopBtn2);
 		syncHoriVerty1.add(syncHoriVerty1Top);
+
 		GridExample syncHoriVerty1Grid = new GridExample();
 		syncHoriVerty1.add(syncHoriVerty1Grid);
+		syncHoriVerty1Grid.setGridHeight(130);
+		syncHoriVerty1Grid.setStyleName("listTable");
 
 		FlowPanel syncHoriVerty1Bottom = new FlowPanel();
 		TextBox syncHoriVerty1BottomText = new TextBox();
@@ -77,12 +81,22 @@ public class BokslUI implements EntryPoint {
 
 		VerticalPanel syncHoriVerty2 = new VerticalPanel();
 		syncHori.add(syncHoriVerty2);
-		syncHoriVerty2.setWidth("100%");
-		syncHoriVerty2.add(new HTML("메시지로그"));
+		syncHoriVerty2.setStyleName("log");
+
+		HorizontalPanel syncHoriVerty2Header = new HorizontalPanel();
+		syncHoriVerty2.add(syncHoriVerty2Header);
+		syncHoriVerty2Header.setStyleName("subPannelHeader");
+		
+		Label syncHoriVerty2HeaderLabel = new Label("메시지 로그");
+		syncHoriVerty2Header.add(syncHoriVerty2HeaderLabel);
+		syncHoriVerty2HeaderLabel.setStyleName("subPannelTitle");
+
+		Button syncHoriVerty2HeaderDel = new Button("지우기");
+		syncHoriVerty2Header.add(syncHoriVerty2HeaderDel);
 
 		ScrollPanel syncHoriVerty2Scroll = new ScrollPanel(new HTML(
 				"메<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>시지로그 내용"));
-		syncHoriVerty2Scroll.setHeight("200px");
+		syncHoriVerty2Scroll.setStyleName("scroll");
 		syncHoriVerty2.add(syncHoriVerty2Scroll);
 
 		return sync;
@@ -90,6 +104,7 @@ public class BokslUI implements EntryPoint {
 
 	private Widget playPannel() {
 		ContentPanel play = new ContentPanel();
+		play.setId("playPannel");
 		play.setCollapsible(true);
 		play.setHeading("음악재생");
 		TextBox txt = new TextBox();
@@ -100,6 +115,7 @@ public class BokslUI implements EntryPoint {
 
 	private Widget listPannel() {
 		ContentPanel list = new ContentPanel();
+		list.setId("listPannel");
 		list.setCollapsible(true);
 		TextBox txt = new TextBox();
 		list.add(txt);
