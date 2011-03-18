@@ -1,6 +1,9 @@
 package com.setvect.bokslmusic.ui.client;
 
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.Slider;
+import com.extjs.gxt.ui.client.widget.form.SliderField;
+import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -54,11 +57,10 @@ public class BokslUI implements EntryPoint {
 
 		VerticalPanel syncHoriVerty1 = new VerticalPanel();
 		syncHori.add(syncHoriVerty1);
-		syncHori.setCellWidth(syncHoriVerty1, "420");
 
 		Label syncHoriVerty1Label = new Label("동기화목록");
 		syncHoriVerty1.add(syncHoriVerty1Label);
-		syncHoriVerty1Label.setStyleName("elementTitle");
+		syncHoriVerty1Label.setStyleName("subPannelTitle");
 
 		FlowPanel syncHoriVerty1Top = new FlowPanel();
 		Button syncHoriVerty1TopBtn1 = new Button("DB동기화");
@@ -67,7 +69,7 @@ public class BokslUI implements EntryPoint {
 		syncHoriVerty1Top.add(syncHoriVerty1TopBtn2);
 		syncHoriVerty1.add(syncHoriVerty1Top);
 
-		GridExample syncHoriVerty1Grid = new GridExample();
+		SyncGrid syncHoriVerty1Grid = new SyncGrid();
 		syncHoriVerty1.add(syncHoriVerty1Grid);
 		syncHoriVerty1Grid.setGridHeight(130);
 		syncHoriVerty1Grid.setStyleName("listTable");
@@ -86,7 +88,7 @@ public class BokslUI implements EntryPoint {
 		HorizontalPanel syncHoriVerty2Header = new HorizontalPanel();
 		syncHoriVerty2.add(syncHoriVerty2Header);
 		syncHoriVerty2Header.setStyleName("subPannelHeader");
-		
+
 		Label syncHoriVerty2HeaderLabel = new Label("메시지 로그");
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderLabel);
 		syncHoriVerty2HeaderLabel.setStyleName("subPannelTitle");
@@ -94,8 +96,7 @@ public class BokslUI implements EntryPoint {
 		Button syncHoriVerty2HeaderDel = new Button("지우기");
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderDel);
 
-		ScrollPanel syncHoriVerty2Scroll = new ScrollPanel(new HTML(
-				"메<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>시지로그 내용"));
+		ScrollPanel syncHoriVerty2Scroll = new ScrollPanel(new HTML("메시지로그 내용"));
 		syncHoriVerty2Scroll.setStyleName("scroll");
 		syncHoriVerty2.add(syncHoriVerty2Scroll);
 
@@ -104,12 +105,98 @@ public class BokslUI implements EntryPoint {
 
 	private Widget playPannel() {
 		ContentPanel play = new ContentPanel();
+
+		// --------------------------
 		play.setId("playPannel");
 		play.setCollapsible(true);
-		play.setHeading("음악재생");
-		TextBox txt = new TextBox();
-		play.add(txt);
-		txt.setText("재생 패널");
+		play.setHeading("재생");
+		HorizontalPanel playHori = new HorizontalPanel();
+		play.add(playHori);
+		playHori.setStyleName("spliteHorizontal");
+
+		VerticalPanel playHoriVerty1 = new VerticalPanel();
+		playHori.add(playHoriVerty1);
+
+		Label playHoriVerty1Label = new Label("제어판");
+		playHoriVerty1.add(playHoriVerty1Label);
+		playHoriVerty1Label.setStyleName("subPannelTitle");
+
+		VerticalPanel playHoriVerty1Control = new VerticalPanel();
+		playHoriVerty1.add(playHoriVerty1Control);
+
+		HorizontalPanel playHoriVerty1ControlH1 = new HorizontalPanel();
+		playHoriVerty1Control.add(playHoriVerty1ControlH1);
+
+		Label playHoriVerty1ControlH1Title = new Label("재생파일명()");
+		playHoriVerty1ControlH1.add(playHoriVerty1ControlH1Title);
+
+		Label playHoriVerty1ControlH1Time = new Label("00:20");
+		playHoriVerty1ControlH1.add(playHoriVerty1ControlH1Time);
+
+		HorizontalPanel playHoriVerty1ControlH2 = new HorizontalPanel();
+		playHoriVerty1Control.add(playHoriVerty1ControlH2);
+
+		Slider playHoriVerty1ControlH2PosSlider = new Slider();
+		playHoriVerty1ControlH2PosSlider.setMinValue(40);
+		playHoriVerty1ControlH2PosSlider.setMaxValue(90);
+		SliderField playHoriVerty1ControlH2PosSliderField = new SliderField(playHoriVerty1ControlH2PosSlider);
+		playHoriVerty1ControlH2.add(playHoriVerty1ControlH2PosSliderField);
+
+		playHoriVerty1ControlH2PosSliderField.setFieldLabel("Size");
+		playHoriVerty1ControlH2PosSliderField.setWidth(120);
+
+		// TODO Icon으로 변경
+		Label playHoriVerty1ControlH2VolumIcon = new Label(">>	");
+		playHoriVerty1ControlH2.add(playHoriVerty1ControlH2VolumIcon);
+
+		Slider playHoriVerty1ControlH2VolumSlider = new Slider();
+		playHoriVerty1ControlH2VolumSlider.setMinValue(0);
+		playHoriVerty1ControlH2VolumSlider.setMaxValue(100);
+
+		SliderField playHoriVerty1ControlH2VolumSliderField = new SliderField(playHoriVerty1ControlH2VolumSlider);
+		playHoriVerty1ControlH2.add(playHoriVerty1ControlH2VolumSliderField);
+		playHoriVerty1ControlH2VolumSliderField.setFieldLabel("Size");
+		playHoriVerty1ControlH2VolumSliderField.setWidth(50);
+
+		HorizontalPanel playHoriVerty1ControlH3 = new HorizontalPanel();
+		playHoriVerty1Control.add(playHoriVerty1ControlH3);
+
+		Label playHoriVerty1ControlH3Bit = new Label("192KB");
+		playHoriVerty1ControlH3.add(playHoriVerty1ControlH3Bit);
+
+		Label playHoriVerty1ControlH3Sampling = new Label("44KH");
+		playHoriVerty1ControlH3.add(playHoriVerty1ControlH3Sampling);
+
+		FlowPanel playHoriVerty1ControlH3Flow = new FlowPanel();
+		playHoriVerty1ControlH3.add(playHoriVerty1ControlH3Flow);
+
+		Button playHoriVerty1ControlH3FlowPrevious = new Button("<<");
+		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowPrevious);
+		Button playHoriVerty1ControlH3FlowPause = new Button("||");
+		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowPause);
+		Button playHoriVerty1ControlH3FlowStop = new Button("■");
+		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowStop);
+		Button playHoriVerty1ControlH3FlowNext = new Button(">>");
+		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowNext);
+
+		// --------------------------
+
+		VerticalPanel playHoriVerty2 = new VerticalPanel();
+		playHori.add(playHoriVerty2);
+
+		Label playHoriVerty2Label = new Label("가사");
+		playHoriVerty2.add(playHoriVerty2Label);
+		playHoriVerty2Label.setStyleName("subPannelTitle");
+
+		// --------------------------
+
+		VerticalPanel playHoriVerty3 = new VerticalPanel();
+		playHori.add(playHoriVerty3);
+
+		Label playHoriVerty3Label = new Label("재생목록");
+		playHoriVerty3.add(playHoriVerty3Label);
+		playHoriVerty3Label.setStyleName("subPannelTitle");
+
 		return play;
 	}
 

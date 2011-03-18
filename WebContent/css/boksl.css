@@ -1,8 +1,9 @@
 ﻿@CHARSET "utf-8";
+
+/* ========== 공통 요소 */
 .subPannelTitle{
 	font-weight: bold;
 }
-
 
 #warp{
 	width: 100%;
@@ -12,13 +13,22 @@
 	width: 98%;
 }
 
+
+/* ========== 동기화 */
 #syncPannel .spliteHorizontal{
 	border:2px solid #c7dafa;
 	width: 100%;
 }
+
 #syncPannel .spliteHorizontal > tbody > tr > td{
 	border:2px solid #c7dafa;
 }
+
+/*IE에서 지원 안됨*/
+#syncPannel .spliteHorizontal > tbody > tr > td:nth-child(1){
+	width: 420px;
+}
+
 
 #syncPannel .listTable{
 	width: 400px;
@@ -32,12 +42,23 @@
 	width: 100%;  
 }
 
+/*IE에서 지원 안됨*/
 #syncPannel .log .subPannelHeader td:nth-last-child(1){
 	text-align: right;
 }
 
-
-
 #syncPannel .log .scroll{
-	height: 200px;
+	height: 170px;
+	background-color: #EAEAEA;
 }
+
+
+/* ========== 재생 */
+#playPannel .spliteHorizontal{
+	border:2px solid #c7dafa;
+	width: 100%;
+}
+
+
+
+/* ========== 목록 */

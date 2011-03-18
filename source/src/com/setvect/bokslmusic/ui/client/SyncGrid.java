@@ -31,7 +31,7 @@ import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
 
-public class GridExample extends LayoutContainer {
+public class SyncGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private ColumnModel cm;
 
