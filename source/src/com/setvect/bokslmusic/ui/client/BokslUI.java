@@ -3,7 +3,6 @@ package com.setvect.bokslmusic.ui.client;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Slider;
 import com.extjs.gxt.ui.client.widget.form.SliderField;
-import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -47,6 +46,8 @@ public class BokslUI implements EntryPoint {
 
 	private Widget syncPannel() {
 		ContentPanel sync = new ContentPanel();
+
+		// --------------------------
 		sync.setId("syncPannel");
 		sync.setCollapsible(true);
 		sync.setHeading("동길화 설정");
@@ -81,6 +82,7 @@ public class BokslUI implements EntryPoint {
 		syncHoriVerty1Bottom.add(syncHoriVerty1BottomBtn);
 		syncHoriVerty1.add(syncHoriVerty1Bottom);
 
+		// --------------------------
 		VerticalPanel syncHoriVerty2 = new VerticalPanel();
 		syncHori.add(syncHoriVerty2);
 		syncHoriVerty2.setStyleName("log");
@@ -97,8 +99,8 @@ public class BokslUI implements EntryPoint {
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderDel);
 
 		ScrollPanel syncHoriVerty2Scroll = new ScrollPanel(new HTML("메시지로그 내용"));
-		syncHoriVerty2Scroll.setStyleName("scroll");
 		syncHoriVerty2.add(syncHoriVerty2Scroll);
+		syncHoriVerty2Scroll.setStyleName("scroll");
 
 		return sync;
 	}
@@ -188,14 +190,40 @@ public class BokslUI implements EntryPoint {
 		playHoriVerty2.add(playHoriVerty2Label);
 		playHoriVerty2Label.setStyleName("subPannelTitle");
 
+		ScrollPanel playHoriVerty2Scroll = new ScrollPanel(new HTML("내<br><br><br><br><br><br><br>용"));
+		playHoriVerty2.add(playHoriVerty2Scroll);
+		playHoriVerty2Scroll.setStyleName("scroll");
+
 		// --------------------------
 
 		VerticalPanel playHoriVerty3 = new VerticalPanel();
 		playHori.add(playHoriVerty3);
 
-		Label playHoriVerty3Label = new Label("재생목록");
-		playHoriVerty3.add(playHoriVerty3Label);
-		playHoriVerty3Label.setStyleName("subPannelTitle");
+		HorizontalPanel playHoriVerty3Header = new HorizontalPanel();
+		playHoriVerty3.add(playHoriVerty3Header);
+		playHoriVerty3Header.setStyleName("subPannelHeader");
+
+		Label playHoriVerty3HeaderLabel = new Label("재생목록");
+		playHoriVerty3Header.add(playHoriVerty3HeaderLabel);
+		playHoriVerty3HeaderLabel.setStyleName("subPannelTitle");
+
+		Label playHoriVerty3HeaderTime = new Label("[0:00:10]");
+		playHoriVerty3Header.add(playHoriVerty3HeaderTime);
+
+		Button playHoriVerty3HeaderSort = new Button("정렬");
+		playHoriVerty3Header.add(playHoriVerty3HeaderSort);
+
+		PlayGrid playHoriVerty3Grid = new PlayGrid();
+		playHoriVerty3.add(playHoriVerty3Grid);
+		playHoriVerty3Grid.setGridHeight(130);
+		playHoriVerty3Grid.setStyleName("listTable");
+
+		FlowPanel playHoriVerty3Bottom = new FlowPanel();
+		TextBox playHoriVerty3BottomText = new TextBox();
+		Button playHoriVerty3BottomBtn = new Button("등록");
+		playHoriVerty3Bottom.add(playHoriVerty3BottomText);
+		playHoriVerty3Bottom.add(playHoriVerty3BottomBtn);
+		playHoriVerty3.add(playHoriVerty3Bottom);
 
 		return play;
 	}
