@@ -185,12 +185,13 @@ public class BokslUI implements EntryPoint {
 
 		VerticalPanel playHoriVerty2 = new VerticalPanel();
 		playHori.add(playHoriVerty2);
+		playHoriVerty2.setStyleName("lyric");
 
 		Label playHoriVerty2Label = new Label("가사");
 		playHoriVerty2.add(playHoriVerty2Label);
 		playHoriVerty2Label.setStyleName("subPannelTitle");
 
-		ScrollPanel playHoriVerty2Scroll = new ScrollPanel(new HTML("내<br><br><br><br><br><br><br>용"));
+		ScrollPanel playHoriVerty2Scroll = new ScrollPanel(new HTML("내<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>용"));
 		playHoriVerty2.add(playHoriVerty2Scroll);
 		playHoriVerty2Scroll.setStyleName("scroll");
 
@@ -220,7 +221,7 @@ public class BokslUI implements EntryPoint {
 
 		FlowPanel playHoriVerty3Bottom = new FlowPanel();
 		TextBox playHoriVerty3BottomText = new TextBox();
-		Button playHoriVerty3BottomBtn = new Button("등록");
+		Button playHoriVerty3BottomBtn = new Button("앨범저장");
 		playHoriVerty3Bottom.add(playHoriVerty3BottomText);
 		playHoriVerty3Bottom.add(playHoriVerty3BottomBtn);
 		playHoriVerty3.add(playHoriVerty3Bottom);
