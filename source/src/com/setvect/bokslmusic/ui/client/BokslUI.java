@@ -191,7 +191,8 @@ public class BokslUI implements EntryPoint {
 		playHoriVerty2.add(playHoriVerty2Label);
 		playHoriVerty2Label.setStyleName("subPannelTitle");
 
-		ScrollPanel playHoriVerty2Scroll = new ScrollPanel(new HTML("내<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>용"));
+		ScrollPanel playHoriVerty2Scroll = new ScrollPanel(new HTML(
+				"내<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>용"));
 		playHoriVerty2.add(playHoriVerty2Scroll);
 		playHoriVerty2Scroll.setStyleName("scroll");
 
@@ -232,10 +233,52 @@ public class BokslUI implements EntryPoint {
 	private Widget listPannel() {
 		ContentPanel list = new ContentPanel();
 		list.setId("listPannel");
-		list.setCollapsible(true);
-		TextBox txt = new TextBox();
-		list.add(txt);
-		txt.setText("재생 패널");
+		list.setHeaderVisible(false);
+		HorizontalPanel listHori = new HorizontalPanel();
+		list.add(listHori);
+		listHori.setStyleName("spliteHorizontal");
+
+		// --------------------------
+		VerticalPanel listHoriVerty1 = new VerticalPanel();
+		listHori.add(listHoriVerty1);
+
+		HorizontalPanel listHoriVerty1Header = new HorizontalPanel();
+		listHoriVerty1.add(listHoriVerty1Header);
+		listHoriVerty1Header.add(new Label("앨범"));
+		Button listHoriVerty1HeaderBtn1 = new Button("바로재생");
+		listHoriVerty1Header.add(listHoriVerty1HeaderBtn1);
+		Button listHoriVerty1HeaderBtn2 = new Button("추가");
+		listHoriVerty1Header.add(listHoriVerty1HeaderBtn2);
+
+		FlowPanel listHoriVerty1Add = new FlowPanel();
+		listHoriVerty1.add(listHoriVerty1Add);
+		TextBox listHoriVerty1AddName = new TextBox();
+		listHoriVerty1Add.add(listHoriVerty1AddName);
+		Button listHoriVerty1AddBtn = new Button("앨범 추가");
+		listHoriVerty1Add.add(listHoriVerty1AddBtn);
+
+		// --------------------------
+
+		VerticalPanel listHoriVerty2 = new VerticalPanel();
+		listHori.add(listHoriVerty2);
+
+		VerticalPanel listHoriVerty2Movie = new VerticalPanel();
+		listHoriVerty2.add(listHoriVerty2Movie);
+		listHoriVerty2Movie.add(new Label("◀"));
+		listHoriVerty2Movie.add(new Label("▶"));
+
+		// --------------------------
+		VerticalPanel listHoriVerty3 = new VerticalPanel();
+		listHori.add(listHoriVerty3);
+
+		HorizontalPanel listHoriVerty3Header = new HorizontalPanel();
+		listHoriVerty3.add(listHoriVerty3Header);
+		listHoriVerty3Header.add(new Label("전체목록"));
+		Button listHoriVerty3HeaderBtn1 = new Button("바로재생");
+		listHoriVerty3Header.add(listHoriVerty3HeaderBtn1);
+		Button listHoriVerty3HeaderBtn2 = new Button("추가");
+		listHoriVerty3Header.add(listHoriVerty3HeaderBtn2);
+
 		return list;
 	}
 }
