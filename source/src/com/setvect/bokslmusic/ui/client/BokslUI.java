@@ -256,6 +256,8 @@ public class BokslUI implements EntryPoint {
 		listHoriVerty1Add.add(listHoriVerty1AddName);
 		Button listHoriVerty1AddBtn = new Button("앨범 추가");
 		listHoriVerty1Add.add(listHoriVerty1AddBtn);
+		CheckGroupingGridExample listHoriVerty1Grid = new CheckGroupingGridExample();
+		listHoriVerty1.add(listHoriVerty1Grid);
 
 		// --------------------------
 
