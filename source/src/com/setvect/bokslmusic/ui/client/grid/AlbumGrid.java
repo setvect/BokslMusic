@@ -1,39 +1,34 @@
-package com.setvect.bokslmusic.ui.client;
+package com.setvect.bokslmusic.ui.client.grid;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.extjs.gxt.ui.client.Style.SelectionMode;
 import com.extjs.gxt.ui.client.core.El;
 import com.extjs.gxt.ui.client.data.ModelData;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.FieldEvent;
 import com.extjs.gxt.ui.client.event.GridEvent;
-import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.store.GroupingStore;
+import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
-import com.extjs.gxt.ui.client.widget.form.ComboBox.TriggerAction;
 import com.extjs.gxt.ui.client.widget.grid.CheckBoxSelectionModel;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
+import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
+import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.grid.GridGroupRenderer;
 import com.extjs.gxt.ui.client.widget.grid.GroupColumnData;
 import com.extjs.gxt.ui.client.widget.grid.GroupingView;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
-import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
-import com.extjs.gxt.ui.client.widget.toolbar.LabelToolItem;
-import com.extjs.gxt.ui.client.widget.toolbar.SeparatorToolItem;
-import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.google.gwt.dom.client.NodeList;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
+import com.setvect.bokslmusic.ui.client.model.AlbumArticleModel;
+import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 
-public class CheckGroupingGridExample extends LayoutContainer {
+public class AlbumGrid extends LayoutContainer {
 
 	private GroupingView view;
+	private int gridHeight = 200;
 	private String checkedStyle = "x-grid3-group-check";
 	private String uncheckedStyle = "x-grid3-group-uncheck";
 
@@ -41,14 +36,20 @@ public class CheckGroupingGridExample extends LayoutContainer {
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
 
-		setLayout(new FlowLayout(0));
-
-		GroupingStore<Stock> store = new GroupingStore<Stock>();
+		GroupingStore<AlbumArticleModel> store = new GroupingStore<AlbumArticleModel>();
 		store.setMonitorChanges(true);
 		store.add(getCompanies());
-		store.groupBy("industry");
+		store.groupBy("albumTitle");
 
-		final CheckBoxSelectionModel<Stock> sm = new CheckBoxSelectionModel<Stock>() {
+		GridCellRenderer<AlbumArticleModel> timeRenderer = new GridCellRenderer<AlbumArticleModel>() {
+			public String render(AlbumArticleModel model, String property, ColumnData config, int rowIndex,
+					int colIndex, ListStore<AlbumArticleModel> store, Grid<AlbumArticleModel> grid) {
+				int sec = model.get(property);
+				return ClientUtil.getMinuteSec(sec);
+			}
+		};
+
+		final CheckBoxSelectionModel<AlbumArticleModel> sm = new CheckBoxSelectionModel<AlbumArticleModel>() {
 			@Override
 			public void deselectAll() {
 				super.deselectAll();
@@ -70,7 +71,7 @@ public class CheckGroupingGridExample extends LayoutContainer {
 			}
 
 			@Override
-			protected void doDeselect(List<Stock> models, boolean supressEvent) {
+			protected void doDeselect(List<AlbumArticleModel> models, boolean supressEvent) {
 				super.doDeselect(models, supressEvent);
 				NodeList<com.google.gwt.dom.client.Element> groups = view.getGroups();
 				search: for (int i = 0; i < groups.getLength(); i++) {
@@ -79,7 +80,7 @@ public class CheckGroupingGridExample extends LayoutContainer {
 					for (int j = 0, len = rows.getLength(); j < len; j++) {
 						Element r = rows.getItem(j);
 						int idx = grid.getView().findRowIndex(r);
-						Stock m = grid.getStore().getAt(idx);
+						AlbumArticleModel m = grid.getStore().getAt(idx);
 						if (!isSelected(m)) {
 							setGroupChecked((Element) group, false);
 							continue search;
@@ -90,7 +91,7 @@ public class CheckGroupingGridExample extends LayoutContainer {
 			}
 
 			@Override
-			protected void doSelect(List<Stock> models, boolean keepExisting, boolean supressEvent) {
+			protected void doSelect(List<AlbumArticleModel> models, boolean keepExisting, boolean supressEvent) {
 				super.doSelect(models, keepExisting, supressEvent);
 				NodeList<com.google.gwt.dom.client.Element> groups = view.getGroups();
 				search: for (int i = 0; i < groups.getLength(); i++) {
@@ -99,7 +100,7 @@ public class CheckGroupingGridExample extends LayoutContainer {
 					for (int j = 0, len = rows.getLength(); j < len; j++) {
 						Element r = rows.getItem(j);
 						int idx = grid.getView().findRowIndex(r);
-						Stock m = grid.getStore().getAt(idx);
+						AlbumArticleModel m = grid.getStore().getAt(idx);
 						if (!isSelected(m)) {
 							continue search;
 						}
@@ -110,25 +111,20 @@ public class CheckGroupingGridExample extends LayoutContainer {
 			}
 		};
 
-		ColumnConfig company = new ColumnConfig("name", "Company", 60);
-		ColumnConfig price = new ColumnConfig("open", "Price", 20);
-		ColumnConfig change = new ColumnConfig("change", "Change", 20);
-		ColumnConfig industry = new ColumnConfig("industry", "Industry", 20);
-		ColumnConfig last = new ColumnConfig("date", "Last Updated", 20);
-		last.setDateTimeFormat(DateTimeFormat.getFormat("MM/dd/y"));
+		ColumnConfig company = new ColumnConfig("name", "이름", 60);
+		ColumnConfig price = new ColumnConfig("runningTime", "시간", 20);
+		price.setRenderer(timeRenderer);
+		ColumnConfig albumTitle = new ColumnConfig("albumTitle", "앨범제목", 20);
 
 		List<ColumnConfig> config = new ArrayList<ColumnConfig>();
-		config.add(sm.getColumn());
+
 		config.add(company);
 		config.add(price);
-		config.add(change);
-		config.add(industry);
-		config.add(last);
+		config.add(albumTitle);
+		config.add(sm.getColumn());
 
 		final ColumnModel cm = new ColumnModel(config);
-
 		view = new GroupingView() {
-
 			@Override
 			protected void onMouseDown(GridEvent<ModelData> ge) {
 				El hd = ge.getTarget(".x-grid-group-hd", 10);
@@ -177,21 +173,34 @@ public class CheckGroupingGridExample extends LayoutContainer {
 			}
 		});
 
-		Grid<Stock> grid = new Grid<Stock>(store, cm);
+		ContentPanel cp = new ContentPanel();
+		cp.setHeaderVisible(false);
+		cp.setLayout(new FitLayout());
+		cp.setHeight(gridHeight);
+
+		Grid<AlbumArticleModel> grid = new Grid<AlbumArticleModel>(store, cm);
 		grid.setView(view);
 		grid.setBorders(true);
 		grid.addPlugin(sm);
 		grid.setSelectionModel(sm);
 
-		ContentPanel panel = new ContentPanel();
-		panel.setHeaderVisible(false);
-		panel.setCollapsible(true);
-		panel.setFrame(true);
-		panel.setSize(700, 450);
-		panel.setLayout(new FitLayout());
-		panel.add(grid);
+		cp.add(grid);
+		add(cp);
+	}
 
-		add(panel);
+	/**
+	 * @return 그리드 높이
+	 */
+	public int getGridHeight() {
+		return gridHeight;
+	}
+
+	/**
+	 * @param gridHeight
+	 *            그리드 높이
+	 */
+	public void setGridHeight(int gridHeight) {
+		this.gridHeight = gridHeight;
 	}
 
 	private El findCheck(Element group) {
@@ -203,43 +212,16 @@ public class CheckGroupingGridExample extends LayoutContainer {
 				checked ? checkedStyle : uncheckedStyle);
 	}
 
-	public static List<Stock> getCompanies() {
-		DateTimeFormat f = DateTimeFormat.getFormat("M/d h:mma");
-		List<Stock> stocks = new ArrayList<Stock>();
-		stocks.add(new Stock("3m Co", 71.72, 0.02, 0.03, f.parse("4/2 12:00am"), "Manufacturing"));
-		stocks.add(new Stock("Alcoa Inc", 29.01, 0.42, 1.47, f.parse("4/1 12:00am"), "Manufacturing"));
-		stocks.add(new Stock("Altria Group Inc", 83.81, 0.28, 0.34, f.parse("4/3 12:00am"), "Manufacturing"));
-		stocks.add(new Stock("American Express Company", 52.55, 0.01, 0.02, f.parse("4/8 12:00am"), "Finance"));
-		stocks.add(new Stock("American International Group, Inc.", 64.13, 0.31, 0.49, f.parse("4/1 12:00am"),
-				"Services"));
-		stocks.add(new Stock("AT&T Inc.", 31.61, -0.48, -1.54, f.parse("4/8 12:00am"), "Services"));
-		stocks.add(new Stock("Boeing Co.", 75.43, 0.53, 0.71, f.parse("4/8 12:00am"), "Manufacturing"));
-		stocks.add(new Stock("Caterpillar Inc.", 67.27, 0.92, 1.39, f.parse("4/1 12:00am"), "Services"));
-		stocks.add(new Stock("Citigroup, Inc.", 49.37, 0.02, 0.04, f.parse("4/4 12:00am"), "Finance"));
-		stocks.add(new Stock("E.I. du Pont de Nemours and Company", 40.48, 0.51, 1.28, f.parse("4/1 12:00am"),
-				"Manufacturing"));
-		stocks.add(new Stock("Exxon Mobil Corp", 68.1, -0.43, -0.64, f.parse("4/3 12:00am"), "Manufacturing"));
-		stocks.add(new Stock("General Electric Company", 34.14, -0.08, -0.23, f.parse("4/3 12:00am"), "Manufacturing"));
-		stocks.add(new Stock("General Motors Corporation", 30.27, 1.09, 3.74, f.parse("4/3 12:00am"), "Automotive"));
-		stocks.add(new Stock("Hewlett-Packard Co.", 36.53, -0.03, -0.08, f.parse("4/3 12:00am"), "Computer"));
-		stocks.add(new Stock("Honeywell Intl Inc", 38.77, 0.05, 0.13, f.parse("4/3 12:00am"), "Manufacturing"));
-		stocks.add(new Stock("Intel Corporation", 19.88, 0.31, 1.58, f.parse("4/2 12:00am"), "Computer"));
-		stocks.add(new Stock("International Business Machines", 81.41, 0.44, 0.54, f.parse("4/1 12:00am"), "Computer"));
-		stocks.add(new Stock("Johnson & Johnson", 64.72, 0.06, 0.09, f.parse("4/2 12:00am"), "Medical"));
-		stocks.add(new Stock("JP Morgan & Chase & Co", 45.73, 0.07, 0.15, f.parse("4/2 12:00am"), "Finance"));
-		stocks.add(new Stock("McDonald\"s Corporation", 36.76, 0.86, 2.40, f.parse("4/2 12:00am"), "Food"));
-		stocks.add(new Stock("Merck & Co., Inc.", 40.96, 0.41, 1.01, f.parse("4/2 12:00am"), "Medical"));
-		stocks.add(new Stock("Microsoft Corporation", 25.84, 0.14, 0.54, f.parse("4/2 12:00am"), "Computer"));
-		stocks.add(new Stock("Pfizer Inc", 27.96, 0.4, 1.45, f.parse("4/8 12:00am"), "Services"));
-		stocks.add(new Stock("The Coca-Cola Company", 45.07, 0.26, 0.58, f.parse("4/1 12:00am"), "Food"));
-		stocks.add(new Stock("The Home Depot, Inc.", 34.64, 0.35, 1.02, f.parse("4/8 12:00am"), "Retail"));
-		stocks.add(new Stock("The Procter & Gamble Company", 61.91, 0.01, 0.02, f.parse("4/1 12:00am"), "Manufacturing"));
-		stocks.add(new Stock("United Technologies Corporation", 63.26, 0.55, 0.88, f.parse("4/1 12:00am"), "Computer"));
-		stocks.add(new Stock("Verizon Communications", 35.57, 0.39, 1.11, f.parse("4/3 12:00am"), "Services"));
-		stocks.add(new Stock("Wal-Mart Stores, Inc.", 45.45, 0.73, 1.63, f.parse("4/3 12:00am"), "Retail"));
-		stocks.add(new Stock("Walt Disney Company (The) (Holding Company)", 29.89, 0.24, 0.81, f.parse("4/1 12:00am"),
-				"Services"));
+	public static List<AlbumArticleModel> getCompanies() {
+		List<AlbumArticleModel> stocks = new ArrayList<AlbumArticleModel>();
+		stocks.add(new AlbumArticleModel("3m Co", 1320, "Manufacturing"));
+		stocks.add(new AlbumArticleModel("Alcoa Inc", 120, "Manufacturing"));
+		stocks.add(new AlbumArticleModel("Altria Group Inc", 210, "Manufacturing"));
+		stocks.add(new AlbumArticleModel("American Express Company", 101, "Finance"));
+		stocks.add(new AlbumArticleModel("American International Group, Inc.", 120, "Services"));
+		stocks.add(new AlbumArticleModel("AT&T Inc.", 1021, "Services"));
+		stocks.add(new AlbumArticleModel("Intel Corporation", 210, "Computer"));
+		stocks.add(new AlbumArticleModel("International Business Machines", 410, "Computer"));
 		return stocks;
 	}
-
 }

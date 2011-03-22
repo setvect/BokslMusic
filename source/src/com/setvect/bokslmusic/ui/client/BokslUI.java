@@ -15,6 +15,9 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.setvect.bokslmusic.ui.client.grid.AlbumGrid;
+import com.setvect.bokslmusic.ui.client.grid.PlayGrid;
+import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
 
 /**
  * Entry point classes define <CODE>onModuleLoad()</CODE>.
@@ -256,7 +259,7 @@ public class BokslUI implements EntryPoint {
 		listHoriVerty1Add.add(listHoriVerty1AddName);
 		Button listHoriVerty1AddBtn = new Button("앨범 추가");
 		listHoriVerty1Add.add(listHoriVerty1AddBtn);
-		CheckGroupingGridExample listHoriVerty1Grid = new CheckGroupingGridExample();
+		AlbumGrid listHoriVerty1Grid = new AlbumGrid();
 		listHoriVerty1.add(listHoriVerty1Grid);
 
 		// --------------------------

@@ -1,6 +1,14 @@
-package com.setvect.bokslmusic.ui.client;
+/* 
+ * Ext GWT 2.2.1 - Ext for GWT 
+ * Copyright(c) 2007-2010, Ext JS, LLC. 
+ * licensing@extjs.com 
+ *  
+ * http://extjs.com/license 
+ */
+package com.setvect.bokslmusic.ui.client.grid;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
@@ -20,10 +28,11 @@ import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
-import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
+import com.setvect.bokslmusic.ui.client.model.MusicDirectoryModel;
 
-public class PlayGrid extends LayoutContainer {
+public class SyncGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private ColumnModel cm;
 
@@ -32,26 +41,25 @@ public class PlayGrid extends LayoutContainer {
 		super.onRender(parent, index);
 		getAriaSupport().setPresentation(true);
 
-		GridCellRenderer<PlayItemModel> gridNumber = new GridCellRenderer<PlayItemModel>() {
-			public String render(PlayItemModel model, String property, ColumnData config, int rowIndex, int colIndex,
-					ListStore<PlayItemModel> store, Grid<PlayItemModel> grid) {
-				int syncDate = model.get(property);
-				int min = syncDate / 60;
-				int sec = syncDate % 60;
-				NumberFormat numbrFormat = NumberFormat.getFormat("00");
-				return numbrFormat.format(min) + ":" + numbrFormat.format(sec);
+		GridCellRenderer<MusicDirectoryModel> gridNumber = new GridCellRenderer<MusicDirectoryModel>() {
+			public String render(MusicDirectoryModel model, String property, ColumnData config, int rowIndex,
+					int colIndex, ListStore<MusicDirectoryModel> store, Grid<MusicDirectoryModel> grid) {
+				Date syncDate = model.get(property);
+				DateTimeFormat format = DateTimeFormat.getFormat("yyyy-MM-dd");
+				return format.format(syncDate);
 			}
 		};
 
-		GridCellRenderer<PlayItemModel> buttonRenderer = new GridCellRenderer<PlayItemModel>() {
+		GridCellRenderer<MusicDirectoryModel> buttonRenderer = new GridCellRenderer<MusicDirectoryModel>() {
 			private boolean init;
 
-			public Object render(final PlayItemModel model, String property, ColumnData config, final int rowIndex,
-					final int colIndex, ListStore<PlayItemModel> store, Grid<PlayItemModel> grid) {
+			public Object render(final MusicDirectoryModel model, String property, ColumnData config,
+					final int rowIndex, final int colIndex, ListStore<MusicDirectoryModel> store,
+					Grid<MusicDirectoryModel> grid) {
 				if (!init) {
 					init = true;
-					grid.addListener(Events.ColumnResize, new Listener<GridEvent<PlayItemModel>>() {
-						public void handleEvent(GridEvent<PlayItemModel> be) {
+					grid.addListener(Events.ColumnResize, new Listener<GridEvent<MusicDirectoryModel>>() {
+						public void handleEvent(GridEvent<MusicDirectoryModel> be) {
 							for (int i = 0; i < be.getGrid().getStore().getCount(); i++) {
 								if (be.getGrid().getView().getWidget(i, be.getColIndex()) != null
 										&& be.getGrid().getView().getWidget(i, be.getColIndex()) instanceof BoxComponent) {
@@ -77,25 +85,26 @@ public class PlayGrid extends LayoutContainer {
 
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 
-		ColumnConfig column = new ColumnConfig("name", "No.", 100);
+		ColumnConfig column = new ColumnConfig("basePath", "BasePath", 100);
 		column.setRowHeader(true);
 		configs.add(column);
 
-		column = new ColumnConfig("name", "이름", 100);
+		column = new ColumnConfig("syncDate", "Last Updated", 100);
 		column.setAlignment(HorizontalAlignment.RIGHT);
-		configs.add(column);
-
-		column = new ColumnConfig("runningTime", "시간", 100);
-		column.setAlignment(HorizontalAlignment.CENTER);
 		column.setRenderer(gridNumber);
 		configs.add(column);
 
-		column = new ColumnConfig("name", "삭제", 100);
+		column = new ColumnConfig("basePath", "동기화", 100);
 		column.setAlignment(HorizontalAlignment.CENTER);
 		column.setRenderer(buttonRenderer);
 		configs.add(column);
 
-		ListStore<PlayItemModel> store = new ListStore<PlayItemModel>();
+		column = new ColumnConfig("basePath", "삭제", 100);
+		column.setAlignment(HorizontalAlignment.CENTER);
+		column.setRenderer(buttonRenderer);
+		configs.add(column);
+
+		ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
 		store.add(getTempData());
 
 		cm = new ColumnModel(configs);
@@ -107,9 +116,9 @@ public class PlayGrid extends LayoutContainer {
 		cp.setLayout(new FitLayout());
 		cp.setHeight(gridHeight);
 
-		final Grid<PlayItemModel> grid = new Grid<PlayItemModel>(store, cm);
+		final Grid<MusicDirectoryModel> grid = new Grid<MusicDirectoryModel>(store, cm);
 		grid.setStyleAttribute("borderTop", "none");
-		grid.setAutoExpandColumn("name");
+		grid.setAutoExpandColumn("basePath");
 		grid.setBorders(false);
 		grid.setStripeRows(true);
 		grid.setColumnLines(true);
@@ -120,27 +129,26 @@ public class PlayGrid extends LayoutContainer {
 	}
 
 	/**
-	 * @return 그리드 높이
+	 * @return 그리드 높이 
 	 */
 	public int getGridHeight() {
 		return gridHeight;
 	}
 
 	/**
-	 * @param gridHeight
-	 *            그리드 높이
+	 * @param gridHeight 그리드 높이
 	 */
 	public void setGridHeight(int gridHeight) {
 		this.gridHeight = gridHeight;
 	}
 
-	private static List<PlayItemModel> getTempData() {
-		List<PlayItemModel> stocks = new ArrayList<PlayItemModel>();
+	private static List<MusicDirectoryModel> getTempData() {
+		List<MusicDirectoryModel> stocks = new ArrayList<MusicDirectoryModel>();
 
-		PlayItemModel dir1Model = new PlayItemModel("song1.mp3", 100);
+		MusicDirectoryModel dir1Model = new MusicDirectoryModel("c:\\util", new Date());
 		stocks.add(dir1Model);
 
-		PlayItemModel dir2Model = new PlayItemModel("song2.mp3", 120);
+		MusicDirectoryModel dir2Model = new MusicDirectoryModel("c:\\util2", new Date());
 		stocks.add(dir2Model);
 		return stocks;
 	}
