@@ -26,12 +26,11 @@
 
 /*IE에서 지원 안됨*/
 #syncPannel .spliteHorizontal > tbody > tr > td:nth-child(1){
-	width: 420px;
+	width: 450px;
 }
 
-
-#syncPannel .listTable{
-	width: 400px;
+#syncPannel .spliteHorizontal > tbody > tr > td > table{
+	width: 100%;
 }
 
 #syncPannel .log{
@@ -52,7 +51,6 @@
 	background-color: #EAEAEA;
 }
 
-
 /* ========== 재생 */
 #playPannel .spliteHorizontal{
 	border:2px solid #c7dafa;
@@ -61,6 +59,10 @@
 
 #playPannel .spliteHorizontal > tbody > tr > td{
 	width: 33%;
+}
+
+#playPannel .spliteHorizontal > tbody > tr > td > table{
+	width: 100%;
 }
 
 #playPannel .lyric{
@@ -72,5 +74,16 @@
 	background-color: #EAEAEA;
 }
 
-
 /* ========== 목록 */
+#listPannel .spliteHorizontal{
+	border:2px solid #c7dafa;
+	width: 100%;
+}
+
+#listPannel .spliteHorizontal > tbody > tr > td:nth-child(2){
+	width: 10px;
+}
+
+#listPannel .spliteHorizontal > tbody > tr > td > table{
+	width: 100%;
+}

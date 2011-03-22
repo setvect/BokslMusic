@@ -111,10 +111,10 @@ public class MusicGrid extends LayoutContainer {
 			}
 		};
 
-		ColumnConfig company = new ColumnConfig("name", "이름", 60);
-		ColumnConfig price = new ColumnConfig("runningTime", "시간", 20);
+		ColumnConfig company = new ColumnConfig("name", "이름", 200);
+		ColumnConfig price = new ColumnConfig("runningTime", "시간", 100);
 		price.setRenderer(timeRenderer);
-		ColumnConfig path = new ColumnConfig("path", "경로", 20);
+		ColumnConfig path = new ColumnConfig("path", "경로", 0);
 
 		List<ColumnConfig> config = new ArrayList<ColumnConfig>();
 
