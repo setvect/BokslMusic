@@ -1,5 +1,7 @@
 package com.setvect.bokslmusic.ui.client;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.extjs.gxt.ui.client.widget.ContentPanel;
@@ -15,7 +17,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
-import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.ui.client.model.MusicDirectoryModel;
 
 public class SyncPannel extends SimplePanel {
 	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
@@ -76,12 +78,17 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty2Scroll.setStyleName("scroll");
 		add(sync);
 
-		syncService.getSyncList(new AsyncCallback<List<MusicDirectoryModel>>() {
+		syncService.getSyncList(new AsyncCallback<List<MusicDirectory>>() {
 			public void onFailure(Throwable caught) {
 			}
 
-			public void onSuccess(List<MusicDirectoryModel> result) {
-				SyncPannel.this.syncHoriVerty1Grid.store.add(result);
+			public void onSuccess(List<MusicDirectory> result) {
+				List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
+				for (MusicDirectory n : result) {
+					MusicDirectoryModel a = new MusicDirectoryModel(n.getBasePath(), new Date());
+					list.add(a);
+				}
+				SyncPannel.this.syncHoriVerty1Grid.store.add(list);
 			}
 		});
 

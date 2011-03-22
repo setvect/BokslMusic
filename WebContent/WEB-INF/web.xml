@@ -44,7 +44,7 @@
 		<servlet-class>com.setvect.common.img.ThumbnailImageServlet</servlet-class>
 	</servlet>
   <servlet>
-    <servlet-name>greetServlet</servlet-name>
+    <servlet-name>syncDirectory</servlet-name>
     <servlet-class>com.setvect.bokslmusic.ui.server.SyncServiceImpl</servlet-class>
   </servlet>
   
@@ -54,8 +54,8 @@
 	</welcome-file-list>
 
   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/bokslmusic/greet</url-pattern>
+    <servlet-name>syncDirectory</servlet-name>
+    <url-pattern>/bokslmusic/syncDirectory</url-pattern>
   </servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>

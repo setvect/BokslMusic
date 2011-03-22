@@ -1,4 +1,4 @@
-package com.setvect.bokslmusic.ui.shared.model;
+package com.setvect.bokslmusic.ui.client.model;
 
 import com.extjs.gxt.ui.client.data.BaseModel;
 

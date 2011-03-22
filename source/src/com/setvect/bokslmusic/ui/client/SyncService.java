@@ -4,12 +4,11 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
-import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
 /**
  * The client side stub for the RPC service.
  */
-@RemoteServiceRelativePath("greet")
+@RemoteServiceRelativePath("syncDirectory")
 public interface SyncService extends RemoteService {
-	List<MusicDirectoryModel> getSyncList() throws IllegalArgumentException;
+	List<MusicDirectory> getSyncList() throws IllegalArgumentException;
 }

@@ -21,8 +21,8 @@ import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.user.client.Element;
+import com.setvect.bokslmusic.ui.client.model.PlayItemModel;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
-import com.setvect.bokslmusic.ui.shared.model.PlayItemModel;
 
 public class PlayGrid extends LayoutContainer {
 	private int gridHeight = 200;

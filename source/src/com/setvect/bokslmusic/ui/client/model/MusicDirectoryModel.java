@@ -1,4 +1,4 @@
-package com.setvect.bokslmusic.ui.shared.model;
+package com.setvect.bokslmusic.ui.client.model;
 
 import java.util.Date;
 

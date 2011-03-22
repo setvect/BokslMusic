@@ -22,8 +22,8 @@ import com.extjs.gxt.ui.client.widget.grid.GroupingView;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.user.client.Element;
+import com.setvect.bokslmusic.ui.client.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
-import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 
 public class MusicGrid extends LayoutContainer {
 
