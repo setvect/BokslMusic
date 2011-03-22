@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.setvect.bokslmusic.ui.client.grid.AlbumGrid;
+import com.setvect.bokslmusic.ui.client.grid.MusicGrid;
 import com.setvect.bokslmusic.ui.client.grid.PlayGrid;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
 
@@ -336,14 +337,17 @@ public class BokslUI implements EntryPoint {
 		FlowPanel listHoriVerty3SearchDetailUnion = new FlowPanel();
 		listHoriVerty3SearchDetail.setWidget(1, 1, listHoriVerty3SearchDetailUnion);
 		Label listHoriVerty3SearchDetailUnionLab = new Label("결합");
-		RadioButton listHoriVerty3SearchDetailUnionAnd = new RadioButton("and", "And");
-		RadioButton listHoriVerty3SearchDetailUnionOr = new RadioButton("or", "Or");
+		RadioButton listHoriVerty3SearchDetailUnionAnd = new RadioButton("union", "And");
+		RadioButton listHoriVerty3SearchDetailUnionOr = new RadioButton("union", "Or");
 		listHoriVerty3SearchDetailUnion.add(listHoriVerty3SearchDetailUnionLab);
 		listHoriVerty3SearchDetailUnion.add(listHoriVerty3SearchDetailUnionAnd);
 		listHoriVerty3SearchDetailUnion.add(listHoriVerty3SearchDetailUnionOr);
 
 		Button listHoriVerty3SearchDetailBtn = new Button("상세검색");
 		listHoriVerty3SearchDetail.setWidget(1, 2, listHoriVerty3SearchDetailBtn);
+
+		MusicGrid listHoriVerty3Grid = new MusicGrid();
+		listHoriVerty3.add(listHoriVerty3Grid);
 
 		return list;
 	}
