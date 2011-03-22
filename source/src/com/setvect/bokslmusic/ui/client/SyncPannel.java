@@ -1,6 +1,10 @@
 package com.setvect.bokslmusic.ui.client;
 
+import java.util.List;
+
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -11,8 +15,12 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
+import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
 public class SyncPannel extends SimplePanel {
+	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
+	private SyncGrid syncHoriVerty1Grid = new SyncGrid();
+
 	protected void onLoad() {
 		ContentPanel sync = new ContentPanel();
 
@@ -33,25 +41,20 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty1Label.setStyleName("subPannelTitle");
 
 		FlowPanel syncHoriVerty1Top = new FlowPanel();
+		syncHoriVerty1.add(syncHoriVerty1Top);
 		Button syncHoriVerty1TopBtn1 = new Button("DB동기화");
 		Button syncHoriVerty1TopBtn2 = new Button("전체 폴더 동기화");
 		syncHoriVerty1Top.add(syncHoriVerty1TopBtn1);
 		syncHoriVerty1Top.add(syncHoriVerty1TopBtn2);
-		syncHoriVerty1.add(syncHoriVerty1Top);
+		TextBox syncHoriVerty1TopText = new TextBox();
+		Button syncHoriVerty1TopRegBtn = new Button("등록");
+		syncHoriVerty1Top.add(syncHoriVerty1TopText);
+		syncHoriVerty1Top.add(syncHoriVerty1TopRegBtn);
 
-		SyncGrid syncHoriVerty1Grid = new SyncGrid();
 		syncHoriVerty1.add(syncHoriVerty1Grid);
 		syncHoriVerty1Grid.setGridHeight(130);
 		syncHoriVerty1Grid.setWidth("100%");
 		syncHoriVerty1Grid.setStyleName("listTable");
-
-		FlowPanel syncHoriVerty1Bottom = new FlowPanel();
-		TextBox syncHoriVerty1BottomText = new TextBox();
-		Button syncHoriVerty1BottomBtn = new Button("등록");
-		syncHoriVerty1Bottom.add(syncHoriVerty1BottomText);
-		syncHoriVerty1Bottom.add(syncHoriVerty1BottomBtn);
-		syncHoriVerty1.add(syncHoriVerty1Bottom);
-
 		// --------------------------
 		VerticalPanel syncHoriVerty2 = new VerticalPanel();
 		syncHori.add(syncHoriVerty2);
@@ -72,5 +75,15 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty2.add(syncHoriVerty2Scroll);
 		syncHoriVerty2Scroll.setStyleName("scroll");
 		add(sync);
+
+		syncService.getSyncList(new AsyncCallback<List<MusicDirectoryModel>>() {
+			public void onFailure(Throwable caught) {
+			}
+
+			public void onSuccess(List<MusicDirectoryModel> result) {
+				SyncPannel.this.syncHoriVerty1Grid.store.add(result);
+			}
+		});
+
 	}
 }

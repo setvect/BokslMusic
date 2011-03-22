@@ -45,7 +45,7 @@
 	</servlet>
   <servlet>
     <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.setvect.bokslmusic.ui.server.MainPageServiceImpl</servlet-class>
+    <servlet-class>com.setvect.bokslmusic.ui.server.SyncServiceImpl</servlet-class>
   </servlet>
   
 
@@ -55,7 +55,7 @@
 
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/gwtfirst/greet</url-pattern>
+    <url-pattern>/bokslmusic/greet</url-pattern>
   </servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>

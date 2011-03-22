@@ -30,11 +30,12 @@ import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
-import com.setvect.bokslmusic.ui.client.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
 public class SyncGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private ColumnModel cm;
+	public ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -103,10 +104,6 @@ public class SyncGrid extends LayoutContainer {
 		column.setAlignment(HorizontalAlignment.CENTER);
 		column.setRenderer(buttonRenderer);
 		configs.add(column);
-
-		ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
-		store.add(getTempData());
-
 		cm = new ColumnModel(configs);
 
 		ContentPanel cp = new ContentPanel();
@@ -129,27 +126,17 @@ public class SyncGrid extends LayoutContainer {
 	}
 
 	/**
-	 * @return 그리드 높이 
+	 * @return 그리드 높이
 	 */
 	public int getGridHeight() {
 		return gridHeight;
 	}
 
 	/**
-	 * @param gridHeight 그리드 높이
+	 * @param gridHeight
+	 *            그리드 높이
 	 */
 	public void setGridHeight(int gridHeight) {
 		this.gridHeight = gridHeight;
-	}
-
-	private static List<MusicDirectoryModel> getTempData() {
-		List<MusicDirectoryModel> stocks = new ArrayList<MusicDirectoryModel>();
-
-		MusicDirectoryModel dir1Model = new MusicDirectoryModel("c:\\util", new Date());
-		stocks.add(dir1Model);
-
-		MusicDirectoryModel dir2Model = new MusicDirectoryModel("c:\\util2", new Date());
-		stocks.add(dir2Model);
-		return stocks;
 	}
 }
