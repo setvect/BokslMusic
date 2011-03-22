@@ -6,10 +6,12 @@ import com.extjs.gxt.ui.client.widget.form.SliderField;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -283,6 +285,65 @@ public class BokslUI implements EntryPoint {
 		listHoriVerty3Header.add(listHoriVerty3HeaderBtn1);
 		Button listHoriVerty3HeaderBtn2 = new Button("추가");
 		listHoriVerty3Header.add(listHoriVerty3HeaderBtn2);
+
+		VerticalPanel listHoriVerty3Search = new VerticalPanel();
+		listHoriVerty3.add(listHoriVerty3Search);
+
+		FlowPanel listHoriVerty3SearchSample = new FlowPanel();
+		listHoriVerty3Search.add(listHoriVerty3SearchSample);
+
+		TextBox listHoriVerty3SearchSampleText = new TextBox();
+		listHoriVerty3SearchSample.add(listHoriVerty3SearchSampleText);
+
+		Button listHoriVerty3SearchSampleBtn1 = new Button("검색");
+		listHoriVerty3SearchSample.add(listHoriVerty3SearchSampleBtn1);
+		Button listHoriVerty3SearchSampleBtn2 = new Button("상세 검색");
+		listHoriVerty3SearchSample.add(listHoriVerty3SearchSampleBtn2);
+		Button listHoriVerty3SearchSampleBtn3 = new Button("검색 취소");
+		listHoriVerty3SearchSample.add(listHoriVerty3SearchSampleBtn3);
+
+		Grid listHoriVerty3SearchDetail = new Grid(2, 3);
+		listHoriVerty3Search.add(listHoriVerty3SearchDetail);
+
+		FlowPanel listHoriVerty3SearchDetailFile = new FlowPanel();
+		listHoriVerty3SearchDetail.setWidget(0, 0, listHoriVerty3SearchDetailFile);
+		Label listHoriVerty3SearchDetailFileLab = new Label("파일명");
+		TextBox listHoriVerty3SearchDetailFileTxt = new TextBox();
+		listHoriVerty3SearchDetailFile.add(listHoriVerty3SearchDetailFileLab);
+		listHoriVerty3SearchDetailFile.add(listHoriVerty3SearchDetailFileTxt);
+
+		FlowPanel listHoriVerty3SearchDetailTitle = new FlowPanel();
+		listHoriVerty3SearchDetail.setWidget(0, 1, listHoriVerty3SearchDetailTitle);
+		Label listHoriVerty3SearchDetailTitleLab = new Label("제목");
+		TextBox listHoriVerty3SearchDetailTitleTxt = new TextBox();
+		listHoriVerty3SearchDetailTitle.add(listHoriVerty3SearchDetailTitleLab);
+		listHoriVerty3SearchDetailTitle.add(listHoriVerty3SearchDetailTitleTxt);
+
+		FlowPanel listHoriVerty3SearchDetailArtist = new FlowPanel();
+		listHoriVerty3SearchDetail.setWidget(0, 2, listHoriVerty3SearchDetailArtist);
+		Label listHoriVerty3SearchDetailArtistLab = new Label("아티스트");
+		TextBox listHoriVerty3SearchDetailArtistTxt = new TextBox();
+		listHoriVerty3SearchDetailArtist.add(listHoriVerty3SearchDetailArtistLab);
+		listHoriVerty3SearchDetailArtist.add(listHoriVerty3SearchDetailArtistTxt);
+
+		FlowPanel listHoriVerty3SearchDetailLyrics = new FlowPanel();
+		listHoriVerty3SearchDetail.setWidget(1, 0, listHoriVerty3SearchDetailLyrics);
+		Label listHoriVerty3SearchDetailLyricsLab = new Label("가사");
+		TextBox listHoriVerty3SearchDetailLyricsTxt = new TextBox();
+		listHoriVerty3SearchDetailLyrics.add(listHoriVerty3SearchDetailLyricsLab);
+		listHoriVerty3SearchDetailLyrics.add(listHoriVerty3SearchDetailLyricsTxt);
+
+		FlowPanel listHoriVerty3SearchDetailUnion = new FlowPanel();
+		listHoriVerty3SearchDetail.setWidget(1, 1, listHoriVerty3SearchDetailUnion);
+		Label listHoriVerty3SearchDetailUnionLab = new Label("결합");
+		RadioButton listHoriVerty3SearchDetailUnionAnd = new RadioButton("and", "And");
+		RadioButton listHoriVerty3SearchDetailUnionOr = new RadioButton("or", "Or");
+		listHoriVerty3SearchDetailUnion.add(listHoriVerty3SearchDetailUnionLab);
+		listHoriVerty3SearchDetailUnion.add(listHoriVerty3SearchDetailUnionAnd);
+		listHoriVerty3SearchDetailUnion.add(listHoriVerty3SearchDetailUnionOr);
+
+		Button listHoriVerty3SearchDetailBtn = new Button("상세검색");
+		listHoriVerty3SearchDetail.setWidget(1, 2, listHoriVerty3SearchDetailBtn);
 
 		return list;
 	}
