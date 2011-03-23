@@ -8,7 +8,7 @@ import com.extjs.gxt.ui.client.data.BaseModel;
 public class MusicArticleModel extends BaseModel {
 
 	/** */
-	private static final long serialVersionUID = -1991638193138041465L;
+	private static final long serialVersionUID = 55581369798985370L;
 
 	// Serialize를 하기 위해 기본 생성자 필요
 	public MusicArticleModel() {

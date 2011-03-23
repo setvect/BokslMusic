@@ -5,12 +5,13 @@ import com.extjs.gxt.ui.client.data.BaseModel;
 public class PlayItemModel extends BaseModel {
 
 	/** */
-	private static final long serialVersionUID = -5059698192047179613L;
-	
+	private static final long serialVersionUID = 1981226970305339196L;
+
 	// Serialize를 하기 위해 기본 생성자 필요
-	public PlayItemModel(){
-		
+	public PlayItemModel() {
+
 	}
+
 	public PlayItemModel(String name, int runningTime) {
 		set("name", name);
 		set("runningTime", runningTime);

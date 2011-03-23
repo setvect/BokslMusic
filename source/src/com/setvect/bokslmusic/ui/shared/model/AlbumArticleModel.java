@@ -6,8 +6,9 @@ import com.extjs.gxt.ui.client.data.BaseModel;
  * 앨범에 등록된 음악 항목
  */
 public class AlbumArticleModel extends BaseModel {
+
 	/** */
-	private static final long serialVersionUID = -5059698192047179613L;
+	private static final long serialVersionUID = -6422740976331298816L;
 
 	// Serialize를 하기 위해 기본 생성자 필요
 	public AlbumArticleModel() {
