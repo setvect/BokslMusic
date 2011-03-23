@@ -30,7 +30,7 @@ import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
-import com.setvect.bokslmusic.ui.client.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
 public class SyncGrid extends LayoutContainer {
 	private int gridHeight = 200;

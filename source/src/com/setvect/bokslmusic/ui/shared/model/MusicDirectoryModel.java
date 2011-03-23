@@ -1,4 +1,4 @@
-package com.setvect.bokslmusic.ui.client.model;
+package com.setvect.bokslmusic.ui.shared.model;
 
 import java.util.Date;
 
@@ -8,6 +8,10 @@ public class MusicDirectoryModel extends BaseModel {
 
 	/** */
 	private static final long serialVersionUID = -5059698192047179613L;
+
+	// Serialize를 하기 위해 기본 생성자 필요
+	public MusicDirectoryModel() {
+	}
 
 	public MusicDirectoryModel(String path, Date syncDate) {
 		set("basePath", path);

@@ -1,4 +1,4 @@
-package com.setvect.bokslmusic.ui.client.model;
+package com.setvect.bokslmusic.ui.shared.model;
 
 import com.extjs.gxt.ui.client.data.BaseModel;
 
@@ -10,6 +10,7 @@ public class MusicArticleModel extends BaseModel {
 	/** */
 	private static final long serialVersionUID = -1991638193138041465L;
 
+	// Serialize를 하기 위해 기본 생성자 필요
 	public MusicArticleModel() {
 	}
 

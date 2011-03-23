@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
-import com.setvect.bokslmusic.ui.client.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
 public class SyncPannel extends SimplePanel {
 	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
@@ -78,13 +78,13 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty2Scroll.setStyleName("scroll");
 		add(sync);
 
-		syncService.getSyncList(new AsyncCallback<List<MusicDirectory>>() {
+		syncService.getSyncList(new AsyncCallback<List<MusicDirectoryModel>>() {
 			public void onFailure(Throwable caught) {
 			}
 
-			public void onSuccess(List<MusicDirectory> result) {
+			public void onSuccess(List<MusicDirectoryModel> result) {
 				List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
-				for (MusicDirectory n : result) {
+				for (MusicDirectoryModel n : result) {
 					MusicDirectoryModel a = new MusicDirectoryModel(n.getBasePath(), new Date());
 					list.add(a);
 				}
