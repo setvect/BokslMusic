@@ -15,7 +15,7 @@ import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 @Controller
 public class SyncServiceImpl extends RemoteServiceServlet implements SyncService {
 	@Autowired
-	private MusicService musicService;
+	private MusicService musicService;	
 
 	public List<MusicDirectoryModel> getSyncList() throws IllegalArgumentException {
 		List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
