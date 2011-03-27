@@ -106,26 +106,18 @@
 
 
 	<!-- Etc Controller -->
-	<bean id="handlerMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="order" value="1" />
-		<property name="alwaysUseFullPath" value="true" />
-		<property name="mappings">
-			<props>
-				<prop key="/servlet/tb/*">trackbackController</prop>
-			</props>
-		</property>
-	</bean>
 	
 	<!-- =============================== -->
 	<!-- ======  WEB MVC Mapping ======= -->
 	<!-- =============================== -->
+	<!-- 
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
 		<property name="interceptors">
 			<list><ref bean="loginCheckInterceptor"/></list>
 		</property>
 	</bean>
-	
+	 -->
+	 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/"/>
