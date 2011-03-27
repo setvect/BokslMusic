@@ -6,7 +6,6 @@ import com.extjs.gxt.ui.client.data.BaseModel;
 
 public class MusicDirectoryModel extends BaseModel {
 
-
 	/** */
 	private static final long serialVersionUID = 2540853721169782220L;
 
@@ -27,11 +26,11 @@ public class MusicDirectoryModel extends BaseModel {
 		set("basePath", basePath);
 	}
 
-	public String getSyncDate() {
-		return (String) get("syncDate");
+	public Date getSyncDate() {
+		return (Date) get("syncDate");
 	}
 
-	public void setSyncDate(String basePath) {
+	public void setSyncDate(Date basePath) {
 		set("syncDate", basePath);
 	}
 

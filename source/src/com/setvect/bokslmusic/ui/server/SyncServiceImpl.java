@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.SyncService;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.vo.music.MusicDirectory;
 
 @Service("SyncService")
 public class SyncServiceImpl implements SyncService {
@@ -17,9 +18,14 @@ public class SyncServiceImpl implements SyncService {
 
 	public List<MusicDirectoryModel> getSyncList() throws IllegalArgumentException {
 		List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
-		MusicDirectoryModel a = new MusicDirectoryModel();
-		a.setBasePath("몽실이");
-		list.add(a);
+
+		List<MusicDirectory> dir = musicService.getMusicPathList();
+		for (MusicDirectory d : dir) {
+			MusicDirectoryModel a = new MusicDirectoryModel();
+			a.setBasePath(d.getBasePath());
+			a.setSyncDate(d.getSyncDate());
+			list.add(a);
+		}
 		return list;
 	}
 }
