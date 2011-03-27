@@ -9,7 +9,7 @@ import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 /**
  * The client side stub for the RPC service.
  */
-@RemoteServiceRelativePath("syncDirectory")
+@RemoteServiceRelativePath("service/SyncService")
 public interface SyncService extends RemoteService {
 	List<MusicDirectoryModel> getSyncList() throws IllegalArgumentException;
 }

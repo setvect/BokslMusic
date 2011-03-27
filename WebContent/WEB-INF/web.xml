@@ -44,19 +44,20 @@
 		<servlet-class>com.setvect.common.img.ThumbnailImageServlet</servlet-class>
 	</servlet>
   <servlet>
-    <servlet-name>syncDirectory</servlet-name>
-    <servlet-class>com.setvect.bokslmusic.ui.server.SyncServiceImpl</servlet-class>
-  </servlet>
-  
+		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
+		<servlet-class>org.spring4gwt.server.SpringGwtRemoteServiceServlet</servlet-class>
+	</servlet>
+
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
   <servlet-mapping>
-    <servlet-name>syncDirectory</servlet-name>
-    <url-pattern>/bokslmusic/syncDirectory</url-pattern>
-  </servlet-mapping>
+		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
+		<url-pattern>/bokslmusic/service/*</url-pattern>
+	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>
