@@ -72,11 +72,9 @@ public class SyncGrid extends LayoutContainer {
 					});
 				}
 
-				Button b = new Button((String) model.get(property), new SelectionListener<ButtonEvent>() {
-					@Override
-					public void componentSelected(ButtonEvent ce) {
-					}
-				});
+				ColumnConfig col = grid.getColumnModel().getColumn(colIndex);
+				String colValue = (String) model.get(property);
+				Button b = new Button(col.getHeader());
 				b.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
 				b.setToolTip("Click for more information");
 

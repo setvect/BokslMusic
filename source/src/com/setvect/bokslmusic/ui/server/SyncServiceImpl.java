@@ -3,12 +3,8 @@ package com.setvect.bokslmusic.ui.server;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.SyncService;
@@ -25,9 +21,10 @@ public class SyncServiceImpl implements SyncService {
 
 	public List<MusicDirectoryModel> getSyncList() throws IllegalArgumentException {
 		List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
-		ServletRequestAttributes sra = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
-		HttpServletRequest req = sra.getRequest();
-		
+		// ServletRequestAttributes sra = ((ServletRequestAttributes)
+		// RequestContextHolder.currentRequestAttributes());
+		// HttpServletRequest req = sra.getRequest();
+
 		List<MusicDirectory> dir = musicService.getMusicPathList();
 		for (MusicDirectory d : dir) {
 			MusicDirectoryModel a = new MusicDirectoryModel();
@@ -36,5 +33,12 @@ public class SyncServiceImpl implements SyncService {
 			list.add(a);
 		}
 		return list;
+	}
+
+	public boolean addSyncPath(String dir) {
+		MusicDirectory item = new MusicDirectory();
+		item.setBasePath(dir);
+		musicService.createMusicPath(item);
+		return true;
 	}
 }

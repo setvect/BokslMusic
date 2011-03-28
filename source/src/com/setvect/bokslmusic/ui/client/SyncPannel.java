@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -22,6 +25,7 @@ import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 public class SyncPannel extends SimplePanel {
 	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
 	private SyncGrid syncHoriVerty1Grid = new SyncGrid();
+	private TextBox syncHoriVerty1TopText = new TextBox();
 
 	protected void onLoad() {
 		ContentPanel sync = new ContentPanel();
@@ -48,7 +52,7 @@ public class SyncPannel extends SimplePanel {
 		Button syncHoriVerty1TopBtn2 = new Button("전체 폴더 동기화");
 		syncHoriVerty1Top.add(syncHoriVerty1TopBtn1);
 		syncHoriVerty1Top.add(syncHoriVerty1TopBtn2);
-		TextBox syncHoriVerty1TopText = new TextBox();
+
 		Button syncHoriVerty1TopRegBtn = new Button("등록");
 		syncHoriVerty1Top.add(syncHoriVerty1TopText);
 		syncHoriVerty1Top.add(syncHoriVerty1TopRegBtn);
@@ -78,8 +82,34 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty2Scroll.setStyleName("scroll");
 		add(sync);
 
+		// ------------ 이벤트 핸들러 등록
+		// 동기화 목록을 가져옴
+		syncList();
+
+		syncHoriVerty1TopRegBtn.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				String dir = syncHoriVerty1TopText.getText();
+				syncService.addSyncPath(dir, new AsyncCallback<Boolean>() {
+					public void onFailure(Throwable caught) {
+						Window.alert(caught.getMessage());
+					}
+
+					public void onSuccess(Boolean session) {
+						syncList();
+					}
+				});
+			}
+		});
+
+	}
+
+	/**
+	 * 동기화 디렉토리 목록 처리 Callback
+	 */
+	private void syncList() {
 		syncService.getSyncList(new AsyncCallback<List<MusicDirectoryModel>>() {
 			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
 			}
 
 			public void onSuccess(List<MusicDirectoryModel> result) {
@@ -88,9 +118,9 @@ public class SyncPannel extends SimplePanel {
 					MusicDirectoryModel a = new MusicDirectoryModel(n.getBasePath(), new Date());
 					list.add(a);
 				}
-				SyncPannel.this.syncHoriVerty1Grid.store.add(list);
+				syncHoriVerty1Grid.store.removeAll();
+				syncHoriVerty1Grid.store.add(list);
 			}
 		});
-
 	}
 }
