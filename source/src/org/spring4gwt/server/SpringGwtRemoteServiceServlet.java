@@ -1,5 +1,7 @@
 package org.spring4gwt.server;
 
+import java.lang.reflect.Method;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -31,13 +33,13 @@ public class SpringGwtRemoteServiceServlet extends RemoteServiceServlet {
 			Object handler = getBean(getThreadLocalRequest());
 			RPCRequest rpcRequest = RPC.decodeRequest(payload, handler.getClass(), this);
 			onAfterRequestDeserialized(rpcRequest);
+			Method method = rpcRequest.getMethod();
 			if (LOG.isDebugEnabled()) {
-				LOG.debug("Invoking " + handler.getClass().getName() + "." + rpcRequest.getMethod().getName());
+				LOG.debug("Invoking " + handler.getClass().getName() + "." + method.getName());
 			}
-			return RPC.invokeAndEncodeResponse(handler, rpcRequest.getMethod(), rpcRequest.getParameters(),
+			return RPC.invokeAndEncodeResponse(handler, method, rpcRequest.getParameters(),
 					rpcRequest.getSerializationPolicy());
-		}
-		catch (IncompatibleRemoteServiceException ex) {
+		} catch (IncompatibleRemoteServiceException ex) {
 			log("An IncompatibleRemoteServiceException was thrown while processing this call.", ex);
 			return RPC.encodeResponseForFailure(null, ex);
 		}

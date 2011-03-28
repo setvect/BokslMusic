@@ -19,11 +19,23 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
+	
+	<!-- GWT 서비스 객체에서 rquest 인스턴스를 사용하기 위해서 -->
+	<filter>
+		<filter-name>springRequestFilter</filter-name>
+		<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+	</filter>
+	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
+	<filter-mapping>
+		<filter-name>springRequestFilter</filter-name>
+		<url-pattern>/bokslmusic/service/*</url-pattern>
+	</filter-mapping>
+	
 	<servlet>
 		<servlet-name>EnvirmentInit</servlet-name>
 		<servlet-class>com.setvect.bokslmusic.boot.EnvirmentInit</servlet-class>
