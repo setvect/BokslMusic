@@ -12,4 +12,6 @@ public interface SyncServiceAsync {
 	void getSyncList(AsyncCallback<List<MusicDirectoryModel>> callback) throws IllegalArgumentException;
 
 	void addSyncPath(String dir, AsyncCallback<Boolean> asyncCallback);
+
+	void removeMusicPath(String dir, AsyncCallback<Boolean> asyncCallback);
 }

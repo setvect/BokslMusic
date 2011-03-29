@@ -41,4 +41,9 @@ public class SyncServiceImpl implements SyncService {
 		musicService.createMusicPath(item);
 		return true;
 	}
+
+	public boolean removeMusicPath(String dir) {
+		musicService.removeMusicPath(dir);
+		return true;
+	}
 }

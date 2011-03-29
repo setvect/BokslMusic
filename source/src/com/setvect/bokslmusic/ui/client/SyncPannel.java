@@ -20,6 +20,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
+import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent;
+import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent.BehaviorType;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
 public class SyncPannel extends SimplePanel {
@@ -61,6 +63,7 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty1Grid.setGridHeight(130);
 		syncHoriVerty1Grid.setWidth("100%");
 		syncHoriVerty1Grid.setStyleName("listTable");
+		syncHoriVerty1Grid.addSyncButtonListener(new SyncButtonListenerImpl());
 		// --------------------------
 		VerticalPanel syncHoriVerty2 = new VerticalPanel();
 		syncHori.add(syncHoriVerty2);
@@ -100,7 +103,6 @@ public class SyncPannel extends SimplePanel {
 				});
 			}
 		});
-
 	}
 
 	/**
@@ -122,5 +124,28 @@ public class SyncPannel extends SimplePanel {
 				syncHoriVerty1Grid.store.add(list);
 			}
 		});
+	}
+
+	/**
+	 * 동기화 버튼 이벤트
+	 */
+	class SyncButtonListenerImpl implements SyncButtonListener {
+		public void onClick(SyncGridButtonEvent eventObject) {
+			if (eventObject.getBehaviorType() == BehaviorType.DELETE) {
+				syncService.removeMusicPath(eventObject.getPath(), new AsyncCallback<Boolean>() {
+					public void onFailure(Throwable caught) {
+						Window.alert(caught.getMessage());
+					}
+
+					public void onSuccess(Boolean result) {
+						syncList();
+					}
+				});
+
+			}
+			else if (eventObject.getBehaviorType() == BehaviorType.SYNC) {
+
+			}
+		}
 	}
 }
