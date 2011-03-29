@@ -42,7 +42,7 @@ public class SyncServiceImpl implements SyncService {
 
 	public boolean addSyncPath(String dir) {
 		MusicDirectory item = new MusicDirectory();
-		item.setBasePath(dir);
+		item.setBasePath(dir.trim());
 		musicService.createMusicPath(item);
 		return true;
 	}

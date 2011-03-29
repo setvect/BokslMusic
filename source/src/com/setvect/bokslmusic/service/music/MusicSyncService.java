@@ -63,7 +63,8 @@ public class MusicSyncService {
 			File sourceFile = music.getSourceFile();
 			String headerCode = music.getHeaderCode();
 			if (headerCode == null) {
-				SyncLogPrinter.log("[에러]" + sourceFile.getAbsolutePath());
+				String msg = String.format("[에러][%,d/%,d] %s", count, musicMetes.size(), sourceFile.getAbsolutePath());
+				SyncLogPrinter.log(msg);
 				errorCount++;
 				continue;
 			}
@@ -75,15 +76,16 @@ public class MusicSyncService {
 				boolean noChange = dbPath.equals(sourceFile);
 
 				if (noChange) {
-					String msg = String.format("[통과] [%s] %s ", headerCode, art.getFile());
+					String msg = String.format("[통과][%,d/%,d] [%s] %s ", count, musicMetes.size(), headerCode,
+							art.getFile());
 					SyncLogPrinter.log(msg);
 					nothingCount++;
 					continue;
 				}
 
 				updatePath(sourceFile, art);
-				String msg = String.format("[변경] [%s] %s -> %s", headerCode, dbPath.getPath(),
-						sourceFile.getAbsoluteFile());
+				String msg = String.format("[변경][%,d/%,d] [%s] %s -> %s", count, musicMetes.size(), headerCode,
+						dbPath.getPath(), sourceFile.getAbsoluteFile());
 				SyncLogPrinter.log(msg);
 				modifyCount++;
 				continue;
@@ -93,13 +95,16 @@ public class MusicSyncService {
 			try {
 				marticle = music.getMusicArticle();
 				service.createMusicArticle(marticle);
-			} catch (Exception e) {
-				SyncLogPrinter.log("[에러]" + e.getMessage());
+			}
+			catch (Exception e) {
+				String msg = String.format("[에러][%,d/%,d] %s", count, musicMetes.size(), e.getMessage());
+				SyncLogPrinter.log(msg);
 				LogPrinter.out.warn(e);
 				errorCount++;
 				continue;
 			}
-			String msg = String.format("[신규] [%s] %s ", headerCode, marticle.getPath());
+			String msg = String.format("[신규][%,d/%,d] [%s] %s ", count, musicMetes.size(), headerCode,
+					marticle.getPath());
 			newCount++;
 			SyncLogPrinter.log(msg);
 
@@ -153,11 +158,14 @@ public class MusicSyncService {
 			if (delete) {
 				service.removeMusicArticle(article.getMusicId());
 				deleteCount++;
-				SyncLogPrinter.log("[삭제]" + musicFile.getAbsolutePath());
+
+				String msg = String.format("[삭제][%,d/%,d] %s ", count, listAll.size(), musicFile.getAbsolutePath());
+				SyncLogPrinter.log(msg);
 			}
 			else {
 				nothingCount++;
-				SyncLogPrinter.log("[통과]" + musicFile.getAbsolutePath());
+				String msg = String.format("[통과][%,d/%,d] %s ", count, listAll.size(), musicFile.getAbsolutePath());
+				SyncLogPrinter.log(msg);
 			}
 		}
 		ck.check(count + "/" + listAll.size() + " 완료");
