@@ -33,4 +33,11 @@ public interface SyncService extends RemoteService {
 	 * @return 성공 여부
 	 */
 	boolean removeMusicPath(String dir);
+
+	/**
+	 * @param dir
+	 *            동기화 할 경로
+	 * @return 성공 여부
+	 */
+	boolean syncDirectory(String dir);
 }

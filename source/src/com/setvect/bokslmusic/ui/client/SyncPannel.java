@@ -98,6 +98,7 @@ public class SyncPannel extends SimplePanel {
 					}
 
 					public void onSuccess(Boolean session) {
+						syncHoriVerty1TopText.setText("");
 						syncList();
 					}
 				});
@@ -141,10 +142,17 @@ public class SyncPannel extends SimplePanel {
 						syncList();
 					}
 				});
-
 			}
 			else if (eventObject.getBehaviorType() == BehaviorType.SYNC) {
+				syncService.syncDirectory(eventObject.getPath(), new AsyncCallback<Boolean>() {
+					public void onFailure(Throwable caught) {
+						Window.alert(caught.getMessage());
+					}
 
+					public void onSuccess(Boolean result) {
+						Window.alert("동기화 성공");
+					}
+				});
 			}
 		}
 	}

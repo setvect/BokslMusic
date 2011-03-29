@@ -23,7 +23,7 @@ public class MusicArticleSyncTestCase extends TestSystem {
 
 	@Test
 	public void testSyncDirectory() {
-		File baseDir = new File("E:\\10.멀티미디어\\03.음악__ZZZ");
+		File baseDir = new File("D:\\90.멀티미디어\\01_음악");
 		serviceSync.syncDirectory(baseDir);
 	}
 

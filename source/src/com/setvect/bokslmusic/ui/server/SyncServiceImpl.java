@@ -1,5 +1,6 @@
 package com.setvect.bokslmusic.ui.server;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.setvect.bokslmusic.service.music.MusicService;
+import com.setvect.bokslmusic.service.music.MusicSyncService;
 import com.setvect.bokslmusic.ui.client.SyncService;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
@@ -18,6 +20,9 @@ import com.setvect.bokslmusic.vo.music.MusicDirectory;
 public class SyncServiceImpl implements SyncService {
 	@Autowired
 	private MusicService musicService;
+
+	@Autowired
+	private MusicSyncService serviceSync;
 
 	public List<MusicDirectoryModel> getSyncList() throws IllegalArgumentException {
 		List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
@@ -44,6 +49,12 @@ public class SyncServiceImpl implements SyncService {
 
 	public boolean removeMusicPath(String dir) {
 		musicService.removeMusicPath(dir);
+		return true;
+	}
+
+	public boolean syncDirectory(String dir) {
+		File syncDir = new File(dir);
+		serviceSync.syncDirectory(syncDir);
 		return true;
 	}
 }
