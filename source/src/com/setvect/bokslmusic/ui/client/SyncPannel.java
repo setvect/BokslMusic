@@ -28,6 +28,8 @@ public class SyncPannel extends SimplePanel {
 	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
 	private SyncGrid syncHoriVerty1Grid = new SyncGrid();
 	private TextBox syncHoriVerty1TopText = new TextBox();
+	private HTML syncHoriVerty2ScrollContent;
+	private ScrollPanel syncHoriVerty2Scroll;
 
 	protected void onLoad() {
 		ContentPanel sync = new ContentPanel();
@@ -77,10 +79,14 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderLabel);
 		syncHoriVerty2HeaderLabel.setStyleName("subPannelTitle");
 
+		Button syncHoriVerty2HeaderLoad = new Button("불러오기");
+		syncHoriVerty2Header.add(syncHoriVerty2HeaderLoad);
+
 		Button syncHoriVerty2HeaderDel = new Button("지우기");
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderDel);
 
-		ScrollPanel syncHoriVerty2Scroll = new ScrollPanel(new HTML("메시지로그 내용"));
+		syncHoriVerty2ScrollContent = new HTML("메시지로그 내용");
+		syncHoriVerty2Scroll = new ScrollPanel(syncHoriVerty2ScrollContent);
 		syncHoriVerty2.add(syncHoriVerty2Scroll);
 		syncHoriVerty2Scroll.setStyleName("scroll");
 		add(sync);
@@ -100,6 +106,29 @@ public class SyncPannel extends SimplePanel {
 					public void onSuccess(Boolean session) {
 						syncHoriVerty1TopText.setText("");
 						syncList();
+					}
+				});
+			}
+		});
+
+		syncHoriVerty2HeaderDel.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				syncHoriVerty2ScrollContent.setText("");
+			}
+		});
+
+		syncHoriVerty2HeaderLoad.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				syncService.getSyncLog(new AsyncCallback<String>() {
+					public void onFailure(Throwable caught) {
+						Window.alert(caught.getMessage());
+					}
+
+					public void onSuccess(String load) {
+						String log = syncHoriVerty2ScrollContent.getHTML() + "\n" + load.replace("\n", "<br>");
+						syncHoriVerty2ScrollContent.setHTML(log);
+						// 맨 끝으로 지정
+						syncHoriVerty2Scroll.setHorizontalScrollPosition(10000);
 					}
 				});
 			}

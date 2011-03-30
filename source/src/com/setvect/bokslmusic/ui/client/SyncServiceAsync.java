@@ -16,4 +16,6 @@ public interface SyncServiceAsync {
 	void removeMusicPath(String dir, AsyncCallback<Boolean> asyncCallback);
 
 	void syncDirectory(String dir, AsyncCallback<Boolean> asyncCallback);
+
+	void getSyncLog(AsyncCallback<String> asyncCallback);
 }

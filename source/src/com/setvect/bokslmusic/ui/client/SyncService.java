@@ -40,4 +40,9 @@ public interface SyncService extends RemoteService {
 	 * @return 성공 여부
 	 */
 	boolean syncDirectory(String dir);
+
+	/**
+	 * @return 동기화 로그
+	 */
+	String getSyncLog();
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.setvect.bokslmusic.log.SyncLogPrinter;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.service.music.MusicSyncService;
 import com.setvect.bokslmusic.ui.client.SyncService;
@@ -56,5 +57,9 @@ public class SyncServiceImpl implements SyncService {
 		File syncDir = new File(dir);
 		serviceSync.syncDirectory(syncDir);
 		return true;
+	}
+
+	public String getSyncLog() {
+		return SyncLogPrinter.getLogAndClear();
 	}
 }
