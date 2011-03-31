@@ -36,25 +36,7 @@ public class SyncPannel extends SimplePanel {
 	private boolean synchronizing = false;
 
 	/** 동기화시 주기적으로 서버측으로 부터 동기화 로그를 가져옴 */
-	private Timer syncMessageGetter = new Timer() {
-		public void run() {
-			syncService.getSyncLog(new AsyncCallback<String>() {
-				public void onFailure(Throwable caught) {
-					Window.alert(caught.getMessage());
-				}
-
-				public void onSuccess(String load) {
-					String log = syncHoriVerty2ScrollContent.getHTML() + "\n" + load.replace("\n", "<br>");
-					syncHoriVerty2ScrollContent.setHTML(log);
-					// 맨 끝으로 지정
-					syncHoriVerty2Scroll.setHorizontalScrollPosition(10000);
-				}
-			});
-			if(!synchronizing){
-				this.cancel();
-			}
-		}
-	};
+	private Timer syncMessageGetter = new SyncLogLoadTimer();
 
 	protected void onLoad() {
 		ContentPanel sync = new ContentPanel();
@@ -103,9 +85,6 @@ public class SyncPannel extends SimplePanel {
 		Label syncHoriVerty2HeaderLabel = new Label("메시지 로그");
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderLabel);
 		syncHoriVerty2HeaderLabel.setStyleName("subPannelTitle");
-
-		Button syncHoriVerty2HeaderLoad = new Button("불러오기");
-		syncHoriVerty2Header.add(syncHoriVerty2HeaderLoad);
 
 		Button syncHoriVerty2HeaderDel = new Button("지우기");
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderDel);
@@ -197,5 +176,30 @@ public class SyncPannel extends SimplePanel {
 				});
 			}
 		}
+	}
+
+	/**
+	 * 동기화시 주기적으로 서버측으로 부터 동기화 로그를 가져옴
+	 */
+	class SyncLogLoadTimer extends Timer {
+		@Override
+		public void run() {
+			syncService.getSyncLog(new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+					Window.alert(caught.getMessage());
+				}
+
+				public void onSuccess(String load) {
+					String log = load.replace("\n", "<br>");
+					syncHoriVerty2ScrollContent.setHTML(log);
+					// 맨 끝으로 지정
+					syncHoriVerty2Scroll.setHorizontalScrollPosition(10000);
+				}
+			});
+			if (!synchronizing) {
+				this.cancel();
+			}
+		}
+
 	}
 }
