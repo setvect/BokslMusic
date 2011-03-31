@@ -65,7 +65,7 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty1Grid.setGridHeight(130);
 		syncHoriVerty1Grid.setWidth("100%");
 		syncHoriVerty1Grid.setStyleName("listTable");
-		syncHoriVerty1Grid.addSyncButtonListener(new SyncButtonListenerImpl());
+		syncHoriVerty1Grid.addSyncButtonListener(new BokslMusicEventListenerImpl());
 		// --------------------------
 		VerticalPanel syncHoriVerty2 = new VerticalPanel();
 		syncHori.add(syncHoriVerty2);
@@ -159,10 +159,12 @@ public class SyncPannel extends SimplePanel {
 	/**
 	 * 동기화 버튼 이벤트
 	 */
-	class SyncButtonListenerImpl implements SyncButtonListener {
-		public void onClick(SyncGridButtonEvent eventObject) {
-			if (eventObject.getBehaviorType() == BehaviorType.DELETE) {
-				syncService.removeMusicPath(eventObject.getPath(), new AsyncCallback<Boolean>() {
+	class BokslMusicEventListenerImpl implements BokslMusicEventListener {
+		public void onClick(Object eventObject) {
+			
+			SyncGridButtonEvent syncEventObject = (SyncGridButtonEvent) eventObject;
+			if (syncEventObject.getBehaviorType() == BehaviorType.DELETE) {
+				syncService.removeMusicPath(syncEventObject.getPath(), new AsyncCallback<Boolean>() {
 					public void onFailure(Throwable caught) {
 						Window.alert(caught.getMessage());
 					}
@@ -172,8 +174,8 @@ public class SyncPannel extends SimplePanel {
 					}
 				});
 			}
-			else if (eventObject.getBehaviorType() == BehaviorType.SYNC) {
-				syncService.syncDirectory(eventObject.getPath(), new AsyncCallback<Boolean>() {
+			else if (syncEventObject.getBehaviorType() == BehaviorType.SYNC) {
+				syncService.syncDirectory(syncEventObject.getPath(), new AsyncCallback<Boolean>() {
 					public void onFailure(Throwable caught) {
 						Window.alert(caught.getMessage());
 					}

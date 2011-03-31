@@ -30,7 +30,7 @@ import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
-import com.setvect.bokslmusic.ui.client.SyncButtonListener;
+import com.setvect.bokslmusic.ui.client.BokslMusicEventListener;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent.BehaviorType;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
@@ -38,7 +38,7 @@ public class SyncGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private ColumnModel cm;
 	public ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
-	private List<SyncButtonListener> buttonEventList = new ArrayList<SyncButtonListener>();
+	private List<BokslMusicEventListener> buttonEventList = new ArrayList<BokslMusicEventListener>();
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -149,15 +149,15 @@ public class SyncGrid extends LayoutContainer {
 		 * 동기화 버튼 이벤트
 		 */
 		class GridButtonListener extends SelectionListener<ButtonEvent> {
-			private SyncGridButtonEvent eventObj;
+			private Object eventObj;
 
-			public GridButtonListener(SyncGridButtonEvent eventParam) {
+			public GridButtonListener(Object eventParam) {
 				this.eventObj = eventParam;
 			}
 
 			@Override
 			public void componentSelected(ButtonEvent ce) {
-				for (SyncButtonListener event : buttonEventList) {
+				for (BokslMusicEventListener event : buttonEventList) {
 					event.onClick(eventObj);
 				}
 			}
@@ -192,7 +192,7 @@ public class SyncGrid extends LayoutContainer {
 		}
 	}
 
-	public void addSyncButtonListener(SyncButtonListener syncButtonListenerImpl) {
+	public void addSyncButtonListener(BokslMusicEventListener syncButtonListenerImpl) {
 		buttonEventList.add(syncButtonListenerImpl);
 	}
 }
