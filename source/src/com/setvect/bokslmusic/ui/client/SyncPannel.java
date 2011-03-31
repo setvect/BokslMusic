@@ -8,6 +8,7 @@ import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -30,6 +31,20 @@ public class SyncPannel extends SimplePanel {
 	private TextBox syncHoriVerty1TopText = new TextBox();
 	private HTML syncHoriVerty2ScrollContent;
 	private ScrollPanel syncHoriVerty2Scroll;
+
+	/** 동기화시 주기적으로 서버측으로 부터 동기화 로그를 가져옴 */
+	private Timer syncMessageGetter = new Timer() {
+		int count = 0;
+
+		public void run() {
+			Window.alert("hi~");
+			count++;
+			if (count == 3) {
+				this.cancel();
+				count = 0;
+			}
+		}
+	};
 
 	protected void onLoad() {
 		ContentPanel sync = new ContentPanel();
@@ -161,7 +176,6 @@ public class SyncPannel extends SimplePanel {
 	 */
 	class BokslMusicEventListenerImpl implements BokslMusicEventListener {
 		public void onClick(Object eventObject) {
-			
 			SyncGridButtonEvent syncEventObject = (SyncGridButtonEvent) eventObject;
 			if (syncEventObject.getBehaviorType() == BehaviorType.DELETE) {
 				syncService.removeMusicPath(syncEventObject.getPath(), new AsyncCallback<Boolean>() {
@@ -175,6 +189,7 @@ public class SyncPannel extends SimplePanel {
 				});
 			}
 			else if (syncEventObject.getBehaviorType() == BehaviorType.SYNC) {
+				syncMessageGetter.scheduleRepeating(3000);
 				syncService.syncDirectory(syncEventObject.getPath(), new AsyncCallback<Boolean>() {
 					public void onFailure(Throwable caught) {
 						Window.alert(caught.getMessage());
