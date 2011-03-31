@@ -32,6 +32,8 @@ public class BokslUI implements EntryPoint {
 
 		RootPanel rootPanel = RootPanel.get();
 		rootPanel.add(warp);
+		
+		
 	}
 
 	private Widget headerPannel() {

@@ -8,6 +8,8 @@ import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -37,7 +39,19 @@ public class SyncPannel extends SimplePanel {
 
 	/** 동기화시 주기적으로 서버측으로 부터 동기화 로그를 가져옴 */
 	private Timer syncMessageGetter = new SyncLogLoadTimer();
+	private HorizontalPanel syncHoriVerty2Header;
+	private Label syncHoriVerty1Label;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.google.gwt.user.client.ui.Widget#onLoad()
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.google.gwt.user.client.ui.Widget#onLoad()
+	 */
 	protected void onLoad() {
 		ContentPanel sync = new ContentPanel();
 
@@ -53,7 +67,7 @@ public class SyncPannel extends SimplePanel {
 		VerticalPanel syncHoriVerty1 = new VerticalPanel();
 		syncHori.add(syncHoriVerty1);
 
-		Label syncHoriVerty1Label = new Label("동기화목록");
+		syncHoriVerty1Label = new Label("동기화목록");
 		syncHoriVerty1.add(syncHoriVerty1Label);
 		syncHoriVerty1Label.setStyleName("subPannelTitle");
 
@@ -78,7 +92,7 @@ public class SyncPannel extends SimplePanel {
 		syncHori.add(syncHoriVerty2);
 		syncHoriVerty2.setStyleName("log");
 
-		HorizontalPanel syncHoriVerty2Header = new HorizontalPanel();
+		syncHoriVerty2Header = new HorizontalPanel();
 		syncHoriVerty2.add(syncHoriVerty2Header);
 		syncHoriVerty2Header.setStyleName("subPannelHeader");
 
@@ -88,8 +102,8 @@ public class SyncPannel extends SimplePanel {
 
 		Button syncHoriVerty2HeaderDel = new Button("지우기");
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderDel);
-
-		syncHoriVerty2ScrollContent = new HTML("메시지로그 내용");
+		syncHoriVerty2ScrollContent = new HTML();
+		syncHoriVerty2ScrollContent.setWordWrap(false);
 		syncHoriVerty2Scroll = new ScrollPanel(syncHoriVerty2ScrollContent);
 		syncHoriVerty2.add(syncHoriVerty2Scroll);
 		syncHoriVerty2Scroll.setStyleName("scroll");
@@ -121,6 +135,24 @@ public class SyncPannel extends SimplePanel {
 			}
 		});
 
+		Window.addResizeHandler(new ResizeHandler() {
+			public void onResize(ResizeEvent event) {
+				repositionSyncLoadArea();
+			}
+		});
+		repositionSyncLoadArea();
+	}
+
+	/**
+	 * Sync 로그 창에 가로 스크롤을 생기게 하기 위해 브라우저 넓이와
+	 * 로그영을 포함한 테이블의 동기화 목록의 넓이를 이용해서 로그영역의 넓이를 계산
+	 */
+	private void repositionSyncLoadArea() {
+		int clientWidth = Window.getClientWidth();
+		int offsetWidth = syncHoriVerty1Label.getOffsetWidth();
+		int width = clientWidth - offsetWidth - 30;
+		String width2 = width + "px";
+		syncHoriVerty2Scroll.setWidth(width2);
 	}
 
 	/**
@@ -137,6 +169,7 @@ public class SyncPannel extends SimplePanel {
 				for (MusicDirectoryModel n : result) {
 					MusicDirectoryModel a = new MusicDirectoryModel(n.getBasePath(), new Date());
 					list.add(a);
+
 				}
 				syncHoriVerty1Grid.store.removeAll();
 				syncHoriVerty1Grid.store.add(list);
