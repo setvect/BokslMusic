@@ -32,16 +32,26 @@ public class SyncPannel extends SimplePanel {
 	private HTML syncHoriVerty2ScrollContent;
 	private ScrollPanel syncHoriVerty2Scroll;
 
+	/** 음악 파일 동기화 진행중이면 true */
+	private boolean synchronizing = false;
+
 	/** 동기화시 주기적으로 서버측으로 부터 동기화 로그를 가져옴 */
 	private Timer syncMessageGetter = new Timer() {
-		int count = 0;
-
 		public void run() {
-			Window.alert("hi~");
-			count++;
-			if (count == 3) {
+			syncService.getSyncLog(new AsyncCallback<String>() {
+				public void onFailure(Throwable caught) {
+					Window.alert(caught.getMessage());
+				}
+
+				public void onSuccess(String load) {
+					String log = syncHoriVerty2ScrollContent.getHTML() + "\n" + load.replace("\n", "<br>");
+					syncHoriVerty2ScrollContent.setHTML(log);
+					// 맨 끝으로 지정
+					syncHoriVerty2Scroll.setHorizontalScrollPosition(10000);
+				}
+			});
+			if(!synchronizing){
 				this.cancel();
-				count = 0;
 			}
 		}
 	};
@@ -132,22 +142,6 @@ public class SyncPannel extends SimplePanel {
 			}
 		});
 
-		syncHoriVerty2HeaderLoad.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				syncService.getSyncLog(new AsyncCallback<String>() {
-					public void onFailure(Throwable caught) {
-						Window.alert(caught.getMessage());
-					}
-
-					public void onSuccess(String load) {
-						String log = syncHoriVerty2ScrollContent.getHTML() + "\n" + load.replace("\n", "<br>");
-						syncHoriVerty2ScrollContent.setHTML(log);
-						// 맨 끝으로 지정
-						syncHoriVerty2Scroll.setHorizontalScrollPosition(10000);
-					}
-				});
-			}
-		});
 	}
 
 	/**
@@ -189,14 +183,16 @@ public class SyncPannel extends SimplePanel {
 				});
 			}
 			else if (syncEventObject.getBehaviorType() == BehaviorType.SYNC) {
-				syncMessageGetter.scheduleRepeating(3000);
+				synchronizing = true;
+				syncMessageGetter.scheduleRepeating(2000);
 				syncService.syncDirectory(syncEventObject.getPath(), new AsyncCallback<Boolean>() {
 					public void onFailure(Throwable caught) {
+						synchronizing = false;
 						Window.alert(caught.getMessage());
 					}
 
 					public void onSuccess(Boolean result) {
-						Window.alert("동기화 성공");
+						synchronizing = false;
 					}
 				});
 			}
