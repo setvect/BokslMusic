@@ -26,6 +26,7 @@ import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent.BehaviorType;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.ui.shared.verify.SyncVerifier;
 
 public class SyncPannel extends SimplePanel {
 	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
@@ -116,14 +117,24 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty1TopRegBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				String dir = syncHoriVerty1TopText.getText();
+				if (!SyncVerifier.isVaildSyncDir(dir)) {
+					Window.alert("디렉토리 경로를 제대로 입력 ");
+					return;
+				}
+
 				syncService.addSyncPath(dir, new AsyncCallback<Boolean>() {
 					public void onFailure(Throwable caught) {
 						Window.alert(caught.getMessage());
 					}
 
-					public void onSuccess(Boolean session) {
+					public void onSuccess(Boolean result) {
 						syncHoriVerty1TopText.setText("");
-						syncList();
+						if(result){
+							syncList();	
+						}
+						else{
+							Window.alert("올바른 시스템 경로가 입력되지 않았습니다.");
+						}
 					}
 				});
 			}

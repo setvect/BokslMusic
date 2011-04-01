@@ -7,12 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.setvect.bokslmusic.boot.ApplicationException;
 import com.setvect.bokslmusic.log.SyncLogPrinter;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.service.music.MusicSyncService;
 import com.setvect.bokslmusic.ui.client.SyncService;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
+import com.setvect.common.log.LogPrinter;
 
 /**
  * 
@@ -42,8 +44,15 @@ public class SyncServiceImpl implements SyncService {
 	}
 
 	public boolean addSyncPath(String dir) {
+		String path = dir.trim();
+		File syncDir = new File(path);
+		if (!syncDir.exists() || !syncDir.isDirectory()) {
+			LogPrinter.out.warn(dir + "은(는) 올바른 경로가 아닙니다.");
+			return false;
+		}
 		MusicDirectory item = new MusicDirectory();
-		item.setBasePath(dir.trim());
+
+		item.setBasePath(path);
 		musicService.createMusicPath(item);
 		return true;
 	}
