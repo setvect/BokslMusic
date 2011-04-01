@@ -103,7 +103,7 @@ public class SyncPannel extends SimplePanel {
 		Button syncHoriVerty2HeaderDel = new Button("지우기");
 		syncHoriVerty2Header.add(syncHoriVerty2HeaderDel);
 		syncHoriVerty2ScrollContent = new HTML();
-		syncHoriVerty2ScrollContent.setWordWrap(false);
+		syncHoriVerty2ScrollContent.addStyleName("logContent");
 		syncHoriVerty2Scroll = new ScrollPanel(syncHoriVerty2ScrollContent);
 		syncHoriVerty2.add(syncHoriVerty2Scroll);
 		syncHoriVerty2Scroll.setStyleName("scroll");
