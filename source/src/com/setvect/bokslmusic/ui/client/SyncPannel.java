@@ -144,8 +144,8 @@ public class SyncPannel extends SimplePanel {
 	}
 
 	/**
-	 * Sync 로그 창에 가로 스크롤을 생기게 하기 위해 브라우저 넓이와
-	 * 로그영을 포함한 테이블의 동기화 목록의 넓이를 이용해서 로그영역의 넓이를 계산
+	 * Sync 로그 창에 가로 스크롤을 생기게 하기 위해 브라우저 넓이와 로그영을 포함한 테이블의 동기화 목록의 넓이를 이용해서
+	 * 로그영역의 넓이를 계산
 	 */
 	private void repositionSyncLoadArea() {
 		int clientWidth = Window.getClientWidth();
@@ -226,7 +226,8 @@ public class SyncPannel extends SimplePanel {
 					String log = load.replace("\n", "<br>");
 					syncHoriVerty2ScrollContent.setHTML(log);
 					// 맨 끝으로 지정
-					syncHoriVerty2Scroll.setHorizontalScrollPosition(10000);
+					syncHoriVerty2Scroll.scrollToBottom();
+					syncHoriVerty2Scroll.scrollToLeft();
 				}
 			});
 			if (!synchronizing) {
