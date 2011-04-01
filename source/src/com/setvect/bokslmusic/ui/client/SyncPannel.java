@@ -129,10 +129,10 @@ public class SyncPannel extends SimplePanel {
 
 					public void onSuccess(Boolean result) {
 						syncHoriVerty1TopText.setText("");
-						if(result){
-							syncList();	
+						if (result) {
+							syncList();
 						}
-						else{
+						else {
 							Window.alert("올바른 시스템 경로가 입력되지 않았습니다.");
 						}
 					}
@@ -146,12 +146,14 @@ public class SyncPannel extends SimplePanel {
 			}
 		});
 
-		Window.addResizeHandler(new ResizeHandler() {
-			public void onResize(ResizeEvent event) {
-				repositionSyncLoadArea();
-			}
-		});
-		repositionSyncLoadArea();
+		// Sync 로그 영역 자동 조절 사용하지 않음
+		// 
+		// Window.addResizeHandler(new ResizeHandler() {
+		// public void onResize(ResizeEvent event) {
+		// repositionSyncLoadArea();
+		// }
+		// });
+		// repositionSyncLoadArea();
 	}
 
 	/**
