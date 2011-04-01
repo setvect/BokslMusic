@@ -39,6 +39,7 @@ public class SyncGrid extends LayoutContainer {
 	private ColumnModel cm;
 	public ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
 	private List<BokslMusicEventListener> buttonEventList = new ArrayList<BokslMusicEventListener>();
+	private ButtonRenderer syncButton;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -67,7 +68,8 @@ public class SyncGrid extends LayoutContainer {
 
 		column = new ColumnConfig("basePath", "동기화", 100);
 		column.setAlignment(HorizontalAlignment.CENTER);
-		column.setRenderer(new ButtonRenderer(BehaviorType.SYNC));
+		syncButton = new ButtonRenderer(BehaviorType.SYNC);
+		column.setRenderer(syncButton);
 		configs.add(column);
 
 		column = new ColumnConfig("basePath", "삭제", 100);
@@ -110,60 +112,6 @@ public class SyncGrid extends LayoutContainer {
 		this.gridHeight = gridHeight;
 	}
 
-	class ButtonRenderer implements GridCellRenderer<MusicDirectoryModel> {
-		private boolean init;
-		private BehaviorType behaviorType;
-
-		public ButtonRenderer(BehaviorType behavior) {
-			behaviorType = behavior;
-		}
-
-		public Object render(final MusicDirectoryModel model, String property, ColumnData config, final int rowIndex,
-				final int colIndex, ListStore<MusicDirectoryModel> store, Grid<MusicDirectoryModel> grid) {
-			if (!init) {
-				init = true;
-				grid.addListener(Events.ColumnResize, new Listener<GridEvent<MusicDirectoryModel>>() {
-					public void handleEvent(GridEvent<MusicDirectoryModel> be) {
-						for (int i = 0; i < be.getGrid().getStore().getCount(); i++) {
-							if (be.getGrid().getView().getWidget(i, be.getColIndex()) != null
-									&& be.getGrid().getView().getWidget(i, be.getColIndex()) instanceof BoxComponent) {
-								((BoxComponent) be.getGrid().getView().getWidget(i, be.getColIndex())).setWidth(be
-										.getWidth() - 10);
-							}
-						}
-					}
-				});
-			}
-
-			ColumnConfig col = grid.getColumnModel().getColumn(colIndex);
-			String path = model.get(property);
-			SyncGridButtonEvent eventParam = new SyncGridButtonEvent(behaviorType, path, rowIndex);
-			SelectionListener<ButtonEvent> listener = new GridButtonListener(eventParam);
-			Button b = new Button(col.getHeader(), listener);
-			b.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
-			b.setToolTip("Click for more information");
-			return b;
-		}
-
-		/**
-		 * 동기화 버튼 이벤트
-		 */
-		class GridButtonListener extends SelectionListener<ButtonEvent> {
-			private Object eventObj;
-
-			public GridButtonListener(Object eventParam) {
-				this.eventObj = eventParam;
-			}
-
-			@Override
-			public void componentSelected(ButtonEvent ce) {
-				for (BokslMusicEventListener event : buttonEventList) {
-					event.onClick(eventObj);
-				}
-			}
-		}
-	};
-
 	public static class SyncGridButtonEvent {
 		public enum BehaviorType {
 			DELETE, SYNC
@@ -195,4 +143,82 @@ public class SyncGrid extends LayoutContainer {
 	public void addSyncButtonListener(BokslMusicEventListener syncButtonListenerImpl) {
 		buttonEventList.add(syncButtonListenerImpl);
 	}
+
+	/**
+	 * 동기화 버튼 비활성화
+	 */
+	public void disableSyncButton() {
+		syncButton.disableButton();
+	}
+
+	/**
+	 * 동기화 버튼 활성화
+	 */
+	public void enableSyncButton() {
+		syncButton.enableButton();
+	}
+
+	class ButtonRenderer implements GridCellRenderer<MusicDirectoryModel> {
+		private boolean init;
+		private BehaviorType behaviorType;
+		private Button button;
+
+		public ButtonRenderer(BehaviorType behavior) {
+			behaviorType = behavior;
+		}
+
+		public Object render(final MusicDirectoryModel model, String property, ColumnData config, final int rowIndex,
+				final int colIndex, ListStore<MusicDirectoryModel> store, Grid<MusicDirectoryModel> grid) {
+			if (!init) {
+				init = true;
+				grid.addListener(Events.ColumnResize, new Listener<GridEvent<MusicDirectoryModel>>() {
+					public void handleEvent(GridEvent<MusicDirectoryModel> be) {
+						for (int i = 0; i < be.getGrid().getStore().getCount(); i++) {
+							if (be.getGrid().getView().getWidget(i, be.getColIndex()) != null
+									&& be.getGrid().getView().getWidget(i, be.getColIndex()) instanceof BoxComponent) {
+								((BoxComponent) be.getGrid().getView().getWidget(i, be.getColIndex())).setWidth(be
+										.getWidth() - 10);
+							}
+						}
+					}
+				});
+			}
+
+			ColumnConfig col = grid.getColumnModel().getColumn(colIndex);
+			String path = model.get(property);
+			SyncGridButtonEvent eventParam = new SyncGridButtonEvent(behaviorType, path, rowIndex);
+			SelectionListener<ButtonEvent> listener = new GridButtonListener(eventParam);
+			button = new Button(col.getHeader(), listener);
+			button.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
+			button.setToolTip("Click for more information");
+			return button;
+		}
+
+		public void disableButton() {
+			button.disable();
+		}
+
+		public void enableButton() {
+			button.enable();
+		}
+
+		/**
+		 * 동기화 버튼 이벤트
+		 */
+		class GridButtonListener extends SelectionListener<ButtonEvent> {
+			private Object eventObj;
+
+			public GridButtonListener(Object eventParam) {
+				this.eventObj = eventParam;
+			}
+
+			@Override
+			public void componentSelected(ButtonEvent ce) {
+				for (BokslMusicEventListener event : buttonEventList) {
+					event.onClick(eventObj);
+				}
+			}
+		}
+	};
+
 }

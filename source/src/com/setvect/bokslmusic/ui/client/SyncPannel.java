@@ -195,15 +195,19 @@ public class SyncPannel extends SimplePanel {
 				});
 			}
 			else if (syncEventObject.getBehaviorType() == BehaviorType.SYNC) {
+				syncHoriVerty1Grid.disableSyncButton();
+
 				synchronizing = true;
 				syncMessageGetter.scheduleRepeating(2000);
 				syncService.syncDirectory(syncEventObject.getPath(), new AsyncCallback<Boolean>() {
 					public void onFailure(Throwable caught) {
 						synchronizing = false;
+						syncHoriVerty1Grid.enableSyncButton();
 						Window.alert(caught.getMessage());
 					}
 
 					public void onSuccess(Boolean result) {
+						syncHoriVerty1Grid.enableSyncButton();
 						synchronizing = false;
 					}
 				});
@@ -234,6 +238,5 @@ public class SyncPannel extends SimplePanel {
 				this.cancel();
 			}
 		}
-
 	}
 }
