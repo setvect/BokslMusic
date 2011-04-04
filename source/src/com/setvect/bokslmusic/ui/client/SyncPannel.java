@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.extjs.gxt.ui.client.event.BaseEvent;
+import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.ResizeEvent;
-import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -59,6 +59,7 @@ public class SyncPannel extends SimplePanel {
 		// --------------------------
 		sync.setId("syncPannel");
 		sync.setCollapsible(true);
+		sync.setExpanded(true);
 		sync.setHeading("동길화 설정");
 
 		HorizontalPanel syncHori = new HorizontalPanel();
@@ -146,8 +147,9 @@ public class SyncPannel extends SimplePanel {
 			}
 		});
 
+
 		// Sync 로그 영역 자동 조절 사용하지 않음
-		// 
+		//
 		// Window.addResizeHandler(new ResizeHandler() {
 		// public void onResize(ResizeEvent event) {
 		// repositionSyncLoadArea();
