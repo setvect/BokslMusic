@@ -1,5 +1,8 @@
 package com.setvect.bokslmusic.ui.client;
 
+import com.extjs.gxt.ui.client.event.ComponentEvent;
+import com.extjs.gxt.ui.client.event.Events;
+import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Slider;
 import com.extjs.gxt.ui.client.widget.form.SliderField;
@@ -15,12 +18,15 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.PlayGrid;
 
 public class PlayPannel extends SimplePanel {
+	private PlayGrid playHoriVerty3Grid;
+
 	protected void onLoad() {
 		ContentPanel play = new ContentPanel();
 
 		// --------------------------
 		play.setId("playPannel");
 		play.setCollapsible(true);
+		play.setExpanded(false);
 		play.setHeading("재생");
 		HorizontalPanel playHori = new HorizontalPanel();
 		play.add(playHori);
@@ -124,7 +130,7 @@ public class PlayPannel extends SimplePanel {
 		Button playHoriVerty3HeaderSort = new Button("정렬");
 		playHoriVerty3Header.add(playHoriVerty3HeaderSort);
 
-		PlayGrid playHoriVerty3Grid = new PlayGrid();
+		playHoriVerty3Grid = new PlayGrid();
 		playHoriVerty3.add(playHoriVerty3Grid);
 		playHoriVerty3Grid.setGridHeight(130);
 		playHoriVerty3Grid.setWidth("100%");
@@ -137,5 +143,14 @@ public class PlayPannel extends SimplePanel {
 		playHoriVerty3Bottom.add(playHoriVerty3BottomBtn);
 		playHoriVerty3.add(playHoriVerty3Bottom);
 		add(play);
+
+		// ------------ 이벤트 핸들러 등록
+
+		play.addListener(Events.Expand, new Listener<ComponentEvent>() {
+			public void handleEvent(ComponentEvent be) {
+				playHoriVerty3Grid.fitLayout();
+			}
+		});
+
 	}
 }

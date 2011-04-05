@@ -40,6 +40,7 @@ public class SyncGrid extends LayoutContainer {
 	public ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
 	private List<BokslMusicEventListener> buttonEventList = new ArrayList<BokslMusicEventListener>();
 	private ButtonRenderer syncButton;
+	private FitLayout fitLayout;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -82,7 +83,8 @@ public class SyncGrid extends LayoutContainer {
 		// cp.setIcon(Resources.ICONS.table());
 		cp.setHeaderVisible(false);
 		cp.setButtonAlign(HorizontalAlignment.CENTER);
-		cp.setLayout(new FitLayout());
+		fitLayout = new FitLayout();
+		cp.setLayout(fitLayout);
 		cp.setHeight(gridHeight);
 
 		final Grid<MusicDirectoryModel> grid = new Grid<MusicDirectoryModel>(store, cm);
@@ -95,6 +97,14 @@ public class SyncGrid extends LayoutContainer {
 		cp.add(grid);
 
 		add(cp);
+
+	}
+
+	/**
+	 * 그리드 사이즈 맞춤
+	 */
+	public void fitLayout() {
+		fitLayout.layout();
 	}
 
 	/**

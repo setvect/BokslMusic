@@ -27,6 +27,7 @@ import com.setvect.bokslmusic.ui.shared.model.PlayItemModel;
 public class PlayGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private ColumnModel cm;
+	private FitLayout fitLayout;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -102,7 +103,8 @@ public class PlayGrid extends LayoutContainer {
 		// cp.setIcon(Resources.ICONS.table());
 		cp.setHeaderVisible(false);
 		cp.setButtonAlign(HorizontalAlignment.CENTER);
-		cp.setLayout(new FitLayout());
+		fitLayout = new FitLayout();
+		cp.setLayout(fitLayout);
 		cp.setHeight(gridHeight);
 
 		final Grid<PlayItemModel> grid = new Grid<PlayItemModel>(store, cm);
@@ -141,5 +143,12 @@ public class PlayGrid extends LayoutContainer {
 		PlayItemModel dir2Model = new PlayItemModel("song2.mp3", 120);
 		stocks.add(dir2Model);
 		return stocks;
+	}
+
+	/**
+	 * 그리드 사이즈 맞춤
+	 */
+	public void fitLayout() {
+		fitLayout.layout();
 	}
 }

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.extjs.gxt.ui.client.event.BaseEvent;
+import com.extjs.gxt.ui.client.event.ComponentEvent;
+import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.google.gwt.core.client.GWT;
@@ -59,7 +60,7 @@ public class SyncPannel extends SimplePanel {
 		// --------------------------
 		sync.setId("syncPannel");
 		sync.setCollapsible(true);
-		sync.setExpanded(true);
+		sync.setExpanded(false);
 		sync.setHeading("동길화 설정");
 
 		HorizontalPanel syncHori = new HorizontalPanel();
@@ -115,6 +116,12 @@ public class SyncPannel extends SimplePanel {
 		// 동기화 목록을 가져옴
 		syncList();
 
+		sync.addListener(Events.Expand, new Listener<ComponentEvent>() {
+			public void handleEvent(ComponentEvent be) {
+				syncHoriVerty1Grid.fitLayout();
+			}
+		});
+
 		syncHoriVerty1TopRegBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				String dir = syncHoriVerty1TopText.getText();
@@ -147,7 +154,6 @@ public class SyncPannel extends SimplePanel {
 			}
 		});
 
-
 		// Sync 로그 영역 자동 조절 사용하지 않음
 		//
 		// Window.addResizeHandler(new ResizeHandler() {
@@ -162,6 +168,7 @@ public class SyncPannel extends SimplePanel {
 	 * Sync 로그 창에 가로 스크롤을 생기게 하기 위해 브라우저 넓이와 로그영을 포함한 테이블의 동기화 목록의 넓이를 이용해서
 	 * 로그영역의 넓이를 계산
 	 */
+	@Deprecated
 	private void repositionSyncLoadArea() {
 		int clientWidth = Window.getClientWidth();
 		int offsetWidth = syncHoriVerty1Label.getOffsetWidth();
