@@ -14,6 +14,11 @@ public class AlbumArticleModel extends BaseModel {
 	public AlbumArticleModel() {
 	}
 
+	/**
+	 * @param name 음원 이름 
+	 * @param runningTime 재생 시간
+	 * @param albumTitle 앨범이름
+	 */
 	public AlbumArticleModel(String name, int runningTime, String albumTitle) {
 		set("name", name);
 		set("runningTime", runningTime);

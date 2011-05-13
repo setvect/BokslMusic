@@ -26,6 +26,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent.BehaviorType;
+import com.setvect.bokslmusic.ui.client.service.SyncService;
+import com.setvect.bokslmusic.ui.client.service.SyncServiceAsync;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.verify.SyncVerifier;
 
@@ -193,8 +195,8 @@ public class SyncPannel extends SimplePanel {
 					list.add(a);
 
 				}
-				syncHoriVerty1Grid.store.removeAll();
-				syncHoriVerty1Grid.store.add(list);
+				syncHoriVerty1Grid.removeAllGridData();
+				syncHoriVerty1Grid.addGridData(list);
 			}
 		});
 	}

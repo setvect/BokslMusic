@@ -11,7 +11,7 @@ import com.setvect.bokslmusic.boot.ApplicationException;
 import com.setvect.bokslmusic.log.SyncLogPrinter;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.service.music.MusicSyncService;
-import com.setvect.bokslmusic.ui.client.SyncService;
+import com.setvect.bokslmusic.ui.client.service.SyncService;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.common.log.LogPrinter;

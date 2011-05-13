@@ -31,12 +31,10 @@ public class MusicGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private String checkedStyle = "x-grid3-group-check";
 	private String uncheckedStyle = "x-grid3-group-uncheck";
-
+	private GroupingStore<MusicArticleModel> store = new GroupingStore<MusicArticleModel>();
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
-
-		GroupingStore<MusicArticleModel> store = new GroupingStore<MusicArticleModel>();
 		store.setMonitorChanges(true);
 		store.add(getCompanies());
 		store.groupBy("path");

@@ -1,4 +1,4 @@
-package com.setvect.bokslmusic.ui.client;
+package com.setvect.bokslmusic.ui.client.service;
 
 import java.util.List;
 

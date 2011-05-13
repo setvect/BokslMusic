@@ -37,7 +37,8 @@ import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 public class SyncGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private ColumnModel cm;
-	public ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
+	/** 그리드 데이터 */
+	private ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
 	private List<BokslMusicEventListener> buttonEventList = new ArrayList<BokslMusicEventListener>();
 	private ButtonRenderer syncButton;
 	private FitLayout fitLayout;
@@ -97,7 +98,6 @@ public class SyncGrid extends LayoutContainer {
 		cp.add(grid);
 
 		add(cp);
-
 	}
 
 	/**
@@ -120,6 +120,39 @@ public class SyncGrid extends LayoutContainer {
 	 */
 	public void setGridHeight(int gridHeight) {
 		this.gridHeight = gridHeight;
+	}
+
+	public void addSyncButtonListener(BokslMusicEventListener syncButtonListenerImpl) {
+		buttonEventList.add(syncButtonListenerImpl);
+	}
+
+	/**
+	 * 동기화 버튼 비활성화
+	 */
+	public void disableSyncButton() {
+		syncButton.disableButton();
+	}
+
+	/**
+	 * 동기화 버튼 활성화
+	 */
+	public void enableSyncButton() {
+		syncButton.enableButton();
+	}
+
+	/**
+	 * @param models
+	 *            그리드 자료 저장
+	 */
+	public void addGridData(List<? extends MusicDirectoryModel> models) {
+		store.add(models);
+	}
+
+	/**
+	 * 그리드에 있는 자료 삭제
+	 */
+	public void removeAllGridData() {
+		store.removeAll();
 	}
 
 	public static class SyncGridButtonEvent {
@@ -148,24 +181,6 @@ public class SyncGrid extends LayoutContainer {
 		public int getRowIndex() {
 			return rowIndex;
 		}
-	}
-
-	public void addSyncButtonListener(BokslMusicEventListener syncButtonListenerImpl) {
-		buttonEventList.add(syncButtonListenerImpl);
-	}
-
-	/**
-	 * 동기화 버튼 비활성화
-	 */
-	public void disableSyncButton() {
-		syncButton.disableButton();
-	}
-
-	/**
-	 * 동기화 버튼 활성화
-	 */
-	public void enableSyncButton() {
-		syncButton.enableButton();
 	}
 
 	class ButtonRenderer implements GridCellRenderer<MusicDirectoryModel> {
