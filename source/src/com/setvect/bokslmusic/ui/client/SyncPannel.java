@@ -193,7 +193,6 @@ public class SyncPannel extends SimplePanel {
 				for (MusicDirectoryModel n : result) {
 					MusicDirectoryModel a = new MusicDirectoryModel(n.getBasePath(), new Date());
 					list.add(a);
-
 				}
 				syncHoriVerty1Grid.removeAllGridData();
 				syncHoriVerty1Grid.addGridData(list);
