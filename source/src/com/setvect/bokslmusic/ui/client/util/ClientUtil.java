@@ -1,5 +1,10 @@
 package com.setvect.bokslmusic.ui.client.util;
 
+import com.extjs.gxt.ui.client.data.BaseModel;
+import com.extjs.gxt.ui.client.store.ListStore;
+import com.extjs.gxt.ui.client.widget.grid.ColumnData;
+import com.extjs.gxt.ui.client.widget.grid.Grid;
+import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.google.gwt.i18n.client.NumberFormat;
 
 public class ClientUtil {
@@ -32,4 +37,12 @@ public class ClientUtil {
 		NumberFormat numbrFormat = NumberFormat.getFormat("00");
 		return numbrFormat.format(m) + ":" + numbrFormat.format(s);
 	}
+
+	public static final GridCellRenderer<BaseModel> TIME_RENDERER = new GridCellRenderer<BaseModel>() {
+		public String render(BaseModel model, String property, ColumnData config, int rowIndex, int colIndex,
+				ListStore<BaseModel> store, Grid<BaseModel> grid) {
+			int sec = model.get(property);
+			return ClientUtil.getMinuteSec(sec);
+		}
+	};
 }

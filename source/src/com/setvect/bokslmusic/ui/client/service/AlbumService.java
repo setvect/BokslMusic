@@ -13,8 +13,8 @@ import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
  * 
  * @see MusicService
  */
-@RemoteServiceRelativePath("service/FileService")
-public interface FileService extends RemoteService {
+@RemoteServiceRelativePath("service/AlbumService")
+public interface AlbumService extends RemoteService {
 
 	public List<AlbumArticleModel> getFolderChildren(AlbumArticleModel model);
 

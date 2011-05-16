@@ -76,23 +76,23 @@ public class PlayGrid extends LayoutContainer {
 
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 
-		ColumnConfig column = new ColumnConfig("name", "No.", 100);
-		column.setRowHeader(true);
-		configs.add(column);
+		ColumnConfig columnNo = new ColumnConfig("name", "No.", 100);
+		columnNo.setRowHeader(true);
+		configs.add(columnNo);
 
-		column = new ColumnConfig("name", "이름", 100);
-		column.setAlignment(HorizontalAlignment.RIGHT);
-		configs.add(column);
+		ColumnConfig columnName = new ColumnConfig("name", "이름", 100);
+		columnName.setAlignment(HorizontalAlignment.RIGHT);
+		configs.add(columnName);
 
-		column = new ColumnConfig("runningTime", "시간", 100);
-		column.setAlignment(HorizontalAlignment.CENTER);
-		column.setRenderer(timeRenderer);
-		configs.add(column);
+		ColumnConfig columnRunningTime = new ColumnConfig("runningTime", "시간", 100);
+		columnRunningTime.setAlignment(HorizontalAlignment.CENTER);
+		columnRunningTime.setRenderer(timeRenderer);
+		configs.add(columnRunningTime);
 
-		column = new ColumnConfig("name", "삭제", 100);
-		column.setAlignment(HorizontalAlignment.CENTER);
-		column.setRenderer(buttonRenderer);
-		configs.add(column);
+		ColumnConfig columnDelete = new ColumnConfig("name", "삭제", 100);
+		columnDelete.setAlignment(HorizontalAlignment.CENTER);
+		columnDelete.setRenderer(buttonRenderer);
+		configs.add(columnDelete);
 
 		ListStore<PlayItemModel> store = new ListStore<PlayItemModel>();
 		store.add(getTempData());

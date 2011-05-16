@@ -32,20 +32,13 @@ public class MusicGrid extends LayoutContainer {
 	private String checkedStyle = "x-grid3-group-check";
 	private String uncheckedStyle = "x-grid3-group-uncheck";
 	private GroupingStore<MusicArticleModel> store = new GroupingStore<MusicArticleModel>();
+
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
 		store.setMonitorChanges(true);
 		store.add(getCompanies());
 		store.groupBy("path");
-
-		GridCellRenderer<MusicArticleModel> timeRenderer = new GridCellRenderer<MusicArticleModel>() {
-			public String render(MusicArticleModel model, String property, ColumnData config, int rowIndex,
-					int colIndex, ListStore<MusicArticleModel> store, Grid<MusicArticleModel> grid) {
-				int sec = model.get(property);
-				return ClientUtil.getMinuteSec(sec);
-			}
-		};
 
 		final CheckBoxSelectionModel<MusicArticleModel> sm = new CheckBoxSelectionModel<MusicArticleModel>() {
 			@Override
@@ -111,7 +104,7 @@ public class MusicGrid extends LayoutContainer {
 
 		ColumnConfig company = new ColumnConfig("name", "이름", 200);
 		ColumnConfig price = new ColumnConfig("runningTime", "시간", 100);
-		price.setRenderer(timeRenderer);
+		price.setRenderer(ClientUtil.TIME_RENDERER);
 		ColumnConfig path = new ColumnConfig("path", "경로", 0);
 
 		List<ColumnConfig> config = new ArrayList<ColumnConfig>();

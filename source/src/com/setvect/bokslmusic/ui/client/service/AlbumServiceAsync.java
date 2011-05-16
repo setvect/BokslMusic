@@ -14,9 +14,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 
 /**
- * Async <code>FileService<code> interface.
+ * Async <code>AlbumService<code> interface.
  */
-public interface FileServiceAsync {
+public interface AlbumServiceAsync {
 
 	public void getFolderChildren(AlbumArticleModel model, AsyncCallback<List<AlbumArticleModel>> children);
 

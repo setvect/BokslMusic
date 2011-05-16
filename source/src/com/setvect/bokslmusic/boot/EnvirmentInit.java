@@ -97,8 +97,9 @@ public class EnvirmentInit extends HttpServlet {
 		AbstractTagItem.logger.setLevel(Level.WARNING);
 		AbstractDataType.logger.setLevel(Level.WARNING);
 		AudioFile.logger.setLevel(Level.WARNING);
-
+		
 		initialize = true;
+		LogPrinter.out.info("Started...");
 	}
 
 	/**

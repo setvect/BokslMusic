@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.setvect.bokslmusic.boot.ApplicationException;
 import com.setvect.bokslmusic.log.SyncLogPrinter;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.service.music.MusicSyncService;

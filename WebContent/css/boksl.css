@@ -95,3 +95,8 @@
 #listPannel .spliteHorizontal > tbody > tr > td > table{
 	width: 100%;
 }
+
+/* ========== 요소 */
+.icon-page {
+    background-image: url("/image/icon/document.gif") !important;
+}

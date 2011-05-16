@@ -10,7 +10,7 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.setvect.bokslmusic.ui.client.grid.AlbumGrid;
+import com.setvect.bokslmusic.ui.client.grid.AlbumTreeGrid;
 import com.setvect.bokslmusic.ui.client.grid.MusicGrid;
 
 public class ListPannel extends SimplePanel {
@@ -40,7 +40,7 @@ public class ListPannel extends SimplePanel {
 		listHoriVerty1Add.add(listHoriVerty1AddName);
 		Button listHoriVerty1AddBtn = new Button("앨범 추가");
 		listHoriVerty1Add.add(listHoriVerty1AddBtn);
-		AlbumGrid listHoriVerty1Grid = new AlbumGrid();
+		AlbumTreeGrid listHoriVerty1Grid = new AlbumTreeGrid();
 		listHoriVerty1.add(listHoriVerty1Grid);
 		listHoriVerty1Grid.setWidth("100%");
 
