@@ -145,21 +145,15 @@ public class ListPannel extends SimplePanel {
 			public void onClick(ClickEvent event) {
 				String albumName = listHoriVerty1AddName.getText();
 
-				albumService.addAlbum(albumName, new AsyncCallback<Boolean>() {
+				albumService.addAlbum(albumName, new AsyncCallback<Void>() {
 					public void onFailure(Throwable caught) {
 						Window.alert(caught.getMessage());
 					}
 
-					public void onSuccess(Boolean result) {
+					public void onSuccess(Void v) {
 						listHoriVerty1AddName.setText("");
-						if (result) {
-							reloadAlbumList();
-						}
-						else {
-							Window.alert("올바른 시스템 경로가 입력되지 않았습니다.");
-						}
+						reloadAlbumList();
 					}
-
 				});
 			}
 		});

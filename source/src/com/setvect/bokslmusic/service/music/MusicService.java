@@ -105,6 +105,12 @@ public class MusicService {
 		return musicArticleDao.getAlbum(albumSeq);
 	}
 
+	public Collection<Album> getAlbumListAll() {
+		AlbumSearch pageCondition = new AlbumSearch(1);
+		pageCondition.setPagePerItemCount(Integer.MAX_VALUE);
+		return musicArticleDao.getAlbumList(pageCondition).getList();
+	}
+
 	public GenericPage<Album> getAlbumList(AlbumSearch pageCondition) {
 		return musicArticleDao.getAlbumList(pageCondition);
 	}

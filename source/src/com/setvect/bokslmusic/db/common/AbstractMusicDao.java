@@ -231,7 +231,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		Query query = session.createQuery(q);
 		int totalCount = ((Long) query.uniqueResult()).intValue();
 
-		q = " from Album " + whereClause + " order name";
+		q = " from Album " + whereClause + " order by name";
 		query = session.createQuery(q);
 		query.setFirstResult(pageCondition.getStartNumber());
 		query.setMaxResults(pageCondition.getPagePerItemCount());

@@ -24,6 +24,6 @@ public interface AlbumService extends RemoteService {
 	 *            앨범 이름
 	 * @param asyncCallback
 	 */
-	public boolean addAlbum(String albumName);
+	public void addAlbum(String albumName);
 
 }

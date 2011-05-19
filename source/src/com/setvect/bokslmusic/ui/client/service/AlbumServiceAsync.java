@@ -19,6 +19,5 @@ public interface AlbumServiceAsync {
 
 	public void getFolderChildren(AlbumArticleModel model, AsyncCallback<List<AlbumArticleModel>> children);
 
-	public void addAlbum(String albumName, AsyncCallback<Boolean> asyncCallback);
-
+	void addAlbum(String albumName, AsyncCallback<Void> callback);
 }
