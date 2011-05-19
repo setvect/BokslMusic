@@ -34,16 +34,12 @@ import com.setvect.bokslmusic.ui.shared.verify.SyncVerifier;
 public class SyncPannel extends SimplePanel {
 	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
 	private SyncGrid syncHoriVerty1Grid = new SyncGrid();
-	private TextBox syncHoriVerty1TopText = new TextBox();
 	private HTML syncHoriVerty2ScrollContent;
 	private ScrollPanel syncHoriVerty2Scroll;
 
 	/** 음악 파일 동기화 진행중이면 true */
 	private boolean synchronizing = false;
 
-	/** 동기화시 주기적으로 서버측으로 부터 동기화 로그를 가져옴 */
-	private Timer syncMessageGetter = new SyncLogLoadTimer();
-	private HorizontalPanel syncHoriVerty2Header;
 	private Label syncHoriVerty1Label;
 
 	/*
@@ -84,6 +80,7 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty1Top.add(syncHoriVerty1TopBtn2);
 
 		Button syncHoriVerty1TopRegBtn = new Button("등록");
+		final TextBox syncHoriVerty1TopText = new TextBox();
 		syncHoriVerty1Top.add(syncHoriVerty1TopText);
 		syncHoriVerty1Top.add(syncHoriVerty1TopRegBtn);
 
@@ -97,7 +94,7 @@ public class SyncPannel extends SimplePanel {
 		syncHori.add(syncHoriVerty2);
 		syncHoriVerty2.setStyleName("log");
 
-		syncHoriVerty2Header = new HorizontalPanel();
+		HorizontalPanel syncHoriVerty2Header = new HorizontalPanel();
 		syncHoriVerty2.add(syncHoriVerty2Header);
 		syncHoriVerty2Header.setStyleName("subPannelHeader");
 
@@ -116,7 +113,7 @@ public class SyncPannel extends SimplePanel {
 
 		// ------------ 이벤트 핸들러 등록
 		// 동기화 목록을 가져옴
-		syncList();
+		reloadSyncList();
 
 		sync.addListener(Events.Expand, new Listener<ComponentEvent>() {
 			public void handleEvent(ComponentEvent be) {
@@ -140,7 +137,7 @@ public class SyncPannel extends SimplePanel {
 					public void onSuccess(Boolean result) {
 						syncHoriVerty1TopText.setText("");
 						if (result) {
-							syncList();
+							reloadSyncList();
 						}
 						else {
 							Window.alert("올바른 시스템 경로가 입력되지 않았습니다.");
@@ -182,7 +179,7 @@ public class SyncPannel extends SimplePanel {
 	/**
 	 * 동기화 디렉토리 목록 처리 Callback
 	 */
-	private void syncList() {
+	private void reloadSyncList() {
 		syncService.getSyncList(new AsyncCallback<List<MusicDirectoryModel>>() {
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
@@ -204,6 +201,9 @@ public class SyncPannel extends SimplePanel {
 	 * 동기화 버튼 이벤트
 	 */
 	class BokslMusicEventListenerImpl implements BokslMusicEventListener {
+		/** 동기화시 주기적으로 서버측으로 부터 동기화 로그를 가져옴 */
+		Timer syncMessageGetter = new SyncLogLoadTimer();
+
 		public void onClick(Object eventObject) {
 			SyncGridButtonEvent syncEventObject = (SyncGridButtonEvent) eventObject;
 			if (syncEventObject.getBehaviorType() == BehaviorType.DELETE) {
@@ -213,7 +213,7 @@ public class SyncPannel extends SimplePanel {
 					}
 
 					public void onSuccess(Boolean result) {
-						syncList();
+						reloadSyncList();
 					}
 				});
 			}

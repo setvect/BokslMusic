@@ -2,14 +2,13 @@ package com.setvect.bokslmusic.ui.client.service;
 
 import java.util.List;
 
-import com.extjs.gxt.ui.client.data.RemoteSortTreeLoadConfig;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 
 /**
- * 음악 파일 경로 동기화
+ * 앨범 관리
  * 
  * @see MusicService
  */
@@ -18,6 +17,13 @@ public interface AlbumService extends RemoteService {
 
 	public List<AlbumArticleModel> getFolderChildren(AlbumArticleModel model);
 
-	public List<AlbumArticleModel> getFolderChildren(RemoteSortTreeLoadConfig loadConfig);
+	/**
+	 * 앨범 등록
+	 * 
+	 * @param albumName
+	 *            앨범 이름
+	 * @param asyncCallback
+	 */
+	public boolean addAlbum(String albumName);
 
 }

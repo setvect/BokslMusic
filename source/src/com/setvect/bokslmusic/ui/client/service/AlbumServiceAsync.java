@@ -9,7 +9,6 @@ package com.setvect.bokslmusic.ui.client.service;
 
 import java.util.List;
 
-import com.extjs.gxt.ui.client.data.RemoteSortTreeLoadConfig;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 
@@ -20,6 +19,6 @@ public interface AlbumServiceAsync {
 
 	public void getFolderChildren(AlbumArticleModel model, AsyncCallback<List<AlbumArticleModel>> children);
 
-	public void getFolderChildren(RemoteSortTreeLoadConfig loadConfig, AsyncCallback<List<AlbumArticleModel>> children);
+	public void addAlbum(String albumName, AsyncCallback<Boolean> asyncCallback);
 
 }

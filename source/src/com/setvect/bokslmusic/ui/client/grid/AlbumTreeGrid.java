@@ -20,7 +20,6 @@ import com.extjs.gxt.ui.client.widget.treegrid.TreeGridCellRenderer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.AbstractImagePrototype;
 import com.setvect.bokslmusic.ui.client.service.AlbumService;
 import com.setvect.bokslmusic.ui.client.service.AlbumServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;

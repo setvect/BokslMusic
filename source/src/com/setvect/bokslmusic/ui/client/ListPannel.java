@@ -1,6 +1,11 @@
 package com.setvect.bokslmusic.ui.client;
 
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
@@ -12,8 +17,12 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.AlbumTreeGrid;
 import com.setvect.bokslmusic.ui.client.grid.MusicGrid;
+import com.setvect.bokslmusic.ui.client.service.AlbumService;
+import com.setvect.bokslmusic.ui.client.service.AlbumServiceAsync;
 
 public class ListPannel extends SimplePanel {
+	private final AlbumServiceAsync albumService = GWT.create(AlbumService.class);
+
 	protected void onLoad() {
 		ContentPanel list = new ContentPanel();
 		list.setId("listPannel");
@@ -36,7 +45,7 @@ public class ListPannel extends SimplePanel {
 
 		FlowPanel listHoriVerty1Add = new FlowPanel();
 		listHoriVerty1.add(listHoriVerty1Add);
-		TextBox listHoriVerty1AddName = new TextBox();
+		final TextBox listHoriVerty1AddName = new TextBox();
 		listHoriVerty1Add.add(listHoriVerty1AddName);
 		Button listHoriVerty1AddBtn = new Button("앨범 추가");
 		listHoriVerty1Add.add(listHoriVerty1AddBtn);
@@ -130,5 +139,37 @@ public class ListPannel extends SimplePanel {
 		listHoriVerty3.add(listHoriVerty3Grid);
 		listHoriVerty3Grid.setWidth("100%");
 		add(list);
+
+		// ------------ 이벤트 핸들러 등록
+		listHoriVerty1AddBtn.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				String albumName = listHoriVerty1AddName.getText();
+
+				albumService.addAlbum(albumName, new AsyncCallback<Boolean>() {
+					public void onFailure(Throwable caught) {
+						Window.alert(caught.getMessage());
+					}
+
+					public void onSuccess(Boolean result) {
+						listHoriVerty1AddName.setText("");
+						if (result) {
+							reloadAlbumList();
+						}
+						else {
+							Window.alert("올바른 시스템 경로가 입력되지 않았습니다.");
+						}
+					}
+
+				});
+			}
+		});
+	}
+
+	/**
+	 * 동기화 목록
+	 */
+	private void reloadAlbumList() {
+		// TODO Auto-generated method stub
+
 	}
 }

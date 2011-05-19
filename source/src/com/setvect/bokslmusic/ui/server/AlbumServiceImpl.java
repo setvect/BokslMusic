@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.extjs.gxt.ui.client.data.RemoteSortTreeLoadConfig;
 import com.setvect.bokslmusic.ui.client.service.AlbumService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.FolderModel;
@@ -31,9 +30,9 @@ public class AlbumServiceImpl implements AlbumService {
 		return result;
 	}
 
-	public List<AlbumArticleModel> getFolderChildren(RemoteSortTreeLoadConfig loadConfig) {
-		System.out.println("BBBBBB");
-		return null;
+
+	public boolean addAlbum(String albumName) {
+		return false;
 	}
 
 }
