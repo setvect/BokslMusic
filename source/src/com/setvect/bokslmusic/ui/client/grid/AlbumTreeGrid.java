@@ -20,29 +20,30 @@ import com.extjs.gxt.ui.client.widget.treegrid.TreeGridCellRenderer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.setvect.bokslmusic.ui.client.service.AlbumService;
-import com.setvect.bokslmusic.ui.client.service.AlbumServiceAsync;
+import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
+import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.FolderModel;
 
 public class AlbumTreeGrid extends LayoutContainer {
+	private TreeLoader<AlbumArticleModel> loader;
 
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
-		final AlbumServiceAsync service = GWT.create(AlbumService.class);
+		final MusicManagerServiceAsync managerService = GWT.create(MusicManagerService.class);
 
 		// data proxy
 		RpcProxy<List<AlbumArticleModel>> proxy = new RpcProxy<List<AlbumArticleModel>>() {
 			@Override
 			protected void load(Object loadConfig, AsyncCallback<List<AlbumArticleModel>> callback) {
-				service.getFolderChildren((AlbumArticleModel) loadConfig, callback);
+				managerService.listFolder((AlbumArticleModel) loadConfig, callback);
 			}
 		};
 
 		// tree loader
-		final TreeLoader<AlbumArticleModel> loader = new BaseTreeLoader<AlbumArticleModel>(proxy) {
+		loader = new BaseTreeLoader<AlbumArticleModel>(proxy) {
 			@Override
 			public boolean hasChildren(AlbumArticleModel parent) {
 				return parent instanceof FolderModel;
@@ -79,6 +80,7 @@ public class AlbumTreeGrid extends LayoutContainer {
 		ColumnModel cm = new ColumnModel(Arrays.asList(name, runningTime));
 
 		TreeGrid<ModelData> tree = new TreeGrid<ModelData>(store, cm);
+
 		tree.setStateful(true);
 		tree.setId("albumTree");
 		store.setKeyProvider(new ModelKeyProvider<AlbumArticleModel>() {
@@ -93,4 +95,12 @@ public class AlbumTreeGrid extends LayoutContainer {
 		tree.setTrackMouseOver(false);
 		add(tree);
 	}
+
+	/**
+	 * Tree 데이터 다시 로드
+	 */
+	public void reload() {
+		loader.load();
+	}
+
 }

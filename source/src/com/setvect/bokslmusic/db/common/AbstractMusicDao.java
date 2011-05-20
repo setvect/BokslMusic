@@ -285,7 +285,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		Query query = session.createQuery(q);
 		int totalCount = ((Long) query.uniqueResult()).intValue();
 
-		q = " from PlayItem " + whereClause + " order orderNo";
+		q = " from PlayItem " + whereClause + " order by orderNo";
 		query = session.createQuery(q);
 		query.setFirstResult(pageCondition.getStartNumber());
 		query.setMaxResults(pageCondition.getPagePerItemCount());
@@ -302,7 +302,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		String where = " where 1 = 1 ";
 		int album = pageCondition.getSearchAlbumSeq();
 		if (album != 0) {
-			where += " albumSeq = " + album;
+			where += "and albumSeq = " + album;
 		}
 		return where;
 	}

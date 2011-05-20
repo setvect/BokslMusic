@@ -17,11 +17,12 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.AlbumTreeGrid;
 import com.setvect.bokslmusic.ui.client.grid.MusicGrid;
-import com.setvect.bokslmusic.ui.client.service.AlbumService;
-import com.setvect.bokslmusic.ui.client.service.AlbumServiceAsync;
+import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
+import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 
 public class ListPannel extends SimplePanel {
-	private final AlbumServiceAsync albumService = GWT.create(AlbumService.class);
+	private final MusicManagerServiceAsync albumService = GWT.create(MusicManagerService.class);
+	private AlbumTreeGrid listHoriVerty1Grid;
 
 	protected void onLoad() {
 		ContentPanel list = new ContentPanel();
@@ -49,7 +50,7 @@ public class ListPannel extends SimplePanel {
 		listHoriVerty1Add.add(listHoriVerty1AddName);
 		Button listHoriVerty1AddBtn = new Button("앨범 추가");
 		listHoriVerty1Add.add(listHoriVerty1AddBtn);
-		AlbumTreeGrid listHoriVerty1Grid = new AlbumTreeGrid();
+		listHoriVerty1Grid = new AlbumTreeGrid();
 		listHoriVerty1.add(listHoriVerty1Grid);
 		listHoriVerty1Grid.setWidth("100%");
 
@@ -91,7 +92,7 @@ public class ListPannel extends SimplePanel {
 		Button listHoriVerty3SearchSampleBtn3 = new Button("상세 검색");
 		listHoriVerty3SearchSample.add(listHoriVerty3SearchSampleBtn3);
 
-		Grid listHoriVerty3SearchDetail = new Grid(2, 3);
+		final Grid listHoriVerty3SearchDetail = new Grid(2, 3);
 		listHoriVerty3Search.add(listHoriVerty3SearchDetail);
 		listHoriVerty3SearchDetail.setVisible(false);
 
@@ -141,6 +142,9 @@ public class ListPannel extends SimplePanel {
 		add(list);
 
 		// ------------ 이벤트 핸들러 등록
+		
+		listHoriVerty3Grid.reloadMusicArticleList();
+		
 		listHoriVerty1AddBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				String albumName = listHoriVerty1AddName.getText();
@@ -157,13 +161,18 @@ public class ListPannel extends SimplePanel {
 				});
 			}
 		});
+
+		listHoriVerty3SearchSampleBtn3.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				listHoriVerty3SearchDetail.setVisible(!listHoriVerty3SearchDetail.isVisible());
+			}
+		});
 	}
 
 	/**
 	 * 동기화 목록
 	 */
 	private void reloadAlbumList() {
-		// TODO Auto-generated method stub
-
+		listHoriVerty1Grid.reload();
 	}
 }

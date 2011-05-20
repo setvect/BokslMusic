@@ -136,6 +136,18 @@ public class MusicService {
 		return musicArticleDao.getPlayItemList(pageCondition);
 	}
 
+	/**
+	 * @param albumSeq
+	 *            앨범 아이디
+	 * @return 앨범에 해당하는 음원
+	 */
+	public GenericPage<PlayItem> getPlayItemList(int albumSeq) {
+		PlayItemSearch pageCondition = new PlayItemSearch(1);
+		pageCondition.setPagePerItemCount(Integer.MAX_VALUE);
+		pageCondition.setSearchAlbumSeq(albumSeq);
+		return musicArticleDao.getPlayItemList(pageCondition);
+	}
+
 	public void createPlayItem(PlayItem item) {
 		musicArticleDao.createPlayItem(item);
 	}

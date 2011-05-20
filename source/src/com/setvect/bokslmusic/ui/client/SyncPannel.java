@@ -1,9 +1,5 @@
 package com.setvect.bokslmusic.ui.client;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.extjs.gxt.ui.client.event.ComponentEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
@@ -28,7 +24,6 @@ import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent.BehaviorType;
 import com.setvect.bokslmusic.ui.client.service.SyncService;
 import com.setvect.bokslmusic.ui.client.service.SyncServiceAsync;
-import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.verify.SyncVerifier;
 
 public class SyncPannel extends SimplePanel {
@@ -113,7 +108,7 @@ public class SyncPannel extends SimplePanel {
 
 		// ------------ 이벤트 핸들러 등록
 		// 동기화 목록을 가져옴
-		reloadSyncList();
+		syncHoriVerty1Grid.reloadSyncList();
 
 		sync.addListener(Events.Expand, new Listener<ComponentEvent>() {
 			public void handleEvent(ComponentEvent be) {
@@ -137,7 +132,7 @@ public class SyncPannel extends SimplePanel {
 					public void onSuccess(Boolean result) {
 						syncHoriVerty1TopText.setText("");
 						if (result) {
-							reloadSyncList();
+							syncHoriVerty1Grid.reloadSyncList();
 						}
 						else {
 							Window.alert("올바른 시스템 경로가 입력되지 않았습니다.");
@@ -176,26 +171,6 @@ public class SyncPannel extends SimplePanel {
 		syncHoriVerty2Scroll.setWidth(width2);
 	}
 
-	/**
-	 * 동기화 디렉토리 목록 처리 Callback
-	 */
-	private void reloadSyncList() {
-		syncService.getSyncList(new AsyncCallback<List<MusicDirectoryModel>>() {
-			public void onFailure(Throwable caught) {
-				Window.alert(caught.getMessage());
-			}
-
-			public void onSuccess(List<MusicDirectoryModel> result) {
-				List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
-				for (MusicDirectoryModel n : result) {
-					MusicDirectoryModel a = new MusicDirectoryModel(n.getBasePath(), new Date());
-					list.add(a);
-				}
-				syncHoriVerty1Grid.removeAllGridData();
-				syncHoriVerty1Grid.addGridData(list);
-			}
-		});
-	}
 
 	/**
 	 * 동기화 버튼 이벤트
@@ -213,7 +188,7 @@ public class SyncPannel extends SimplePanel {
 					}
 
 					public void onSuccess(Boolean result) {
-						reloadSyncList();
+						syncHoriVerty1Grid.reloadSyncList();
 					}
 				});
 			}

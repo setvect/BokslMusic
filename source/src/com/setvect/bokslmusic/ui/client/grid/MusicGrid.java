@@ -7,25 +7,28 @@ import com.extjs.gxt.ui.client.core.El;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.event.GridEvent;
 import com.extjs.gxt.ui.client.store.GroupingStore;
-import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.grid.CheckBoxSelectionModel;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
-import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
-import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.grid.GridGroupRenderer;
 import com.extjs.gxt.ui.client.widget.grid.GroupColumnData;
 import com.extjs.gxt.ui.client.widget.grid.GroupingView;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
+import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 
 public class MusicGrid extends LayoutContainer {
+	final MusicManagerServiceAsync managerService = GWT.create(MusicManagerService.class);
 
 	private GroupingView view;
 	private int gridHeight = 200;
@@ -37,9 +40,7 @@ public class MusicGrid extends LayoutContainer {
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
 		store.setMonitorChanges(true);
-		store.add(getCompanies());
 		store.groupBy("path");
-
 		final CheckBoxSelectionModel<MusicArticleModel> sm = new CheckBoxSelectionModel<MusicArticleModel>() {
 			@Override
 			public void deselectAll() {
@@ -203,16 +204,19 @@ public class MusicGrid extends LayoutContainer {
 				checked ? checkedStyle : uncheckedStyle);
 	}
 
-	public static List<MusicArticleModel> getCompanies() {
-		List<MusicArticleModel> stocks = new ArrayList<MusicArticleModel>();
-		stocks.add(new MusicArticleModel("3m Co", 1320, "Manufacturing"));
-		stocks.add(new MusicArticleModel("Alcoa Inc", 120, "Manufacturing"));
-		stocks.add(new MusicArticleModel("Altria Group Inc", 210, "Manufacturing"));
-		stocks.add(new MusicArticleModel("American Express Company", 101, "Finance"));
-		stocks.add(new MusicArticleModel("American International Group, Inc.", 120, "Services"));
-		stocks.add(new MusicArticleModel("AT&T Inc.", 1021, "Services"));
-		stocks.add(new MusicArticleModel("Intel Corporation", 210, "Computer"));
-		stocks.add(new MusicArticleModel("International Business Machines", 410, "Computer"));
-		return stocks;
+	/**
+	 * 음악 정보 로드
+	 */
+	public void reloadMusicArticleList() {
+		managerService.listMusicArticleAll(new AsyncCallback<List<MusicArticleModel>>() {
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
+
+			public void onSuccess(List<MusicArticleModel> result) {
+				store.removeAll();
+				store.add(result);
+			}
+		});
 	}
 }

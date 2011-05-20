@@ -6,10 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
+
+import com.setvect.bokslmusic.boot.EnvirmentInit;
+import com.setvect.bokslmusic.service.music.MusicService;
 
 /**
  * 앨범 정보
@@ -38,6 +42,9 @@ public class PlayItem {
 	/** 정렬 순서 */
 	@Column(name = "ORDER_NO")
 	private int orderNo;
+
+	@Transient
+	private MusicArticle musicArticle;
 
 	public int getPlayItemSeq() {
 		return playItemSeq;
@@ -69,6 +76,16 @@ public class PlayItem {
 
 	public void setOrderNo(int orderNo) {
 		this.orderNo = orderNo;
+	}
+
+	public MusicArticle getMusicArticle() {
+		if (musicArticle != null) {
+			return musicArticle;
+		}
+		MusicService service = (MusicService) EnvirmentInit.getConfigSpring().getBean("MusicService");
+		musicArticle = service.getMusicArticle(musicId);
+		return musicArticle;
+
 	}
 
 }

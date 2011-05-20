@@ -1,10 +1,3 @@
-/* 
- * Ext GWT 2.2.1 - Ext for GWT 
- * Copyright(c) 2007-2010, Ext JS, LLC. 
- * licensing@extjs.com 
- *  
- * http://extjs.com/license 
- */
 package com.setvect.bokslmusic.ui.client.grid;
 
 import java.util.ArrayList;
@@ -28,15 +21,21 @@ import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.client.BokslMusicEventListener;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid.SyncGridButtonEvent.BehaviorType;
+import com.setvect.bokslmusic.ui.client.service.SyncService;
+import com.setvect.bokslmusic.ui.client.service.SyncServiceAsync;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
 public class SyncGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private ColumnModel cm;
+	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
 	/** 그리드 데이터 */
 	private ListStore<MusicDirectoryModel> store = new ListStore<MusicDirectoryModel>();
 	private List<BokslMusicEventListener> buttonEventList = new ArrayList<BokslMusicEventListener>();
@@ -141,18 +140,25 @@ public class SyncGrid extends LayoutContainer {
 	}
 
 	/**
-	 * @param models
-	 *            그리드 자료 저장
+	 * 동기화 디렉토리 목록 처리 Callback
 	 */
-	public void addGridData(List<? extends MusicDirectoryModel> models) {
-		store.add(models);
-	}
+	public void reloadSyncList() {
+		syncService.getSyncList(new AsyncCallback<List<MusicDirectoryModel>>() {
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
 
-	/**
-	 * 그리드에 있는 자료 삭제
-	 */
-	public void removeAllGridData() {
-		store.removeAll();
+			public void onSuccess(List<MusicDirectoryModel> result) {
+				List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
+				for (MusicDirectoryModel n : result) {
+					// TODO 왜 new Data()을 사용했을까?
+					MusicDirectoryModel a = new MusicDirectoryModel(n.getBasePath(), new Date());
+					list.add(a);
+				}
+				store.removeAll();
+				store.add(list);
+			}
+		});
 	}
 
 	public static class SyncGridButtonEvent {
@@ -245,5 +251,4 @@ public class SyncGrid extends LayoutContainer {
 			}
 		}
 	};
-
 }

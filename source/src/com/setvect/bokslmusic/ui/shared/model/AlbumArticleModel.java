@@ -15,22 +15,25 @@ public class AlbumArticleModel extends BaseModel {
 	}
 
 	/**
-	 * @param name 음원 이름 
-	 * @param runningTime 재생 시간
-	 * @param albumTitle 앨범이름
+	 * @param name
+	 *            음원 이름
+	 * @param runningTime
+	 *            재생 시간
+	 * @param id
+	 *            앨범이름
 	 */
-	public AlbumArticleModel(String name, int runningTime, String albumTitle) {
+	public AlbumArticleModel(String name, int runningTime, String id) {
 		set("name", name);
 		set("runningTime", runningTime);
-		set("albumTitle", albumTitle);
+		set("id", id);
 	}
 
-	public String getAlbumTitle() {
-		return get("albumTitle");
+	public String getId() {
+		return get("id");
 	}
 
-	public void setAlbumTitle(String albumTitle) {
-		set("albumTitle", albumTitle);
+	public void setId(String id) {
+		set("id", id);
 	}
 
 	public String getName() {
