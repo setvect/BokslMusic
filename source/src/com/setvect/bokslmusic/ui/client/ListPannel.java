@@ -1,5 +1,7 @@
 package com.setvect.bokslmusic.ui.client;
 
+import java.util.List;
+
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -19,6 +21,7 @@ import com.setvect.bokslmusic.ui.client.grid.AlbumTreeGrid;
 import com.setvect.bokslmusic.ui.client.grid.MusicGrid;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
+import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 
 public class ListPannel extends SimplePanel {
 	private final MusicManagerServiceAsync albumService = GWT.create(MusicManagerService.class);
@@ -62,9 +65,7 @@ public class ListPannel extends SimplePanel {
 		VerticalPanel listHoriVerty2Movie = new VerticalPanel();
 		listHoriVerty2.add(listHoriVerty2Movie);
 		Button listHoriVerty2MovieBtn1 = new Button("◀");
-		Button listHoriVerty2MovieBtn2 = new Button("▶");
 		listHoriVerty2Movie.add(listHoriVerty2MovieBtn1);
-		listHoriVerty2Movie.add(listHoriVerty2MovieBtn2);
 
 		// --------------------------
 		VerticalPanel listHoriVerty3 = new VerticalPanel();
@@ -173,7 +174,8 @@ public class ListPannel extends SimplePanel {
 		// ◀
 		listHoriVerty2MovieBtn1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				listHoriVerty3Grid.debug();
+				List<MusicArticleModel> musicItems = listHoriVerty3Grid.getSelectedMusic();
+				listHoriVerty1Grid.addMusic(musicItems);
 			}
 		});
 	}

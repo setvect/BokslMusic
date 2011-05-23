@@ -28,6 +28,7 @@ public class PlayGrid extends LayoutContainer {
 	private int gridHeight = 200;
 	private ColumnModel cm;
 	private FitLayout fitLayout;
+	private Grid<PlayItemModel> grid;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -107,7 +108,7 @@ public class PlayGrid extends LayoutContainer {
 		cp.setLayout(fitLayout);
 		cp.setHeight(gridHeight);
 
-		final Grid<PlayItemModel> grid = new Grid<PlayItemModel>(store, cm);
+		grid = new Grid<PlayItemModel>(store, cm);
 		grid.setStyleAttribute("borderTop", "none");
 		grid.setAutoExpandColumn("name");
 		grid.setBorders(false);
@@ -150,5 +151,9 @@ public class PlayGrid extends LayoutContainer {
 	 */
 	public void fitLayout() {
 		fitLayout.layout();
+	}
+	
+	public void debug(){
+		grid.getView();
 	}
 }

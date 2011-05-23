@@ -5,7 +5,7 @@ import com.extjs.gxt.ui.client.data.BaseModel;
 /**
  * 앨범에 등록된 음악 항목
  */
-public class AlbumArticleModel extends BaseModel {
+public class AlbumArticleModel extends BaseModel implements Comparable<AlbumArticleModel> {
 
 	/** */
 	private static final long serialVersionUID = -6422740976331298816L;
@@ -22,10 +22,11 @@ public class AlbumArticleModel extends BaseModel {
 	 * @param id
 	 *            앨범이름
 	 */
-	public AlbumArticleModel(String name, int runningTime, String id) {
+	public AlbumArticleModel(String name, int runningTime, String id, int orderNo) {
 		set("name", name);
 		set("runningTime", runningTime);
 		set("id", id);
+		set("orderNo", orderNo);
 	}
 
 	public String getId() {
@@ -45,7 +46,24 @@ public class AlbumArticleModel extends BaseModel {
 		return runningTime;
 	}
 
+	public int getOrderNo() {
+		return (Integer) get("orderNo");
+	}
+
 	public String toString() {
 		return getName();
+	}
+
+	public int compareTo(AlbumArticleModel o) {
+		int order = getOrderNo();
+		if (order > o.getOrderNo()) {
+			return 1;
+		}
+		else if (order < o.getOrderNo()) {
+			return -1;
+		}
+		else {
+			return getName().compareTo(o.getName());
+		}
 	}
 }

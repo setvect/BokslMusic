@@ -34,6 +34,16 @@ public interface MusicManagerService extends RemoteService {
 	public void addAlbum(String albumName);
 
 	/**
+	 * @param albumSeq
+	 *            앨범 번호
+	 * @param musicId
+	 *            음악 아이디
+	 */
+	public void addMusicForAlbum(int albumSeq, List<String> musicId);
+
+	// -------------------------
+
+	/**
 	 * @return
 	 */
 	public List<MusicArticleModel> listMusicArticleAll();

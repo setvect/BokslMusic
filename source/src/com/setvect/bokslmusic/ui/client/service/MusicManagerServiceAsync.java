@@ -22,5 +22,9 @@ public interface MusicManagerServiceAsync {
 
 	public void addAlbum(String albumName, AsyncCallback<Void> callback);
 
+	public void addMusicForAlbum(int albumSeq, List<String> musicId, AsyncCallback<Void> callback);
+
+	// -------------------------
 	public void listMusicArticleAll(AsyncCallback<List<MusicArticleModel>> data);
+
 }

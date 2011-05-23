@@ -10,7 +10,6 @@ public class FolderModel extends AlbumArticleModel {
 	}
 
 	public FolderModel(String name, String path) {
-		super(name, 0, path);
+		super(name, 0, path, 0);
 	}
-
 }

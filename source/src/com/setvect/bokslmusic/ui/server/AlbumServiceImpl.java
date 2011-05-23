@@ -60,12 +60,15 @@ public class AlbumServiceImpl implements MusicManagerService {
 		Collection<PlayItem> list = page.getList();
 		for (PlayItem a : list) {
 			MusicArticle musicArticle = a.getMusicArticle();
-			AlbumArticleModel m = new AlbumArticleModel(musicArticle.getName(), musicArticle.getRunningTime(),
-					musicArticle.getMusicId());
+			String name = musicArticle.getName();
+			int runningTime = musicArticle.getRunningTime();
+			String musicId = musicArticle.getMusicId();
+			int orderNo = a.getOrderNo();
+			AlbumArticleModel m = new AlbumArticleModel(name, runningTime, musicId, orderNo);
 			result.add(m);
 		}
 		if (result.size() == 0) {
-			AlbumArticleModel m = new AlbumArticleModel("Empty", 0, "Empty");
+			AlbumArticleModel m = new AlbumArticleModel("Empty", 0, "Empty", 0);
 			result.add(m);
 		}
 		return result;
@@ -84,16 +87,33 @@ public class AlbumServiceImpl implements MusicManagerService {
 		musicService.createAlbum(album);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.setvect.bokslmusic.ui.client.service.MusicManagerService#addMusicForAlbum
+	 * (int, java.util.List)
+	 */
+	public void addMusicForAlbum(int albumSeq, List<String> musicId) {
+		for (String s : musicId) {
+			PlayItem p = new PlayItem();
+			p.setAlbumSeq(albumSeq);
+			p.setMusicId(s);
+			musicService.createPlayItem(p);
+		}
+	}
+
 	// ----------------------
 
 	public List<MusicArticleModel> listMusicArticleAll() {
 		Collection<MusicArticle> allList = musicService.getMusicArticleAllList();
 		List<MusicArticleModel> result = new ArrayList<MusicArticleModel>();
 		for (MusicArticle article : allList) {
-			MusicArticleModel m = new MusicArticleModel(article.getMusicId(), article.getName(), article.getRunningTime(),
-					article.getPath());
+			MusicArticleModel m = new MusicArticleModel(article.getMusicId(), article.getName(),
+					article.getRunningTime(), article.getPath());
 			result.add(m);
 		}
 		return result;
 	}
+
 }

@@ -1,5 +1,6 @@
 package com.setvect.bokslmusic.ui.client.grid;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,19 +16,24 @@ import com.extjs.gxt.ui.client.util.IconHelper;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
+import com.extjs.gxt.ui.client.widget.grid.GridSelectionModel;
 import com.extjs.gxt.ui.client.widget.treegrid.TreeGrid;
 import com.extjs.gxt.ui.client.widget.treegrid.TreeGridCellRenderer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.FolderModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 
 public class AlbumTreeGrid extends LayoutContainer {
+	final MusicManagerServiceAsync managerService = GWT.create(MusicManagerService.class);
 	private TreeLoader<AlbumArticleModel> loader;
+	private TreeGrid<AlbumArticleModel> tree;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -79,8 +85,7 @@ public class AlbumTreeGrid extends LayoutContainer {
 
 		ColumnModel cm = new ColumnModel(Arrays.asList(name, runningTime));
 
-		TreeGrid<ModelData> tree = new TreeGrid<ModelData>(store, cm);
-
+		tree = new TreeGrid<AlbumArticleModel>(store, cm);
 		tree.setStateful(true);
 		tree.setId("albumTree");
 		store.setKeyProvider(new ModelKeyProvider<AlbumArticleModel>() {
@@ -103,4 +108,40 @@ public class AlbumTreeGrid extends LayoutContainer {
 		loader.load();
 	}
 
+	/**
+	 * 앨범에 음악 추가
+	 * 
+	 * @param albumSeq
+	 *            앨범
+	 * @param musicId
+	 *            음악 코드
+	 */
+	private void addMusicForAlbum(int albumSeq, List<String> musicId) {
+		managerService.addMusicForAlbum(albumSeq, musicId, new AsyncCallback<Void>() {
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
+
+			public void onSuccess(Void result) {
+				reload();
+			}
+		});
+	}
+
+	public void addMusic(List<MusicArticleModel> musicItems) {
+		GridSelectionModel<AlbumArticleModel> select = tree.getSelectionModel();
+		List<AlbumArticleModel> selected = select.getSelectedItems();
+
+		List<String> musicId = new ArrayList<String>();
+		for (MusicArticleModel i : musicItems) {
+			musicId.add(i.getId());
+		}
+
+		for (AlbumArticleModel m : selected) {
+			if (m instanceof FolderModel) {
+				FolderModel forlder = (FolderModel) m;
+				addMusicForAlbum(Integer.parseInt(forlder.getId()), musicId);
+			}
+		}
+	}
 }

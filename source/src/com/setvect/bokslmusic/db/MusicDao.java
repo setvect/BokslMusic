@@ -150,6 +150,22 @@ public interface MusicDao {
 	public GenericPage<PlayItem> getPlayItemList(PlayItemSearch pageCondition);
 
 	/**
+	 * @param albumSeq
+	 *            앨범 번호
+	 * @return 앨범 마지막 orderNo, 해당 앨범에 음악이 하나도 없으면 0 리턴
+	 */
+
+	public int getAlbumMaxOrderNo(int albumSeq);
+	/**
+	 * @param albumSeq
+	 *            앨범 일련번호
+	 * @param musicId
+	 *            음악 아이디
+	 * @return 해당 엘범에 음악이 포함 되어 있으면 true
+	 */
+	public boolean isAlbumExistMusic(int albumSeq, String musicId);
+
+	/**
 	 * 등록
 	 * 
 	 * @param item

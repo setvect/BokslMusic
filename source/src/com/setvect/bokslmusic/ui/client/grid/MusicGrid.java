@@ -159,7 +159,8 @@ public class MusicGrid extends LayoutContainer {
 				String f = cm.getColumnById(data.field).getHeader();
 				String l = data.models.size() == 1 ? "Item" : "Items";
 				return f + ": " + data.group + " (" + data.models.size() + " " + l + ")"
-						+ "<div class='x-grid3-group-checker' style='float:right' ><div class='" + uncheckedStyle + "'> </div></div> ";
+						+ "<div class='x-grid3-group-checker' style='float:right' ><div class='" + uncheckedStyle
+						+ "'> </div></div> ";
 			}
 		});
 
@@ -198,10 +199,8 @@ public class MusicGrid extends LayoutContainer {
 		});
 	}
 
-	public void debug() {
-		List<MusicArticleModel> items = sm.getSelectedItems();
-		for (MusicArticleModel item : items) {
-			System.out.println(item.getId() + " - " + item.getName());
-		}
+	public List<MusicArticleModel> getSelectedMusic() {
+		return sm.getSelectedItems();
+
 	}
 }

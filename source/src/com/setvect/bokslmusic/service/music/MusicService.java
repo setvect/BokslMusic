@@ -148,8 +148,23 @@ public class MusicService {
 		return musicArticleDao.getPlayItemList(pageCondition);
 	}
 
+	/**
+	 * 해당 앨범에 음악이 있으면 등록하지 않음(즉 한 앨범에 대해 음악 두번 이상 등록 안됨)
+	 * 
+	 * @param item
+	 *            등록할 앨범에 대한 음악 정보
+	 */
 	public void createPlayItem(PlayItem item) {
-		musicArticleDao.createPlayItem(item);
+		boolean exist = musicArticleDao.isAlbumExistMusic(item.getAlbumSeq(), item.getMusicId());
+		if (!exist) {
+			// 순서 정보가 없다면 해당 앨범의 맨 마지막 orderNo + 1
+			if (item.getOrderNo() == 0) {
+				int order = musicArticleDao.getAlbumMaxOrderNo(item.getAlbumSeq());
+				item.setOrderNo(order + 1);
+			}
+
+			musicArticleDao.createPlayItem(item);
+		}
 	}
 
 	public void updatePlayItem(PlayItem item) {

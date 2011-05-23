@@ -307,6 +307,26 @@ public abstract class AbstractMusicDao implements MusicDao {
 		return where;
 	}
 
+	public int getAlbumMaxOrderNo(int albumSeq) {
+		Session session = sessionFactory.getCurrentSession();
+		String q = "select COALESCE(max(orderNo), 0) from PlayItem where albumSeq = ? ";
+		Query query = session.createQuery(q);
+		query.setParameter(0, albumSeq);
+		int orderNo = ((Integer) query.uniqueResult()).intValue();
+		return orderNo;
+	}
+
+	public boolean isAlbumExistMusic(int albumSeq, String musicId) {
+		Session session = sessionFactory.getCurrentSession();
+		String q = "select count(*) from PlayItem where albumSeq = ? and musicId =?";
+		Query query = session.createQuery(q);
+		query.setParameter(0, albumSeq);
+		query.setParameter(1, musicId);
+		int totalCount = ((Long) query.uniqueResult()).intValue();
+
+		return totalCount >= 1;
+	}
+
 	public void createPlayItem(PlayItem item) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(item);
