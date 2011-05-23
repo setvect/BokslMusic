@@ -61,8 +61,10 @@ public class ListPannel extends SimplePanel {
 
 		VerticalPanel listHoriVerty2Movie = new VerticalPanel();
 		listHoriVerty2.add(listHoriVerty2Movie);
-		listHoriVerty2Movie.add(new Label("◀"));
-		listHoriVerty2Movie.add(new Label("▶"));
+		Button listHoriVerty2MovieBtn1 = new Button("◀");
+		Button listHoriVerty2MovieBtn2 = new Button("▶");
+		listHoriVerty2Movie.add(listHoriVerty2MovieBtn1);
+		listHoriVerty2Movie.add(listHoriVerty2MovieBtn2);
 
 		// --------------------------
 		VerticalPanel listHoriVerty3 = new VerticalPanel();
@@ -136,15 +138,15 @@ public class ListPannel extends SimplePanel {
 		Button listHoriVerty3SearchDetailBtn = new Button("상세검색");
 		listHoriVerty3SearchDetail.setWidget(1, 2, listHoriVerty3SearchDetailBtn);
 
-		MusicGrid listHoriVerty3Grid = new MusicGrid();
+		final MusicGrid listHoriVerty3Grid = new MusicGrid();
 		listHoriVerty3.add(listHoriVerty3Grid);
 		listHoriVerty3Grid.setWidth("100%");
 		add(list);
 
 		// ------------ 이벤트 핸들러 등록
-		
+
 		listHoriVerty3Grid.reloadMusicArticleList();
-		
+
 		listHoriVerty1AddBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				String albumName = listHoriVerty1AddName.getText();
@@ -165,6 +167,13 @@ public class ListPannel extends SimplePanel {
 		listHoriVerty3SearchSampleBtn3.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				listHoriVerty3SearchDetail.setVisible(!listHoriVerty3SearchDetail.isVisible());
+			}
+		});
+
+		// ◀
+		listHoriVerty2MovieBtn1.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				listHoriVerty3Grid.debug();
 			}
 		});
 	}

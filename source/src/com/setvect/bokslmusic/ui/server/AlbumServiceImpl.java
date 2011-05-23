@@ -90,7 +90,8 @@ public class AlbumServiceImpl implements MusicManagerService {
 		Collection<MusicArticle> allList = musicService.getMusicArticleAllList();
 		List<MusicArticleModel> result = new ArrayList<MusicArticleModel>();
 		for (MusicArticle article : allList) {
-			MusicArticleModel m = new MusicArticleModel(article.getName(), article.getRunningTime(), article.getPath());
+			MusicArticleModel m = new MusicArticleModel(article.getMusicId(), article.getName(), article.getRunningTime(),
+					article.getPath());
 			result.add(m);
 		}
 		return result;

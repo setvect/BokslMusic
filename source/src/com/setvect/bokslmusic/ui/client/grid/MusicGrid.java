@@ -7,7 +7,6 @@ import com.extjs.gxt.ui.client.core.El;
 import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.event.GridEvent;
 import com.extjs.gxt.ui.client.store.GroupingStore;
-import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.grid.CheckBoxSelectionModel;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
@@ -16,7 +15,6 @@ import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridGroupRenderer;
 import com.extjs.gxt.ui.client.widget.grid.GroupColumnData;
 import com.extjs.gxt.ui.client.widget.grid.GroupingView;
-import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.user.client.Element;
@@ -31,17 +29,17 @@ public class MusicGrid extends LayoutContainer {
 	final MusicManagerServiceAsync managerService = GWT.create(MusicManagerService.class);
 
 	private GroupingView view;
-	private int gridHeight = 200;
 	private String checkedStyle = "x-grid3-group-check";
 	private String uncheckedStyle = "x-grid3-group-uncheck";
 	private GroupingStore<MusicArticleModel> store = new GroupingStore<MusicArticleModel>();
+	private CheckBoxSelectionModel<MusicArticleModel> sm;
 
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
 		store.setMonitorChanges(true);
 		store.groupBy("path");
-		final CheckBoxSelectionModel<MusicArticleModel> sm = new CheckBoxSelectionModel<MusicArticleModel>() {
+		sm = new CheckBoxSelectionModel<MusicArticleModel>() {
 			@Override
 			public void deselectAll() {
 				super.deselectAll();
@@ -160,39 +158,19 @@ public class MusicGrid extends LayoutContainer {
 			public String render(GroupColumnData data) {
 				String f = cm.getColumnById(data.field).getHeader();
 				String l = data.models.size() == 1 ? "Item" : "Items";
-				return "<div class='x-grid3-group-checker'><div class='" + uncheckedStyle + "'> </div></div> " + f
-						+ ": " + data.group + " (" + data.models.size() + " " + l + ")";
+				return f + ": " + data.group + " (" + data.models.size() + " " + l + ")"
+						+ "<div class='x-grid3-group-checker' style='float:right' ><div class='" + uncheckedStyle + "'> </div></div> ";
 			}
 		});
-
-		ContentPanel cp = new ContentPanel();
-		cp.setHeaderVisible(false);
-		cp.setLayout(new FitLayout());
-		cp.setHeight(gridHeight);
 
 		Grid<MusicArticleModel> grid = new Grid<MusicArticleModel>(store, cm);
 		grid.setView(view);
 		grid.setBorders(true);
 		grid.addPlugin(sm);
 		grid.setSelectionModel(sm);
+		grid.setSize(400, 400);
 
-		cp.add(grid);
-		add(cp);
-	}
-
-	/**
-	 * @return 그리드 높이
-	 */
-	public int getGridHeight() {
-		return gridHeight;
-	}
-
-	/**
-	 * @param gridHeight
-	 *            그리드 높이
-	 */
-	public void setGridHeight(int gridHeight) {
-		this.gridHeight = gridHeight;
+		add(grid);
 	}
 
 	private El findCheck(Element group) {
@@ -218,5 +196,12 @@ public class MusicGrid extends LayoutContainer {
 				store.add(result);
 			}
 		});
+	}
+
+	public void debug() {
+		List<MusicArticleModel> items = sm.getSelectedItems();
+		for (MusicArticleModel item : items) {
+			System.out.println(item.getId() + " - " + item.getName());
+		}
 	}
 }

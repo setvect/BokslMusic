@@ -14,10 +14,11 @@ public class MusicArticleModel extends BaseModel {
 	public MusicArticleModel() {
 	}
 
-	public MusicArticleModel(String name, int runningTime, String path) {
+	public MusicArticleModel(String id, String name, int runningTime, String path) {
 		set("name", name);
 		set("runningTime", runningTime);
 		set("path", path);
+		set("id", id);
 	}
 
 	public String getPath() {
@@ -37,7 +38,12 @@ public class MusicArticleModel extends BaseModel {
 		return runningTime;
 	}
 
+	public String getId() {
+		return (String) get("id");
+	}
+
 	public String toString() {
 		return getName();
 	}
+
 }
