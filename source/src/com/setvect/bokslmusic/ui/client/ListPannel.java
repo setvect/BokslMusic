@@ -53,6 +53,8 @@ public class ListPannel extends SimplePanel {
 		listHoriVerty1Add.add(listHoriVerty1AddName);
 		Button listHoriVerty1AddBtn = new Button("앨범 추가");
 		listHoriVerty1Add.add(listHoriVerty1AddBtn);
+		Button listHoriVerty1RemoveBtn = new Button("선택 제거");
+		listHoriVerty1Add.add(listHoriVerty1RemoveBtn);
 		listHoriVerty1Grid = new AlbumTreeGrid();
 		listHoriVerty1.add(listHoriVerty1Grid);
 		listHoriVerty1Grid.setWidth("100%");
@@ -168,6 +170,12 @@ public class ListPannel extends SimplePanel {
 		listHoriVerty3SearchSampleBtn3.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				listHoriVerty3SearchDetail.setVisible(!listHoriVerty3SearchDetail.isVisible());
+			}
+		});
+
+		listHoriVerty1RemoveBtn.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				listHoriVerty1Grid.removeSelected();
 			}
 		});
 

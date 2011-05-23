@@ -25,13 +25,13 @@ public class AlbumServiceImpl implements MusicManagerService {
 	@Autowired
 	private MusicService musicService;
 
-	// ----------------------
+	// ------------------------- 앨범관련
 	public List<AlbumArticleModel> listFolder(AlbumArticleModel model) {
 		if (model == null) {
 			return listAlbum();
 		}
 		else {
-			int albumSeq = Integer.parseInt(model.getId());
+			int albumSeq = model.getAlbumNo();
 			return listAlbumArticle(albumSeq);
 		}
 
@@ -44,7 +44,7 @@ public class AlbumServiceImpl implements MusicManagerService {
 		List<AlbumArticleModel> result = new ArrayList<AlbumArticleModel>();
 		Collection<Album> album = musicService.getAlbumListAll();
 		for (Album a : album) {
-			FolderModel m = new FolderModel(a.getName(), String.valueOf(a.getAlbumSeq()));
+			FolderModel m = new FolderModel(a.getName(), a.getAlbumSeq());
 			result.add(m);
 		}
 		return result;
@@ -64,11 +64,12 @@ public class AlbumServiceImpl implements MusicManagerService {
 			int runningTime = musicArticle.getRunningTime();
 			String musicId = musicArticle.getMusicId();
 			int orderNo = a.getOrderNo();
-			AlbumArticleModel m = new AlbumArticleModel(name, runningTime, musicId, orderNo);
+			int albumNo = a.getAlbumSeq();
+			AlbumArticleModel m = new AlbumArticleModel(name, runningTime, musicId, orderNo, albumNo);
 			result.add(m);
 		}
 		if (result.size() == 0) {
-			AlbumArticleModel m = new AlbumArticleModel("Empty", 0, "Empty", 0);
+			AlbumArticleModel m = new AlbumArticleModel("Empty", 0, "Empty", 0, 0);
 			result.add(m);
 		}
 		return result;
@@ -100,6 +101,25 @@ public class AlbumServiceImpl implements MusicManagerService {
 			p.setAlbumSeq(albumSeq);
 			p.setMusicId(s);
 			musicService.createPlayItem(p);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.setvect.bokslmusic.ui.client.service.MusicManagerService#
+	 * removeAlbumArticle(java.util.List)
+	 */
+	public void removeAlbumArticle(List<AlbumArticleModel> articleList) {
+		for (AlbumArticleModel article : articleList) {
+			int albumSeq = article.getAlbumNo();
+			if (article instanceof FolderModel) {
+				musicService.removeAlbum(albumSeq);
+			}
+			else {
+				String musicId = article.getId();
+				musicService.removePlayItem(albumSeq, musicId);
+			}
 		}
 	}
 

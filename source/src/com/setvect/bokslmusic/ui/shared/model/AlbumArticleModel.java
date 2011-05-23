@@ -21,12 +21,16 @@ public class AlbumArticleModel extends BaseModel implements Comparable<AlbumArti
 	 *            재생 시간
 	 * @param id
 	 *            앨범이름
+	 * 
+	 * @param albumNo
+	 *            일련번호
 	 */
-	public AlbumArticleModel(String name, int runningTime, String id, int orderNo) {
+	public AlbumArticleModel(String name, int runningTime, String id, int orderNo, int albumNo) {
 		set("name", name);
 		set("runningTime", runningTime);
 		set("id", id);
 		set("orderNo", orderNo);
+		set("albumNo", albumNo);
 	}
 
 	public String getId() {
@@ -48,6 +52,10 @@ public class AlbumArticleModel extends BaseModel implements Comparable<AlbumArti
 
 	public int getOrderNo() {
 		return (Integer) get("orderNo");
+	}
+
+	public int getAlbumNo() {
+		return (Integer) get("albumNo");
 	}
 
 	public String toString() {

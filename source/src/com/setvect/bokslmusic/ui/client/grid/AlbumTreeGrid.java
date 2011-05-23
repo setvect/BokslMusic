@@ -109,15 +109,12 @@ public class AlbumTreeGrid extends LayoutContainer {
 	}
 
 	/**
-	 * 앨범에 음악 추가
-	 * 
-	 * @param albumSeq
-	 *            앨범
-	 * @param musicId
-	 *            음악 코드
+	 * 선택된 앨범 또는 음악 삭제
 	 */
-	private void addMusicForAlbum(int albumSeq, List<String> musicId) {
-		managerService.addMusicForAlbum(albumSeq, musicId, new AsyncCallback<Void>() {
+	public void removeSelected() {
+		GridSelectionModel<AlbumArticleModel> select = tree.getSelectionModel();
+		List<AlbumArticleModel> selection = select.getSelectedItems();
+		managerService.removeAlbumArticle(selection, new AsyncCallback<Void>() {
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
 			}
@@ -140,8 +137,28 @@ public class AlbumTreeGrid extends LayoutContainer {
 		for (AlbumArticleModel m : selected) {
 			if (m instanceof FolderModel) {
 				FolderModel forlder = (FolderModel) m;
-				addMusicForAlbum(Integer.parseInt(forlder.getId()), musicId);
+				addMusicForAlbum(forlder.getAlbumNo(), musicId);
 			}
 		}
+	}
+
+	/**
+	 * 앨범에 음악 추가
+	 * 
+	 * @param albumSeq
+	 *            앨범
+	 * @param musicId
+	 *            음악 코드
+	 */
+	private void addMusicForAlbum(int albumSeq, List<String> musicId) {
+		managerService.addMusicForAlbum(albumSeq, musicId, new AsyncCallback<Void>() {
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
+
+			public void onSuccess(Void result) {
+				reload();
+			}
+		});
 	}
 }

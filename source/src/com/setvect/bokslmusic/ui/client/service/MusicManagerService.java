@@ -15,7 +15,7 @@ import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
  */
 @RemoteServiceRelativePath("service/MusicManagerService")
 public interface MusicManagerService extends RemoteService {
-
+	// ------------------------- 앨범관련
 	/**
 	 * 앨범 정보 및 앨범 수록 항목 정보
 	 * 
@@ -41,7 +41,13 @@ public interface MusicManagerService extends RemoteService {
 	 */
 	public void addMusicForAlbum(int albumSeq, List<String> musicId);
 
-	// -------------------------
+	/**
+	 * @param articleList
+	 *            삭제 대상 목록
+	 */
+	public void removeAlbumArticle(List<AlbumArticleModel> articleList);
+
+	// ------------------------- 음악 목록 관련
 
 	/**
 	 * @return

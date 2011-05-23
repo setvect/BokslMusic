@@ -18,13 +18,16 @@ import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
  */
 public interface MusicManagerServiceAsync {
 
+	// ------------------------- 앨범관련
 	public void listFolder(AlbumArticleModel model, AsyncCallback<List<AlbumArticleModel>> children);
 
 	public void addAlbum(String albumName, AsyncCallback<Void> callback);
 
 	public void addMusicForAlbum(int albumSeq, List<String> musicId, AsyncCallback<Void> callback);
 
-	// -------------------------
+	public void removeAlbumArticle(List<AlbumArticleModel> articleList, AsyncCallback<Void> callback);
+
+	// ------------------------- 음악 목록 관련
 	public void listMusicArticleAll(AsyncCallback<List<MusicArticleModel>> data);
 
 }

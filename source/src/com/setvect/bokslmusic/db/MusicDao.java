@@ -156,6 +156,7 @@ public interface MusicDao {
 	 */
 
 	public int getAlbumMaxOrderNo(int albumSeq);
+
 	/**
 	 * @param albumSeq
 	 *            앨범 일련번호
@@ -188,6 +189,14 @@ public interface MusicDao {
 	 *            재생 파일 일련번호
 	 */
 	public void removePlayItem(int playItemSeq);
+
+	/**
+	 * @param album
+	 *            앨범 일련번호
+	 * @param musicId
+	 *            음악 파일 ID
+	 */
+	public void removePlayItem(int album, String musicId);
 
 	// ------ Play Time 정보
 

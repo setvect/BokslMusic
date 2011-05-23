@@ -267,6 +267,11 @@ public abstract class AbstractMusicDao implements MusicDao {
 
 	public void removeAlbum(int albumSeq) {
 		Session session = sessionFactory.getCurrentSession();
+		String q = "delete  from PlayItem where albumSeq = ? ";
+		Query query = session.createQuery(q);
+		query.setParameter(0, albumSeq);
+		query.executeUpdate();
+
 		session.delete(getAlbum(albumSeq));
 		session.flush();
 	}
@@ -343,6 +348,15 @@ public abstract class AbstractMusicDao implements MusicDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(getPlayItem(playItemSeq));
 		session.flush();
+	}
+
+	public void removePlayItem(int albumSeq, String musicId) {
+		Session session = sessionFactory.getCurrentSession();
+		String q = "delete  from PlayItem where albumSeq = ? and musicId =?";
+		Query query = session.createQuery(q);
+		query.setParameter(0, albumSeq);
+		query.setParameter(1, musicId);
+		query.executeUpdate();
 	}
 
 	// ------ Play Time 정보

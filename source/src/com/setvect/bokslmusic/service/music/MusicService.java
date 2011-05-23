@@ -175,6 +175,10 @@ public class MusicService {
 		musicArticleDao.removePlayItem(playItemSeq);
 	}
 
+	public void removePlayItem(int album, String musicId) {
+		musicArticleDao.removePlayItem(album, musicId);
+	}
+
 	// ------ Play Time 정보
 
 	public PlayTime getPlayTime(int playTimeSeq) {
