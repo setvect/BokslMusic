@@ -65,11 +65,11 @@ public class AlbumServiceImpl implements MusicManagerService {
 			String musicId = musicArticle.getMusicId();
 			int orderNo = a.getOrderNo();
 			int albumNo = a.getAlbumSeq();
-			AlbumArticleModel m = new AlbumArticleModel(name, runningTime, musicId, orderNo, albumNo);
+			AlbumArticleModel m = new AlbumArticleModel(musicId, name, runningTime, orderNo, albumNo);
 			result.add(m);
 		}
 		if (result.size() == 0) {
-			AlbumArticleModel m = new AlbumArticleModel("Empty", 0, "Empty", 0, 0);
+			AlbumArticleModel m = new AlbumArticleModel("Empty", "Empty", 0, 0, 0);
 			result.add(m);
 		}
 		return result;

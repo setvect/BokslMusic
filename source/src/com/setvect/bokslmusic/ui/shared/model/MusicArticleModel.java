@@ -46,4 +46,20 @@ public class MusicArticleModel extends BaseModel {
 		return getName();
 	}
 
+	public int hashCode() {
+		return getId().hashCode();
+	}
+
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+
+		if (!(o instanceof PlayItemModel)) {
+			return false;
+		}
+
+		MusicArticleModel t = (MusicArticleModel) o;
+		return getId().equals(t.getId());
+	}
 }

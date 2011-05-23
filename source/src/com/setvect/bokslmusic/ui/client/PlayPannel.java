@@ -1,8 +1,5 @@
 package com.setvect.bokslmusic.ui.client;
 
-import com.extjs.gxt.ui.client.event.ComponentEvent;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Slider;
 import com.extjs.gxt.ui.client.widget.form.SliderField;
@@ -26,7 +23,7 @@ public class PlayPannel extends SimplePanel {
 		// --------------------------
 		play.setId("playPannel");
 		play.setCollapsible(true);
-		play.setExpanded(false);
+		play.setExpanded(true);
 		play.setHeading("재생");
 		HorizontalPanel playHori = new HorizontalPanel();
 		play.add(playHori);
@@ -132,7 +129,6 @@ public class PlayPannel extends SimplePanel {
 
 		playHoriVerty3Grid = new PlayGrid();
 		playHoriVerty3.add(playHoriVerty3Grid);
-		playHoriVerty3Grid.setGridHeight(130);
 		playHoriVerty3Grid.setWidth("100%");
 		playHoriVerty3Grid.setStyleName("listTable");
 
@@ -145,12 +141,6 @@ public class PlayPannel extends SimplePanel {
 		add(play);
 
 		// ------------ 이벤트 핸들러 등록
-
-		play.addListener(Events.Expand, new Listener<ComponentEvent>() {
-			public void handleEvent(ComponentEvent be) {
-				playHoriVerty3Grid.fitLayout();
-			}
-		});
 
 	}
 }
