@@ -17,6 +17,7 @@ import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
+import com.extjs.gxt.ui.client.widget.grid.RowNumberer;
 import com.google.gwt.user.client.Element;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
@@ -70,7 +71,9 @@ public class PlayListGrid extends LayoutContainer {
 		};
 
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
-
+		RowNumberer r = new RowNumberer();
+		configs.add(r);
+		
 		ColumnConfig columnNo = new ColumnConfig("name", "No.", 100);
 		columnNo.setRowHeader(true);
 		configs.add(columnNo);
@@ -91,6 +94,7 @@ public class PlayListGrid extends LayoutContainer {
 		ColumnModel cm = new ColumnModel(configs);
 
 		grid = new Grid<MusicArticleModel>(store, cm);
+		grid.addPlugin(r);
 		grid.setAutoExpandColumn("name");
 		grid.setBorders(false);
 		grid.setStripeRows(true);
