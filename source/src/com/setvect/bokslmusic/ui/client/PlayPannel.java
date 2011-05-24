@@ -1,8 +1,13 @@
 package com.setvect.bokslmusic.ui.client;
 
+import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Slider;
 import com.extjs.gxt.ui.client.widget.form.SliderField;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -13,8 +18,13 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.PlayListGrid;
+import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
+import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
+import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
 
 public class PlayPannel extends SimplePanel {
+	final MusicManagerServiceAsync managerService = GWT.create(MusicManagerService.class);
+	
 	private PlayListGrid playHoriVerty3Grid;
 
 	protected void onLoad() {
@@ -89,8 +99,8 @@ public class PlayPannel extends SimplePanel {
 		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowPrevious);
 		Button playHoriVerty1ControlH3FlowPause = new Button("||");
 		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowPause);
-		Button playHoriVerty1ControlH3FlowStop = new Button("■");
-		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowStop);
+		Button playHoriVerty1ControlH3FlowPlayOrStop = new Button("■");
+		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowPlayOrStop);
 		Button playHoriVerty1ControlH3FlowNext = new Button(">>");
 		playHoriVerty1ControlH3Flow.add(playHoriVerty1ControlH3FlowNext);
 
@@ -129,7 +139,6 @@ public class PlayPannel extends SimplePanel {
 
 		playHoriVerty3Grid = new PlayListGrid();
 		playHoriVerty3.add(playHoriVerty3Grid);
-		playHoriVerty3Grid.setWidth("100%");
 		playHoriVerty3Grid.setStyleName("listTable");
 
 		FlowPanel playHoriVerty3Bottom = new FlowPanel();
@@ -139,7 +148,21 @@ public class PlayPannel extends SimplePanel {
 		playHoriVerty3Bottom.add(playHoriVerty3BottomBtn);
 		playHoriVerty3.add(playHoriVerty3Bottom);
 		add(play);
+
 		// ------------ 이벤트 핸들러 등록
+		playHoriVerty1ControlH3FlowPlayOrStop.addClickHandler(new ClickHandler() {
+			int playPos = 0;
+
+			public void onClick(ClickEvent event) {
+				ListStore<MusicDefaultModel> playList = playHoriVerty3Grid.getGrid().getStore();
+				if (playPos >= playList.getCount()) {
+					Window.alert("재생할 파일이 없습니다.");
+				}
+				MusicDefaultModel plying = playList.getAt(playPos);
+				
+				
+			}
+		});
 	}
 
 	PlayListGrid getPlayHoriVerty3Grid() {

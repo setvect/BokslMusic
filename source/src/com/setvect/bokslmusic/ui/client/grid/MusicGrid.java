@@ -23,7 +23,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
-import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
 
 public class MusicGrid extends LayoutContainer {
 	final MusicManagerServiceAsync managerService = GWT.create(MusicManagerService.class);
@@ -31,15 +31,15 @@ public class MusicGrid extends LayoutContainer {
 	private GroupingView view;
 	private String checkedStyle = "x-grid3-group-check";
 	private String uncheckedStyle = "x-grid3-group-uncheck";
-	private GroupingStore<MusicArticleModel> store = new GroupingStore<MusicArticleModel>();
-	private CheckBoxSelectionModel<MusicArticleModel> sm;
+	private GroupingStore<MusicDefaultModel> store = new GroupingStore<MusicDefaultModel>();
+	private CheckBoxSelectionModel<MusicDefaultModel> sm;
 
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
 		store.setMonitorChanges(true);
 		store.groupBy("path");
-		sm = new CheckBoxSelectionModel<MusicArticleModel>() {
+		sm = new CheckBoxSelectionModel<MusicDefaultModel>() {
 			@Override
 			public void deselectAll() {
 				super.deselectAll();
@@ -61,7 +61,7 @@ public class MusicGrid extends LayoutContainer {
 			}
 
 			@Override
-			protected void doDeselect(List<MusicArticleModel> models, boolean supressEvent) {
+			protected void doDeselect(List<MusicDefaultModel> models, boolean supressEvent) {
 				super.doDeselect(models, supressEvent);
 				NodeList<com.google.gwt.dom.client.Element> groups = view.getGroups();
 				search: for (int i = 0; i < groups.getLength(); i++) {
@@ -70,7 +70,7 @@ public class MusicGrid extends LayoutContainer {
 					for (int j = 0, len = rows.getLength(); j < len; j++) {
 						Element r = rows.getItem(j);
 						int idx = grid.getView().findRowIndex(r);
-						MusicArticleModel m = grid.getStore().getAt(idx);
+						MusicDefaultModel m = grid.getStore().getAt(idx);
 						if (!isSelected(m)) {
 							setGroupChecked((Element) group, false);
 							continue search;
@@ -81,7 +81,7 @@ public class MusicGrid extends LayoutContainer {
 			}
 
 			@Override
-			protected void doSelect(List<MusicArticleModel> models, boolean keepExisting, boolean supressEvent) {
+			protected void doSelect(List<MusicDefaultModel> models, boolean keepExisting, boolean supressEvent) {
 				super.doSelect(models, keepExisting, supressEvent);
 				NodeList<com.google.gwt.dom.client.Element> groups = view.getGroups();
 				search: for (int i = 0; i < groups.getLength(); i++) {
@@ -90,7 +90,7 @@ public class MusicGrid extends LayoutContainer {
 					for (int j = 0, len = rows.getLength(); j < len; j++) {
 						Element r = rows.getItem(j);
 						int idx = grid.getView().findRowIndex(r);
-						MusicArticleModel m = grid.getStore().getAt(idx);
+						MusicDefaultModel m = grid.getStore().getAt(idx);
 						if (!isSelected(m)) {
 							continue search;
 						}
@@ -164,7 +164,7 @@ public class MusicGrid extends LayoutContainer {
 			}
 		});
 
-		Grid<MusicArticleModel> grid = new Grid<MusicArticleModel>(store, cm);
+		Grid<MusicDefaultModel> grid = new Grid<MusicDefaultModel>(store, cm);
 		grid.setView(view);
 		grid.setBorders(true);
 		grid.addPlugin(sm);
@@ -187,19 +187,19 @@ public class MusicGrid extends LayoutContainer {
 	 * 음악 정보 로드
 	 */
 	public void reloadMusicArticleList() {
-		managerService.listMusicArticleAll(new AsyncCallback<List<MusicArticleModel>>() {
+		managerService.listMusicArticleAll(new AsyncCallback<List<MusicDefaultModel>>() {
 			public void onFailure(Throwable caught) {
 				Window.alert(caught.getMessage());
 			}
 
-			public void onSuccess(List<MusicArticleModel> result) {
+			public void onSuccess(List<MusicDefaultModel> result) {
 				store.removeAll();
 				store.add(result);
 			}
 		});
 	}
 
-	public List<MusicArticleModel> getSelectedMusic() {
+	public List<MusicDefaultModel> getSelectedMusic() {
 		return sm.getSelectedItems();
 
 	}

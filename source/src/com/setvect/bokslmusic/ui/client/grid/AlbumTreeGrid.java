@@ -28,7 +28,7 @@ import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.FolderModel;
-import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
 
 public class AlbumTreeGrid extends LayoutContainer {
 	final MusicManagerServiceAsync managerService = GWT.create(MusicManagerService.class);
@@ -125,12 +125,12 @@ public class AlbumTreeGrid extends LayoutContainer {
 		});
 	}
 
-	public void addMusic(List<MusicArticleModel> musicItems) {
+	public void addMusic(List<MusicDefaultModel> musicItems) {
 		GridSelectionModel<AlbumArticleModel> select = tree.getSelectionModel();
 		List<AlbumArticleModel> selected = select.getSelectedItems();
 
 		List<String> musicId = new ArrayList<String>();
-		for (MusicArticleModel i : musicItems) {
+		for (MusicDefaultModel i : musicItems) {
 			musicId.add(i.getId());
 		}
 

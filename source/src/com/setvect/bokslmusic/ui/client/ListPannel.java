@@ -22,7 +22,7 @@ import com.setvect.bokslmusic.ui.client.grid.MusicGrid;
 import com.setvect.bokslmusic.ui.client.grid.PlayListGrid;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
-import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
 
 public class ListPannel extends SimplePanel {
 	private final MusicManagerServiceAsync albumService = GWT.create(MusicManagerService.class);
@@ -188,7 +188,7 @@ public class ListPannel extends SimplePanel {
 		// ◀
 		listHoriVerty2MovieBtn1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				List<MusicArticleModel> musicItems = listHoriVerty3Grid.getSelectedMusic();
+				List<MusicDefaultModel> musicItems = listHoriVerty3Grid.getSelectedMusic();
 				listHoriVerty1Grid.addMusic(musicItems);
 			}
 		});
@@ -196,7 +196,7 @@ public class ListPannel extends SimplePanel {
 		// 선택된 음악
 		listHoriVerty3HeaderBtn1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				List<MusicArticleModel> musicItems = listHoriVerty3Grid.getSelectedMusic();
+				List<MusicDefaultModel> musicItems = listHoriVerty3Grid.getSelectedMusic();
 				PlayPannel playPannel = mainPannel.getPlayPannel();
 				PlayListGrid grid = playPannel.getPlayHoriVerty3Grid();
 				grid.addPlayItem(musicItems);

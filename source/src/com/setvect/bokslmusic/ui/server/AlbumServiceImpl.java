@@ -11,7 +11,7 @@ import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.FolderModel;
-import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.PlayItem;
@@ -126,11 +126,11 @@ public class AlbumServiceImpl implements MusicManagerService {
 
 	// ----------------------
 
-	public List<MusicArticleModel> listMusicArticleAll() {
+	public List<MusicDefaultModel> listMusicArticleAll() {
 		Collection<MusicArticle> allList = musicService.getMusicArticleAllList();
-		List<MusicArticleModel> result = new ArrayList<MusicArticleModel>();
+		List<MusicDefaultModel> result = new ArrayList<MusicDefaultModel>();
 		for (MusicArticle article : allList) {
-			MusicArticleModel m = new MusicArticleModel(article.getMusicId(), article.getName(),
+			MusicDefaultModel m = new MusicDefaultModel(article.getMusicId(), article.getName(),
 					article.getRunningTime(), article.getPath());
 			result.add(m);
 		}

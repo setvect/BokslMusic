@@ -20,19 +20,19 @@ import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.grid.RowNumberer;
 import com.google.gwt.user.client.Element;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
-import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
 
 public class PlayListGrid extends LayoutContainer {
-	private Grid<MusicArticleModel> grid;
+	private Grid<MusicDefaultModel> grid;
 
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
 		getAriaSupport().setPresentation(true);
 
-		GridCellRenderer<MusicArticleModel> timeRenderer = new GridCellRenderer<MusicArticleModel>() {
-			public String render(MusicArticleModel model, String property, ColumnData config, int rowIndex,
-					int colIndex, ListStore<MusicArticleModel> store, Grid<MusicArticleModel> grid) {
+		GridCellRenderer<MusicDefaultModel> timeRenderer = new GridCellRenderer<MusicDefaultModel>() {
+			public String render(MusicDefaultModel model, String property, ColumnData config, int rowIndex,
+					int colIndex, ListStore<MusicDefaultModel> store, Grid<MusicDefaultModel> grid) {
 				int sec = model.get(property);
 				return ClientUtil.getMinuteSec(sec);
 			}
@@ -53,11 +53,11 @@ public class PlayListGrid extends LayoutContainer {
 		columnDelete.setRenderer(new ButtonRenderer());
 		configs.add(columnDelete);
 
-		ListStore<MusicArticleModel> store = new ListStore<MusicArticleModel>();
+		ListStore<MusicDefaultModel> store = new ListStore<MusicDefaultModel>();
 
 		ColumnModel cm = new ColumnModel(configs);
 
-		grid = new Grid<MusicArticleModel>(store, cm);
+		grid = new Grid<MusicDefaultModel>(store, cm);
 		grid.addPlugin(r);
 		grid.setAutoExpandColumn("name");
 		grid.setBorders(false);
@@ -73,25 +73,25 @@ public class PlayListGrid extends LayoutContainer {
 	 * @param saveList
 	 *            재생 목록 추가 데이터
 	 */
-	public void addPlayItem(List<MusicArticleModel> saveList) {
-		ListStore<MusicArticleModel> store = grid.getStore();
-		List<MusicArticleModel> beforeList = store.getModels();
-		for (MusicArticleModel p : saveList) {
+	public void addPlayItem(List<MusicDefaultModel> saveList) {
+		ListStore<MusicDefaultModel> store = grid.getStore();
+		List<MusicDefaultModel> beforeList = store.getModels();
+		for (MusicDefaultModel p : saveList) {
 			if (!beforeList.contains(p)) {
 				store.add(p);
 			}
 		}
 	}
 
-	class ButtonRenderer implements GridCellRenderer<MusicArticleModel> {
+	class ButtonRenderer implements GridCellRenderer<MusicDefaultModel> {
 		private boolean init;
 
-		public Object render(final MusicArticleModel model, String property, ColumnData config, final int rowIndex,
-				final int colIndex, ListStore<MusicArticleModel> store, Grid<MusicArticleModel> grid) {
+		public Object render(final MusicDefaultModel model, String property, ColumnData config, final int rowIndex,
+				final int colIndex, ListStore<MusicDefaultModel> store, Grid<MusicDefaultModel> grid) {
 			if (!init) {
 				init = true;
-				grid.addListener(Events.ColumnResize, new Listener<GridEvent<MusicArticleModel>>() {
-					public void handleEvent(GridEvent<MusicArticleModel> be) {
+				grid.addListener(Events.ColumnResize, new Listener<GridEvent<MusicDefaultModel>>() {
+					public void handleEvent(GridEvent<MusicDefaultModel> be) {
 						for (int i = 0; i < be.getGrid().getStore().getCount(); i++) {
 							if (be.getGrid().getView().getWidget(i, be.getColIndex()) != null
 									&& be.getGrid().getView().getWidget(i, be.getColIndex()) instanceof BoxComponent) {
@@ -111,9 +111,9 @@ public class PlayListGrid extends LayoutContainer {
 		}
 
 		class GridButtonListener extends SelectionListener<ButtonEvent> {
-			private MusicArticleModel model;
+			private MusicDefaultModel model;
 
-			GridButtonListener(MusicArticleModel model) {
+			GridButtonListener(MusicDefaultModel model) {
 				this.model = model;
 			}
 
@@ -122,5 +122,9 @@ public class PlayListGrid extends LayoutContainer {
 				grid.getStore().remove(model);
 			}
 		}
+	}
+
+	public Grid<MusicDefaultModel> getGrid() {
+		return grid;
 	};
 }

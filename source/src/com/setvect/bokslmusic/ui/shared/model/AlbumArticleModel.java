@@ -3,7 +3,7 @@ package com.setvect.bokslmusic.ui.shared.model;
 /**
  * 앨범에 등록된 음악 항목
  */
-public class AlbumArticleModel extends MusicArticleModel implements Comparable<AlbumArticleModel> {
+public class AlbumArticleModel extends MusicDefaultModel implements Comparable<AlbumArticleModel> {
 
 	/** */
 	private static final long serialVersionUID = 7754536465135395260L;
