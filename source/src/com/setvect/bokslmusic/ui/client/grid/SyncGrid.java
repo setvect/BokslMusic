@@ -221,7 +221,6 @@ public class SyncGrid extends LayoutContainer {
 			SelectionListener<ButtonEvent> listener = new GridButtonListener(eventParam);
 			button = new Button(col.getHeader(), listener);
 			button.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
-			button.setToolTip("Click for more information");
 			return button;
 		}
 

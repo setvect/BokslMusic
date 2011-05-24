@@ -38,45 +38,9 @@ public class PlayListGrid extends LayoutContainer {
 			}
 		};
 
-		GridCellRenderer<MusicArticleModel> buttonRenderer = new GridCellRenderer<MusicArticleModel>() {
-			private boolean init;
-
-			public Object render(final MusicArticleModel model, String property, ColumnData config, final int rowIndex,
-					final int colIndex, ListStore<MusicArticleModel> store, Grid<MusicArticleModel> grid) {
-				if (!init) {
-					init = true;
-					grid.addListener(Events.ColumnResize, new Listener<GridEvent<MusicArticleModel>>() {
-						public void handleEvent(GridEvent<MusicArticleModel> be) {
-							for (int i = 0; i < be.getGrid().getStore().getCount(); i++) {
-								if (be.getGrid().getView().getWidget(i, be.getColIndex()) != null
-										&& be.getGrid().getView().getWidget(i, be.getColIndex()) instanceof BoxComponent) {
-									((BoxComponent) be.getGrid().getView().getWidget(i, be.getColIndex())).setWidth(be
-											.getWidth() - 10);
-								}
-							}
-						}
-					});
-				}
-
-				Button b = new Button((String) model.get(property), new SelectionListener<ButtonEvent>() {
-					@Override
-					public void componentSelected(ButtonEvent ce) {
-					}
-				});
-				b.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
-				b.setToolTip("Click for more information");
-
-				return b;
-			}
-		};
-
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 		RowNumberer r = new RowNumberer();
 		configs.add(r);
-		
-		ColumnConfig columnNo = new ColumnConfig("name", "No.", 100);
-		columnNo.setRowHeader(true);
-		configs.add(columnNo);
 
 		ColumnConfig columnName = new ColumnConfig("name", "이름", 100);
 		configs.add(columnName);
@@ -85,8 +49,8 @@ public class PlayListGrid extends LayoutContainer {
 		columnRunningTime.setRenderer(timeRenderer);
 		configs.add(columnRunningTime);
 
-		ColumnConfig columnDelete = new ColumnConfig("name", "삭제", 100);
-		columnDelete.setRenderer(buttonRenderer);
+		ColumnConfig columnDelete = new ColumnConfig("model", "삭제", 100);
+		columnDelete.setRenderer(new ButtonRenderer());
 		configs.add(columnDelete);
 
 		ListStore<MusicArticleModel> store = new ListStore<MusicArticleModel>();
@@ -118,4 +82,45 @@ public class PlayListGrid extends LayoutContainer {
 			}
 		}
 	}
+
+	class ButtonRenderer implements GridCellRenderer<MusicArticleModel> {
+		private boolean init;
+
+		public Object render(final MusicArticleModel model, String property, ColumnData config, final int rowIndex,
+				final int colIndex, ListStore<MusicArticleModel> store, Grid<MusicArticleModel> grid) {
+			if (!init) {
+				init = true;
+				grid.addListener(Events.ColumnResize, new Listener<GridEvent<MusicArticleModel>>() {
+					public void handleEvent(GridEvent<MusicArticleModel> be) {
+						for (int i = 0; i < be.getGrid().getStore().getCount(); i++) {
+							if (be.getGrid().getView().getWidget(i, be.getColIndex()) != null
+									&& be.getGrid().getView().getWidget(i, be.getColIndex()) instanceof BoxComponent) {
+								((BoxComponent) be.getGrid().getView().getWidget(i, be.getColIndex())).setWidth(be
+										.getWidth() - 10);
+							}
+						}
+					}
+				});
+			}
+
+			ColumnConfig col = grid.getColumnModel().getColumn(colIndex);
+			Button b = new Button(col.getHeader(), new GridButtonListener(model));
+
+			b.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
+			return b;
+		}
+
+		class GridButtonListener extends SelectionListener<ButtonEvent> {
+			private MusicArticleModel model;
+
+			GridButtonListener(MusicArticleModel model) {
+				this.model = model;
+			}
+
+			@Override
+			public void componentSelected(ButtonEvent ce) {
+				grid.getStore().remove(model);
+			}
+		}
+	};
 }
