@@ -9,7 +9,7 @@ public class FolderModel extends AlbumArticleModel {
 	}
 
 	public FolderModel(String name, int albumSeq) {
-		super("", name, 0, 0, albumSeq);
+		super("", name, 0, "", 0, albumSeq);
 	}
 
 	public boolean equals(Object o) {

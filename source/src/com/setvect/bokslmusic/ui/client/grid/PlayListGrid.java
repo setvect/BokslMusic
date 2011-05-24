@@ -21,8 +21,7 @@ import com.google.gwt.user.client.Element;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 
-public class PlayGrid extends LayoutContainer {
-
+public class PlayListGrid extends LayoutContainer {
 	private Grid<MusicArticleModel> grid;
 
 	@Override

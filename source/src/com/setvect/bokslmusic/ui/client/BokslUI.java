@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class BokslUI implements EntryPoint {
 	private SyncPannel syncPannel = new SyncPannel();
 	private PlayPannel playPannel = new PlayPannel();
-	private ListPannel listPannel = new ListPannel();
+	private ListPannel listPannel = new ListPannel(this);
 
 	public void onModuleLoad() {
 		HorizontalPanel warp = new HorizontalPanel();
@@ -32,12 +32,22 @@ public class BokslUI implements EntryPoint {
 
 		RootPanel rootPanel = RootPanel.get();
 		rootPanel.add(warp);
-		
-		
 	}
 
 	private Widget headerPannel() {
 		Label titleHeader = new Label("ABC");
 		return titleHeader;
+	}
+
+	SyncPannel getSyncPannel() {
+		return syncPannel;
+	}
+
+	PlayPannel getPlayPannel() {
+		return playPannel;
+	}
+
+	ListPannel getListPannel() {
+		return listPannel;
 	}
 }

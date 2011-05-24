@@ -22,8 +22,8 @@ public class AlbumArticleModel extends MusicArticleModel implements Comparable<A
 	 * @param albumNo
 	 *            일련번호
 	 */
-	public AlbumArticleModel(String id, String name, int runningTime, int orderNo, int albumNo) {
-		super(id, name, runningTime, "");
+	public AlbumArticleModel(String id, String name, int runningTime, String path, int orderNo, int albumNo) {
+		super(id, name, runningTime, path);
 		set("orderNo", orderNo);
 		set("albumNo", albumNo);
 	}

@@ -55,7 +55,7 @@ public class MusicArticleModel extends BaseModel {
 			return false;
 		}
 
-		if (!(o instanceof PlayItemModel)) {
+		if (!(o instanceof MusicArticleModel)) {
 			return false;
 		}
 

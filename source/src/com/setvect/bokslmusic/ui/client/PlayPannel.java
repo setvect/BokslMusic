@@ -12,10 +12,10 @@ import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.setvect.bokslmusic.ui.client.grid.PlayGrid;
+import com.setvect.bokslmusic.ui.client.grid.PlayListGrid;
 
 public class PlayPannel extends SimplePanel {
-	private PlayGrid playHoriVerty3Grid;
+	private PlayListGrid playHoriVerty3Grid;
 
 	protected void onLoad() {
 		ContentPanel play = new ContentPanel();
@@ -127,7 +127,7 @@ public class PlayPannel extends SimplePanel {
 		Button playHoriVerty3HeaderSort = new Button("정렬");
 		playHoriVerty3Header.add(playHoriVerty3HeaderSort);
 
-		playHoriVerty3Grid = new PlayGrid();
+		playHoriVerty3Grid = new PlayListGrid();
 		playHoriVerty3.add(playHoriVerty3Grid);
 		playHoriVerty3Grid.setWidth("100%");
 		playHoriVerty3Grid.setStyleName("listTable");
@@ -139,8 +139,11 @@ public class PlayPannel extends SimplePanel {
 		playHoriVerty3Bottom.add(playHoriVerty3BottomBtn);
 		playHoriVerty3.add(playHoriVerty3Bottom);
 		add(play);
-
 		// ------------ 이벤트 핸들러 등록
-
 	}
+
+	PlayListGrid getPlayHoriVerty3Grid() {
+		return playHoriVerty3Grid;
+	}
+
 }

@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.setvect.bokslmusic.ui.client.grid.AlbumTreeGrid;
 import com.setvect.bokslmusic.ui.client.grid.MusicGrid;
+import com.setvect.bokslmusic.ui.client.grid.PlayListGrid;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
@@ -26,6 +27,11 @@ import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 public class ListPannel extends SimplePanel {
 	private final MusicManagerServiceAsync albumService = GWT.create(MusicManagerService.class);
 	private AlbumTreeGrid listHoriVerty1Grid;
+	private BokslUI mainPannel;
+
+	public ListPannel(BokslUI bokslUI) {
+		mainPannel = bokslUI;
+	}
 
 	protected void onLoad() {
 		ContentPanel list = new ContentPanel();
@@ -76,10 +82,8 @@ public class ListPannel extends SimplePanel {
 		HorizontalPanel listHoriVerty3Header = new HorizontalPanel();
 		listHoriVerty3.add(listHoriVerty3Header);
 		listHoriVerty3Header.add(new Label("전체목록"));
-		Button listHoriVerty3HeaderBtn1 = new Button("바로재생");
+		Button listHoriVerty3HeaderBtn1 = new Button("추가");
 		listHoriVerty3Header.add(listHoriVerty3HeaderBtn1);
-		Button listHoriVerty3HeaderBtn2 = new Button("추가");
-		listHoriVerty3Header.add(listHoriVerty3HeaderBtn2);
 
 		VerticalPanel listHoriVerty3Search = new VerticalPanel();
 		listHoriVerty3.add(listHoriVerty3Search);
@@ -167,12 +171,14 @@ public class ListPannel extends SimplePanel {
 			}
 		});
 
+		// 상세검색 폼 보이기
 		listHoriVerty3SearchSampleBtn3.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				listHoriVerty3SearchDetail.setVisible(!listHoriVerty3SearchDetail.isVisible());
 			}
 		});
 
+		// 앨범 또는 앨범 내 음악 정보 제거
 		listHoriVerty1RemoveBtn.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				listHoriVerty1Grid.removeSelected();
@@ -184,6 +190,16 @@ public class ListPannel extends SimplePanel {
 			public void onClick(ClickEvent event) {
 				List<MusicArticleModel> musicItems = listHoriVerty3Grid.getSelectedMusic();
 				listHoriVerty1Grid.addMusic(musicItems);
+			}
+		});
+
+		// 선택된 음악
+		listHoriVerty3HeaderBtn1.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				List<MusicArticleModel> musicItems = listHoriVerty3Grid.getSelectedMusic();
+				PlayPannel playPannel = mainPannel.getPlayPannel();
+				PlayListGrid grid = playPannel.getPlayHoriVerty3Grid();
+				grid.addPlayItem(musicItems);
 			}
 		});
 	}
