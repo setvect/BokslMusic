@@ -12,6 +12,7 @@ import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.FolderModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
+import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.PlayItem;
@@ -124,8 +125,7 @@ public class AlbumServiceImpl implements MusicManagerService {
 		}
 	}
 
-	// ----------------------
-
+	// ------------------------- 음악 목록 관련
 	public List<MusicDefaultModel> listMusicArticleAll() {
 		Collection<MusicArticle> allList = musicService.getMusicArticleAllList();
 		List<MusicDefaultModel> result = new ArrayList<MusicDefaultModel>();
@@ -137,4 +137,18 @@ public class AlbumServiceImpl implements MusicManagerService {
 		return result;
 	}
 
+	public PlayArticleModel getPlayArticle(String id) {
+		MusicArticle article = musicService.getMusicArticle(id);
+		PlayArticleModel result = new PlayArticleModel();
+		result.setId(id);
+		result.setName(article.getName());
+		result.setRunningTime(article.getRunningTime());
+		result.setPath(article.getPath());
+		
+		result.setLyrics(article.getLyrics());
+		result.setSamplingRate(article.getSamplingRate());
+		result.setBitRate(article.getBitRate());
+		
+		return result;
+	}
 }

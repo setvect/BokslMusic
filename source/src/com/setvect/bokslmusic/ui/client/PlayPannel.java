@@ -8,6 +8,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -21,10 +22,11 @@ import com.setvect.bokslmusic.ui.client.grid.PlayListGrid;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
+import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 
 public class PlayPannel extends SimplePanel {
 	final MusicManagerServiceAsync managerService = GWT.create(MusicManagerService.class);
-	
+
 	private PlayListGrid playHoriVerty3Grid;
 
 	protected void onLoad() {
@@ -114,7 +116,7 @@ public class PlayPannel extends SimplePanel {
 		playHoriVerty2.add(playHoriVerty2Label);
 		playHoriVerty2Label.setStyleName("subPannelTitle");
 
-		ScrollPanel playHoriVerty2Scroll = new ScrollPanel(new HTML(
+		final ScrollPanel playHoriVerty2Scroll = new ScrollPanel(new HTML(
 				"내<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>용"));
 		playHoriVerty2.add(playHoriVerty2Scroll);
 		playHoriVerty2Scroll.setStyleName("scroll");
@@ -159,8 +161,18 @@ public class PlayPannel extends SimplePanel {
 					Window.alert("재생할 파일이 없습니다.");
 				}
 				MusicDefaultModel plying = playList.getAt(playPos);
-				
-				
+
+				managerService.getPlayArticle(plying.getId(), new AsyncCallback<PlayArticleModel>() {
+					public void onFailure(Throwable caught) {
+						Window.alert(caught.getMessage());
+					}
+
+					public void onSuccess(PlayArticleModel result) {
+						HTML content = new HTML(result.getLyrics());
+						playHoriVerty2Scroll.clear();
+						playHoriVerty2Scroll.add(content);
+					}
+				});
 			}
 		});
 	}

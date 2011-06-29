@@ -1,14 +1,14 @@
 package com.setvect.bokslmusic.ui.shared.model;
 
 /**
- * 앨범 전체 정보
+ * 재생 정보
  */
-public class MusicArticleModel extends MusicDefaultModel {
+public class PlayArticleModel extends MusicDefaultModel {
 	/** */
 	private static final long serialVersionUID = 8029538003649310292L;
 
 	// Serialize를 하기 위해 기본 생성자 필요
-	public MusicArticleModel() {
+	public PlayArticleModel() {
 	}
 
 	public String getLyrics() {

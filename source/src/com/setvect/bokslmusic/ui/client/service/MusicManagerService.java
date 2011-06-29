@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
+import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 
 /**
  * 앨범 관리
@@ -50,8 +51,14 @@ public interface MusicManagerService extends RemoteService {
 	// ------------------------- 음악 목록 관련
 
 	/**
-	 * @return
+	 * @return 등록된 음악 전체 목록
 	 */
 	public List<MusicDefaultModel> listMusicArticleAll();
 
+	/**
+	 * @param id
+	 *            음악 아이디
+	 * @return 음악 정보
+	 */
+	public PlayArticleModel getPlayArticle(String id);
 }
