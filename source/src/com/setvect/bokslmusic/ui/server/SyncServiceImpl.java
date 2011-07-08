@@ -11,7 +11,7 @@ import com.setvect.bokslmusic.log.SyncLogPrinter;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.service.music.MusicSyncService;
 import com.setvect.bokslmusic.ui.client.service.SyncService;
-import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.ui.shared.model.SyncDirectoryModel;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.common.log.LogPrinter;
 
@@ -26,15 +26,15 @@ public class SyncServiceImpl implements SyncService {
 	@Autowired
 	private MusicSyncService serviceSync;
 
-	public List<MusicDirectoryModel> getSyncList() throws IllegalArgumentException {
-		List<MusicDirectoryModel> list = new ArrayList<MusicDirectoryModel>();
+	public List<SyncDirectoryModel> getSyncList() throws IllegalArgumentException {
+		List<SyncDirectoryModel> list = new ArrayList<SyncDirectoryModel>();
 		// ServletRequestAttributes sra = ((ServletRequestAttributes)
 		// RequestContextHolder.currentRequestAttributes());
 		// HttpServletRequest req = sra.getRequest();
 
 		List<MusicDirectory> dir = musicService.getMusicPathList();
 		for (MusicDirectory d : dir) {
-			MusicDirectoryModel a = new MusicDirectoryModel();
+			SyncDirectoryModel a = new SyncDirectoryModel();
 			a.setBasePath(d.getBasePath());
 			a.setSyncDate(d.getSyncDate());
 			list.add(a);

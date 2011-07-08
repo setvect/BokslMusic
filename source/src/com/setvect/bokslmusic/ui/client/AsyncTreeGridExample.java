@@ -29,7 +29,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
-import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 
 @SuppressWarnings("deprecation")
 public class AsyncTreeGridExample extends LayoutContainer {
@@ -43,28 +43,28 @@ public class AsyncTreeGridExample extends LayoutContainer {
 		final MusicManagerServiceAsync service = GWT.create(MusicManagerService.class);
 
 		// data proxy
-		RpcProxy<List<MusicDefaultModel>> proxy = new RpcProxy<List<MusicDefaultModel>>() {
+		RpcProxy<List<MusicArticleModel>> proxy = new RpcProxy<List<MusicArticleModel>>() {
 			@Override
-			protected void load(Object loadConfig, AsyncCallback<List<MusicDefaultModel>> callback) {
+			protected void load(Object loadConfig, AsyncCallback<List<MusicArticleModel>> callback) {
 				service.listFolder(model, children)
-				service.getFolderChildren((MusicDefaultModel) loadConfig, callback);
+				service.getFolderChildren((MusicArticleModel) loadConfig, callback);
 			}
 		};
 
 		// tree loader
-		final TreeLoader<MusicDefaultModel> loader = new BaseTreeLoader<MusicDefaultModel>(proxy) {
+		final TreeLoader<MusicArticleModel> loader = new BaseTreeLoader<MusicArticleModel>(proxy) {
 			@Override
-			public boolean hasChildren(MusicDefaultModel parent) {
+			public boolean hasChildren(MusicArticleModel parent) {
 				return parent instanceof FolderModel;
 			}
 		};
 
 		// trees store
-		final TreeStore<MusicDefaultModel> store = new TreeStore<MusicDefaultModel>(loader);
-		store.setStoreSorter(new StoreSorter<MusicDefaultModel>() {
+		final TreeStore<MusicArticleModel> store = new TreeStore<MusicArticleModel>(loader);
+		store.setStoreSorter(new StoreSorter<MusicArticleModel>() {
 
 			@Override
-			public int compare(Store<MusicDefaultModel> store, MusicDefaultModel m1, MusicDefaultModel m2,
+			public int compare(Store<MusicArticleModel> store, MusicArticleModel m1, MusicArticleModel m2,
 					String property) {
 				boolean m1Folder = m1 instanceof FolderModel;
 				boolean m2Folder = m2 instanceof FolderModel;
@@ -102,9 +102,9 @@ public class AsyncTreeGridExample extends LayoutContainer {
 		tree.setStateful(true);
 		// stateful components need a defined id
 		tree.setId("statefullasynctreegrid");
-		store.setKeyProvider(new ModelKeyProvider<MusicDefaultModel>() {
+		store.setKeyProvider(new ModelKeyProvider<MusicArticleModel>() {
 
-			public String getKey(MusicDefaultModel model) {
+			public String getKey(MusicArticleModel model) {
 				return model.<String> get("id");
 			}
 

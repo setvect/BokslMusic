@@ -3,7 +3,7 @@ package com.setvect.bokslmusic.ui.shared.model;
 /**
  * 재생 정보
  */
-public class PlayArticleModel extends MusicDefaultModel {
+public class PlayArticleModel extends MusicArticleModel {
 	/** */
 	private static final long serialVersionUID = 8029538003649310292L;
 

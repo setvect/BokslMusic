@@ -11,7 +11,7 @@ import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.AlbumModel;
-import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
@@ -116,15 +116,20 @@ public class AlbumServiceImpl implements MusicManagerService {
 	}
 
 	// ------------------------- 음악 목록 관련
-	public List<MusicDefaultModel> listMusicArticleAll() {
+	public List<MusicArticleModel> listMusicArticleAll() {
 		Collection<MusicArticle> allList = musicService.getMusicArticleAllList();
-		List<MusicDefaultModel> result = new ArrayList<MusicDefaultModel>();
+		List<MusicArticleModel> result = new ArrayList<MusicArticleModel>();
 		for (MusicArticle article : allList) {
-			MusicDefaultModel m = new MusicDefaultModel(article.getMusicId(), article.getName(),
+			MusicArticleModel m = new MusicArticleModel(article.getMusicId(), article.getName(),
 					article.getRunningTime(), article.getPath());
 			result.add(m);
 		}
 		return result;
+	}
+
+	public List<MusicArticleModel> listMusic(String path) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public PlayArticleModel getPlayArticle(String id) {
@@ -141,4 +146,5 @@ public class AlbumServiceImpl implements MusicManagerService {
 
 		return result;
 	}
+
 }

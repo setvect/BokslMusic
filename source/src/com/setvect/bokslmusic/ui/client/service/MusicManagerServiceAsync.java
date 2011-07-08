@@ -12,7 +12,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.AlbumModel;
-import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 
 /**
@@ -30,7 +30,10 @@ public interface MusicManagerServiceAsync {
 	public void removeAlbumArticle(List<AlbumArticleModel> articleList, AsyncCallback<Void> callback);
 
 	// ------------------------- 음악 목록 관련
-	public void listMusicArticleAll(AsyncCallback<List<MusicDefaultModel>> data);
+	public void listMusicArticleAll(AsyncCallback<List<MusicArticleModel>> data);
+
+	void listMusic(String path, AsyncCallback<List<MusicArticleModel>> callback);
 
 	public void getPlayArticle(String id, AsyncCallback<PlayArticleModel> callback);
+
 }

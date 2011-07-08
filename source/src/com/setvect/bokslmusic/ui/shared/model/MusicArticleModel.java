@@ -5,16 +5,16 @@ import com.extjs.gxt.ui.client.data.BaseModel;
 /**
  * 등록된 음악 항목
  */
-public class MusicDefaultModel extends BaseModel {
+public class MusicArticleModel extends BaseModel {
 
 	/** */
 	private static final long serialVersionUID = 55581369798985370L;
 
 	// Serialize를 하기 위해 기본 생성자 필요
-	public MusicDefaultModel() {
+	public MusicArticleModel() {
 	}
 
-	public MusicDefaultModel(String id, String name, int runningTime, String path) {
+	public MusicArticleModel(String id, String name, int runningTime, String path) {
 		set("name", name);
 		set("runningTime", runningTime);
 		set("path", path);
@@ -67,11 +67,11 @@ public class MusicDefaultModel extends BaseModel {
 			return false;
 		}
 
-		if (!(o instanceof MusicDefaultModel)) {
+		if (!(o instanceof MusicArticleModel)) {
 			return false;
 		}
 
-		MusicDefaultModel t = (MusicDefaultModel) o;
+		MusicArticleModel t = (MusicArticleModel) o;
 		return getId().equals(t.getId());
 	}
 }

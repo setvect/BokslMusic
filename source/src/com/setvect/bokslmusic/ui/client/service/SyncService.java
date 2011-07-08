@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.setvect.bokslmusic.service.music.MusicService;
-import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.ui.shared.model.SyncDirectoryModel;
 
 /**
  * 음악 파일 경로 동기화
@@ -18,7 +18,7 @@ public interface SyncService extends RemoteService {
 	 * @return 동기화할 경로
 	 * @throws IllegalArgumentException
 	 */
-	List<MusicDirectoryModel> getSyncList() throws IllegalArgumentException;
+	List<SyncDirectoryModel> getSyncList() throws IllegalArgumentException;
 
 	/**
 	 * @param dir

@@ -1,40 +1,27 @@
 package com.setvect.bokslmusic.ui.shared.model;
 
-import java.util.Date;
-
-import com.extjs.gxt.ui.client.data.BaseModel;
-
-public class MusicDirectoryModel extends BaseModel {
+public class MusicDirectoryModel extends MusicArticleModel {
 
 	/** */
-	private static final long serialVersionUID = 2540853721169782220L;
+	private static final long serialVersionUID = -4546026824498210580L;
 
-	// Serialize를 하기 위해 기본 생성자 필요
-	public MusicDirectoryModel() {
+	protected MusicDirectoryModel() {
 	}
 
-	public MusicDirectoryModel(String path, Date syncDate) {
-		set("basePath", path);
-		set("syncDate", syncDate);
+	public MusicDirectoryModel(String name, String path) {
+		set("name", name);
+		set("path", path);
 	}
 
-	public String getBasePath() {
-		return (String) get("basePath");
+	public String getName() {
+		return get("name");
 	}
 
-	public void setBasePath(String basePath) {
-		set("basePath", basePath);
+	public String getPath() {
+		return get("path");
 	}
 
-	public Date getSyncDate() {
-		return (Date) get("syncDate");
-	}
-
-	public void setSyncDate(Date basePath) {
-		set("syncDate", basePath);
-	}
-
-	public String toString() {
-		return getBasePath();
+	public boolean equals(Object o) {
+		return (this == o);
 	}
 }
