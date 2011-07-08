@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
-import com.setvect.bokslmusic.ui.shared.model.FolderModel;
+import com.setvect.bokslmusic.ui.shared.model.AlbumModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 import com.setvect.bokslmusic.vo.music.Album;
@@ -27,25 +27,20 @@ public class AlbumServiceImpl implements MusicManagerService {
 	private MusicService musicService;
 
 	// ------------------------- 앨범관련
-	public List<AlbumArticleModel> listFolder(AlbumArticleModel model) {
-		if (model == null) {
-			return listAlbum();
-		}
-		else {
-			int albumSeq = model.getAlbumNo();
-			return listAlbumArticle(albumSeq);
-		}
+	public List<AlbumArticleModel> listAlbum(AlbumModel model) {
+		int albumSeq = model.getAlbumNo();
+		return listAlbumArticle(albumSeq);
 
 	}
 
 	/**
-	 * @return 앨범 수록 곡 리스트
+	 * @return 앨범 목록
 	 */
-	private List<AlbumArticleModel> listAlbum() {
-		List<AlbumArticleModel> result = new ArrayList<AlbumArticleModel>();
+	private List<AlbumModel> listAlbum() {
+		List<AlbumModel> result = new ArrayList<AlbumModel>();
 		Collection<Album> album = musicService.getAlbumListAll();
 		for (Album a : album) {
-			FolderModel m = new FolderModel(a.getName(), a.getAlbumSeq());
+			AlbumModel m = new AlbumModel(a.getName(), a.getAlbumSeq());
 			result.add(m);
 		}
 		return result;
@@ -115,13 +110,8 @@ public class AlbumServiceImpl implements MusicManagerService {
 	public void removeAlbumArticle(List<AlbumArticleModel> articleList) {
 		for (AlbumArticleModel article : articleList) {
 			int albumSeq = article.getAlbumNo();
-			if (article instanceof FolderModel) {
-				musicService.removeAlbum(albumSeq);
-			}
-			else {
-				String musicId = article.getId();
-				musicService.removePlayItem(albumSeq, musicId);
-			}
+			String musicId = article.getId();
+			musicService.removePlayItem(albumSeq, musicId);
 		}
 	}
 
@@ -144,11 +134,11 @@ public class AlbumServiceImpl implements MusicManagerService {
 		result.setName(article.getName());
 		result.setRunningTime(article.getRunningTime());
 		result.setPath(article.getPath());
-		
+
 		result.setLyrics(article.getLyrics());
 		result.setSamplingRate(article.getSamplingRate());
 		result.setBitRate(article.getBitRate());
-		
+
 		return result;
 	}
 }

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.AlbumModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDefaultModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 
@@ -20,7 +21,7 @@ import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 public interface MusicManagerServiceAsync {
 
 	// ------------------------- 앨범관련
-	public void listFolder(AlbumArticleModel model, AsyncCallback<List<AlbumArticleModel>> children);
+	public void listAlbum(AlbumModel model, AsyncCallback<List<AlbumArticleModel>> children);
 
 	public void addAlbum(String albumName, AsyncCallback<Void> callback);
 
