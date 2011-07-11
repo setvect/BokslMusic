@@ -13,6 +13,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.AlbumModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 
 /**
@@ -32,7 +33,7 @@ public interface MusicManagerServiceAsync {
 	// ------------------------- 음악 목록 관련
 	public void listMusicArticleAll(AsyncCallback<List<MusicArticleModel>> data);
 
-	void listMusic(String path, AsyncCallback<List<MusicArticleModel>> callback);
+	public void listMusic(MusicDirectoryModel dir, AsyncCallback<List<MusicArticleModel>> callback);
 
 	public void getPlayArticle(String id, AsyncCallback<PlayArticleModel> callback);
 

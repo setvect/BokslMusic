@@ -5,7 +5,7 @@ public class MusicDirectoryModel extends MusicArticleModel {
 	/** */
 	private static final long serialVersionUID = -4546026824498210580L;
 
-	protected MusicDirectoryModel() {
+	public MusicDirectoryModel() {
 	}
 
 	public MusicDirectoryModel(String name, String path) {

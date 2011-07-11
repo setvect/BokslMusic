@@ -12,6 +12,7 @@ import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.AlbumModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
@@ -127,9 +128,39 @@ public class AlbumServiceImpl implements MusicManagerService {
 		return result;
 	}
 
-	public List<MusicArticleModel> listMusic(String path) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<MusicArticleModel> listMusic(MusicDirectoryModel directory) {
+		if(directory != null){
+			
+		}
+		
+		List<MusicArticleModel> rtn = new ArrayList<MusicArticleModel>();
+
+		if(directory != null){
+			
+			MusicArticleModel dummy = new MusicArticleModel();
+			dummy.setName("접");
+			dummy.setId("b");
+			rtn.add(dummy);
+			return rtn;
+		}
+
+		
+		MusicArticleModel dummy = new MusicArticleModel();
+		dummy.setName("안녕");
+		dummy.setId("a");
+		rtn.add(dummy);
+
+		MusicArticleModel dummy1 = new MusicArticleModel();
+		dummy1.setName("안녕1");
+		dummy1.setId("aaa");
+		rtn.add(dummy1);
+
+		MusicDirectoryModel dummy2 = new MusicDirectoryModel();
+		dummy2.setName("안녕1");
+		dummy2.setId("aaaa");
+		rtn.add(dummy2);
+
+		return rtn;
 	}
 
 	public PlayArticleModel getPlayArticle(String id) {

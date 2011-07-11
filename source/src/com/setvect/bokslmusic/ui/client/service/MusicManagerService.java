@@ -8,6 +8,7 @@ import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.AlbumModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 
 /**
@@ -57,11 +58,11 @@ public interface MusicManagerService extends RemoteService {
 	public List<MusicArticleModel> listMusicArticleAll();
 
 	/**
-	 * @param path
-	 *            경로
+	 * @param directory
+	 *            디렉토리
 	 * @return 해당 경로 하위 디렉토리 및 파일 목록
 	 */
-	public List<MusicArticleModel> listMusic(String path);
+	public List<MusicArticleModel> listMusic(MusicDirectoryModel directory);
 
 	/**
 	 * @param id
