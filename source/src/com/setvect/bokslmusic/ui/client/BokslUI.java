@@ -9,6 +9,7 @@ import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.data.ModelKeyProvider;
 import com.extjs.gxt.ui.client.data.RpcProxy;
 import com.extjs.gxt.ui.client.data.TreeLoader;
+import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.store.Store;
 import com.extjs.gxt.ui.client.store.StoreSorter;
 import com.extjs.gxt.ui.client.store.TreeStore;
@@ -16,8 +17,12 @@ import com.extjs.gxt.ui.client.util.IconHelper;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
+import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
+import com.extjs.gxt.ui.client.widget.grid.Grid;
+import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
+import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.extjs.gxt.ui.client.widget.treegrid.TreeGrid;
 import com.extjs.gxt.ui.client.widget.treegrid.TreeGridCellRenderer;
@@ -29,6 +34,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
+import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
@@ -68,7 +74,7 @@ public class BokslUI implements EntryPoint {
 			playControl.addText("TEXT 2");
 			this.add(playControl);
 
-			this.setSize(200, 325);
+			this.setSize(350, 425);
 		}
 
 		private ContentPanel makeAllList() {
@@ -113,11 +119,23 @@ public class BokslUI implements EntryPoint {
 				}
 			});
 
-			ColumnConfig name = new ColumnConfig("name", "Name", 100);
+			ColumnConfig name = new ColumnConfig("name", "Name", 200);
 			name.setRenderer(new TreeGridCellRenderer<ModelData>());
 
 			ColumnConfig date = new ColumnConfig("runningTime", "Time", 100);
-			date.setDateTimeFormat(DateTimeFormat.getMediumDateTimeFormat());
+			// 초 단위 숫자를 => "2:23" 이런 형식으로 변경
+			GridCellRenderer<ModelData> timeRenderer = new GridCellRenderer<ModelData>() {
+				public String render(ModelData model, String property, ColumnData config, int rowIndex, int colIndex,
+						ListStore<ModelData> store, Grid<ModelData> grid) {
+					Object value = model.get(property);
+					if (value == null) {
+						return "";
+					}
+					int sec = (Integer) value;
+					return ClientUtil.getMinuteSec(sec);
+				}
+			};
+			date.setRenderer(timeRenderer);
 
 			ColumnModel cm = new ColumnModel(Arrays.asList(name, date));
 
@@ -138,44 +156,7 @@ public class BokslUI implements EntryPoint {
 			tree.setTrackMouseOver(false);
 
 			ContentPanel allList = new ContentPanel();
-			// allList.setAnimCollapse(false);
-			// allList.setHeading("전체목록");
-			// allList.setLayout(new FitLayout());
-			//
-			// TreeStore<ModelData> store = new TreeStore<ModelData>();
-			// TreePanel<ModelData> tree = new TreePanel<ModelData>(store);
-			// tree.setIconProvider(new ModelIconProvider<ModelData>() {
-			// public AbstractImagePrototype getIcon(ModelData model) {
-			// if (model.get("icon") != null) {
-			// return IconHelper.createStyle((String) model.get("icon"));
-			// }
-			// else {
-			// return null;
-			// }
-			// }
-			//
-			// });
-			// tree.setDisplayProperty("name");
-			//
-			// ModelData m = newItem("Family", null);
-			// store.add(m, false);
-			//
-			// store.add(m, newItem("Darrell", "user"), false);
-			// store.add(m, newItem("Maro", "user-girl"), false);
-			// store.add(m, newItem("Lia", "user-kid"), false);
-			// store.add(m, newItem("Alec", "user-kid"), false);
-			// store.add(m, newItem("Andrew", "user-kid"), false);
-			// tree.setExpanded(m, true);
-			//
-			// m = newItem("Friends", null);
-			// store.add(m, false);
-			//
-			// store.add(m, newItem("Bob", "user"), false);
-			// store.add(m, newItem("Mary", "user-girl"), false);
-			// store.add(m, newItem("Sally", "user-girl"), false);
-			// store.add(m, newItem("Jack", "user"), false);
-			//
-			// tree.setExpanded(m, true);
+			allList.setLayout(new FitLayout());
 
 			allList.add(tree);
 			return allList;

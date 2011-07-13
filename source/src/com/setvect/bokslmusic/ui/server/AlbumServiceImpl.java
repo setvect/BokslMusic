@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.shared.model.AlbumArticleModel;
@@ -16,6 +17,7 @@ import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
+import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.bokslmusic.vo.music.PlayItem;
 import com.setvect.common.util.GenericPage;
 
@@ -129,37 +131,41 @@ public class AlbumServiceImpl implements MusicManagerService {
 	}
 
 	public List<MusicArticleModel> listMusic(MusicDirectoryModel directory) {
-		if(directory != null){
-			
-		}
-		
 		List<MusicArticleModel> rtn = new ArrayList<MusicArticleModel>();
-
-		if(directory != null){
-			
-			MusicArticleModel dummy = new MusicArticleModel();
-			dummy.setName("접");
-			dummy.setId("b");
-			rtn.add(dummy);
-			return rtn;
+		// 음원 루트 디렉토리 목록
+		if (directory == null) {
+			List<MusicDirectory> baseDir = musicService.getMusicBasePathList();
+			for (MusicDirectory d : baseDir) {
+				MusicDirectoryModel m = new MusicDirectoryModel(d.getBasePath(), d.getBasePath(),
+						MusicDirectoryModel.TYPE_BASE_DIR);
+				rtn.add(m);
+			}
 		}
 
-		
-		MusicArticleModel dummy = new MusicArticleModel();
-		dummy.setName("안녕");
-		dummy.setId("a");
-		rtn.add(dummy);
+		// 루트디렉토리 하위에 포함된 모든 디렉토리(단계 무시하고 모두다 도출)
+		else if (directory.getType().equals(MusicDirectoryModel.TYPE_BASE_DIR)) {
+			String path = directory.getPath();
+			List<String> dir = musicService.getMusicArticlePath(path);
+			for (String d : dir) {
+				String name = d.substring(path.length() + 1);
+				MusicDirectoryModel m = new MusicDirectoryModel(name, d, MusicDirectoryModel.TYPE_DIR);
+				rtn.add(m);
+			}
+		}
+		// 디렉토리에 있는 음원 정보
+		else {
+			MusicArticleSearch pageCondition = new MusicArticleSearch(1);
+			pageCondition.setPagePerItemCount(Integer.MAX_VALUE);
+			pageCondition.setSearchPath(directory.getPath());
+			GenericPage<MusicArticle> page = musicService.getMusicArticlePagingList(pageCondition);
 
-		MusicArticleModel dummy1 = new MusicArticleModel();
-		dummy1.setName("안녕1");
-		dummy1.setId("aaa");
-		rtn.add(dummy1);
-
-		MusicDirectoryModel dummy2 = new MusicDirectoryModel();
-		dummy2.setName("안녕1");
-		dummy2.setId("aaaa");
-		rtn.add(dummy2);
-
+			Collection<MusicArticle> list = page.getList();
+			for (MusicArticle a : list) {
+				MusicArticleModel m = new MusicArticleModel(a.getMusicId(), a.getName(), a.getRunningTime(),
+						a.getPath());
+				rtn.add(m);
+			}
+		}
 		return rtn;
 	}
 

@@ -30,7 +30,7 @@ public interface MusicDao {
 	/**
 	 * @return 등록된 모든 음원 저장 경로
 	 */
-	public List<MusicDirectory> getMusicPathList();
+	public List<MusicDirectory> getMusicBasePathList();
 
 	/**
 	 * 등록

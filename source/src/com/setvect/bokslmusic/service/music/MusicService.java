@@ -27,8 +27,8 @@ public class MusicService {
 		return musicArticleDao.getMusicPath(basePath);
 	}
 
-	public List<MusicDirectory> getMusicPathList() {
-		return musicArticleDao.getMusicPathList();
+	public List<MusicDirectory> getMusicBasePathList() {
+		return musicArticleDao.getMusicBasePathList();
 	}
 
 	public void createMusicPath(MusicDirectory item) {
@@ -54,6 +54,23 @@ public class MusicService {
 
 	public List<String> getMusicArticlePath() {
 		return musicArticleDao.getMusicArticlePath();
+	}
+
+	/**
+	 * @param basePath
+	 *            시작 경로
+	 * @return basePath로 시작하는 음원 디렉토리 경로
+	 */
+	public List<String> getMusicArticlePath(String basePath) {
+		List<String> musicArticlePath = musicArticleDao.getMusicArticlePath();
+		List<String> rtn = new ArrayList<String>();
+		for (String d : musicArticlePath) {
+			if (!d.startsWith(basePath)) {
+				continue;
+			}
+			rtn.add(d);
+		}
+		return rtn;
 	}
 
 	/**

@@ -37,7 +37,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		return (MusicDirectory) session.get(MusicDirectory.class, basePath);
 	}
 
-	public List<MusicDirectory> getMusicPathList() {
+	public List<MusicDirectory> getMusicBasePathList() {
 		Session session = sessionFactory.getCurrentSession();
 		String q = " from MusicDirectory order by basePath ";
 		Query query = session.createQuery(q);
@@ -150,6 +150,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		String fileName = pageCondition.getSearchFileName();
 		String lyrics = pageCondition.getSearchLyrics();
 		String title = pageCondition.getSearchTitle();
+		String path = pageCondition.getSearchPath();
 
 		String where;
 		UnionCondition cnd = pageCondition.getUnionCondition();
@@ -166,16 +167,20 @@ public abstract class AbstractMusicDao implements MusicDao {
 		}
 
 		if (StringUtilAd.isNotEmpty(fileName)) {
-			where += cnd + " name like " + StringUtilAd.getSqlStringLike(fileName);
+			where += cnd + " name like " + StringUtilAd.getSqlStringLike(fileName) + " ";
 		}
 
 		if (StringUtilAd.isNotEmpty(lyrics)) {
-			where += cnd + " lyrics like " + StringUtilAd.getSqlStringLike(lyrics);
+			where += cnd + " lyrics like " + StringUtilAd.getSqlStringLike(lyrics) + " ";
 		}
 
 		if (StringUtilAd.isNotEmpty(title)) {
 			where += cnd + " ( titleTag like " + StringUtilAd.getSqlStringLike(title) + " OR titleExt like "
 					+ StringUtilAd.getSqlStringLike(title) + ") ";
+		}
+
+		if (StringUtilAd.isNotEmpty(path)) {
+			where += cnd + " path =" + StringUtilAd.getSqlString(path) + " ";
 		}
 		return where;
 	}

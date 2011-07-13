@@ -32,7 +32,7 @@ public class SyncServiceImpl implements SyncService {
 		// RequestContextHolder.currentRequestAttributes());
 		// HttpServletRequest req = sra.getRequest();
 
-		List<MusicDirectory> dir = musicService.getMusicPathList();
+		List<MusicDirectory> dir = musicService.getMusicBasePathList();
 		for (MusicDirectory d : dir) {
 			SyncDirectoryModel a = new SyncDirectoryModel();
 			a.setBasePath(d.getBasePath());
