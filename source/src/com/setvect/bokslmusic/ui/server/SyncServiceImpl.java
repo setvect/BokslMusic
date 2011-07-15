@@ -32,7 +32,7 @@ public class SyncServiceImpl implements SyncService {
 		// RequestContextHolder.currentRequestAttributes());
 		// HttpServletRequest req = sra.getRequest();
 
-		List<MusicDirectory> dir = musicService.getMusicBasePathList();
+		List<MusicDirectory> dir = musicService.getMusicDirectory();
 		for (MusicDirectory d : dir) {
 			SyncDirectoryModel a = new SyncDirectoryModel();
 			a.setBasePath(d.getBasePath());
@@ -52,18 +52,20 @@ public class SyncServiceImpl implements SyncService {
 		MusicDirectory item = new MusicDirectory();
 
 		item.setBasePath(path);
-		musicService.createMusicPath(item);
+		musicService.createMusicDirectory(item);
 		return true;
 	}
 
 	public boolean removeMusicPath(String dir) {
-		musicService.removeMusicPath(dir);
+		musicService.removeMusicDirectory(dir);
 		return true;
 	}
 
 	public boolean syncDirectory(String dir) {
 		File syncDir = new File(dir);
 		serviceSync.syncDirectory(syncDir);
+		// DB에 저장된 자료와 로컬에 저장된 파일과의 비교, 로컬에 해당하는 파일이 없으면 DB에서 정보삭제
+		serviceSync.syncDb();
 		return true;
 	}
 

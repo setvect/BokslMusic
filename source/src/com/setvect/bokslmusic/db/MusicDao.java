@@ -25,12 +25,12 @@ public interface MusicDao {
 	 *            경로(키)
 	 * @return 음원 저장 경로
 	 */
-	public MusicDirectory getMusicPath(String basePath);
+	public MusicDirectory getMusicDirectory(String basePath);
 
 	/**
 	 * @return 등록된 모든 음원 저장 경로
 	 */
-	public List<MusicDirectory> getMusicBasePathList();
+	public List<MusicDirectory> getMusicDirectory();
 
 	/**
 	 * 등록
@@ -38,7 +38,7 @@ public interface MusicDao {
 	 * @param item
 	 *            음원 저장 경로
 	 */
-	public void createMusicPath(MusicDirectory item);
+	public void createMusicDirectory(MusicDirectory item);
 
 	/**
 	 * 수정
@@ -46,7 +46,7 @@ public interface MusicDao {
 	 * @param item
 	 *            음원 저장 경로
 	 */
-	public void updateMusicPath(MusicDirectory item);
+	public void updateMusicDirectory(MusicDirectory item);
 
 	/**
 	 * 삭제
@@ -54,7 +54,7 @@ public interface MusicDao {
 	 * @param basePath
 	 *            음원 경로(키)
 	 */
-	public void removeMusicPath(String basePath);
+	public void removeMusicDirectory(String basePath);
 
 	// ------ 음악 목록 관리
 	/**

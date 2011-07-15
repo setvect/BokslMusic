@@ -95,8 +95,7 @@ public class MusicSyncService {
 			try {
 				marticle = music.getMusicArticle();
 				service.createMusicArticle(marticle);
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				String msg = String.format("[에러][%,d/%,d] %s", count, musicMetes.size(), e.getMessage());
 				SyncLogPrinter.log(msg);
 				LogPrinter.out.warn(e);
@@ -143,7 +142,7 @@ public class MusicSyncService {
 				ck.check(count + "/" + listAll.size() + " 진행");
 			}
 
-			File musicFile = new File(article.getPath());
+			File musicFile = new File(article.getPath(), article.getName());
 			boolean delete = false;
 			if (!musicFile.exists()) {
 				delete = true;

@@ -23,24 +23,24 @@ public class MusicService {
 	private MusicDao musicArticleDao;
 
 	// ------ 음악 경로 관리
-	public MusicDirectory getMusicPath(String basePath) {
-		return musicArticleDao.getMusicPath(basePath);
+	public MusicDirectory getMusicDirectory(String basePath) {
+		return musicArticleDao.getMusicDirectory(basePath);
 	}
 
-	public List<MusicDirectory> getMusicBasePathList() {
-		return musicArticleDao.getMusicBasePathList();
+	public List<MusicDirectory> getMusicDirectory() {
+		return musicArticleDao.getMusicDirectory();
 	}
 
-	public void createMusicPath(MusicDirectory item) {
-		musicArticleDao.createMusicPath(item);
+	public void createMusicDirectory(MusicDirectory item) {
+		musicArticleDao.createMusicDirectory(item);
 	}
 
-	public void updateMusicPath(MusicDirectory item) {
-		musicArticleDao.updateMusicPath(item);
+	public void updateMusicDirectory(MusicDirectory item) {
+		musicArticleDao.updateMusicDirectory(item);
 	}
 
-	public void removeMusicPath(String basePath) {
-		musicArticleDao.removeMusicPath(basePath);
+	public void removeMusicDirectory(String basePath) {
+		musicArticleDao.removeMusicDirectory(basePath);
 	}
 
 	// ------ 음악 목록 관리

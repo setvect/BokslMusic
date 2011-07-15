@@ -134,7 +134,7 @@ public class AlbumServiceImpl implements MusicManagerService {
 		List<MusicArticleModel> rtn = new ArrayList<MusicArticleModel>();
 		// 음원 루트 디렉토리 목록
 		if (directory == null) {
-			List<MusicDirectory> baseDir = musicService.getMusicBasePathList();
+			List<MusicDirectory> baseDir = musicService.getMusicDirectory();
 			for (MusicDirectory d : baseDir) {
 				MusicDirectoryModel m = new MusicDirectoryModel(d.getBasePath(), d.getBasePath(),
 						MusicDirectoryModel.TYPE_BASE_DIR);

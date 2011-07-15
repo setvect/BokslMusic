@@ -25,9 +25,9 @@ public class MusicArticleServiceTestCase extends TestSystem {
 		MusicDirectory saveItem = new MusicDirectory();
 		saveItem.setBasePath("D:\\90.멀티미디어\\01_음악");
 		saveItem.setSyncDate(new Date());
-		service.createMusicPath(saveItem);
+		service.createMusicDirectory(saveItem);
 
-		MusicDirectory loadItem = service.getMusicPath(saveItem.getBasePath());
+		MusicDirectory loadItem = service.getMusicDirectory(saveItem.getBasePath());
 		Assert.assertThat(saveItem, is(loadItem));
 	}
 

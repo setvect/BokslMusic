@@ -41,6 +41,12 @@ public class ClientUtil {
 	public static final GridCellRenderer<BaseModel> TIME_RENDERER = new GridCellRenderer<BaseModel>() {
 		public String render(BaseModel model, String property, ColumnData config, int rowIndex, int colIndex,
 				ListStore<BaseModel> store, Grid<BaseModel> grid) {
+
+			Object value = model.get(property);
+			if (value == null) {
+				return "";
+			}
+
 			int sec = model.get(property);
 			return ClientUtil.getMinuteSec(sec);
 		}

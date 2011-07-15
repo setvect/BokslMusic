@@ -32,12 +32,12 @@ public abstract class AbstractMusicDao implements MusicDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public MusicDirectory getMusicPath(String basePath) {
+	public MusicDirectory getMusicDirectory(String basePath) {
 		Session session = sessionFactory.getCurrentSession();
 		return (MusicDirectory) session.get(MusicDirectory.class, basePath);
 	}
 
-	public List<MusicDirectory> getMusicBasePathList() {
+	public List<MusicDirectory> getMusicDirectory() {
 		Session session = sessionFactory.getCurrentSession();
 		String q = " from MusicDirectory order by basePath ";
 		Query query = session.createQuery(q);
@@ -48,22 +48,22 @@ public abstract class AbstractMusicDao implements MusicDao {
 		return resultList;
 	}
 
-	public void createMusicPath(MusicDirectory item) {
+	public void createMusicDirectory(MusicDirectory item) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(item);
 		session.flush();
 
 	}
 
-	public void updateMusicPath(MusicDirectory item) {
+	public void updateMusicDirectory(MusicDirectory item) {
 		Session session = sessionFactory.getCurrentSession();
 		session.update(item);
 		session.flush();
 	}
 
-	public void removeMusicPath(String basePath) {
+	public void removeMusicDirectory(String basePath) {
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(getMusicPath(basePath));
+		session.delete(getMusicDirectory(basePath));
 		session.flush();
 	}
 
