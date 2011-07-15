@@ -136,7 +136,8 @@ public class AlbumServiceImpl implements MusicManagerService {
 		if (directory == null) {
 			List<MusicDirectory> baseDir = musicService.getMusicDirectory();
 			for (MusicDirectory d : baseDir) {
-				MusicDirectoryModel m = new MusicDirectoryModel(d.getBasePath(), d.getBasePath(),
+				String name = d.getBasePath() + "[" + getChildCount(d.getBasePath()) + "]";
+				MusicDirectoryModel m = new MusicDirectoryModel(name, d.getBasePath(),
 						MusicDirectoryModel.TYPE_BASE_DIR);
 				rtn.add(m);
 			}
@@ -147,7 +148,7 @@ public class AlbumServiceImpl implements MusicManagerService {
 			String path = directory.getPath();
 			List<String> dir = musicService.getMusicArticlePath(path);
 			for (String d : dir) {
-				String name = d.substring(path.length() + 1);
+				String name = d.substring(path.length() + 1) + "[" + getChildCount(d) + "]";
 				MusicDirectoryModel m = new MusicDirectoryModel(name, d, MusicDirectoryModel.TYPE_DIR);
 				rtn.add(m);
 			}
@@ -167,6 +168,20 @@ public class AlbumServiceImpl implements MusicManagerService {
 			}
 		}
 		return rtn;
+	}
+
+	/**
+	 * @param basePath
+	 *            시작 경로
+	 * @return 해당 경로의 포함된 파일 갯수
+	 */
+	private int getChildCount(String basePath) {
+		MusicArticleSearch pageCondition = new MusicArticleSearch(1);
+		pageCondition.setPagePerItemCount(Integer.MAX_VALUE);
+		pageCondition.setSearchPath(basePath);
+		GenericPage<MusicArticle> page = musicService.getMusicArticlePagingList(pageCondition);
+
+		return page.getTotalCount();
 	}
 
 	public PlayArticleModel getPlayArticle(String id) {

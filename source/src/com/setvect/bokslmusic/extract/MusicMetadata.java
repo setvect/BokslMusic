@@ -33,7 +33,7 @@ public class MusicMetadata {
 	 */
 	public MusicMetadata(File f) {
 		sourceFile = f;
-		String ext = FileUtil.getExt(sourceFile.getName());
+		String ext = FileUtil.getExt(sourceFile.getName()).toLowerCase();
 		fileKind = MusicFileAnalysis.EXT_MAPPING.get(ext);
 	}
 
@@ -55,6 +55,7 @@ public class MusicMetadata {
 	 */
 	public static String getHeaderMd5(File audioFile) {
 		String ext = FileUtil.getExt(audioFile.getName());
+		ext = ext.toLowerCase();
 		MusicFileKind fileKind = MusicFileAnalysis.EXT_MAPPING.get(ext);
 		return fileKind.getHeaderMd5(audioFile);
 	}

@@ -77,7 +77,7 @@ public class MusicExtractor {
 					this.setFile(f);
 				}
 				String ext = FileUtil.getExt(f.getName());
-				if (includeExt.contains(ext)) {
+				if (includeExt.contains(ext.toLowerCase())) {
 					files.add(f);
 				}
 			}

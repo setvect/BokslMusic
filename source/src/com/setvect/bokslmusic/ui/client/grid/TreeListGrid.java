@@ -1,4 +1,4 @@
-package com.setvect.bokslmusic.ui.client;
+package com.setvect.bokslmusic.ui.client.grid;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +28,7 @@ import com.extjs.gxt.ui.client.widget.treegrid.TreeGridCellRenderer;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.setvect.bokslmusic.ui.client.Resources;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;

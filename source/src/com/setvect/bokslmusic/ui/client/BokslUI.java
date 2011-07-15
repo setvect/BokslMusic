@@ -8,6 +8,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
+import com.setvect.bokslmusic.ui.client.grid.TreeListGrid;
 
 /**
  * Entry point classes define <CODE>onModuleLoad()</CODE>.
