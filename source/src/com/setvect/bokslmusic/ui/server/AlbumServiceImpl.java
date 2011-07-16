@@ -136,7 +136,7 @@ public class AlbumServiceImpl implements MusicManagerService {
 		if (directory == null) {
 			List<MusicDirectory> baseDir = musicService.getMusicDirectory();
 			for (MusicDirectory d : baseDir) {
-				String name = d.getBasePath() + "[" + getChildCount(d.getBasePath()) + "]";
+				String name = d.getBasePath() + "[" + getChildCount(d.getBasePath(), true) + "]";
 				MusicDirectoryModel m = new MusicDirectoryModel(name, d.getBasePath(),
 						MusicDirectoryModel.TYPE_BASE_DIR);
 				rtn.add(m);
@@ -148,7 +148,7 @@ public class AlbumServiceImpl implements MusicManagerService {
 			String path = directory.getPath();
 			List<String> dir = musicService.getMusicArticlePath(path);
 			for (String d : dir) {
-				String name = d.substring(path.length() + 1) + "[" + getChildCount(d) + "]";
+				String name = d.substring(path.length() + 1) + "[" + getChildCount(d, false) + "]";
 				MusicDirectoryModel m = new MusicDirectoryModel(name, d, MusicDirectoryModel.TYPE_DIR);
 				rtn.add(m);
 			}
@@ -173,12 +173,19 @@ public class AlbumServiceImpl implements MusicManagerService {
 	/**
 	 * @param basePath
 	 *            시작 경로
+	 * @param like
+	 *            우측 like 검색 여부, false 이면 equals 검색
 	 * @return 해당 경로의 포함된 파일 갯수
 	 */
-	private int getChildCount(String basePath) {
+	private int getChildCount(String basePath, boolean like) {
 		MusicArticleSearch pageCondition = new MusicArticleSearch(1);
 		pageCondition.setPagePerItemCount(Integer.MAX_VALUE);
-		pageCondition.setSearchPath(basePath);
+		if (like) {
+			pageCondition.setSearchPathParent(basePath);
+		}
+		else {
+			pageCondition.setSearchPath(basePath);
+		}
 		GenericPage<MusicArticle> page = musicService.getMusicArticlePagingList(pageCondition);
 
 		return page.getTotalCount();

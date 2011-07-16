@@ -8,6 +8,8 @@ import com.extjs.gxt.ui.client.data.ModelData;
 import com.extjs.gxt.ui.client.data.ModelKeyProvider;
 import com.extjs.gxt.ui.client.data.RpcProxy;
 import com.extjs.gxt.ui.client.data.TreeLoader;
+import com.extjs.gxt.ui.client.event.BaseEvent;
+import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.GridEvent;
 import com.extjs.gxt.ui.client.event.Listener;
@@ -17,12 +19,15 @@ import com.extjs.gxt.ui.client.store.Store;
 import com.extjs.gxt.ui.client.store.StoreSorter;
 import com.extjs.gxt.ui.client.store.TreeStore;
 import com.extjs.gxt.ui.client.util.IconHelper;
-import com.extjs.gxt.ui.client.widget.LayoutContainer;
-import com.extjs.gxt.ui.client.widget.grid.CheckBoxSelectionModel;
+import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
+import com.extjs.gxt.ui.client.widget.grid.GridSelectionModel;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.extjs.gxt.ui.client.widget.toolbar.SeparatorToolItem;
+import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.extjs.gxt.ui.client.widget.treegrid.TreeGrid;
 import com.extjs.gxt.ui.client.widget.treegrid.TreeGridCellRenderer;
 import com.google.gwt.core.client.GWT;
@@ -35,7 +40,7 @@ import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
-public class TreeListGrid extends LayoutContainer {
+public class AllListGrid extends ContentPanel {
 	private final MusicManagerServiceAsync service = GWT.create(MusicManagerService.class);
 
 	protected void onRender(Element parent, int index) {
@@ -85,10 +90,9 @@ public class TreeListGrid extends LayoutContainer {
 		// 초 단위 숫자를 => "2:23" 이런 형식으로 변경
 		date.setRenderer(ClientUtil.TIME_RENDERER);
 
-		CheckBoxSelectionModel<MusicArticleModel> sm = new CheckBoxSelectionModel<MusicArticleModel>();
-		ColumnModel cm = new ColumnModel(Arrays.asList(sm.getColumn(), name, date));
+		ColumnModel cm = new ColumnModel(Arrays.asList(name, date));
 
-		TreeGrid<MusicArticleModel> tree = new TreeGrid<MusicArticleModel>(store, cm);
+		final TreeGrid<MusicArticleModel> tree = new TreeGrid<MusicArticleModel>(store, cm);
 
 		Listener<GridEvent<MusicArticleModel>> listener = new Listener<GridEvent<MusicArticleModel>>() {
 			public void handleEvent(GridEvent<MusicArticleModel> be) {
@@ -110,8 +114,6 @@ public class TreeListGrid extends LayoutContainer {
 		tree.addListener(Events.OnKeyPress, listener);
 		tree.addListener(Events.OnMouseDown, listener);
 
-		tree.setSelectionModel(sm);
-		tree.addPlugin(sm);
 		tree.setStateful(true);
 		// stateful components need a defined id
 		tree.setId("statefullasynctreegrid");
@@ -134,9 +136,32 @@ public class TreeListGrid extends LayoutContainer {
 			}
 		});
 
-		add(tree);
+		ContentPanel content = new ContentPanel();
+		content.add(tree);
+
+		ToolBar toolBar = new ToolBar();
+		Button item = new Button("Add", Resources.ICONS.add());
+		item.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+			public void handleEvent(ButtonEvent be) {
+				GridSelectionModel<MusicArticleModel> selectionModel = tree.getSelectionModel();
+				List<MusicArticleModel> items = selectionModel.getSelectedItems();
+
+				for (MusicArticleModel item : items) {
+					System.out.println(item);
+				}
+			}
+		});
+
+		toolBar.add(item);
+		toolBar.add(new SeparatorToolItem());
+
+		content.setHeaderVisible(false);
+		content.setTopComponent(toolBar);
 
 		// 데이터의 표시 영역이 레이아웃을 벗어 날때 스크롤 생김
-		setLayout(new FitLayout());
+		content.setLayout(new FitLayout());
+		setHeading("등록 목록");
+
+		add(content);
 	}
 }

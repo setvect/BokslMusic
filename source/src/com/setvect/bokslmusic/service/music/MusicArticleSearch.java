@@ -35,6 +35,9 @@ public class MusicArticleSearch extends SearchListVo {
 	/** 디렉토리 경로(equals 검색) */
 	private String searchPath;
 
+	/** 디렉토리 경로(우측 like 검색 'abcde%') */
+	private String searchPathParent;
+
 	public MusicArticleSearch(int currentPage) {
 		super(currentPage);
 	}
@@ -96,7 +99,22 @@ public class MusicArticleSearch extends SearchListVo {
 	}
 
 	/**
-	 * 검색 결과를 캣싱 할때 이용
+	 * @return the searchPathParent
+	 */
+	public String getSearchPathParent() {
+		return searchPathParent;
+	}
+
+	/**
+	 * @param searchPathParent
+	 *            the searchPathParent to set
+	 */
+	public void setSearchPathParent(String searchPathParent) {
+		this.searchPathParent = searchPathParent;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
@@ -107,13 +125,14 @@ public class MusicArticleSearch extends SearchListVo {
 		result = prime * result + ((searchFileName == null) ? 0 : searchFileName.hashCode());
 		result = prime * result + ((searchLyrics == null) ? 0 : searchLyrics.hashCode());
 		result = prime * result + ((searchPath == null) ? 0 : searchPath.hashCode());
+		result = prime * result + ((searchPathParent == null) ? 0 : searchPathParent.hashCode());
 		result = prime * result + ((searchTitle == null) ? 0 : searchTitle.hashCode());
 		result = prime * result + ((unionCondition == null) ? 0 : unionCondition.hashCode());
 		return result;
 	}
 
-	/**
-	 * 검색 결과를 캣싱 할때 이용
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -160,6 +179,14 @@ public class MusicArticleSearch extends SearchListVo {
 			}
 		}
 		else if (!searchPath.equals(other.searchPath)) {
+			return false;
+		}
+		if (searchPathParent == null) {
+			if (other.searchPathParent != null) {
+				return false;
+			}
+		}
+		else if (!searchPathParent.equals(other.searchPathParent)) {
 			return false;
 		}
 		if (searchTitle == null) {

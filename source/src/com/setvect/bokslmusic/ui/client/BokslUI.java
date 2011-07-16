@@ -8,7 +8,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
-import com.setvect.bokslmusic.ui.client.grid.TreeListGrid;
+import com.setvect.bokslmusic.ui.client.grid.AllListGrid;
 
 /**
  * Entry point classes define <CODE>onModuleLoad()</CODE>.
@@ -27,11 +27,7 @@ public class BokslUI implements EntryPoint {
 			setLayout(new FlowLayout(10));
 
 			this.setLayout(new AccordionLayout());
-
-			ContentPanel allList = new ContentPanel();
-			allList.add(new TreeListGrid());
-			allList.setHeading("등록 목록");
-			this.add(allList);
+			this.add(new AllListGrid());
 
 			ContentPanel playList = new ContentPanel();
 			playList.setAnimCollapse(false);
@@ -39,12 +35,6 @@ public class BokslUI implements EntryPoint {
 			playList.addText("TEXT 1");
 
 			this.add(playList);
-
-			ContentPanel playControl = new ContentPanel();
-			playControl.setAnimCollapse(false);
-			playControl.setHeading("재생 창");
-			playControl.addText("TEXT 2");
-			this.add(playControl);
 
 			ContentPanel setting = new ContentPanel();
 			setting.setAnimCollapse(false);

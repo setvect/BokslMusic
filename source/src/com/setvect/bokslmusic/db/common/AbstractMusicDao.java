@@ -151,6 +151,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		String lyrics = pageCondition.getSearchLyrics();
 		String title = pageCondition.getSearchTitle();
 		String path = pageCondition.getSearchPath();
+		String pathParent = pageCondition.getSearchPathParent();
 
 		String where;
 		UnionCondition cnd = pageCondition.getUnionCondition();
@@ -181,6 +182,10 @@ public abstract class AbstractMusicDao implements MusicDao {
 
 		if (StringUtilAd.isNotEmpty(path)) {
 			where += cnd + " path =" + StringUtilAd.getSqlString(path) + " ";
+		}
+
+		if (StringUtilAd.isNotEmpty(pathParent)) {
+			where += cnd + " path like " + StringUtilAd.getSqlStringLikeRight(pathParent.replace("\\", "\\\\")) + " ";
 		}
 		return where;
 	}
