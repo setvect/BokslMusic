@@ -11,7 +11,7 @@ import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.BoxComponent;
-import com.extjs.gxt.ui.client.widget.LayoutContainer;
+import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnData;
@@ -26,7 +26,7 @@ import com.setvect.bokslmusic.ui.client.service.SyncService;
 import com.setvect.bokslmusic.ui.client.service.SyncServiceAsync;
 import com.setvect.bokslmusic.ui.shared.model.SyncDirectoryModel;
 
-public class SyncGrid extends LayoutContainer {
+public class SyncGrid extends ContentPanel {
 	private ColumnModel cm;
 	private final SyncServiceAsync syncService = GWT.create(SyncService.class);
 	/** 그리드 데이터 */
@@ -60,6 +60,7 @@ public class SyncGrid extends LayoutContainer {
 		grid.setColumnLines(true);
 		grid.setColumnReordering(true);
 		add(grid);
+		setHeading("환경설정");
 
 		reloadSyncList();
 	}
