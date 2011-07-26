@@ -17,7 +17,6 @@ import com.extjs.gxt.ui.client.widget.toolbar.SeparatorToolItem;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
-import com.setvect.bokslmusic.ui.client.Resources;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
@@ -58,14 +57,21 @@ public class PlayListGrid extends ContentPanel {
 		content.add(grid);
 
 		ToolBar toolBar = new ToolBar();
-		Button addButton = new Button("Add", Resources.ICONS.add());
+		Button addButton = new Button("Play");
 		addButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
-				System.out.println("SSSSSSSSSSS");
+				System.out.println("Play Click");
 			}
 		});
-
+		Button stopButton = new Button("Stop");
+		stopButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+			public void handleEvent(ButtonEvent be) {
+				System.out.println("Stop Click");
+			}
+		});
+		
 		toolBar.add(addButton);
+		toolBar.add(stopButton);
 
 		// toolBar.add(addButton);
 		toolBar.add(new SeparatorToolItem());
