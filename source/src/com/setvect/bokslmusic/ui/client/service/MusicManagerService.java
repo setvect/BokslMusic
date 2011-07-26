@@ -70,4 +70,13 @@ public interface MusicManagerService extends RemoteService {
 	 * @return 음악 정보
 	 */
 	public PlayArticleModel getPlayArticle(String id);
+
+	// ------------------------- 음악 컨트롤
+	/**
+	 * 재생
+	 * 
+	 * @param id
+	 *            음악 아이디
+	 */
+	public void play(String id);
 }

@@ -17,6 +17,7 @@ import com.extjs.gxt.ui.client.widget.toolbar.SeparatorToolItem;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
@@ -60,7 +61,21 @@ public class PlayListGrid extends ContentPanel {
 		Button addButton = new Button("Play");
 		addButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
-				System.out.println("Play Click");
+				ListStore<MusicArticleModel> list = grid.getStore();
+				if (list.getCount() == 0) {
+					return;
+				}
+				MusicArticleModel m = list.getAt(0);
+
+				service.play(m.getId(), new AsyncCallback<Void>() {
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+					public void onSuccess(Void result) {
+						// TODO Auto-generated method stub
+					}
+				});
 			}
 		});
 		Button stopButton = new Button("Stop");
@@ -69,7 +84,7 @@ public class PlayListGrid extends ContentPanel {
 				System.out.println("Stop Click");
 			}
 		});
-		
+
 		toolBar.add(addButton);
 		toolBar.add(stopButton);
 

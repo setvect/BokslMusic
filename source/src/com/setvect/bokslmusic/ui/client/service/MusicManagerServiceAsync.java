@@ -37,4 +37,7 @@ public interface MusicManagerServiceAsync {
 
 	public void getPlayArticle(String id, AsyncCallback<PlayArticleModel> callback);
 
+	// ------------------------- 음악 컨트롤
+	void play(String musicId, AsyncCallback<Void> callback);
+
 }

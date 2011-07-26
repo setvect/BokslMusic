@@ -1,5 +1,6 @@
 package com.setvect.bokslmusic.ui.server;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.setvect.bokslmusic.play.MP3Player;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
@@ -206,4 +208,12 @@ public class AlbumServiceImpl implements MusicManagerService {
 		return result;
 	}
 
+	// ------------------------- 음악 컨트롤
+
+	public void play(String id) {
+		MusicArticle article = musicService.getMusicArticle(id);
+		MP3Player player = new MP3Player();
+		player.setMusicFile(article.getFile());
+		player.play();
+	}
 }
