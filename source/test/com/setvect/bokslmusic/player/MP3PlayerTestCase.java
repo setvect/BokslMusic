@@ -6,16 +6,19 @@ import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 import org.junit.Test;
 
-public class MP3PlayerTestCase {
+import com.setvect.bokslmusic.TestSystem;
+
+public class MP3PlayerTestCase extends TestSystem {
 	@Test
 	public void test() throws BasicPlayerException, InterruptedException {
 		File file = new File("sample_data/a.mp3");
 		AudioPlayer.open(file);
 		AudioPlayer.play();
-		Thread.sleep(5000);
-
-		AudioPlayer.seek(.90);
-		Thread.sleep(5000);
+		for (double d = 0.1; d <= 1; d += .1) {
+			System.out.println("Volume: " + d);
+			AudioPlayer.setVolume(d);
+			Thread.sleep(3000);
+		}
 
 	}
 }

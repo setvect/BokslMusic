@@ -53,12 +53,12 @@ public class AudioPlayer {
 			LogPrinter.out.warn(e);
 		}
 	}
-	
+
 	/**
 	 * @throws BasicPlayerException
 	 * @see javazoom.jlgui.basicplayer.BasicPlayer#pause()
 	 */
-	public void pause() throws BasicPlayerException {
+	public static void pause() throws BasicPlayerException {
 		player.pause();
 	}
 
@@ -66,8 +66,24 @@ public class AudioPlayer {
 	 * @throws BasicPlayerException
 	 * @see javazoom.jlgui.basicplayer.BasicPlayer#resume()
 	 */
-	public void resume() throws BasicPlayerException {
+	public static void resume() throws BasicPlayerException {
 		player.resume();
+	}
+
+	/**
+	 * 볼륨 조정
+	 * 
+	 * @param volume
+	 *            0~1 값
+	 * @throws BasicPlayerException
+	 * @see javazoom.jlgui.basicplayer.BasicPlayer#setGain(double)
+	 */
+	public static void setVolume(double volume) {
+		try {
+			player.setGain(volume);
+		} catch (BasicPlayerException e) {
+			LogPrinter.out.warn(e);
+		}
 	}
 
 	/**
