@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.setvect.bokslmusic.play.MP3Player;
+import com.setvect.bokslmusic.player.AudioPlayer;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
@@ -212,8 +212,7 @@ public class AlbumServiceImpl implements MusicManagerService {
 
 	public void play(String id) {
 		MusicArticle article = musicService.getMusicArticle(id);
-		MP3Player player = new MP3Player();
-		player.setMusicFile(article.getFile());
-		player.play();
+		AudioPlayer.play();
+		AudioPlayer.open(article.getFile());
 	}
 }
