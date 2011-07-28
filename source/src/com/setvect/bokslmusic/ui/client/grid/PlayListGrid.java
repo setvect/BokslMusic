@@ -24,10 +24,20 @@ import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 
 public class PlayListGrid extends ContentPanel {
+
 	private ColumnModel cm;
 	private final MusicManagerServiceAsync service = GWT.create(MusicManagerService.class);
 	/** 그리드 데이터 */
 	private ListStore<MusicArticleModel> store = new ListStore<MusicArticleModel>();
+
+	private Status status = Status.STOP;
+
+	/**
+	 * 현재 진행 상태
+	 */
+	enum Status {
+		STOP, PLAY, PAUSE
+	}
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -58,34 +68,96 @@ public class PlayListGrid extends ContentPanel {
 		content.add(grid);
 
 		ToolBar toolBar = new ToolBar();
-		Button addButton = new Button("Play");
-		addButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+		final Button playAndPauseBtn = new Button("Play");
+		playAndPauseBtn.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
+				if (status == Status.PLAY) {
+					service.pause(pauseCallback());
+					return;
+				}
+				else if (status == Status.PAUSE) {
+					service.resume(resumeCallback());
+				}
+
 				ListStore<MusicArticleModel> list = grid.getStore();
 				if (list.getCount() == 0) {
 					return;
 				}
 				MusicArticleModel m = list.getAt(0);
+				if (status == Status.STOP) {
+					service.play(m.getId(), playCallback());
+				}
+			}
 
-				service.play(m.getId(), new AsyncCallback<Void>() {
+			private AsyncCallback<Void> playCallback() {
+				AsyncCallback<Void> callback = new AsyncCallback<Void>() {
 					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
+						status = Status.STOP;
+						caught.printStackTrace();
 					}
+
 					public void onSuccess(Void result) {
-						// TODO Auto-generated method stub
+						status = Status.PLAY;
+						playAndPauseBtn.setText("Pause");
 					}
-				});
+				};
+				return callback;
+			}
+
+			private AsyncCallback<Void> pauseCallback() {
+				AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+					public void onFailure(Throwable caught) {
+						status = Status.STOP;
+						caught.printStackTrace();
+					}
+
+					public void onSuccess(Void result) {
+						status = Status.PAUSE;
+						playAndPauseBtn.setText("Play");
+					}
+				};
+				return callback;
+			}
+
+			private AsyncCallback<Void> resumeCallback() {
+				AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+					public void onFailure(Throwable caught) {
+						status = Status.STOP;
+						caught.printStackTrace();
+					}
+
+					public void onSuccess(Void result) {
+						status = Status.PLAY;
+						playAndPauseBtn.setText("Pause");
+					}
+				};
+				return callback;
 			}
 		});
+
+
 		Button stopButton = new Button("Stop");
 		stopButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
-				System.out.println("Stop Click");
+				service.stop(stopCallback());
+			}
+
+			private AsyncCallback<Void> stopCallback() {
+				AsyncCallback<Void> aa = new AsyncCallback<Void>() {
+					public void onFailure(Throwable caught) {
+						status = Status.STOP;
+						caught.printStackTrace();
+					}
+					public void onSuccess(Void result) {
+						status = Status.STOP;
+						playAndPauseBtn.setText("Play");
+					}
+				};
+				return aa;
 			}
 		});
 
-		toolBar.add(addButton);
+		toolBar.add(playAndPauseBtn);
 		toolBar.add(stopButton);
 
 		// toolBar.add(addButton);

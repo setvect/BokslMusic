@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.setvect.bokslmusic.TestSystem;
 
-public class MP3PlayerTestCase extends TestSystem {
+public class MP3PlayerTestCase {
 	@Test
 	public void test() throws BasicPlayerException, InterruptedException {
 		File file = new File("sample_data/a.mp3");

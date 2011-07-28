@@ -133,9 +133,9 @@ public class AllListGrid extends ContentPanel {
 
 		content.setHeaderVisible(false);
 		content.setTopComponent(toolBar);
-
+		
 		// 데이터의 표시 영역이 레이아웃을 벗어 날때 스크롤 생김
-		setLayout(new FitLayout());
+		content.setLayout(new FitLayout());
 		setHeading("등록 목록");
 
 		add(content);

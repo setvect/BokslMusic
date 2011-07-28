@@ -79,4 +79,19 @@ public interface MusicManagerService extends RemoteService {
 	 *            음악 아이디
 	 */
 	public void play(String id);
+
+	/**
+	 * 일시 정지
+	 */
+	void pause();
+
+	/**
+	 * 다시 시작
+	 */
+	public void resume();
+
+	/**
+	 * 정지
+	 */
+	public void stop();
 }

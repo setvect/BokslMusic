@@ -49,14 +49,13 @@ public class BokslUI implements EntryPoint {
 			allListGrid.addEvent(new AllListGridEventListener<GridEvent<MusicArticleModel>>() {
 				public void addMusicEvent(List<MusicArticleModel> items) {
 					for (MusicArticleModel a : items) {
-						System.out.println("AAAAAA:" + a);
 						playList.addItem(a);
 					}
 				}
 
 				public void handleEvent(GridEvent<MusicArticleModel> be) {
 					MusicArticleModel model = be.getModel();
-					if (!(model instanceof MusicDirectoryModel)) {
+					if (!(model instanceof MusicDirectoryModel)) {	
 						return;
 					}
 
@@ -65,9 +64,7 @@ public class BokslUI implements EntryPoint {
 					ListStore<MusicArticleModel> s = grid.getStore();
 					List<MusicArticleModel> data = s.getRange(0, s.getCount());
 					for (MusicArticleModel m : data) {
-						System.out.println(m.getName() + ": " + m.getPath());
 					}
-
 				}
 			});
 		}

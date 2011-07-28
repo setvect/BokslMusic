@@ -40,4 +40,9 @@ public interface MusicManagerServiceAsync {
 	// ------------------------- 음악 컨트롤
 	void play(String musicId, AsyncCallback<Void> callback);
 
+	public void pause(AsyncCallback<Void> pauseCallback);
+
+	void resume(AsyncCallback<Void> callback);
+
+	void stop(AsyncCallback<Void> callback);
 }

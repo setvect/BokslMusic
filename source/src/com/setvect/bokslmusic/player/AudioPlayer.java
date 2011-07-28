@@ -3,13 +3,13 @@ package com.setvect.bokslmusic.player;
 import java.io.File;
 import java.util.Map;
 
-import com.setvect.common.log.LogPrinter;
-
 import javazoom.jlgui.basicplayer.BasicController;
 import javazoom.jlgui.basicplayer.BasicPlayer;
 import javazoom.jlgui.basicplayer.BasicPlayerEvent;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
 import javazoom.jlgui.basicplayer.BasicPlayerListener;
+
+import com.setvect.common.log.LogPrinter;
 
 /**
  * 음원 재생기
@@ -24,21 +24,33 @@ public class AudioPlayer {
 	}
 
 	/**
+	 * 현재 진행 상태
+	 */
+	public enum PlayerStatus {
+		STOP, PLAY, PAUSE
+	}
+
+	/**
 	 * 오디오 자원은 하나 밖에 없기 때문에 인스턴스를 만들지 않음
 	 */
 	private AudioPlayer() {
 	}
 
+	/** 재생기 상태 값 */
+	private static PlayerStatus status = PlayerStatus.STOP;
+
 	/**
-	 * @param paramFile
+	 * @param audioFile
 	 * @throws BasicPlayerException
 	 * @see javazoom.jlgui.basicplayer.BasicPlayer#open(java.io.File)
 	 */
-	public static void open(File paramFile) {
+	public static void open(File audioFile) {
 		try {
-			player.open(paramFile);
+			LogPrinter.out.debug("Play:" + audioFile);
+			player.open(audioFile);
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -49,8 +61,10 @@ public class AudioPlayer {
 	public static void play() {
 		try {
 			player.play();
+			status = PlayerStatus.PLAY;
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -58,16 +72,41 @@ public class AudioPlayer {
 	 * @throws BasicPlayerException
 	 * @see javazoom.jlgui.basicplayer.BasicPlayer#pause()
 	 */
-	public static void pause() throws BasicPlayerException {
-		player.pause();
+	public static void pause() {
+		try {
+			player.pause();
+			status = PlayerStatus.PAUSE;
+		} catch (BasicPlayerException e) {
+			LogPrinter.out.warn(e);
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * 정지
+	 */
+	public static void stop() {
+		try {
+			player.stop();
+			status = PlayerStatus.STOP;
+		} catch (BasicPlayerException e) {
+			LogPrinter.out.warn(e);
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
 	 * @throws BasicPlayerException
 	 * @see javazoom.jlgui.basicplayer.BasicPlayer#resume()
 	 */
-	public static void resume() throws BasicPlayerException {
-		player.resume();
+	public static void resume() {
+		try {
+			player.resume();
+			status = PlayerStatus.PLAY;
+		} catch (BasicPlayerException e) {
+			LogPrinter.out.warn(e);
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -83,6 +122,7 @@ public class AudioPlayer {
 			player.setGain(volume);
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -99,7 +139,15 @@ public class AudioPlayer {
 			player.seek(skipBytes);
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
+			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * @return 재생기 상태값
+	 */
+	public static PlayerStatus getStatus() {
+		return status;
 	}
 
 	static class PlayerListener implements BasicPlayerListener {

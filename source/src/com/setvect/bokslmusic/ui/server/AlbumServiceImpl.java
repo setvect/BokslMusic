@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.setvect.bokslmusic.player.AudioPlayer;
+import com.setvect.bokslmusic.player.AudioPlayer.PlayerStatus;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
@@ -212,7 +213,19 @@ public class AlbumServiceImpl implements MusicManagerService {
 
 	public void play(String id) {
 		MusicArticle article = musicService.getMusicArticle(id);
-		AudioPlayer.play();
 		AudioPlayer.open(article.getFile());
+		AudioPlayer.play();
+	}
+
+	public void pause() {
+		AudioPlayer.pause();
+	}
+
+	public void resume() {
+		AudioPlayer.resume();
+	}
+
+	public void stop() {
+		AudioPlayer.stop();
 	}
 }
