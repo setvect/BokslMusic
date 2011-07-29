@@ -2,6 +2,7 @@ package com.setvect.bokslmusic.ui.client.grid;
 
 import java.util.Arrays;
 
+import com.extjs.gxt.ui.client.Style.Orientation;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
@@ -13,6 +14,7 @@ import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.RowNumberer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.extjs.gxt.ui.client.widget.toolbar.SeparatorToolItem;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.google.gwt.core.client.GWT;
@@ -135,7 +137,6 @@ public class PlayListGrid extends ContentPanel {
 			}
 		});
 
-
 		Button stopButton = new Button("Stop");
 		stopButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
@@ -148,6 +149,7 @@ public class PlayListGrid extends ContentPanel {
 						status = Status.STOP;
 						caught.printStackTrace();
 					}
+
 					public void onSuccess(Void result) {
 						status = Status.STOP;
 						playAndPauseBtn.setText("Play");
@@ -165,6 +167,7 @@ public class PlayListGrid extends ContentPanel {
 
 		content.setHeaderVisible(false);
 		content.setTopComponent(toolBar);
+		content.setLayout(new RowLayout(Orientation.VERTICAL));
 
 		// 데이터의 표시 영역이 레이아웃을 벗어 날때 스크롤 생김
 		setLayout(new FitLayout());
