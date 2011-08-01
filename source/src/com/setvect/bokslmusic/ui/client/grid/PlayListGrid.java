@@ -3,23 +3,27 @@ package com.setvect.bokslmusic.ui.client.grid;
 import java.util.Arrays;
 
 import com.extjs.gxt.ui.client.Style.Orientation;
+import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.Slider;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.RowNumberer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.extjs.gxt.ui.client.widget.layout.RowData;
 import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.extjs.gxt.ui.client.widget.toolbar.SeparatorToolItem;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
@@ -65,9 +69,6 @@ public class PlayListGrid extends ContentPanel {
 		grid.setColumnLines(true);
 		grid.setColumnReordering(true);
 		grid.addPlugin(numberer);
-
-		ContentPanel content = new ContentPanel();
-		content.add(grid);
 
 		ToolBar toolBar = new ToolBar();
 		final Button playAndPauseBtn = new Button("Play");
@@ -165,9 +166,29 @@ public class PlayListGrid extends ContentPanel {
 		// toolBar.add(addButton);
 		toolBar.add(new SeparatorToolItem());
 
+		final Slider volumeSlider = new Slider();
+		volumeSlider.setIncrement(5);
+		volumeSlider.setMaxValue(100);
+
+		
+		final Slider positionSlider = new Slider();
+		positionSlider.setIncrement(1);
+		positionSlider.setMaxValue(100);
+
+		final HorizontalPanel silder = new HorizontalPanel();
+		silder.add(volumeSlider);
+		silder.add(positionSlider);
+
+		ContentPanel content = new ContentPanel();
+		content.setLayout(new RowLayout(Orientation.VERTICAL));
+
+		// content.add(silderPanel, new RowData(1, -1, new Margins(4)));
+		content.add(silder, new RowData(1, -1));
+		content.add(grid);
+
+		content.setScrollMode(Scroll.AUTOY);
 		content.setHeaderVisible(false);
 		content.setTopComponent(toolBar);
-		content.setLayout(new RowLayout(Orientation.VERTICAL));
 
 		// 데이터의 표시 영역이 레이아웃을 벗어 날때 스크롤 생김
 		setLayout(new FitLayout());
