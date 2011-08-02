@@ -15,8 +15,8 @@ import com.setvect.common.log.LogPrinter;
  * 음원 재생기
  */
 public class AudioPlayer {
-	private static BasicPlayer player = new BasicPlayer();
-	private static PlayerListener playerListener = new PlayerListener();
+	private static final BasicPlayer player = new BasicPlayer();
+	private static final PlayerListener playerListener = new PlayerListener();
 	private static Map audioInfo;
 
 	static {
@@ -121,8 +121,8 @@ public class AudioPlayer {
 		try {
 			player.setGain(volume);
 		} catch (BasicPlayerException e) {
-			LogPrinter.out.warn(e);
-			throw new RuntimeException(e);
+			LogPrinter.out.info(e);
+			// 예외 무시
 		}
 	}
 

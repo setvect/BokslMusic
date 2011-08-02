@@ -38,11 +38,16 @@ public interface MusicManagerServiceAsync {
 	public void getPlayArticle(String id, AsyncCallback<PlayArticleModel> callback);
 
 	// ------------------------- 음악 컨트롤
-	void play(String musicId, AsyncCallback<Void> callback);
+	void play(String id, AsyncCallback<PlayArticleModel> callback);
 
 	public void pause(AsyncCallback<Void> pauseCallback);
 
 	void resume(AsyncCallback<Void> callback);
 
 	void stop(AsyncCallback<Void> callback);
+
+	void setVolume(double value, AsyncCallback<Void> callback);
+
+	void seek(double rate, AsyncCallback<Void> callback);
+
 }

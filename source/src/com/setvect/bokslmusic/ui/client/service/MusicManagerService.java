@@ -78,7 +78,7 @@ public interface MusicManagerService extends RemoteService {
 	 * @param id
 	 *            음악 아이디
 	 */
-	public void play(String id);
+	public PlayArticleModel play(String id);
 
 	/**
 	 * 일시 정지
@@ -94,4 +94,20 @@ public interface MusicManagerService extends RemoteService {
 	 * 정지
 	 */
 	public void stop();
+
+	/**
+	 * 볼륨조정
+	 * 
+	 * @param value
+	 *            0 ~ 1 사이의 값
+	 */
+	public void setVolume(double value);
+
+	/**
+	 * 위치 이동
+	 * 
+	 * @param rate
+	 *            0 ~ 1 사이값
+	 */
+	public void seek(double rate);
 }

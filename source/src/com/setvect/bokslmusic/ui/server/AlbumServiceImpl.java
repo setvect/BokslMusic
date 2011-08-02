@@ -1,6 +1,5 @@
 package com.setvect.bokslmusic.ui.server;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.setvect.bokslmusic.player.AudioPlayer;
-import com.setvect.bokslmusic.player.AudioPlayer.PlayerStatus;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
@@ -31,6 +29,8 @@ import com.setvect.common.util.GenericPage;
 public class AlbumServiceImpl implements MusicManagerService {
 	@Autowired
 	private MusicService musicService;
+	/** 볼륨 */
+	private double volume;
 
 	// ------------------------- 앨범관련
 	public List<AlbumArticleModel> listAlbum(AlbumModel model) {
@@ -211,10 +211,12 @@ public class AlbumServiceImpl implements MusicManagerService {
 
 	// ------------------------- 음악 컨트롤
 
-	public void play(String id) {
+	public PlayArticleModel play(String id) {
 		MusicArticle article = musicService.getMusicArticle(id);
 		AudioPlayer.open(article.getFile());
 		AudioPlayer.play();
+		setVolume(volume);
+		return getPlayArticle(id);
 	}
 
 	public void pause() {
@@ -227,5 +229,14 @@ public class AlbumServiceImpl implements MusicManagerService {
 
 	public void stop() {
 		AudioPlayer.stop();
+	}
+
+	public void setVolume(double value) {
+		this.volume = value;
+		AudioPlayer.setVolume(value);
+	}
+
+	public void seek(double rate) {
+		AudioPlayer.seek(rate);
 	}
 }

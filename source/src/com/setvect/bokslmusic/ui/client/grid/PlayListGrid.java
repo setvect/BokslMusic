@@ -28,14 +28,20 @@ import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 
 public class PlayListGrid extends ContentPanel {
 
+	private static final int DEFAULT_VOLUME = 50;
 	private ColumnModel cm;
 	private final MusicManagerServiceAsync service = GWT.create(MusicManagerService.class);
 	/** 그리드 데이터 */
 	private ListStore<MusicArticleModel> store = new ListStore<MusicArticleModel>();
 
+	/** 현재 재생 항목 */
+	private PlayArticleModel currentPlayArticle;
+
+	/** 플레이어 상태 */
 	private Status status = Status.STOP;
 
 	/**
@@ -44,6 +50,60 @@ public class PlayListGrid extends ContentPanel {
 	enum Status {
 		STOP, PLAY, PAUSE
 	}
+
+	/** 위치 이동 */
+	private Slider positionSlider = new Slider() {
+		protected String onFormatValue(int value) {
+			if (currentPlayArticle == null) {
+				return "0";
+			}
+			if (currentPlayArticle.getRunningTime() >= 60 * 60) {
+				return ClientUtil.getHourMinuteSec(value);
+			}
+			else {
+				return ClientUtil.getMinuteSec(value);
+			}
+		}
+
+		protected void onValueChange(int value) {
+			if (status != Status.STOP) {
+				double rate = (double) value / this.getMaxValue();
+				service.seek(rate, seekCallback());
+			}
+		}
+
+		private AsyncCallback<Void> seekCallback() {
+			AsyncCallback<Void> aa = new AsyncCallback<Void>() {
+				public void onFailure(Throwable caught) {
+					caught.printStackTrace();
+				}
+
+				public void onSuccess(Void result) {
+				}
+			};
+			return aa;
+		}
+	};
+
+	/** 볼륨 조정 */
+	private Slider volumeSlider = new Slider() {
+		protected void onValueChange(int value) {
+			double volume = value / 100.0;
+			service.setVolume(volume, volumeCallback());
+		}
+
+		private AsyncCallback<Void> volumeCallback() {
+			AsyncCallback<Void> aa = new AsyncCallback<Void>() {
+				public void onFailure(Throwable caught) {
+					caught.printStackTrace();
+				}
+
+				public void onSuccess(Void result) {
+				}
+			};
+			return aa;
+		}
+	};
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -89,24 +149,35 @@ public class PlayListGrid extends ContentPanel {
 				MusicArticleModel m = list.getAt(0);
 				if (status == Status.STOP) {
 					service.play(m.getId(), playCallback());
+					m.getRunningTime();
 				}
 			}
 
-			private AsyncCallback<Void> playCallback() {
-				AsyncCallback<Void> callback = new AsyncCallback<Void>() {
+			/**
+			 * @return 재생 처리 콜백
+			 */
+			private AsyncCallback<PlayArticleModel> playCallback() {
+				AsyncCallback<PlayArticleModel> callback = new AsyncCallback<PlayArticleModel>() {
 					public void onFailure(Throwable caught) {
 						status = Status.STOP;
 						caught.printStackTrace();
 					}
 
-					public void onSuccess(Void result) {
+					public void onSuccess(PlayArticleModel result) {
 						status = Status.PLAY;
 						playAndPauseBtn.setText("Pause");
+
+						currentPlayArticle = result;
+						// 위치 이동 max 값은 현재 음악의 재생 시간(초 단위)
+						positionSlider.setMaxValue(currentPlayArticle.getRunningTime());
 					}
 				};
 				return callback;
 			}
 
+			/**
+			 * @return 일시정지 콜백
+			 */
 			private AsyncCallback<Void> pauseCallback() {
 				AsyncCallback<Void> callback = new AsyncCallback<Void>() {
 					public void onFailure(Throwable caught) {
@@ -166,14 +237,13 @@ public class PlayListGrid extends ContentPanel {
 		// toolBar.add(addButton);
 		toolBar.add(new SeparatorToolItem());
 
-		final Slider volumeSlider = new Slider();
+		volumeSlider.setMessage("Volume:{0}");
 		volumeSlider.setIncrement(5);
 		volumeSlider.setMaxValue(100);
+		volumeSlider.setValue(DEFAULT_VOLUME);
 
-		
-		final Slider positionSlider = new Slider();
 		positionSlider.setIncrement(1);
-		positionSlider.setMaxValue(100);
+		positionSlider.setMaxValue(1);
 
 		final HorizontalPanel silder = new HorizontalPanel();
 		silder.add(volumeSlider);
@@ -194,6 +264,13 @@ public class PlayListGrid extends ContentPanel {
 		setLayout(new FitLayout());
 		setHeading("재생 목록");
 		add(content);
+	}
+
+	protected void onExpand() {
+		super.onExpand();
+		// oneRender에 아래 항목을 넣으면 스라이더 항목이 움직이지 않는다.
+		// 그래서 onExpand 이벤트에 집어 넣었다.
+		volumeSlider.setValue(volumeSlider.getValue(), true);
 	}
 
 	/**
