@@ -236,7 +236,13 @@ public class AlbumServiceImpl implements MusicManagerService {
 		AudioPlayer.setVolume(value);
 	}
 
-	public void seek(double rate) {
+	/**
+	 * 위치 이동이 끝나기도 전에 다른 위치 이동 요청이 들어 오면 꼬인다. 그래서 동기화를 시켰음
+	 * 
+	 * @see com.setvect.bokslmusic.ui.client.service.MusicManagerService#seek(double)
+	 */
+	public synchronized void seek(double rate) {
+		System.out.println("rate:" + rate);
 		AudioPlayer.seek(rate);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import com.extjs.gxt.ui.client.Style.Orientation;
 import com.extjs.gxt.ui.client.Style.Scroll;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
+import com.extjs.gxt.ui.client.event.DragEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.store.ListStore;
@@ -64,10 +65,10 @@ public class PlayListGrid extends ContentPanel {
 				return ClientUtil.getMinuteSec(value);
 			}
 		}
-
-		protected void onValueChange(int value) {
+		protected void onDragEnd(DragEvent de) {
+			super.onDragEnd(de);
 			if (status != Status.STOP) {
-				double rate = (double) value / this.getMaxValue();
+				double rate = (double) this.getValue() / this.getMaxValue();
 				service.seek(rate, seekCallback());
 			}
 		}
@@ -83,11 +84,13 @@ public class PlayListGrid extends ContentPanel {
 			};
 			return aa;
 		}
+
 	};
 
 	/** 볼륨 조정 */
 	private Slider volumeSlider = new Slider() {
 		protected void onValueChange(int value) {
+			super.onValueChange(value);
 			double volume = value / 100.0;
 			service.setVolume(volume, volumeCallback());
 		}
@@ -241,9 +244,11 @@ public class PlayListGrid extends ContentPanel {
 		volumeSlider.setIncrement(5);
 		volumeSlider.setMaxValue(100);
 		volumeSlider.setValue(DEFAULT_VOLUME);
+		volumeSlider.setClickToChange(false);
 
 		positionSlider.setIncrement(1);
 		positionSlider.setMaxValue(1);
+		positionSlider.setClickToChange(false);
 
 		final HorizontalPanel silder = new HorizontalPanel();
 		silder.add(volumeSlider);
