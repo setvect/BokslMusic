@@ -60,6 +60,16 @@
 		<servlet-class>org.spring4gwt.server.SpringGwtRemoteServiceServlet</servlet-class>
 	</servlet>
 
+  <servlet>
+	  <servlet-name>chatService</servlet-name>
+	  <servlet-class>com.setvect.bokslmusic.ui.server.ChatServiceImpl</servlet-class>
+  </servlet>
+
+	<servlet>
+		<servlet-name>chatComet</servlet-name>
+		<servlet-class>net.zschech.gwt.comet.server.CometServlet</servlet-class>
+	</servlet>
+
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
@@ -76,13 +86,17 @@
 	</servlet-mapping>
 
 	<servlet-mapping>
-		<servlet-name>action</servlet-name>
-		<url-pattern>/servlet/tb/*</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
 		<servlet-name>ThumbnailServlet</servlet-name>
 		<url-pattern>/servlet/Thumbnail</url-pattern>
 	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>chatService</servlet-name>
+		<url-pattern>/bokslmusic/chat</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>chatComet</servlet-name>
+		<url-pattern>/bokslmusic/comet</url-pattern>
+	</servlet-mapping>
 </web-app>

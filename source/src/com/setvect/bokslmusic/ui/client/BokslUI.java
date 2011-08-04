@@ -1,6 +1,10 @@
 package com.setvect.bokslmusic.ui.client;
 
+import java.io.Serializable;
 import java.util.List;
+
+import net.zschech.gwt.comet.client.CometClient;
+import net.zschech.gwt.comet.client.CometListener;
 
 import com.extjs.gxt.ui.client.event.GridEvent;
 import com.extjs.gxt.ui.client.store.ListStore;
@@ -9,6 +13,7 @@ import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.setvect.bokslmusic.ui.client.event.AllListGridEventListener;
@@ -55,7 +60,7 @@ public class BokslUI implements EntryPoint {
 
 				public void handleEvent(GridEvent<MusicArticleModel> be) {
 					MusicArticleModel model = be.getModel();
-					if (!(model instanceof MusicDirectoryModel)) {	
+					if (!(model instanceof MusicDirectoryModel)) {
 						return;
 					}
 
@@ -67,6 +72,42 @@ public class BokslUI implements EntryPoint {
 					}
 				}
 			});
+
+			CometListener listener = new CometListener() {
+				public void onConnected(int heartbeat) {
+					System.out.println("onConnected" + heartbeat);
+				}
+
+				public void onDisconnected() {
+					System.out.println("onDisconnected");
+				}
+
+				public void onHeartbeat() {
+					System.out.println("onHeartbeat");
+				}
+
+				public void onRefresh() {
+					System.out.println("onRefresh");
+				}
+
+				public void onError(Throwable exception, boolean connected) {
+					System.out.println("onError");
+				}
+
+				public void onMessage(List<? extends Serializable> messages) {
+					System.out.println("onMessage()");
+					for (Serializable message : messages) {
+						System.out.println(message + "받음");
+					}
+				}
+			};
+
+			String url = GWT.getModuleBaseURL() + "comet";
+			System.out.println(url);
+			CometClient client = new CometClient(url, listener);
+			client.start();
+
+			System.out.println("========시작됨");
 		}
 	}
 }

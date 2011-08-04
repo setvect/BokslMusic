@@ -12,6 +12,7 @@
 
   <!-- Other module inherits                                      -->
   <inherits name="com.extjs.gxt.ui.GXT"/>
+  <inherits name="net.zschech.gwt.comet.Comet" />
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.setvect.bokslmusic.ui.client.BokslUI'/>
@@ -19,5 +20,8 @@
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
+  
+  <!-- 아래것 추가하면 cross script issue 관련 해서 어쩌구 저쩌구 하는 에러 남 -->
+  <!-- <add-linker name="xs"/> -->
 
 </module>
