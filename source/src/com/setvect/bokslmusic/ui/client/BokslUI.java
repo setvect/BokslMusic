@@ -1,5 +1,6 @@
 package com.setvect.bokslmusic.ui.client;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.zschech.gwt.comet.client.CometClient;
@@ -17,6 +18,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.setvect.bokslmusic.ui.client.event.AllListGridEventListener;
 import com.setvect.bokslmusic.ui.client.event.BokslCometListener;
+import com.setvect.bokslmusic.ui.client.event.CometMessageListener;
 import com.setvect.bokslmusic.ui.client.grid.AllListGrid;
 import com.setvect.bokslmusic.ui.client.grid.PlayListGrid;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
@@ -30,22 +32,28 @@ import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
  */
 public class BokslUI implements EntryPoint {
 	// 하나의 클라이언트를 대상으로 함. 그래서 static으로 선언
-	private static BokslCometListener cometListener;
+	private static BokslCometListener cometListener = new BokslCometListener();
+	private CometClient cometClient;
 
 	public void onModuleLoad() {
 		MainPanel a = new MainPanel();
 		RootPanel rootPanel = RootPanel.get();
 		rootPanel.add(a);
+		startComet();
+	}
 
+	/**
+	 * Comet 쓰레드 시작
+	 */
+	private void startComet() {
 		ControlServiceAsync service = GWT.create(ControlService.class);
 		service.echo("Hello", new AsyncCallback<String>() {
 			public void onSuccess(String result) {
 				// 동기화에 관한 문제점은 무시
-				if (cometListener == null) {
-					cometListener = new BokslCometListener();
+				if (cometClient == null) {
 					String url = GWT.getModuleBaseURL() + "comet";
-					CometClient client = new CometClient(url, cometListener);
-					client.start();
+					cometClient = new CometClient(url, cometListener);
+					cometClient.start();
 				}
 			}
 
@@ -53,7 +61,6 @@ public class BokslUI implements EntryPoint {
 				caught.printStackTrace();
 			}
 		});
-
 	}
 
 	/**
