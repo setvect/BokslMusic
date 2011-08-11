@@ -1,11 +1,7 @@
 package com.setvect.bokslmusic.ui.client.grid;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
-
-import net.zschech.gwt.comet.client.CometClient;
-import net.zschech.gwt.comet.client.CometListener;
 
 import com.extjs.gxt.ui.client.data.BaseTreeLoader;
 import com.extjs.gxt.ui.client.data.ModelData;
@@ -34,8 +30,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.setvect.bokslmusic.ui.client.Resources;
 import com.setvect.bokslmusic.ui.client.event.AllListGridEventListener;
-import com.setvect.bokslmusic.ui.client.service.ChatService;
-import com.setvect.bokslmusic.ui.client.service.ChatServiceAsync;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
@@ -128,28 +122,9 @@ public class AllListGrid extends ContentPanel {
 		addButton = new Button("Add", Resources.ICONS.add());
 		addButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
-				ChatServiceAsync chatService = GWT.create(ChatService.class);
-				chatService.setStatus("하이롱", new AsyncCallback<Void>() {
-					public void onFailure(Throwable caught) {
-						System.out.println("실패");
-					}
-
-					public void onSuccess(Void result) {
-						System.out.println("성공");
-					}
-				});
-
-				// CometSerializer serializer =
-				// GWT.create(InstantMessagingCometSerializer.class);
-				// CometClient client1 = new CometClient(url, serializer,
-				// listener);
-
-				// GridSelectionModel<MusicArticleModel> selectionModel =
-				// tree.getSelectionModel();
-				// List<MusicArticleModel> items =
-				// selectionModel.getSelectedItems();
-				// eventListener.addMusicEvent(items);
-
+				GridSelectionModel<MusicArticleModel> selectionModel = tree.getSelectionModel();
+				List<MusicArticleModel> items = selectionModel.getSelectedItems();
+				eventListener.addMusicEvent(items);
 			}
 		});
 

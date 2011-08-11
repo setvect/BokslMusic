@@ -73,41 +73,39 @@ public class BokslUI implements EntryPoint {
 				}
 			});
 
-			CometListener listener = new CometListener() {
-				public void onConnected(int heartbeat) {
-					System.out.println("onConnected" + heartbeat);
-				}
-
-				public void onDisconnected() {
-					System.out.println("onDisconnected");
-				}
-
-				public void onHeartbeat() {
-					System.out.println("onHeartbeat");
-				}
-
-				public void onRefresh() {
-					System.out.println("onRefresh");
-				}
-
-				public void onError(Throwable exception, boolean connected) {
-					System.out.println("onError");
-				}
-
-				public void onMessage(List<? extends Serializable> messages) {
-					System.out.println("onMessage()");
-					for (Serializable message : messages) {
-						System.out.println(message + "받음");
-					}
-				}
-			};
-
-			String url = GWT.getModuleBaseURL() + "comet";
-			System.out.println(url);
-			CometClient client = new CometClient(url, listener);
-			client.start();
-
-			System.out.println("========시작됨");
+			// CometListener listener = new CometListener() {
+			// public void onConnected(int heartbeat) {
+			// System.out.println("onConnected" + heartbeat);
+			// }
+			//
+			// public void onDisconnected() {
+			// System.out.println("onDisconnected");
+			// }
+			//
+			// public void onHeartbeat() {
+			// System.out.println("onHeartbeat");
+			// }
+			//
+			// public void onRefresh() {
+			// System.out.println("onRefresh");
+			// }
+			//
+			// public void onError(Throwable exception, boolean connected) {
+			// System.out.println("onError");
+			// }
+			//
+			// public void onMessage(List<? extends Serializable> messages) {
+			// System.out.println("onMessage()");
+			// for (Serializable message : messages) {
+			// System.out.println(message + "받음");
+			// }
+			// }
+			// };
+			// String url = GWT.getModuleBaseURL() + "comet";
+			// System.out.println(url);
+			// CometClient client = new CometClient(url, listener);
+			// client.start();
+			// System.out.println("========시작됨");
 		}
 	}
 }
