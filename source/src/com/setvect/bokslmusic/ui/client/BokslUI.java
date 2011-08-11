@@ -1,9 +1,10 @@
 package com.setvect.bokslmusic.ui.client;
 
-import java.io.Serializable;
 import java.util.List;
 
 import net.zschech.gwt.comet.client.CometClient;
+import net.zschech.gwt.comet.client.CometSerializer;
+import net.zschech.gwt.comet.client.SerialTypes;
 
 import com.extjs.gxt.ui.client.event.GridEvent;
 import com.extjs.gxt.ui.client.store.ListStore;
@@ -18,7 +19,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.setvect.bokslmusic.ui.client.event.AllListGridEventListener;
 import com.setvect.bokslmusic.ui.client.event.BokslCometListener;
-import com.setvect.bokslmusic.ui.client.event.CometMessageListener;
 import com.setvect.bokslmusic.ui.client.grid.AllListGrid;
 import com.setvect.bokslmusic.ui.client.grid.PlayListGrid;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
@@ -26,6 +26,7 @@ import com.setvect.bokslmusic.ui.client.service.ControlService;
 import com.setvect.bokslmusic.ui.client.service.ControlServiceAsync;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
+import com.setvect.bokslmusic.ui.shared.model.PlayTimeRateComet;
 
 /**
  * Entry point classes define <CODE>onModuleLoad()</CODE>.
@@ -51,8 +52,9 @@ public class BokslUI implements EntryPoint {
 			public void onSuccess(String result) {
 				// 동기화에 관한 문제점은 무시
 				if (cometClient == null) {
+					CometSerializer serializer = GWT.create(BokslCometSerializer.class);
 					String url = GWT.getModuleBaseURL() + "comet";
-					cometClient = new CometClient(url, cometListener);
+					cometClient = new CometClient(url, serializer, cometListener);
 					cometClient.start();
 				}
 			}
@@ -68,6 +70,10 @@ public class BokslUI implements EntryPoint {
 	 */
 	public static BokslCometListener getCometListener() {
 		return cometListener;
+	}
+
+	@SerialTypes({ PlayTimeRateComet.class })
+	public static abstract class BokslCometSerializer extends CometSerializer {
 	}
 
 	class MainPanel extends LayoutContainer {

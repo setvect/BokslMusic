@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import net.zschech.gwt.comet.server.CometServlet;
+import net.zschech.gwt.comet.server.CometSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.setvect.bokslmusic.player.AudioPlayer;
+import com.setvect.bokslmusic.player.ProgressEventListener;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
@@ -16,10 +25,12 @@ import com.setvect.bokslmusic.ui.shared.model.AlbumModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.PlayTimeRateComet;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.bokslmusic.vo.music.PlayItem;
+import com.setvect.bokslmusic.vo.music.PlayTime;
 import com.setvect.common.util.GenericPage;
 
 /**
@@ -213,6 +224,24 @@ public class AlbumServiceImpl implements MusicManagerService {
 
 	public PlayArticleModel play(String id) {
 		MusicArticle article = musicService.getMusicArticle(id);
+
+		ServletRequestAttributes sra = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes());
+		HttpServletRequest threadLocalRequest = sra.getRequest();
+		HttpSession httpSession = threadLocalRequest.getSession();
+		final CometSession cometSession = CometServlet.getCometSession(httpSession);
+		AudioPlayer.playerListener.setProgress(new ProgressEventListener() {
+			private double current;
+
+			public void event(int bytesread, int currentAudioLength) {
+				double d = (double) bytesread / currentAudioLength;
+				boolean noChnage = d * 0.99 < current && current < d * 1.01;
+				if (!noChnage) {
+					current = d;
+					cometSession.enqueue(new PlayTimeRateComet(current));
+				}
+			}
+		});
+
 		AudioPlayer.open(article.getFile());
 		AudioPlayer.play();
 		setVolume(volume);
@@ -244,5 +273,6 @@ public class AlbumServiceImpl implements MusicManagerService {
 	public synchronized void seek(double rate) {
 		System.out.println("rate:" + rate);
 		AudioPlayer.seek(rate);
+		setVolume(volume);
 	}
 }

@@ -379,11 +379,11 @@ public abstract class AbstractMusicDao implements MusicDao {
 		Session session = sessionFactory.getCurrentSession();
 		String whereClause = getPlayTimeWhereClause(pageCondition);
 
-		String q = "select count(*) from PlayTime " + whereClause;
+		String q = "select count(*) from PlayTimeRateComet " + whereClause;
 		Query query = session.createQuery(q);
 		int totalCount = ((Long) query.uniqueResult()).intValue();
 
-		q = " from PlayTime " + whereClause + " order playTimeSeq";
+		q = " from PlayTimeRateComet " + whereClause + " order playTimeSeq";
 		query = session.createQuery(q);
 		query.setFirstResult(pageCondition.getStartNumber());
 		query.setMaxResults(pageCondition.getPagePerItemCount());

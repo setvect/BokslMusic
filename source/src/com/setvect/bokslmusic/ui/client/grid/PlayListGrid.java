@@ -1,5 +1,6 @@
 package com.setvect.bokslmusic.ui.client.grid;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import com.extjs.gxt.ui.client.Style.Orientation;
@@ -25,11 +26,14 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.setvect.bokslmusic.ui.client.BokslUI;
+import com.setvect.bokslmusic.ui.client.event.CometMessageListener;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerServiceAsync;
 import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
+import com.setvect.bokslmusic.ui.shared.model.PlayTimeRateComet;
 
 public class PlayListGrid extends ContentPanel {
 
@@ -65,6 +69,7 @@ public class PlayListGrid extends ContentPanel {
 				return ClientUtil.getMinuteSec(value);
 			}
 		}
+
 		protected void onDragEnd(DragEvent de) {
 			super.onDragEnd(de);
 			if (status != Status.STOP) {
@@ -152,6 +157,14 @@ public class PlayListGrid extends ContentPanel {
 				MusicArticleModel m = list.getAt(0);
 				if (status == Status.STOP) {
 					service.play(m.getId(), playCallback());
+
+					BokslUI.getCometListener().addEventListener(PlayTimeRateComet.class, new CometMessageListener() {
+						public void processMessage(Serializable message) {
+							PlayTimeRateComet object = (PlayTimeRateComet) message;
+							positionSlider.setValue((int) (object.getRate() * 100));
+						}
+					});
+
 					m.getRunningTime();
 				}
 			}

@@ -15,8 +15,8 @@ import com.setvect.common.log.LogPrinter;
  * 음원 재생기
  */
 public class AudioPlayer {
+	public static final PlayerListener playerListener = new PlayerListener();
 	private static final BasicPlayer player = new BasicPlayer();
-	private static final PlayerListener playerListener = new PlayerListener();
 	private static Map audioInfo;
 
 	static {
@@ -133,7 +133,7 @@ public class AudioPlayer {
 	 *            이동 비율 0 ~ 1
 	 */
 	public static void seek(double rate) {
-		int audioLength = ((Integer) audioInfo.get("audio.length.bytes")).intValue();
+		int audioLength = getCurrentAudioLength();
 		long skipBytes = (long) Math.round(audioLength * rate);
 		try {
 			player.seek(skipBytes);
@@ -144,24 +144,45 @@ public class AudioPlayer {
 	}
 
 	/**
+	 * @return 현재 플레이 되는 음원의 사이즈
+	 */
+	private static int getCurrentAudioLength() {
+		int audioLength = ((Integer) audioInfo.get("audio.length.bytes")).intValue();
+		return audioLength;
+	}
+
+	/**
 	 * @return 재생기 상태값
 	 */
 	public static PlayerStatus getStatus() {
 		return status;
 	}
 
-	static class PlayerListener implements BasicPlayerListener {
+	public static class PlayerListener implements BasicPlayerListener {
+		private ProgressEventListener progress;
+
 		public void opened(Object audio, Map properties) {
 			AudioPlayer.audioInfo = properties;
 		}
 
 		public void progress(int bytesread, long microseconds, byte[] pcmdata, Map properties) {
+			if (progress != null) {
+				progress.event(bytesread, getCurrentAudioLength());
+			}
 		}
 
 		public void stateUpdated(BasicPlayerEvent event) {
 		}
 
 		public void setController(BasicController controller) {
+		}
+
+		/**
+		 * @param progress
+		 *            the progress to set
+		 */
+		public void setProgress(ProgressEventListener progress) {
+			this.progress = progress;
 		}
 	}
 }

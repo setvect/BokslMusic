@@ -14,18 +14,24 @@ public class BokslCometListener implements CometListener {
 	private Map<Class<?>, CometMessageListener> eventList = new HashMap<Class<?>, CometMessageListener>();
 
 	public void onConnected(int heartbeat) {
+		System.out.println("onConnected()");
 	}
 
 	public void onDisconnected() {
+		System.out.println("onDisconnected()");
 	}
 
 	public void onHeartbeat() {
+		System.out.println("onHeartbeat()");
 	}
 
 	public void onRefresh() {
+		System.out.println("onRefresh()");
 	}
 
 	public void onError(Throwable exception, boolean connected) {
+		exception.printStackTrace();
+		System.out.println("onError()");
 	}
 
 	public void onMessage(List<? extends Serializable> messages) {
