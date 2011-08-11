@@ -12,7 +12,7 @@ import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 
 /**
- * 앨범 관리
+ * 플래이 관련 컨트롤
  * 
  * @see MusicService
  */

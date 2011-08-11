@@ -1,10 +1,8 @@
 package com.setvect.bokslmusic.ui.client;
 
-import java.io.Serializable;
 import java.util.List;
 
 import net.zschech.gwt.comet.client.CometClient;
-import net.zschech.gwt.comet.client.CometListener;
 
 import com.extjs.gxt.ui.client.event.GridEvent;
 import com.extjs.gxt.ui.client.store.ListStore;
@@ -15,11 +13,15 @@ import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.setvect.bokslmusic.ui.client.event.AllListGridEventListener;
+import com.setvect.bokslmusic.ui.client.event.BokslCometListener;
 import com.setvect.bokslmusic.ui.client.grid.AllListGrid;
 import com.setvect.bokslmusic.ui.client.grid.PlayListGrid;
 import com.setvect.bokslmusic.ui.client.grid.SyncGrid;
+import com.setvect.bokslmusic.ui.client.service.ControlService;
+import com.setvect.bokslmusic.ui.client.service.ControlServiceAsync;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 
@@ -27,16 +29,43 @@ import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
  * Entry point classes define <CODE>onModuleLoad()</CODE>.
  */
 public class BokslUI implements EntryPoint {
+	// 하나의 클라이언트를 대상으로 함. 그래서 static으로 선언
+	private static BokslCometListener cometListener;
+
 	public void onModuleLoad() {
 		MainPanel a = new MainPanel();
 		RootPanel rootPanel = RootPanel.get();
 		rootPanel.add(a);
+
+		ControlServiceAsync service = GWT.create(ControlService.class);
+		service.echo("Hello", new AsyncCallback<String>() {
+			public void onSuccess(String result) {
+				// 동기화에 관한 문제점은 무시
+				if (cometListener == null) {
+					cometListener = new BokslCometListener();
+					String url = GWT.getModuleBaseURL() + "comet";
+					CometClient client = new CometClient(url, cometListener);
+					client.start();
+				}
+			}
+
+			public void onFailure(Throwable caught) {
+				caught.printStackTrace();
+			}
+		});
+
+	}
+
+	/**
+	 * @return the cometListener
+	 */
+	public static BokslCometListener getCometListener() {
+		return cometListener;
 	}
 
 	class MainPanel extends LayoutContainer {
 		@Override
 		protected void onRender(Element parent, int index) {
-
 			super.onRender(parent, index);
 			setLayout(new FlowLayout(10));
 
@@ -72,40 +101,6 @@ public class BokslUI implements EntryPoint {
 					}
 				}
 			});
-
-			// CometListener listener = new CometListener() {
-			// public void onConnected(int heartbeat) {
-			// System.out.println("onConnected" + heartbeat);
-			// }
-			//
-			// public void onDisconnected() {
-			// System.out.println("onDisconnected");
-			// }
-			//
-			// public void onHeartbeat() {
-			// System.out.println("onHeartbeat");
-			// }
-			//
-			// public void onRefresh() {
-			// System.out.println("onRefresh");
-			// }
-			//
-			// public void onError(Throwable exception, boolean connected) {
-			// System.out.println("onError");
-			// }
-			//
-			// public void onMessage(List<? extends Serializable> messages) {
-			// System.out.println("onMessage()");
-			// for (Serializable message : messages) {
-			// System.out.println(message + "받음");
-			// }
-			// }
-			// };
-			// String url = GWT.getModuleBaseURL() + "comet";
-			// System.out.println(url);
-			// CometClient client = new CometClient(url, listener);
-			// client.start();
-			// System.out.println("========시작됨");
 		}
 	}
 }
