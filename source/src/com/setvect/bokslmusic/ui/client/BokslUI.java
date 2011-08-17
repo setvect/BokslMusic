@@ -27,6 +27,7 @@ import com.setvect.bokslmusic.ui.client.service.ControlServiceAsync;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayTimeRateComet;
+import com.setvect.bokslmusic.ui.shared.model.PlayerStateComet;
 
 /**
  * Entry point classes define <CODE>onModuleLoad()</CODE>.
@@ -72,7 +73,7 @@ public class BokslUI implements EntryPoint {
 		return cometListener;
 	}
 
-	@SerialTypes({ PlayTimeRateComet.class })
+	@SerialTypes({ PlayTimeRateComet.class, PlayerStateComet.class })
 	public static abstract class BokslCometSerializer extends CometSerializer {
 	}
 

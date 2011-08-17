@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class PlayTimeRateComet implements Serializable {
 	/** */
 	private static final long serialVersionUID = -9201853683596403434L;
-	private Double rate;
+	private double rate;
 
 	// deserialize 하기 위해 기본 생성자 필요
 	public PlayTimeRateComet() {

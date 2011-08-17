@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import javazoom.jlgui.basicplayer.BasicPlayerEvent;
+
 import net.zschech.gwt.comet.server.CometServlet;
 import net.zschech.gwt.comet.server.CometSession;
 
@@ -17,6 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.setvect.bokslmusic.player.AudioPlayer;
 import com.setvect.bokslmusic.player.ProgressEventListener;
+import com.setvect.bokslmusic.player.StateEventListener;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.ui.client.service.MusicManagerService;
@@ -26,6 +29,7 @@ import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.MusicDirectoryModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayTimeRateComet;
+import com.setvect.bokslmusic.ui.shared.model.PlayerStateComet;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
@@ -229,7 +233,7 @@ public class AlbumServiceImpl implements MusicManagerService {
 		HttpServletRequest threadLocalRequest = sra.getRequest();
 		HttpSession httpSession = threadLocalRequest.getSession();
 		final CometSession cometSession = CometServlet.getCometSession(httpSession);
-		AudioPlayer.playerListener.setProgress(new ProgressEventListener() {
+		AudioPlayer.playerListener.setProgressListener(new ProgressEventListener() {
 			private double current;
 
 			public void event(int bytesread, int currentAudioLength) {
@@ -239,6 +243,11 @@ public class AlbumServiceImpl implements MusicManagerService {
 					current = d;
 					cometSession.enqueue(new PlayTimeRateComet(current));
 				}
+			}
+		});
+		AudioPlayer.playerListener.setStateListener(new StateEventListener() {
+			public void event(BasicPlayerEvent event) {
+				cometSession.enqueue(new PlayerStateComet(event.getCode(), event.getPosition()));
 			}
 		});
 

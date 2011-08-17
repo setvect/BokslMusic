@@ -34,6 +34,7 @@ import com.setvect.bokslmusic.ui.client.util.ClientUtil;
 import com.setvect.bokslmusic.ui.shared.model.MusicArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayArticleModel;
 import com.setvect.bokslmusic.ui.shared.model.PlayTimeRateComet;
+import com.setvect.bokslmusic.ui.shared.model.PlayerStateComet;
 
 public class PlayListGrid extends ContentPanel {
 
@@ -48,6 +49,15 @@ public class PlayListGrid extends ContentPanel {
 
 	/** 플레이어 상태 */
 	private Status status = Status.STOP;
+
+	/**
+	 * 위치 이동 슬라이더 이동여부 <br>
+	 * 수동으로 위치 이동 슬라이더 이동중에는 노래 진행에 따른 이동을 하지 않는다.
+	 */
+	private boolean positionSliderMove = true;
+
+	/** 재생 버튼 */
+	private Button playAndPauseBtn = new Button("Play");
 
 	/**
 	 * 현재 진행 상태
@@ -70,8 +80,16 @@ public class PlayListGrid extends ContentPanel {
 			}
 		}
 
+		protected void onDragStart(DragEvent de) {
+			super.onDragStart(de);
+			System.out.println("onDragStart()");
+			positionSliderMove = false;
+		}
+
 		protected void onDragEnd(DragEvent de) {
 			super.onDragEnd(de);
+			System.out.println("onDragEnd()");
+			positionSliderMove = true;
 			if (status != Status.STOP) {
 				double rate = (double) this.getValue() / this.getMaxValue();
 				service.seek(rate, seekCallback());
@@ -139,7 +157,6 @@ public class PlayListGrid extends ContentPanel {
 		grid.addPlugin(numberer);
 
 		ToolBar toolBar = new ToolBar();
-		final Button playAndPauseBtn = new Button("Play");
 		playAndPauseBtn.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			public void handleEvent(ButtonEvent be) {
 				if (status == Status.PLAY) {
@@ -158,10 +175,22 @@ public class PlayListGrid extends ContentPanel {
 				if (status == Status.STOP) {
 					service.play(m.getId(), playCallback());
 
+					// 재생 스크롤링
 					BokslUI.getCometListener().addEventListener(PlayTimeRateComet.class, new CometMessageListener() {
 						public void processMessage(Serializable message) {
 							PlayTimeRateComet object = (PlayTimeRateComet) message;
-							positionSlider.setValue((int) (object.getRate() * 100));
+							if (positionSliderMove) {
+								int value = (int) (object.getRate() * currentPlayArticle.getRunningTime());
+								positionSlider.setValue(value);
+							}
+						}
+					});
+
+					// 재생기 상태이벤트 처리
+					BokslUI.getCometListener().addEventListener(PlayerStateComet.class, new CometMessageListener() {
+						public void processMessage(Serializable message) {
+							PlayerStateComet object = (PlayerStateComet) message;
+							System.out.println("받음" + object.toString());
 						}
 					});
 
@@ -209,6 +238,9 @@ public class PlayListGrid extends ContentPanel {
 				return callback;
 			}
 
+			/**
+			 * @return 일시정지 재생 콜백
+			 */
 			private AsyncCallback<Void> resumeCallback() {
 				AsyncCallback<Void> callback = new AsyncCallback<Void>() {
 					public void onFailure(Throwable caught) {
@@ -239,8 +271,7 @@ public class PlayListGrid extends ContentPanel {
 					}
 
 					public void onSuccess(Void result) {
-						status = Status.STOP;
-						playAndPauseBtn.setText("Play");
+						stopAfter();
 					}
 				};
 				return aa;
@@ -298,4 +329,15 @@ public class PlayListGrid extends ContentPanel {
 	public void addItem(MusicArticleModel item) {
 		store.add(item);
 	}
+
+	/**
+	 * 정지 후 처리
+	 */
+	private void stopAfter() {
+		System.out.println("stopAfter()");
+		status = Status.STOP;
+		playAndPauseBtn.setText("Play");
+		positionSlider.setValue(0);
+	}
+
 }

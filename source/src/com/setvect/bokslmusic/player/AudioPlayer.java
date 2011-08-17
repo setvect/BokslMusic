@@ -160,6 +160,7 @@ public class AudioPlayer {
 
 	public static class PlayerListener implements BasicPlayerListener {
 		private ProgressEventListener progress;
+		private StateEventListener state;
 
 		public void opened(Object audio, Map properties) {
 			AudioPlayer.audioInfo = properties;
@@ -172,17 +173,25 @@ public class AudioPlayer {
 		}
 
 		public void stateUpdated(BasicPlayerEvent event) {
+			System.out.println("stateUpdated() - " + event);
+			state.event(event);
 		}
 
 		public void setController(BasicController controller) {
-		}
+			System.out.println("setController() - " + controller);
 
+		}
 		/**
 		 * @param progress
 		 *            the progress to set
 		 */
-		public void setProgress(ProgressEventListener progress) {
+		public void setProgressListener(ProgressEventListener progress) {
 			this.progress = progress;
+		}
+		/**
+		 */
+		public void setStateListener(StateEventListener state) {
+			this.state = state;
 		}
 	}
 }
