@@ -16,6 +16,7 @@ import org.springframework.transaction.TransactionStatus;
 import com.setvect.bokslmusic.config.EnvirmentProperty;
 import com.setvect.bokslmusic.db.DBInitializer;
 import com.setvect.bokslmusic.log.SyncLogPrinter;
+import com.setvect.bokslmusic.util.CommonUtil;
 import com.setvect.common.http.MultiFileCommonsMultipartResolver;
 import com.setvect.common.log.LogPrinter;
 
