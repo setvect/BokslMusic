@@ -22,7 +22,6 @@ import com.setvect.common.log.LogPrinter;
 
 /**
  * WAS가 실행되면 어플리케이션에 기본적인 설정값, 로그설정등을 해준다. <br>
- * $Id: EnvirmentInit.java 111 2010-09-23 18:37:27Z setvect@naver.com $
  */
 @SuppressWarnings("serial")
 public class EnvirmentInit extends HttpServlet {

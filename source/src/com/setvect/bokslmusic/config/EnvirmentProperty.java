@@ -14,8 +14,6 @@ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
 /**
  * 프로젝트 설정 정보 제공
  * 
- * @version $Id: EnvirmentProperty.java 10 2010-07-21 01:32:43Z
- *          setvect@naver.com $
  */
 public class EnvirmentProperty {
 	private static PropertiesConfiguration config;

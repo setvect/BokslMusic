@@ -13,7 +13,6 @@ import com.setvect.bokslmusic.boot.EnvirmentInit;
 /**
  * 테스트 하기위한 어플리케이션 bootup 과정 진행
  * 
- * @version $Id: TestSystem.java 54 2010-08-09 14:25:54Z setvect@naver.com $
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/config/applicationContext.xml" })

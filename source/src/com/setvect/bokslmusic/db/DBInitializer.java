@@ -16,7 +16,7 @@ import com.setvect.common.db.TableCreateInfo;
 import com.setvect.common.xml.XMLParser;
 
 /**
- * 데이터 베이스 초기화 및 커넥션 객체를 제공 및 회수를 담당함 $Id: DBInitializer.java 33 2010-07-30 10:14:49Z setvect@naver.com $
+ * 데이터 베이스 초기화 및 커넥션 객체를 제공 및 회수를 담당함 $
  */
 public abstract class DBInitializer {
 	/**

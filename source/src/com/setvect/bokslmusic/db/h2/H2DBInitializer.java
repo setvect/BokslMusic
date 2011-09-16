@@ -15,8 +15,6 @@ import com.setvect.common.log.LogPrinter;
 
 /**
  * H2 DB 초기화 하는 것과 같음.
- * 
- * @version $Id: H2DBInitializer.java 112 2010-09-23 20:08:52Z setvect@naver.com $
  */
 @Service(value = "db.initializer")
 public class H2DBInitializer extends DBInitializer {

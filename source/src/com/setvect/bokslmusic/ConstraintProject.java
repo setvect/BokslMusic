@@ -7,8 +7,6 @@ import com.setvect.bokslmusic.config.EnvirmentProperty;
 /**
  * 프로젝트 의존적인 상수 모음
  * 
- * @version $Id: ConstraintProject.java 128 2010-10-10 11:54:38Z
- *          setvect@naver.com $
  */
 public class ConstraintProject {
 	/** 문학소년: 기본 틀을 가진 뷰 이름 */
