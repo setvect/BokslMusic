@@ -16,8 +16,6 @@ import org.springframework.transaction.TransactionStatus;
 import com.setvect.bokslmusic.config.EnvirmentProperty;
 import com.setvect.bokslmusic.db.DBInitializer;
 import com.setvect.bokslmusic.log.SyncLogPrinter;
-import com.setvect.bokslmusic.util.CommonUtil;
-import com.setvect.common.http.MultiFileCommonsMultipartResolver;
 import com.setvect.common.log.LogPrinter;
 
 /**
@@ -75,12 +73,6 @@ public class EnvirmentInit extends HttpServlet {
 
 		LogPrinter.out.info("Spring Initialized");
 
-		// 파일 업로드 확장자 제한
-		// TODO 동작 안됨.. 나중에 해결
-		MultiFileCommonsMultipartResolver mfmr = (MultiFileCommonsMultipartResolver) springContext
-				.getBean("multipartResolver");
-		mfmr.setCkFile(CommonUtil.checkAllowUploadFile());
-
 		// DB init
 		// H2 데이터 베이스 파일 생성 경로 지정. Spring Initialized 전에 해야됨
 		if (System.getProperty("h2.baseDir") == null) {
@@ -97,7 +89,7 @@ public class EnvirmentInit extends HttpServlet {
 		AbstractTagItem.logger.setLevel(Level.WARNING);
 		AbstractDataType.logger.setLevel(Level.WARNING);
 		AudioFile.logger.setLevel(Level.WARNING);
-		
+
 		initialize = true;
 		LogPrinter.out.info("Started...");
 	}

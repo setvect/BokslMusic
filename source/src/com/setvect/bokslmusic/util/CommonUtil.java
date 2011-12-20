@@ -10,10 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
 
-import com.setvect.bokslmusic.ConstraintProject;
-import com.setvect.bokslmusic.boot.ApplicationException;
-import com.setvect.common.http.CheckAllowUploadFile;
-import com.setvect.common.util.FileUtil;
 import com.setvect.common.util.StringUtilAd;
 
 /**
@@ -75,22 +71,4 @@ public class CommonUtil {
 		}
 		return param;
 	}
-
-	/**
-	 * 파일 업로드 체크
-	 */
-	public static CheckAllowUploadFile checkAllowUploadFile() throws ApplicationException {
-		return new CheckAllowUploadFile() {
-			public boolean check(String filename) {
-				String ext = FileUtil.getExt(filename).toLowerCase().trim();
-
-				int a = StringUtilAd.indexOfAny(ext, ConstraintProject.ALLOW_UPLOAD_FILE);
-				if (a == -1) {
-					return false;
-				}
-				return true;
-			}
-		};
-	}
-
 }
