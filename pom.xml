@@ -265,13 +265,6 @@
     	<systemPath>${basedir}/WebContent/WEB-INF/lib/setvect.jar</systemPath>
     </dependency>    
     <dependency>
-    	<groupId>com.gxt</groupId>
-    	<artifactId>gxt</artifactId>
-    	<version>1.0</version>
-    	<scope>system</scope>
-    	<systemPath>${basedir}/WebContent/WEB-INF/lib/gxt-2.2.4-gwt22.jar</systemPath>
-    </dependency>    
-    <dependency>
     	<groupId>com.jaudiotagger</groupId>
     	<artifactId>jaudiotagger</artifactId>
     	<version>1.0</version>
