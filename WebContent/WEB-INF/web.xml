@@ -55,25 +55,10 @@
 		<servlet-name>ThumbnailServlet</servlet-name>
 		<servlet-class>com.setvect.common.img.ThumbnailImageServlet</servlet-class>
 	</servlet>
-  <servlet>
-		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
-		<servlet-class>org.spring4gwt.server.SpringGwtRemoteServiceServlet</servlet-class>
-	</servlet>
-
-	<servlet>
-		<servlet-name>chatComet</servlet-name>
-		<servlet-class>net.zschech.gwt.comet.server.CometServlet</servlet-class>
-	</servlet>
-
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-
-  <servlet-mapping>
-		<servlet-name>springGwtRemoteServiceServlet</servlet-name>
-		<url-pattern>/bokslmusic/service/*</url-pattern>
-	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
@@ -83,10 +68,5 @@
 	<servlet-mapping>
 		<servlet-name>ThumbnailServlet</servlet-name>
 		<url-pattern>/servlet/Thumbnail</url-pattern>
-	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>chatComet</servlet-name>
-		<url-pattern>/bokslmusic/comet</url-pattern>
 	</servlet-mapping>
 </web-app>
