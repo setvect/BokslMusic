@@ -32,7 +32,7 @@
 <div id="wrap">
 	<div id="tabs">
 		<ul>
-			<li><a href="play/all_list.do">All List</a></li>
+			<li><a href="play/music_list.do">All List</a></li>
 			<li><a href="ajax/content1.html">Play List</a></li>
 			<li><a href="ajax/content2.html">Setting</a></li>
 		</ul>

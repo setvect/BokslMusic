@@ -92,7 +92,7 @@ public final class main_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<div id=\"wrap\">\r\n");
       out.write("\t<div id=\"tabs\">\r\n");
       out.write("\t\t<ul>\r\n");
-      out.write("\t\t\t<li><a href=\"play/all_list.do\">All List</a></li>\r\n");
+      out.write("\t\t\t<li><a href=\"play/music_list.do\">All List</a></li>\r\n");
       out.write("\t\t\t<li><a href=\"ajax/content1.html\">Play List</a></li>\r\n");
       out.write("\t\t\t<li><a href=\"ajax/content2.html\">Setting</a></li>\r\n");
       out.write("\t\t</ul>\r\n");
