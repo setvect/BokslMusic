@@ -27,9 +27,11 @@
 		});
 	});
 </script>
+
+
 </head>
 <body>
-<div id="wrap">
+<div id="wrap" style="min-width: 900px;">
 	<div id="tabs">
 		<ul>
 			<li><a href="play/music_list.do">All List</a></li>

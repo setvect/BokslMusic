@@ -6,8 +6,6 @@ import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 import org.junit.Test;
 
-import com.setvect.bokslmusic.TestSystem;
-
 public class MP3PlayerTestCase {
 	@Test
 	public void test() throws BasicPlayerException, InterruptedException {

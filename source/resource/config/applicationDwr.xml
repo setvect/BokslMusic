@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.directwebremoting.org/schema/spring-dwr
+       http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/engine.js">dwrController</prop>
+				<prop key="/util.js">dwrController</prop>
+				<prop key="/interface/**">dwrController</prop>
+				<prop key="/call/**">dwrController</prop>
+				<prop key="/*">dwrController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<dwr:controller id="dwrController" debug="true" />
+
+	<dwr:configuration>
+		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.MusicArticle">
+			<dwr:include method="musicId, name"/>
+		</dwr:convert>
+	</dwr:configuration>
+
+	
+	<bean id="musicService"
+		class="com.setvect.bokslmusic.web.dwr.MusicDwrService">
+		<dwr:remote javascript="music">
+		</dwr:remote>
+	</bean>
+
+</beans>
