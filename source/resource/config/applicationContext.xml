@@ -102,21 +102,21 @@
 
 	<!-- DataBase DAO -->
 
-	<!-- DWR -->
+	<!-- Login Check Interceptor -->
+	<bean id="loginCheckInterceptor" class="com.setvect.bokslmusic.web.SessionCheckInterceptor"/>
 
+	<!-- DWR -->
 
 	<!-- Etc Controller -->
 	
 	<!-- =============================== -->
 	<!-- ======  WEB MVC Mapping ======= -->
 	<!-- =============================== -->
-	<!-- 
 	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
 		<property name="interceptors">
 			<list><ref bean="loginCheckInterceptor"/></list>
 		</property>
 	</bean>
-	 -->
 	 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

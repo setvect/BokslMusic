@@ -22,6 +22,16 @@ public class CommonUtil {
 
 	/**
 	 * @param request
+	 * @return 웹사이트 도메인, 포트, Context Path 포함한 URL 기준
+	 */
+	public static String getContextUrl(HttpServletRequest request) {
+		String basePath = request.getRequestURL().toString().replaceAll(request.getRequestURI(), "");
+		basePath += request.getContextPath();
+		return basePath;
+	}
+
+	/**
+	 * @param request
 	 * @param listName
 	 *            displaytag ID 이름
 	 * @return displaytag 파라미터가 있으면 해당 파라미터의 페이지 값, 없으면 "currentPage" 파라미터 값,

@@ -7,14 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.setvect.bokslmusic.web.ConstraintWeb;
-import com.setvect.common.util.StringUtilAd;
-
 /**
- * 검색 페이지
+ * 전체 음악 목록 조회 회면
  */
 @Controller
-public class PlayerController {
+public class AllListController {
 
 	/**
 	 * 서브 명령어 정의
@@ -37,23 +34,10 @@ public class PlayerController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/search/main.do")
+	@RequestMapping("/play/all_list.do")
 	public ModelAndView process(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		String mode = request.getParameter("mode");
-
-		Mode m;
-		if (StringUtilAd.isEmpty(mode)) {
-			m = Mode.LIST_FORM;
-		}
-		else {
-			m = Mode.valueOf(mode);
-		}
-
-		if (m == Mode.LIST_FORM) {
-			mav.setViewName(ConstraintWeb.SEARCH_LAYOUT);
-			mav.addObject(ConstraintWeb.AttributeKey.INCLUDE_PAGE.name(), "/play/music_list.jsp");
-		}
+		mav.setViewName("play/all_list");
 
 		return mav;
 	}
