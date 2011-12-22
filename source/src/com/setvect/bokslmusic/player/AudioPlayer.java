@@ -174,13 +174,16 @@ public class AudioPlayer {
 
 		public void stateUpdated(BasicPlayerEvent event) {
 			System.out.println("stateUpdated() - " + event);
-			state.event(event);
+			if (state != null) {
+				state.event(event);
+			}
 		}
 
 		public void setController(BasicController controller) {
 			System.out.println("setController() - " + controller);
 
 		}
+
 		/**
 		 * @param progress
 		 *            the progress to set
@@ -188,6 +191,7 @@ public class AudioPlayer {
 		public void setProgressListener(ProgressEventListener progress) {
 			this.progress = progress;
 		}
+
 		/**
 		 */
 		public void setStateListener(StateEventListener state) {

@@ -1,3 +1,4 @@
+<%@page import="com.setvect.bokslmusic.web.play.MusicListController"%>
 <%@page import="com.setvect.bokslmusic.util.CommonUtil"%>
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
@@ -13,7 +14,34 @@
 <base href="<%= CommonUtil.getContextUrl(request)%>/"/>
 <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.16.custom.css"/>
 <link rel="stylesheet" type="text/css" href="css/play.css"/>
+<link rel="stylesheet" type="text/css" href="tree/jquery.treeview.css"/>
+
 <jsp:include page="/play/common/script.inc.jsp"/>
+<script type="text/javascript" src="tree/jquery.treeview.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/util.js'></script>
+<script type='text/javascript' src='dwr/interface/musicDwr.js'></script>
+<script type="text/javascript" src="play/music_control.js"></script>
+
+<style>
+	.file:hover{
+		color: red;; 
+	}
+	.toolbar {
+		padding: 5px;
+		overflow: hidden;
+		clear: both;
+		text-align: center;
+	}	
+	.playListRemove .ui-button-text{
+		display: inline;
+		line-height: 1.1;
+	}	
+
+	
+</style>
+
 <script type="text/javascript">
 	$(function() {
 		$( "#tabs" ).tabs({
@@ -27,15 +55,13 @@
 		});
 	});
 </script>
-
-
 </head>
 <body>
 <div id="wrap">
 	<div id="tabs">
 		<ul>
-			<li><a href="play/music_list.do">All List</a></li>
-			<li><a href="ajax/content1.html">Play List</a></li>
+			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.PLAY_LIST_FORM%>">Play List</a></li>
+			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.ALL_LIST_FORM%>">All List</a></li>			
 			<li><a href="ajax/content2.html">Setting</a></li>
 		</ul>
 	</div>

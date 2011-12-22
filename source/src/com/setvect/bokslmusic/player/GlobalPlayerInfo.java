@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.setvect.bokslmusic.player.AudioPlayer.PlayerStatus;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 
 /**
@@ -21,9 +22,6 @@ public class GlobalPlayerInfo {
 
 	/** 재생 중인 음악 */
 	private static MusicArticle playMusic;
-
-	/** 재생기 */
-	private static AudioPlayer player;
 
 	/**
 	 * 재상 항목 추가
@@ -92,4 +90,33 @@ public class GlobalPlayerInfo {
 		Collections.shuffle(playList);
 	}
 
+	/**
+	 * 현재 커서의 음악 재생
+	 * 
+	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
+	 */
+	public static int play() {
+		if (playIndex >= playList.size()) {
+			return -1;
+		}
+
+		if (AudioPlayer.getStatus() == PlayerStatus.PAUSE) {
+			AudioPlayer.resume();
+		}
+		else {
+			MusicArticle playArticle = playList.get(playIndex);
+			AudioPlayer.open(playArticle.getFile());
+			AudioPlayer.play();
+		}
+		return playIndex;
+	}
+
+	/**
+	 * 일시멈춤
+	 */
+	public static void pause() {
+		if (AudioPlayer.getStatus() == PlayerStatus.PLAY) {
+			AudioPlayer.pause();
+		}
+	}
 }

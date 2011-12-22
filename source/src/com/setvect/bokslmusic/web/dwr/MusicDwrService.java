@@ -91,7 +91,23 @@ public class MusicDwrService {
 	/**
 	 * 중복 제거
 	 */
-	public static void deduplication() {
+	public void deduplication() {
 		GlobalPlayerInfo.deduplication();
+	}
+
+	/**
+	 * 현재 커서의 음악 재생, 또는 다시 시작
+	 * 
+	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
+	 */
+	public int play() {
+		return GlobalPlayerInfo.play();
+	}
+
+	/**
+	 * 일시멈춤
+	 */
+	public void pause() {
+		GlobalPlayerInfo.pause();
 	}
 }
