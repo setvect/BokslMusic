@@ -25,14 +25,14 @@
 
 	<dwr:configuration>
 		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.MusicArticle">
-			<dwr:include method="musicId, name"/>
+			<dwr:include method="musicId, name, runningTime"/>
 		</dwr:convert>
 	</dwr:configuration>
 
 	
 	<bean id="musicService"
 		class="com.setvect.bokslmusic.web.dwr.MusicDwrService">
-		<dwr:remote javascript="music">
+		<dwr:remote javascript="musicDwr">
 		</dwr:remote>
 	</bean>
 

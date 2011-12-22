@@ -52,6 +52,26 @@ public class MusicService {
 		return musicArticleDao.getMusicArticlePagingList(pageCondition);
 	}
 
+	/**
+	 * 폴더에 포함된 전체 음악 목록
+	 * 
+	 * @param folder
+	 *            폴더명
+	 * @return 폴더에 포함된 음악 목록
+	 */
+	public List<MusicArticle> getPlayListFolder(String folder) {
+		// 검색조건: 디렉토리 이름 매칭
+		MusicArticleSearch pageCondition = new MusicArticleSearch(1);
+		pageCondition.setPagePerItemCount(Integer.MAX_VALUE);
+		pageCondition.setSearchPath(folder);
+
+		GenericPage<MusicArticle> pageSearch = getMusicArticlePagingList(pageCondition);
+		Collection<MusicArticle> temp = pageSearch.getList();
+		List<MusicArticle> result = new ArrayList<MusicArticle>();
+		result.addAll(temp);
+		return result;
+	}
+
 	public List<String> getMusicArticlePath() {
 		return musicArticleDao.getMusicArticlePath();
 	}

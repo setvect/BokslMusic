@@ -91,7 +91,7 @@ public final class main_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("</head>\r\n");
       out.write("<body>\r\n");
-      out.write("<div id=\"wrap\" style=\"min-width: 900px;\">\r\n");
+      out.write("<div id=\"wrap\">\r\n");
       out.write("\t<div id=\"tabs\">\r\n");
       out.write("\t\t<ul>\r\n");
       out.write("\t\t\t<li><a href=\"play/music_list.do\">All List</a></li>\r\n");

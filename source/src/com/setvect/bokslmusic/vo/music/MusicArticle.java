@@ -28,7 +28,7 @@ public class MusicArticle {
 	/** 파일 이름 */
 	@Column(name = "NAME")
 	private String name;
-	/** OS 경로 상에 파일 경로, 파일 이름 포함 하지 않음*/
+	/** OS 경로 상에 파일 경로, 파일 이름 포함 하지 않음 */
 	@Column(name = "PATH")
 	private String path;
 	/** 가사 */
@@ -211,4 +211,46 @@ public class MusicArticle {
 				+ ", albumTag=" + albumTag + ", yearTag=" + yearTag + ", genreTag=" + genreTag + ", trackTag="
 				+ trackTag + ", titleExt=" + titleExt + ", artistExt=" + artistExt + "]";
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((musicId == null) ? 0 : musicId.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof MusicArticle)) {
+			return false;
+		}
+		MusicArticle other = (MusicArticle) obj;
+		if (musicId == null) {
+			if (other.musicId != null) {
+				return false;
+			}
+		}
+		else if (!musicId.equals(other.musicId)) {
+			return false;
+		}
+		return true;
+	}
+
 }
