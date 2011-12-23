@@ -46,6 +46,7 @@
 		});
 	}
 
+	
 	$(function () {
 		// ====== 컨트롤 버튼
 		$( "#rewind" ).button({
@@ -141,6 +142,29 @@
 		MusicControl.playListTableId = "playListTable2";
 		MusicControl.playListPrintAfter = initViewPage;
 		MusicControl.playListPrint();
+		
+		// ====== 스라이더(볼륨, 진행)
+		$( "#volumeSlider" ).slider({
+			range: "min",
+			value: 50,
+			min: 0,
+			max: 100,
+			slide: function( event, ui ) {
+				//
+			}
+		});
+
+		$( "#seekSlider" ).slider({
+			range: "min",
+			value: 50,
+			min: 0,
+			max: 100,
+			slide: function( event, ui ) {
+				//
+			}
+		});
+		
+		
 	});
 </script>
 <div>
@@ -155,6 +179,18 @@
 			<input type="radio" id="repeatall" name="repeat"/><label for="repeatall">All</label>
 		</span>
 	</div>
+	
+	<ul style="list-style: none outside">
+		<li>
+			<span>
+				<label for="amount">Maximum price:</label>
+				<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+			</span>		
+			<div id="volumeSlider"></div>
+		</li>
+		<li><div id="seekSlider"></div></li>
+	</ul>
+	
 </div>
 <table id="playListTable2" class="playListTable">
 </table>
