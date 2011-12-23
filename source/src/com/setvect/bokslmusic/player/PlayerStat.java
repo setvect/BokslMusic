@@ -1,5 +1,6 @@
 package com.setvect.bokslmusic.player;
 
+import com.setvect.bokslmusic.player.AudioPlayer.PlayerStatus;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 
 /**
@@ -8,7 +9,7 @@ import com.setvect.bokslmusic.vo.music.MusicArticle;
  * @version $Id$
  */
 public class PlayerStat {
-	/** 재생중인 재생 리스트 순번  */
+	/** 재생중인 재생 리스트 순번 */
 	private int playIndex;
 
 	/** 반복 재생 여부 */
@@ -16,6 +17,13 @@ public class PlayerStat {
 
 	/** 현재 재생 중인 음악 */
 	private MusicArticle playArticle;
+
+	/**
+	 * 재생 상태
+	 * 
+	 * @see PlayerStatus
+	 */
+	private String playStatus;
 
 	/**
 	 * @return 재생중이 곡 인덱스
@@ -60,6 +68,27 @@ public class PlayerStat {
 	 */
 	public void setPlayArticle(MusicArticle playArticle) {
 		this.playArticle = playArticle;
+	}
+
+	/**
+	 * 재생 상태
+	 * 
+	 * @see PlayerStatus
+	 * @return the playStatus
+	 */
+	public String getPlayStatus() {
+		return playStatus;
+	}
+
+	/**
+	 * 재생 상태
+	 * 
+	 * @see PlayerStatus
+	 * @param playStatus
+	 *            the playStatus to set
+	 */
+	public void setPlayStatus(String playStatus) {
+		this.playStatus = playStatus;
 	}
 
 }

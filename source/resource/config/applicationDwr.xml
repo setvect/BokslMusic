@@ -29,7 +29,11 @@
 		</dwr:convert>
 	</dwr:configuration>
 
-	
+	<dwr:configuration>
+		<dwr:convert type="bean" class="com.setvect.bokslmusic.player.PlayerStat">
+		</dwr:convert>
+	</dwr:configuration>
+
 	<bean id="musicService"
 		class="com.setvect.bokslmusic.web.dwr.MusicDwrService">
 		<dwr:remote javascript="musicDwr">

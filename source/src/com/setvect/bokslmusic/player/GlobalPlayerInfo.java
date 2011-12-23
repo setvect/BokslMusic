@@ -169,6 +169,7 @@ public class GlobalPlayerInfo {
 	 * @return 상태 정보
 	 */
 	public static PlayerStat getPlayerStat() {
+		playerStat.setPlayStatus(AudioPlayer.getStatus().name());
 		return playerStat;
 	}
 }

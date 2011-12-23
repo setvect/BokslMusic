@@ -24,7 +24,7 @@
 <script type='text/javascript' src='dwr/interface/musicDwr.js'></script>
 <script type="text/javascript" src="play/music_control.js"></script>
 
-<style>
+<style type="text/css">
 	.file:hover{
 		color: red; 
 	}

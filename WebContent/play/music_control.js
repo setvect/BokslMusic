@@ -3,6 +3,9 @@ var MusicControl = new Object();
 // 재생 목록 표시 테이블 아이디 값
 MusicControl.playListTableId = "";
 
+// 재상 목록 뿌여 지고 수행할 작업
+MusicControl.playListPrintAfter = null; 
+
 // 재생목록 표시 
 MusicControl.playListPrint = function(){
 	musicDwr.getPlayArticle(function(rtnValue){
@@ -37,6 +40,10 @@ MusicControl.playListPrint = function(){
 				MusicControl.playListPrint();
 			});
 		});
+		
+		if(MusicControl.playListPrintAfter != null){
+			MusicControl.playListPrintAfter();
+		}
 	});
 };
 

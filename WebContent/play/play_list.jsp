@@ -10,8 +10,44 @@
 			$("#playListTable2 tr").eq(idx).css("background-color", "#ffeedd");
 		}
 	}
+	
+	// 현재 플레이어 설정되로 화면 
+	function initViewPage(){
+		musicDwr.getPlayerStat(function(statInfo){
+			tableHighlight(statInfo.playIndex);
+			if(statInfo.repeat){
+				$("#repeatall").attr("checked", true);
+			}
+			else{
+				$("#repeat0").attr("checked", true);
+			}
+			$( "#repeat" ).buttonset();
+			var options;
+			if(statInfo.playStatus == "PLAY"){			
+				$("#play").text("pause");
+				options = {
+					label: "pause",
+					icons: {
+						primary: "ui-icon-pause"
+					}
+				};
+			}
+			else{
+				options = {
+					label: "play",
+					icons: {
+						primary: "ui-icon-play"
+					}
+				};
+			}
+			
+			$( "#play" ).button( "option", options );
+			
+		});
+	}
 
 	$(function () {
+		// ====== 컨트롤 버튼
 		$( "#rewind" ).button({
 			text: false,
 			icons: {
@@ -42,7 +78,8 @@
 				musicDwr.play(function(idx){
 					tableHighlight(idx);
 				});
-			} else {
+			}
+			else {
 				options = {
 					label: "play",
 					icons: {
@@ -53,6 +90,7 @@
 					// nothing
 				});
 			}
+			
 			$( this ).button( "option", options );
 		});
 		
@@ -99,7 +137,9 @@
 			musicDwr.repeat(true);
 		});
 		
+		// ====== 일반설정 		
 		MusicControl.playListTableId = "playListTable2";
+		MusicControl.playListPrintAfter = initViewPage;
 		MusicControl.playListPrint();
 	});
 </script>
@@ -111,8 +151,8 @@
 		<button id="forward">fast forward</button>
 		<input type="checkbox" id="shuffle" /><label for="shuffle">Shuffle</label>
 		<span id="repeat">
-			<input type="radio" id="repeat0" name="repeat" value="no" checked="checked" /><label for="repeat0">No Repeat</label>
-			<input type="radio" id="repeatall" name="repeat" value="all"/><label for="repeatall">All</label>
+			<input type="radio" id="repeat0" name="repeat" checked="checked" /><label for="repeat0">No Repeat</label>
+			<input type="radio" id="repeatall" name="repeat"/><label for="repeatall">All</label>
 		</span>
 	</div>
 </div>
