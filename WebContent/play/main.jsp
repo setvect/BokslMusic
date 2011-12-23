@@ -26,7 +26,7 @@
 
 <style>
 	.file:hover{
-		color: red;; 
+		color: red; 
 	}
 	.toolbar {
 		padding: 5px;
@@ -34,12 +34,16 @@
 		clear: both;
 		text-align: center;
 	}	
+	.toolbar .ui-button-text{
+		line-height:1;
+	}	
 	.playListRemove .ui-button-text{
 		display: inline;
 		line-height: 1.1;
 	}	
-
-	
+	.playListTable tr:hover{
+		color: red; 
+	}
 </style>
 
 <script type="text/javascript">

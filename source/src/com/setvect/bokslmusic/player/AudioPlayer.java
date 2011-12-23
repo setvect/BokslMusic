@@ -14,9 +14,10 @@ import com.setvect.common.log.LogPrinter;
 /**
  * 음원 재생기
  */
-public class AudioPlayer {
+class AudioPlayer {
 	public static final PlayerListener playerListener = new PlayerListener();
 	private static final BasicPlayer player = new BasicPlayer();
+	@SuppressWarnings("rawtypes")
 	private static Map audioInfo;
 
 	static {
@@ -96,6 +97,8 @@ public class AudioPlayer {
 	}
 
 	/**
+	 * 다시 시작
+	 * 
 	 * @throws BasicPlayerException
 	 * @see javazoom.jlgui.basicplayer.BasicPlayer#resume()
 	 */
@@ -162,25 +165,26 @@ public class AudioPlayer {
 		private ProgressEventListener progress;
 		private StateEventListener state;
 
-		public void opened(Object audio, Map properties) {
+		public void opened(Object audio, @SuppressWarnings("rawtypes") Map properties) {
 			AudioPlayer.audioInfo = properties;
 		}
 
-		public void progress(int bytesread, long microseconds, byte[] pcmdata, Map properties) {
+		public void progress(int bytesread, long microseconds, byte[] pcmdata,
+				@SuppressWarnings("rawtypes") Map properties) {
 			if (progress != null) {
 				progress.event(bytesread, getCurrentAudioLength());
 			}
 		}
 
 		public void stateUpdated(BasicPlayerEvent event) {
-			System.out.println("stateUpdated() - " + event);
+			LogPrinter.out.debug("stateUpdated() - " + event);
 			if (state != null) {
 				state.event(event);
 			}
 		}
 
 		public void setController(BasicController controller) {
-			System.out.println("setController() - " + controller);
+			LogPrinter.out.debug("setController() - " + controller);
 
 		}
 

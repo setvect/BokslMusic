@@ -17,6 +17,11 @@
 			icons: {
 				primary: "ui-icon-seek-prev"
 			}
+		})
+		.click(function() {
+			musicDwr.previous(function(idx){
+				tableHighlight(idx);
+			});
 		});
 		
 		$( "#play" ).button({
@@ -64,6 +69,9 @@
 					primary: "ui-icon-play"
 				}
 			});
+			musicDwr.stop(function(){
+				// nothing
+			});
 		});
 		
 		$( "#forward" ).button({
@@ -71,10 +79,25 @@
 			icons: {
 				primary: "ui-icon-seek-next"
 			}
+		})
+		.click(function() {
+			musicDwr.next(function(idx){
+				tableHighlight(idx);
+			});
 		});
 
-		$( "#shuffle" ).button();
+		$( "#shuffle" ).button().click(function(){
+			MusicControl.shuffle();
+		});
 		$( "#repeat" ).buttonset();
+		
+		
+		$( "#repeat0" ).click(function(){
+			musicDwr.repeat(false);
+		});
+		$( "#repeatall" ).click(function(){
+			musicDwr.repeat(true);
+		});
 		
 		MusicControl.playListTableId = "playListTable2";
 		MusicControl.playListPrint();
@@ -88,10 +111,10 @@
 		<button id="forward">fast forward</button>
 		<input type="checkbox" id="shuffle" /><label for="shuffle">Shuffle</label>
 		<span id="repeat">
-			<input type="radio" id="repeat0" name="repeat" checked="checked" /><label for="repeat0">No Repeat</label>
-			<input type="radio" id="repeatall" name="repeat" /><label for="repeatall">All</label>
+			<input type="radio" id="repeat0" name="repeat" value="no" checked="checked" /><label for="repeat0">No Repeat</label>
+			<input type="radio" id="repeatall" name="repeat" value="all"/><label for="repeatall">All</label>
 		</span>
 	</div>
 </div>
-<table id="playListTable2">
+<table id="playListTable2" class="playListTable">
 </table>

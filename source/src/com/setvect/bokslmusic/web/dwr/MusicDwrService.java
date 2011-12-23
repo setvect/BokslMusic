@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.setvect.bokslmusic.boot.EnvirmentInit;
 import com.setvect.bokslmusic.player.GlobalPlayerInfo;
+import com.setvect.bokslmusic.player.PlayerStat;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 
@@ -109,5 +110,49 @@ public class MusicDwrService {
 	 */
 	public void pause() {
 		GlobalPlayerInfo.pause();
+	}
+
+	/**
+	 * 멈춤
+	 */
+	public void stop() {
+		GlobalPlayerInfo.stop();
+	}
+
+	/**
+	 * 이전 곡 재생
+	 * 
+	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
+	 */
+	public int previous() {
+		return GlobalPlayerInfo.previous();
+	}
+
+	/**
+	 * 다음 곡 재생
+	 * 
+	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
+	 */
+	public int next() {
+		return GlobalPlayerInfo.next();
+	}
+
+	/**
+	 * 반복 재생 여부
+	 * 
+	 * @param repeat
+	 *            true면 반복 재생
+	 */
+	public void repeat(boolean repeat) {
+		GlobalPlayerInfo.repeat(repeat);
+	}
+
+	/**
+	 * 컨트롤러와 관련된 상태 정보
+	 * 
+	 * @return 상태 정보
+	 */
+	public static PlayerStat getPlayerStat() {
+		return GlobalPlayerInfo.getPlayerStat();
 	}
 }

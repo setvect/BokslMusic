@@ -9,7 +9,8 @@ import com.setvect.bokslmusic.vo.music.MusicArticle;
 
 /**
  * 전역적인 재생 정보<br>
- * 단일 사용자를 대상으로 하기 때문에 모든 속성 값은 static이다.
+ * 단일 사용자를 대상으로 하기 때문에 모든 속성 값은 static이다.<br>
+ * ※ 동기화쪽 문제가 되는 부분이 있지만,여기서 고려하지 않는다.
  * 
  * @version $Id$
  */
@@ -17,11 +18,8 @@ public class GlobalPlayerInfo {
 	/** 재생 리스트 */
 	private static List<MusicArticle> playList = new ArrayList<MusicArticle>();
 
-	/** 재생중인 재생 리스트 순번 */
-	private static int playIndex;
-
-	/** 재생 중인 음악 */
-	private static MusicArticle playMusic;
+	/** 재생 정보 */
+	private static PlayerStat playerStat = new PlayerStat();
 
 	/**
 	 * 재상 항목 추가
@@ -96,7 +94,7 @@ public class GlobalPlayerInfo {
 	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
 	 */
 	public static int play() {
-		if (playIndex >= playList.size()) {
+		if (playerStat.getPlayIndex() >= playList.size()) {
 			return -1;
 		}
 
@@ -104,11 +102,13 @@ public class GlobalPlayerInfo {
 			AudioPlayer.resume();
 		}
 		else {
-			MusicArticle playArticle = playList.get(playIndex);
-			AudioPlayer.open(playArticle.getFile());
+			MusicArticle playMusic = playList.get(playerStat.getPlayIndex());
+			AudioPlayer.open(playMusic.getFile());
 			AudioPlayer.play();
+
+			playerStat.setPlayArticle(playMusic);
 		}
-		return playIndex;
+		return playerStat.getPlayIndex();
 	}
 
 	/**
@@ -118,5 +118,57 @@ public class GlobalPlayerInfo {
 		if (AudioPlayer.getStatus() == PlayerStatus.PLAY) {
 			AudioPlayer.pause();
 		}
+	}
+
+	/**
+	 * 멈춤
+	 */
+	public static void stop() {
+		AudioPlayer.stop();
+	}
+
+	/**
+	 * 이전 곡 재생<br>
+	 * 
+	 * 
+	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
+	 */
+	public static int previous() {
+		stop();
+		int playIndex = playerStat.getPlayIndex() == 0 ? playerStat.getPlayIndex() : playerStat.getPlayIndex() - 1;
+		playerStat.setPlayIndex(playIndex);
+		return play();
+	}
+
+	/**
+	 * 다음 곡 재생
+	 * 
+	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
+	 */
+	public static int next() {
+		stop();
+		int playIndex = playerStat.getPlayIndex() + 1 == playList.size() ? playerStat.getPlayIndex() : playerStat
+				.getPlayIndex() + 1;
+		playerStat.setPlayIndex(playIndex);
+		return play();
+	}
+
+	/**
+	 * 반복 재생 여부
+	 * 
+	 * @param repeat
+	 *            true면 반복 재생
+	 */
+	public static void repeat(boolean repeat) {
+		playerStat.setRepeat(repeat);
+	}
+
+	/**
+	 * 컨트롤러와 관련된 상태 정보
+	 * 
+	 * @return 상태 정보
+	 */
+	public static PlayerStat getPlayerStat() {
+		return playerStat;
 	}
 }

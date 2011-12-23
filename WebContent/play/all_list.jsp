@@ -58,6 +58,6 @@
 		<button id="deduplicationBtn">중복제거</button>
 		<button id="shuffleBtn">뒤죽박죽</button>
 	</div>	
-	<table id="playListTable1">
+	<table id="playListTable1" class="playListTable">
 	</table>
 </div>
