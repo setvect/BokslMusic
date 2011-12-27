@@ -1023,6 +1023,12 @@
 		return dd.getDate();
 	};
 	
+	// 초단위에 값을 받아 분:초 형태로 리턴
+	// 예) 03:34, 73:02
+	$u.DATE.toMinSec = function(sec){
+		return $u.STR.paddingLeftChar(parseInt(sec/60) + "", 2, "0") +":" + $u.STR.paddingLeftChar(sec % 60 + "", 2, "0");
+	};
+	
 	
 	$u.ARRAY = new Object();
 

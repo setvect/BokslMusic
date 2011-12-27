@@ -19,8 +19,20 @@ class AudioPlayer {
 	private static final BasicPlayer player = new BasicPlayer();
 	@SuppressWarnings("rawtypes")
 	private static Map audioInfo;
+	/**
+	 * 플래이 진행률 0~1
+	 */
+	private static double progressRate;
+
+	/** 볼륨 0~1 */
+	private static double volume = .5;
 
 	static {
+		playerListener.setProgressListener(new ProgressEventListener() {
+			public void event(int bytesread, int currentAudioLength) {
+				progressRate = (double) bytesread / currentAudioLength;
+			}
+		});
 		player.addBasicPlayerListener(playerListener);
 	}
 
@@ -63,6 +75,7 @@ class AudioPlayer {
 		try {
 			player.play();
 			status = PlayerStatus.PLAY;
+			resetVolume();
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
 			throw new RuntimeException(e);
@@ -106,10 +119,18 @@ class AudioPlayer {
 		try {
 			player.resume();
 			status = PlayerStatus.PLAY;
+			resetVolume();
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * 볼륨 다시 설정
+	 */
+	public static void resetVolume() {
+		setVolume(volume);
 	}
 
 	/**
@@ -122,11 +143,21 @@ class AudioPlayer {
 	 */
 	public static void setVolume(double volume) {
 		try {
+			AudioPlayer.volume = volume;
 			player.setGain(volume);
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.info(e);
 			// 예외 무시
 		}
+	}
+
+	/**
+	 * 볼륨 값
+	 * 
+	 * @return 0~1 값
+	 */
+	public static double getVolume() {
+		return volume;
 	}
 
 	/**
@@ -139,6 +170,7 @@ class AudioPlayer {
 		int audioLength = getCurrentAudioLength();
 		long skipBytes = (long) Math.round(audioLength * rate);
 		try {
+			progressRate = rate;
 			player.seek(skipBytes);
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
@@ -161,6 +193,22 @@ class AudioPlayer {
 		return status;
 	}
 
+	/**
+	 * 플래이 진행률
+	 * 
+	 * @return 0~1
+	 */
+	public static double getProgressRate() {
+		return progressRate;
+	}
+
+	/**
+	 * @return 재생기 상태값
+	 */
+	public static int getPlayerStatus() {
+		return player.getStatus();
+	}
+
 	public static class PlayerListener implements BasicPlayerListener {
 		private ProgressEventListener progress;
 		private StateEventListener state;
@@ -181,6 +229,12 @@ class AudioPlayer {
 			if (state != null) {
 				state.event(event);
 			}
+
+			if (event.getCode() == BasicPlayerEvent.STOPPED) {
+				AudioPlayer.status = PlayerStatus.STOP;
+				progressRate = 0;
+			}
+
 		}
 
 		public void setController(BasicController controller) {

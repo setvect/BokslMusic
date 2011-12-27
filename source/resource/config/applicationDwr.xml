@@ -27,12 +27,14 @@
 		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.MusicArticle">
 			<dwr:include method="musicId, name, runningTime"/>
 		</dwr:convert>
-	</dwr:configuration>
 
-	<dwr:configuration>
 		<dwr:convert type="bean" class="com.setvect.bokslmusic.player.PlayerStat">
 		</dwr:convert>
+		
+		<dwr:convert type="enum" class="com.setvect.bokslmusic.player.AudioPlayer$PlayerStatus">
+		</dwr:convert>				
 	</dwr:configuration>
+
 
 	<bean id="musicService"
 		class="com.setvect.bokslmusic.web.dwr.MusicDwrService">

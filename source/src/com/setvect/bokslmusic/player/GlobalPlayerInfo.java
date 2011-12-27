@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerEvent;
+
 import com.setvect.bokslmusic.player.AudioPlayer.PlayerStatus;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
+import com.setvect.common.log.LogPrinter;
 
 /**
  * 전역적인 재생 정보<br>
@@ -20,6 +24,18 @@ public class GlobalPlayerInfo {
 
 	/** 재생 정보 */
 	private static PlayerStat playerStat = new PlayerStat();
+
+	static {
+		AudioPlayer.playerListener.setStateListener(new StateEventListener() {
+			public void event(BasicPlayerEvent event) {
+				LogPrinter.out.debug(event);
+				if (event.getCode() == BasicPlayerEvent.STOPPED && AudioPlayer.getProgressRate() == 1.0) {
+					playerStat.setPlayArticle(null);
+					GlobalPlayerInfo.next();
+				}
+			}
+		});
+	}
 
 	/**
 	 * 재상 항목 추가
@@ -146,9 +162,22 @@ public class GlobalPlayerInfo {
 	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
 	 */
 	public static int next() {
-		stop();
-		int playIndex = playerStat.getPlayIndex() + 1 == playList.size() ? playerStat.getPlayIndex() : playerStat
-				.getPlayIndex() + 1;
+		if (AudioPlayer.getPlayerStatus() != BasicPlayer.STOPPED) {
+			stop();
+		}
+
+		int playIndex = 0;
+		if (playerStat.getPlayIndex() + 1 == playList.size()) {
+			if (playerStat.isRepeat()) {
+				playIndex = 0;
+			}
+			else {
+				return -1;
+			}
+		}
+		else {
+			playIndex = playerStat.getPlayIndex() + 1;
+		}
 		playerStat.setPlayIndex(playIndex);
 		return play();
 	}
@@ -164,12 +193,35 @@ public class GlobalPlayerInfo {
 	}
 
 	/**
+	 * 볼륨 조정
+	 * 
+	 * @param volume
+	 *            볼륨 : 범위 100~0
+	 */
+	public static void setVolume(int volume) {
+		AudioPlayer.setVolume((double) volume / 100);
+	}
+
+	/**
 	 * 컨트롤러와 관련된 상태 정보
 	 * 
 	 * @return 상태 정보
 	 */
 	public static PlayerStat getPlayerStat() {
-		playerStat.setPlayStatus(AudioPlayer.getStatus().name());
+		playerStat.setPlayStatus(AudioPlayer.getStatus());
+		int volume = (int) (AudioPlayer.getVolume() * 100);
+		playerStat.setVolume(volume);
+		playerStat.setProgressRate(AudioPlayer.getProgressRate());
 		return playerStat;
+	}
+
+	/**
+	 * 재생 Progress 이동
+	 * 
+	 * @param seek
+	 *            이동 값 0~1 사이
+	 */
+	public static void setProgressRate(double seek) {
+		AudioPlayer.seek(seek);
 	}
 }

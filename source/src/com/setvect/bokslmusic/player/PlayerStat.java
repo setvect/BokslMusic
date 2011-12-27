@@ -9,6 +9,7 @@ import com.setvect.bokslmusic.vo.music.MusicArticle;
  * @version $Id$
  */
 public class PlayerStat {
+
 	/** 재생중인 재생 리스트 순번 */
 	private int playIndex;
 
@@ -18,12 +19,16 @@ public class PlayerStat {
 	/** 현재 재생 중인 음악 */
 	private MusicArticle playArticle;
 
+	/** 볼륨 : 범위 100~0 */
+	private int volume;
+
+	/** 플래이 진행률 0~1 */
+	private double progressRate;
+
 	/**
 	 * 재생 상태
-	 * 
-	 * @see PlayerStatus
 	 */
-	private String playStatus;
+	private PlayerStatus playStatus;
 
 	/**
 	 * @return 재생중이 곡 인덱스
@@ -73,22 +78,53 @@ public class PlayerStat {
 	/**
 	 * 재생 상태
 	 * 
-	 * @see PlayerStatus
 	 * @return the playStatus
 	 */
-	public String getPlayStatus() {
+	public PlayerStatus getPlayStatus() {
 		return playStatus;
 	}
 
 	/**
 	 * 재생 상태
 	 * 
-	 * @see PlayerStatus
 	 * @param playStatus
 	 *            the playStatus to set
 	 */
-	public void setPlayStatus(String playStatus) {
+	public void setPlayStatus(PlayerStatus playStatus) {
 		this.playStatus = playStatus;
 	}
 
+	/**
+	 * @return 볼륨 : 범위 100~0
+	 */
+	public int getVolume() {
+		return volume;
+	}
+
+	/**
+	 * @param volume
+	 *            볼륨 : 범위 100~0
+	 */
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+
+	/**
+	 * 플래이 진행률
+	 * 
+	 * @return 0~1
+	 */
+	public double getProgressRate() {
+		return progressRate;
+	}
+
+	/**
+	 * 플래이 진행률
+	 * 
+	 * @param progressRate
+	 *            0~1
+	 */
+	public void setProgressRate(double progressRate) {
+		this.progressRate = progressRate;
+	}
 }

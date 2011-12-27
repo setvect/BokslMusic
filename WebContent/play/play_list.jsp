@@ -2,19 +2,30 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <script type="text/javascript">
+	var playerObj = new Object();
+	// 현재 재생중인 음악 전체 길이(초)
+	playerObj.playLength = 0;
+	
+	// 볼륨 슬라이더 조정 중 
+	playerObj.volumeOver = false;
+	// 재생 슬라이더 조정 중 
+	playerObj.seekOver = false;
+	
+	// 폴링 객체 
+	playerObj.polling;
 	
 	// 현재 재생 중인 음악 하일라이트
-	function tableHighlight(idx){
+	playerObj.tableHighlight = function(idx){
 		$("#playListTable2 tr").css("background-color", "");
 		if(idx >=0){
 			$("#playListTable2 tr").eq(idx).css("background-color", "#ffeedd");
 		}
-	}
+	};
 	
 	// 현재 플레이어 설정되로 화면 
-	function initViewPage(){
+	playerObj.initViewPage = function(){
 		musicDwr.getPlayerStat(function(statInfo){
-			tableHighlight(statInfo.playIndex);
+			playerObj.tableHighlight(statInfo.playIndex);
 			if(statInfo.repeat){
 				$("#repeatall").attr("checked", true);
 			}
@@ -42,9 +53,18 @@
 			}
 			
 			$( "#play" ).button( "option", options );
-			
+			if(!playerObj.volumeOver){
+				$( "#volumeSlider" ).slider("value", statInfo.volume);				
+			}
+
+			if(!playerObj.seekOver){
+				if(statInfo.playArticle != null){
+					playerObj.playLength = statInfo.playArticle.runningTime;
+				}
+				$( "#seekSlider" ).slider("value", statInfo.progressRate * 1000);				
+			}
 		});
-	}
+	};
 
 	
 	$(function () {
@@ -57,7 +77,7 @@
 		})
 		.click(function() {
 			musicDwr.previous(function(idx){
-				tableHighlight(idx);
+				playerObj.tableHighlight(idx);
 			});
 		});
 		
@@ -77,7 +97,7 @@
 					}
 				};
 				musicDwr.play(function(idx){
-					tableHighlight(idx);
+					playerObj.tableHighlight(idx);
 				});
 			}
 			else {
@@ -121,7 +141,7 @@
 		})
 		.click(function() {
 			musicDwr.next(function(idx){
-				tableHighlight(idx);
+				playerObj.tableHighlight(idx);
 			});
 		});
 
@@ -140,31 +160,61 @@
 		
 		// ====== 일반설정 		
 		MusicControl.playListTableId = "playListTable2";
-		MusicControl.playListPrintAfter = initViewPage;
+		MusicControl.playListPrintAfter = playerObj.initViewPage;
 		MusicControl.playListPrint();
 		
 		// ====== 스라이더(볼륨, 진행)
 		$( "#volumeSlider" ).slider({
 			range: "min",
-			value: 50,
+			value: 0,
 			min: 0,
 			max: 100,
 			slide: function( event, ui ) {
-				//
+				$( "#volume" ).val( ui.value );
+			},
+			change: function(event, ui) { 
+				$( "#volume" ).val( ui.value );
+			},
+			start: function(event, ui) {
+				playerObj.volumeOver = true;
+			},
+			stop: function(event, ui) { 
+				musicDwr.setVolume(ui.value, function(){
+					playerObj.volumeOver = false;
+					playerObj.initViewPage();
+				});
 			}
 		});
 
 		$( "#seekSlider" ).slider({
 			range: "min",
-			value: 50,
+			value: 0,
 			min: 0,
-			max: 100,
+			max: 1000,
+			step: 1,
 			slide: function( event, ui ) {
-				//
-			}
+				var sec = parseInt(playerObj.playLength * (ui.value / 1000.0));
+				$( "#time" ).val( $u.DATE.toMinSec(sec) );
+			},
+			change: function(event, ui) { 
+				var sec = parseInt(playerObj.playLength * (ui.value / 1000.0));
+				$( "#time" ).val( $u.DATE.toMinSec(sec) );
+			},
+			start: function(event, ui) {
+				playerObj.seekOver = true;
+			},
+			stop: function(event, ui) { 
+				musicDwr.setProgressRate(ui.value / 1000.0, function(){
+					playerObj.seekOver  = false;
+					playerObj.initViewPage();
+				});
+			}			
 		});
 		
-		
+		// 1초마다 설정 정보 갱신
+		if(playerObj.polling == null){
+			playerObj.polling = setInterval( playerObj.initViewPage, 1000 );
+		}
 	});
 </script>
 <div>
@@ -180,15 +230,21 @@
 		</span>
 	</div>
 	
-	<ul style="list-style: none outside">
+	<ul style="list-style: none outside; padding-left: 0">
 		<li>
 			<span>
-				<label for="amount">Maximum price:</label>
-				<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+				<label for="amount">Volume:</label>
+				<input type="text" id="volume" style="border:0; color:#f6931f; font-weight:bold;" />
 			</span>		
 			<div id="volumeSlider"></div>
 		</li>
-		<li><div id="seekSlider"></div></li>
+		<li>
+			<span>
+				<label for="amount">Time:</label>
+				<input type="text" id="time" style="border:0; color:#f6931f; font-weight:bold;" />
+			</span>				
+			<div id="seekSlider"></div>
+		</li>
 	</ul>
 	
 </div>

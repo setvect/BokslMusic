@@ -27,7 +27,7 @@ MusicControl.playListPrint = function(){
 			cell.innerHTML= article.name;
 			
 			cell = row.insertCell(2);
-			cell.innerHTML= parseInt(article.runningTime/60) +":" + $u.STR.paddingLeftChar(article.runningTime % 60 + "", 2, "0");
+			cell.innerHTML= $u.DATE.toMinSec(article.runningTime);
 			
 			cell = row.insertCell(3);
 			cell.innerHTML= "<nobr><button class='playListRemove' value='"+ i +"'>제거</button></nobr>";

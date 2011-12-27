@@ -148,11 +148,32 @@ public class MusicDwrService {
 	}
 
 	/**
+	 * 볼륨 조정
+	 * 
+	 * @param volume
+	 *            볼륨 : 범위 100~0
+	 */
+	public void setVolume(int volume) {
+		GlobalPlayerInfo.setVolume(volume);
+	}
+
+	/**
+	 * 재생 Progress 이동
+	 * 
+	 * @param seek
+	 *            이동 값 0~1 사이
+	 */
+	public void setProgressRate(double seek) {
+		GlobalPlayerInfo.setProgressRate(seek);
+	}
+
+	/**
 	 * 컨트롤러와 관련된 상태 정보
 	 * 
 	 * @return 상태 정보
 	 */
 	public static PlayerStat getPlayerStat() {
+//		LogPrinter.out.debug("요청");
 		return GlobalPlayerInfo.getPlayerStat();
 	}
 }
