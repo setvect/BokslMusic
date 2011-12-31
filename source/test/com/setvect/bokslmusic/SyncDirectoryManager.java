@@ -1,4 +1,4 @@
-package com.setvect.bokslmusic.util;
+package com.setvect.bokslmusic;
 
 import java.util.List;
 

@@ -59,5 +59,6 @@
 		<button id="shuffleBtn">뒤죽박죽</button>
 	</div>	
 	<table id="playListTable1" class="playListTable">
+		<tbody></tbody>
 	</table>
 </div>

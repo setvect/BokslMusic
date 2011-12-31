@@ -1,5 +1,7 @@
 package com.setvect.bokslmusic.web.dwr;
 
+import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -8,7 +10,9 @@ import com.setvect.bokslmusic.boot.EnvirmentInit;
 import com.setvect.bokslmusic.player.GlobalPlayerInfo;
 import com.setvect.bokslmusic.player.PlayerStat;
 import com.setvect.bokslmusic.service.music.MusicService;
+import com.setvect.bokslmusic.service.music.MusicSyncService;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
+import com.setvect.bokslmusic.vo.music.MusicDirectory;
 
 /**
  * 프로젝트 목록 제공
@@ -18,7 +22,10 @@ import com.setvect.bokslmusic.vo.music.MusicArticle;
 @Service
 public class MusicDwrService {
 	// TODO 스프링 시작시점에서 Bind가 되지 않는다.
-	private MusicService musicService = (MusicService) EnvirmentInit.getConfigSpring().getBean("MusicService");
+	private static MusicService musicService = (MusicService) EnvirmentInit.getConfigSpring().getBean("MusicService");
+
+	/** 동기화 중 */
+	private static boolean syncing = false;
 
 	/**
 	 * 음악 파일 목록을 조회 함
@@ -27,7 +34,7 @@ public class MusicDwrService {
 	 *            폴더명
 	 * @return 음악 파일 목록
 	 */
-	public List<MusicArticle> getPlayListFolder(String folder) {
+	public static List<MusicArticle> getPlayListFolder(String folder) {
 		List<MusicArticle> result = musicService.getPlayListFolder(folder);
 		return result;
 	}
@@ -38,7 +45,7 @@ public class MusicDwrService {
 	 * @param musicId
 	 *            음악 아이디
 	 */
-	public void addPlayList(String musicId) {
+	public static void addPlayList(String musicId) {
 		MusicArticle article = musicService.getMusicArticle(musicId);
 		GlobalPlayerInfo.addPlayArticle(article);
 	}
@@ -50,7 +57,7 @@ public class MusicDwrService {
 	 *            폴더명
 	 * @return 등록한 음악 갯수
 	 */
-	public int addPlayListFolder(String folder) {
+	public static int addPlayListFolder(String folder) {
 		List<MusicArticle> items = musicService.getPlayListFolder(folder);
 		GlobalPlayerInfo.addPlayArticle(items);
 		return items.size();
@@ -61,7 +68,7 @@ public class MusicDwrService {
 	 * 
 	 * @return 재생 목록
 	 */
-	public List<MusicArticle> getPlayArticle() {
+	public static List<MusicArticle> getPlayArticle() {
 		return GlobalPlayerInfo.getPlayArticle();
 	}
 
@@ -71,7 +78,7 @@ public class MusicDwrService {
 	 * @param idx
 	 *            삭재 할 목록 인덱스
 	 */
-	public void removePlayList(int idx) {
+	public static void removePlayList(int idx) {
 		GlobalPlayerInfo.removePlayList(idx);
 	}
 
@@ -85,14 +92,14 @@ public class MusicDwrService {
 	/**
 	 * 재생 목록 섞이
 	 */
-	public void shufflePlayList() {
+	public static void shufflePlayList() {
 		GlobalPlayerInfo.shuffle();
 	}
 
 	/**
 	 * 중복 제거
 	 */
-	public void deduplication() {
+	public static void deduplication() {
 		GlobalPlayerInfo.deduplication();
 	}
 
@@ -101,21 +108,21 @@ public class MusicDwrService {
 	 * 
 	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
 	 */
-	public int play() {
+	public static int play() {
 		return GlobalPlayerInfo.play();
 	}
 
 	/**
 	 * 일시멈춤
 	 */
-	public void pause() {
+	public static void pause() {
 		GlobalPlayerInfo.pause();
 	}
 
 	/**
 	 * 멈춤
 	 */
-	public void stop() {
+	public static void stop() {
 		GlobalPlayerInfo.stop();
 	}
 
@@ -124,7 +131,7 @@ public class MusicDwrService {
 	 * 
 	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
 	 */
-	public int previous() {
+	public static int previous() {
 		return GlobalPlayerInfo.previous();
 	}
 
@@ -133,7 +140,7 @@ public class MusicDwrService {
 	 * 
 	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
 	 */
-	public int next() {
+	public static int next() {
 		return GlobalPlayerInfo.next();
 	}
 
@@ -143,7 +150,7 @@ public class MusicDwrService {
 	 * @param repeat
 	 *            true면 반복 재생
 	 */
-	public void repeat(boolean repeat) {
+	public static void repeat(boolean repeat) {
 		GlobalPlayerInfo.repeat(repeat);
 	}
 
@@ -153,7 +160,7 @@ public class MusicDwrService {
 	 * @param volume
 	 *            볼륨 : 범위 100~0
 	 */
-	public void setVolume(int volume) {
+	public static void setVolume(int volume) {
 		GlobalPlayerInfo.setVolume(volume);
 	}
 
@@ -163,7 +170,7 @@ public class MusicDwrService {
 	 * @param seek
 	 *            이동 값 0~1 사이
 	 */
-	public void setProgressRate(double seek) {
+	public static void setProgressRate(double seek) {
 		GlobalPlayerInfo.setProgressRate(seek);
 	}
 
@@ -173,7 +180,73 @@ public class MusicDwrService {
 	 * @return 상태 정보
 	 */
 	public static PlayerStat getPlayerStat() {
-//		LogPrinter.out.debug("요청");
+		// LogPrinter.out.debug("요청");
 		return GlobalPlayerInfo.getPlayerStat();
+	}
+
+	/**
+	 * @return 동기화 디렉토리 목록
+	 */
+	public static List<MusicDirectory> getSyncDiretory() {
+		return musicService.getMusicDirectory();
+	}
+
+	/**
+	 * 포함되어 있는 디렉토리 및 DB 기준 동기화를 수행<br>
+	 * 가능성 없는 두개 이상이 스레드 동기성 문제는 무시한다. 일어나도 별 문제 없다<br>
+	 * 
+	 * @return true 동기화 정상, false: 이미 동기화 진행중
+	 */
+	public static boolean syncAll() {
+		if (!syncing) {
+			try {
+				syncing = true;
+				MusicSyncService syncService = (MusicSyncService) EnvirmentInit.getConfigSpring().getBean(
+						"MusicSyncService");
+				List<MusicDirectory> dirs = musicService.getMusicDirectory();
+				for (MusicDirectory dir : dirs) {
+					syncService.syncDirectory(dir.getPath());
+					dir.setSyncDate(new Date());
+					musicService.updateMusicDirectory(dir);
+				}
+				return true;
+			} finally {
+				syncing = false;
+			}
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * 동기화 디렉토리 추가
+	 * 
+	 * @param path
+	 *            동기화할 디렉토리
+	 * @return 성공 여부
+	 */
+	public static boolean addSyncDirectory(String path) {
+		File f = new File(path);
+
+		if (!f.exists() || !f.isDirectory()) {
+			return false;
+		}
+
+		MusicDirectory item = new MusicDirectory();
+		item.setBasePath(path);
+		musicService.createMusicDirectory(item);
+
+		return true;
+	}
+
+	/**
+	 * 동기화 디렉토리 삭제
+	 * 
+	 * @param path
+	 *            동기화 디렉토리
+	 */
+	public static void removeSyncDirectory(String path) {
+		musicService.removeMusicDirectory(path);
 	}
 }

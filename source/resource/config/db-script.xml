@@ -10,7 +10,7 @@
 		<creation>
 			CREATE TABLE TBAA_MUSIC_DIRECTORY(
 				BASE_PATH	varchar(2000) NOT NULL,
-				SYNC_DATE	DATE,				
+				SYNC_DATE	TIMESTAMP,				
 			  PRIMARY KEY  (BASE_PATH)
 			)
 		</creation>
@@ -72,7 +72,7 @@
 			CREATE TABLE TBAE_PLAY_TIME(
 				PLAY_TIME_SEQ			INT NOT NULL,
 				MUSIC_ID					varchar(50) NOT NULL,
-				PLAY_DATE					DATE NOT NULL,
+				PLAY_DATE					TIMESTAMP NOT NULL,
 			  PRIMARY KEY  (PLAY_TIME_SEQ)
 			)
 		</creation>

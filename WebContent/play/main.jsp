@@ -41,9 +41,6 @@
 		display: inline;
 		line-height: 1.1;
 	}	
-	.playListTable tr:hover{
-		color: red; 
-	}
 </style>
 
 <script type="text/javascript">
@@ -66,7 +63,7 @@
 		<ul>
 			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.PLAY_LIST_FORM%>">Play List</a></li>
 			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.ALL_LIST_FORM%>">All List</a></li>			
-			<li><a href="ajax/content2.html">Setting</a></li>
+			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.SETTING_FORM%>">Setting</a></li>
 		</ul>
 	</div>
 </div>

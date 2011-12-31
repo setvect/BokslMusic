@@ -249,4 +249,5 @@
 	
 </div>
 <table id="playListTable2" class="playListTable">
+	<tbody></tbody>
 </table>
