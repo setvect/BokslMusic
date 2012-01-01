@@ -48,6 +48,9 @@
 			  PRIMARY KEY  (ALBUM_SEQ)
 			)
 		</creation>
+		<defaultValue>
+			<query>insert into TBAC_ALBUM(ALBUM_SEQ, NAME) values('0','임시저장')</query>
+		</defaultValue>				
 	</table>	
 
 

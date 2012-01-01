@@ -360,6 +360,14 @@ public abstract class AbstractMusicDao implements MusicDao {
 		session.flush();
 	}
 
+	public void removePlayItemForAlbumSeq(int albumSeq) {
+		Session session = sessionFactory.getCurrentSession();
+		String q = "delete  from PlayItem where albumSeq = ? ";
+		Query query = session.createQuery(q);
+		query.setParameter(0, albumSeq);
+		query.executeUpdate();
+	}
+
 	public void removePlayItem(int albumSeq, String musicId) {
 		Session session = sessionFactory.getCurrentSession();
 		String q = "delete  from PlayItem where albumSeq = ? and musicId =?";

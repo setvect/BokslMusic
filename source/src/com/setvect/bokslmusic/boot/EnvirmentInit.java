@@ -13,9 +13,13 @@ import org.springframework.aop.Advisor;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.TransactionStatus;
 
+import com.setvect.bokslmusic.config.BokslMusicConstant;
 import com.setvect.bokslmusic.config.EnvirmentProperty;
 import com.setvect.bokslmusic.db.DBInitializer;
 import com.setvect.bokslmusic.log.SyncLogPrinter;
+import com.setvect.bokslmusic.player.GlobalPlayerInfo;
+import com.setvect.bokslmusic.service.music.MusicService;
+import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.common.log.LogPrinter;
 
 /**
@@ -76,7 +80,7 @@ public class EnvirmentInit extends HttpServlet {
 		// DB init
 		// H2 데이터 베이스 파일 생성 경로 지정. Spring Initialized 전에 해야됨
 		if (System.getProperty("h2.baseDir") == null) {
-			System.setProperty("h2.baseDir", EnvirmentProperty.getString("com.setvect.bokslmusic.db.path"));
+			System.setProperty("h2.baseDir", BokslMusicConstant.DB_PATH);
 		}
 
 		DBInitializer conn = (DBInitializer) springContext.getBean("db.initializer");
@@ -89,6 +93,12 @@ public class EnvirmentInit extends HttpServlet {
 		AbstractTagItem.logger.setLevel(Level.WARNING);
 		AbstractDataType.logger.setLevel(Level.WARNING);
 		AudioFile.logger.setLevel(Level.WARNING);
+
+		// 이전에 등록된 재생목록 가져오기
+		MusicService musicService = (MusicService) EnvirmentInit.getConfigSpring().getBean("MusicService");
+		Album tempAlbum = musicService.getAlbum(BokslMusicConstant.ALBUM_TEMP);
+		GlobalPlayerInfo.addPlayArticle(tempAlbum.getMusicArticleList());
+		LogPrinter.out.info("Template music list loaded");
 
 		initialize = true;
 		LogPrinter.out.info("Started...");

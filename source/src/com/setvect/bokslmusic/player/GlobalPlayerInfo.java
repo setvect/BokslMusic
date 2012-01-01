@@ -7,8 +7,12 @@ import java.util.List;
 import javazoom.jlgui.basicplayer.BasicPlayer;
 import javazoom.jlgui.basicplayer.BasicPlayerEvent;
 
+import com.setvect.bokslmusic.boot.EnvirmentInit;
+import com.setvect.bokslmusic.config.BokslMusicConstant;
 import com.setvect.bokslmusic.player.AudioPlayer.PlayerStatus;
+import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
+import com.setvect.bokslmusic.vo.music.PlayItem;
 import com.setvect.common.log.LogPrinter;
 
 /**
@@ -45,6 +49,7 @@ public class GlobalPlayerInfo {
 	 */
 	public static void addPlayArticle(List<MusicArticle> items) {
 		playList.addAll(items);
+		savePlayList();
 	}
 
 	/**
@@ -64,6 +69,7 @@ public class GlobalPlayerInfo {
 	 */
 	public static void removePlayList(int idx) {
 		playList.remove(idx);
+		savePlayList();
 	}
 
 	/**
@@ -74,6 +80,7 @@ public class GlobalPlayerInfo {
 	 */
 	public static void addPlayArticle(MusicArticle article) {
 		playList.add(article);
+		savePlayList();
 	}
 
 	/**
@@ -81,6 +88,25 @@ public class GlobalPlayerInfo {
 	 */
 	public static void clearPlayList() {
 		playList.clear();
+		savePlayList();
+	}
+
+	/**
+	 * 재생 목록을 DB저장함. 향후 WAS가 종료되어도 마지막 재생 목록을 기억하기 위함
+	 */
+	private static void savePlayList() {
+		MusicService musicService = (MusicService) EnvirmentInit.getConfigSpring().getBean("MusicService");
+		musicService.removePlayItemForAlbumSeq(BokslMusicConstant.ALBUM_TEMP);
+		int idx = 0;
+		
+		for (MusicArticle music : playList) {
+			PlayItem item = new PlayItem();
+			item.setAlbumSeq(BokslMusicConstant.ALBUM_TEMP);
+			item.setMusicId(music.getMusicId());
+			item.setOrderNo(idx);
+			musicService.createPlayItem(item);
+			idx++;
+		}
 	}
 
 	/**

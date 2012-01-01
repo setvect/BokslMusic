@@ -16,7 +16,7 @@ import com.setvect.bokslmusic.boot.EnvirmentInit;
 import com.setvect.bokslmusic.service.music.MusicService;
 
 /**
- * 앨범 정보
+ * 앨범에 속한 음악 정보 
  * 
  * @version $Id$
  */

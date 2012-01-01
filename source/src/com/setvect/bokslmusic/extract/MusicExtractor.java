@@ -7,22 +7,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.setvect.bokslmusic.config.EnvirmentProperty;
+import com.setvect.bokslmusic.config.BokslMusicConstant;
 import com.setvect.common.util.FileUtil;
 
 public class MusicExtractor {
-
-	private static final String[] EXT;
-	static {
-		EXT = EnvirmentProperty.getStringArray("com.setvect.bokslmusic.audio_ext");
-	}
 
 	/**
 	 * @param baseDir
 	 * @return
 	 */
 	public static List<MusicMetadata> listForDir(final File baseDir) {
-		FileFinder finder = new FileFinder(baseDir, EXT);
+		FileFinder finder = new FileFinder(baseDir, BokslMusicConstant.MUSIC_EXT);
 		List<File> musicFiles = finder.getFiles();
 		List<MusicMetadata> musicMeta = new ArrayList<MusicMetadata>();
 		for (File f : musicFiles) {

@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.setvect.bokslmusic.config.BokslMusicConstant;
 import com.setvect.bokslmusic.db.MusicDao;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
@@ -161,6 +162,9 @@ public class MusicService {
 	}
 
 	public void removeAlbum(int albumSeq) {
+		if (albumSeq == BokslMusicConstant.ALBUM_TEMP) {
+			throw new RuntimeException("임시저장 앨범은 삭제 할 수 없음.");
+		}
 		musicArticleDao.removeAlbum(albumSeq);
 	}
 
@@ -210,6 +214,10 @@ public class MusicService {
 
 	public void removePlayItem(int playItemSeq) {
 		musicArticleDao.removePlayItem(playItemSeq);
+	}
+
+	public void removePlayItemForAlbumSeq(int albumSeq) {
+		musicArticleDao.removePlayItemForAlbumSeq(albumSeq);
 	}
 
 	public void removePlayItem(int album, String musicId) {

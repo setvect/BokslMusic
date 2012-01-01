@@ -191,6 +191,14 @@ public interface MusicDao {
 	public void removePlayItem(int playItemSeq);
 
 	/**
+	 * 앨범에 있는 모든 항목 삭제 
+	 * 
+	 * @param albumSeq
+	 *            재생 파일 일련번호
+	 */
+	public void removePlayItemForAlbumSeq(int albumSeq);
+
+	/**
 	 * @param album
 	 *            앨범 일련번호
 	 * @param musicId
