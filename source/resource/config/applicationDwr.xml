@@ -34,6 +34,9 @@
 		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.MusicDirectory">
 			<dwr:exclude method="path"/>
 		</dwr:convert>
+
+		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.Album">
+		</dwr:convert>
 		
 		<dwr:convert type="enum" class="com.setvect.bokslmusic.player.AudioPlayer$PlayerStatus">
 		</dwr:convert>				

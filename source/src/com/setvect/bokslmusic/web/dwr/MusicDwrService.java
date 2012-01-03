@@ -1,6 +1,8 @@
 package com.setvect.bokslmusic.web.dwr;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import com.setvect.bokslmusic.player.GlobalPlayerInfo;
 import com.setvect.bokslmusic.player.PlayerStat;
 import com.setvect.bokslmusic.service.music.MusicService;
 import com.setvect.bokslmusic.service.music.MusicSyncService;
+import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
 
@@ -248,5 +251,31 @@ public class MusicDwrService {
 	 */
 	public static void removeSyncDirectory(String path) {
 		musicService.removeMusicDirectory(path);
+	}
+
+	/**
+	 * 앨범 목록
+	 * 
+	 * @return 앨범 목록
+	 */
+	public static List<Album> getAlbumList() {
+		Collection<Album> a = musicService.getAlbumListAll();
+		// TODO 임시 저장은 보내지 않음
+		List<Album> result = new ArrayList<Album>();
+		result.addAll(a);
+		return result;
+	}
+
+	/**
+	 * 음악 앨범 선택. 선택한 앨범의 음악이 재생 목록에 추가
+	 * 
+	 * @param albumSeq
+	 *            앨범 번호
+	 */
+	public static void useAlbum(int albumSeq) {
+		Album album = musicService.getAlbum(albumSeq);
+		List<MusicArticle> musicList = album.getMusicArticleList();
+		GlobalPlayerInfo.clearPlayList();
+		GlobalPlayerInfo.addPlayArticle(musicList);
 	}
 }

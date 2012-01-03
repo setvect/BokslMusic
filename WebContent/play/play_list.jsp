@@ -64,6 +64,11 @@
 				$( "#seekSlider" ).slider("value", statInfo.progressRate * 1000);				
 			}
 		});
+		
+		
+		$(".musicTitle").bind("click", function(event){
+			
+		});
 	};
 
 	
@@ -145,9 +150,6 @@
 			});
 		});
 
-		$( "#shuffle" ).button().click(function(){
-			MusicControl.shuffle();
-		});
 		$( "#repeat" ).buttonset();
 		
 		
@@ -210,11 +212,66 @@
 				});
 			}			
 		});
+
+		// 하단 버튼
+		$( "#shuffle" ).button().click(function(){
+			MusicControl.shuffle();
+		});
+
+		$( "#albumList" ).button().click(function(){
+			var v = $("#albumChoiceTable").css("display");
+			if(v=="none"){
+				MusicControl.loadAlbumList(function(albumList){
+					var tableObj = $("#albumChoiceList").get(0);
+					var n = tableObj.rows.length;
+					for ( var i = n - 1; i >= 0; i--) {
+						tableObj.deleteRow(i);
+					}
+
+					for ( var i = 0; i < albumList.length; i++) {
+						var article = albumList[i];
+						var row = tableObj.insertRow(i);
+						var cell = row.insertCell(0);
+						cell.innerHTML = i + 1;
+
+						cell = row.insertCell(1);
+						cell.innerHTML = article.name;
+
+						cell = row.insertCell(2);
+						cell.innerHTML = article.musicArticleList.length;
+						
+						var time =0;
+						for(var j =0; j < article.musicArticleList.length;j++){
+							time += article.musicArticleList[i].runningTime;			
+						}
+						cell = row.insertCell(3);
+						cell.innerHTML = $u.DATE.toMinSec(time);
+						
+						cell = row.insertCell(4);
+						cell.innerHTML = "<button class='albumChoiceBtn' value='" + article.albumSeq + "'>선택</button>";
+					}
+					
+					// 앨범 항목 선택
+					$(".albumChoiceBtn").button();
+					$(".albumChoiceBtn").bind("click", function(event){
+						musicDwr.useAlbum(event.delegateTarget.value, function(){
+							MusicControl.playListPrint();
+						});
+					});
+					$("#albumChoiceTable").css("display", "block");
+				});
+			}
+			else{
+				$("#albumChoiceTable").css("display", "none");
+			}
+		});
 		
 		// 1초마다 설정 정보 갱신
 		if(playerObj.polling == null){
 			playerObj.polling = setInterval( playerObj.initViewPage, 1000 );
 		}
+		
+
 	});
 </script>
 <div>
@@ -223,9 +280,8 @@
 		<button id="play">play</button>
 		<button id="stop">stop</button>
 		<button id="forward">fast forward</button>
-		<input type="checkbox" id="shuffle" /><label for="shuffle">Shuffle</label>
 		<span id="repeat">
-			<input type="radio" id="repeat0" name="repeat" checked="checked" /><label for="repeat0">No Repeat</label>
+			<input type="radio" id="repeat0" name="repeat" checked="checked" /><label for="repeat0">No Rep.</label>
 			<input type="radio" id="repeatall" name="repeat"/><label for="repeatall">All</label>
 		</span>
 	</div>
@@ -247,7 +303,28 @@
 		</li>
 	</ul>
 	
+	<table id="playListTable2" class="playListTable">
+		<tbody></tbody>
+	</table>	
+	
+	<div class="toolbar ui-widget-header ui-corner-all" style="margin-top: 10px;">
+		<button id="shuffle">뒤죽박죽</button>
+		<button id="albumSave">앨범저장</button>
+		<button id="albumList">앨범목록</button>
+	</div>
+	<div id="albumChoiceTable" style="display: none;">
+		<table class="playListTable">
+			<thead style="background-color: #fee">
+				<tr>
+					<th>번호</th>
+					<th>앨범이름</th>
+					<th>노래곡수</th>
+					<th>재생시간</th>
+					<th>선택</th>
+				</tr>
+			</thead>
+			<tbody id="albumChoiceList">
+			</tbody>
+		</table>
+	</div>
 </div>
-<table id="playListTable2" class="playListTable">
-	<tbody></tbody>
-</table>
