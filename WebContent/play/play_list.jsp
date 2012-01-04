@@ -65,7 +65,6 @@
 			}
 		});
 		
-		
 		$(".musicTitle").unbind("click");
 		$(".musicTitle").bind("click", function(event){
 			var obj = event.delegateTarget;
@@ -73,8 +72,28 @@
 			musicDwr.play(musicId);
 		});
 	};
-
 	
+	// 재생창 토글
+	function playlistToggle(){
+		var display = $("#playListTableLayer").css("display");
+		if(display == "none"){
+			$("#playListTableLayer").css("display", "block");
+		}
+		else{
+			$("#playListTableLayer").css("display", "none");
+		}
+	}
+	// 가사창 토글
+	function lyricsToggle(){
+		var display = $("#lyricsLayer").css("display");
+		if(display == "none"){
+			$("#lyricsLayer").css("display", "block");
+		}
+		else{
+			$("#lyricsLayer").css("display", "none");
+		}
+	}
+
 	$(function () {
 		// ====== 컨트롤 버튼
 		$( "#rewind" ).button({
@@ -334,10 +353,18 @@
 			<div id="seekSlider"></div>
 		</li>
 	</ul>
-	
-	<table id="playListTable2" class="playListTable">
-		<tbody></tbody>
-	</table>	
+	<div class="toolbar ui-widget-header ui-corner-all" style="padding: 2px; cursor: pointer;" onclick="playlistToggle()">재생 목록</div>
+	<div id="playListTableLayer">
+		<table id="playListTable2" class="playListTable">
+			<tbody></tbody>
+		</table>	
+	</div>
+	<div class="toolbar ui-widget-header ui-corner-all" style="padding: 2px; cursor: pointer;" onclick="lyricsToggle()">가사</div>
+	<div id="lyricsLayer">
+		노래들..<br>
+		asfsfdsdf
+		
+	</div>	
 	
 	<div class="toolbar ui-widget-header ui-corner-all" style="margin-top: 10px;">
 		<button id="shuffle">뒤죽박죽</button>

@@ -57,7 +57,7 @@
 		<button id="clearPlayListBtn">전체제거</button>
 		<button id="deduplicationBtn">중복제거</button>
 		<button id="shuffleBtn">뒤죽박죽</button>
-	</div>	
+	</div>
 	<table id="playListTable1" class="playListTable">
 		<tbody></tbody>
 	</table>
