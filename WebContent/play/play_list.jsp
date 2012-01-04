@@ -218,6 +218,12 @@
 			MusicControl.shuffle();
 		});
 
+		// 앨범 저장
+		$( "#albumSave" ).button().click(function(){
+			$( "#album-dialog").dialog( "open" );
+		});
+		
+		// 앨범 목록
 		$( "#albumList" ).button().click(function(){
 			var v = $("#albumChoiceTable").css("display");
 			if(v=="none"){
@@ -266,12 +272,35 @@
 			}
 		});
 		
+		// 앨범 저장 다이얼로그
+		$( "#album-dialog" ).dialog({
+			autoOpen: false,
+			height: 150,
+			width: 300,
+			modal: true,
+			buttons: {
+				"등록": function() {
+					var name = $("#album_name").get(0);
+					if(name.value == ""){
+						alert("이름 입력!");
+						name.focus();
+						name.select();
+						return;
+					}
+					musicDwr.saveAlbum(name.value,function(){
+						$( "#album-dialog" ).dialog( "close" );
+					});
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+		
 		// 1초마다 설정 정보 갱신
 		if(playerObj.polling == null){
 			playerObj.polling = setInterval( playerObj.initViewPage, 1000 );
 		}
-		
-
 	});
 </script>
 <div>
@@ -328,3 +357,11 @@
 		</table>
 	</div>
 </div>
+
+<div id="album-dialog" title="앨범 등록">
+	<fieldset>
+		<label for="name">이름</label>
+		<input type="text" name="name" id="album_name" class="ui-widget-content ui-corner-all" />
+	</fieldset>
+</div>
+

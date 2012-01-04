@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.setvect.bokslmusic.config.BokslMusicConstant;
 import com.setvect.bokslmusic.db.MusicDao;
 import com.setvect.bokslmusic.service.music.AlbumSearch;
 import com.setvect.bokslmusic.service.music.MusicArticleSearch;
@@ -255,7 +256,8 @@ public abstract class AbstractMusicDao implements MusicDao {
 	}
 
 	private String getAlbumWhereClause(AlbumSearch pageCondition) {
-		String where = " where 1 = 1 ";
+		// 임시저장 앨범은 목록에서 조회 하지 않음
+		String where = " where albumSeq <>  " + BokslMusicConstant.ALBUM_TEMP;
 		String name = pageCondition.getSearchName();
 		if (StringUtilAd.isNotEmpty(name)) {
 			where += " and name = " + StringUtilAd.getSqlStringLike(name);

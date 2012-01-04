@@ -16,6 +16,7 @@ import com.setvect.bokslmusic.service.music.MusicSyncService;
 import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
+import com.setvect.bokslmusic.vo.music.PlayItem;
 
 /**
  * 프로젝트 목록 제공
@@ -277,5 +278,26 @@ public class MusicDwrService {
 		List<MusicArticle> musicList = album.getMusicArticleList();
 		GlobalPlayerInfo.clearPlayList();
 		GlobalPlayerInfo.addPlayArticle(musicList);
+	}
+
+	/**
+	 * 현재 플레이 음악 앨범 저장
+	 * 
+	 * @param name
+	 *            앨범 이름
+	 */
+	public static void saveAlbum(String name) {
+		Album saveAlbum = new Album();
+		saveAlbum.setName(name);
+		musicService.createAlbum(saveAlbum);
+		List<MusicArticle> list = GlobalPlayerInfo.getPlayArticle();
+		int order = 0;
+		for(MusicArticle aa : list){
+			PlayItem item = new PlayItem();
+			item.setAlbumSeq(saveAlbum.getAlbumSeq());
+			item.setMusicId(aa.getMusicId());
+			item.setOrderNo(order++);
+			musicService.createPlayItem(item );
+		}
 	}
 }

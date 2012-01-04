@@ -14,5 +14,5 @@ public class BokslMusicConstant {
 	public static final String DB_PATH = EnvirmentProperty.getString("com.setvect.bokslmusic.db.path");
 
 	/** 임시저장용으로 사용되는 앨범 번호 */
-	public static final int ALBUM_TEMP = 0;
+	public static final int ALBUM_TEMP = 1;
 }
