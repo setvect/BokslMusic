@@ -117,6 +117,17 @@ public class MusicDwrService {
 	}
 
 	/**
+	 * 현재 재생 목록에 해당 하는 음악 아이디가 없으면 작업 요청을 무시한다.
+	 * 
+	 * @param musicId
+	 *            음악 아이디
+	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
+	 */
+	public static int play(String musicId) {
+		return GlobalPlayerInfo.play(musicId);
+	}
+
+	/**
 	 * 일시멈춤
 	 */
 	public static void pause() {

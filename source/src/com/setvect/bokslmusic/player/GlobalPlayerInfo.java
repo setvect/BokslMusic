@@ -98,7 +98,7 @@ public class GlobalPlayerInfo {
 		MusicService musicService = (MusicService) EnvirmentInit.getConfigSpring().getBean("MusicService");
 		musicService.removePlayItemForAlbumSeq(BokslMusicConstant.ALBUM_TEMP);
 		int idx = 0;
-		
+
 		for (MusicArticle music : playList) {
 			PlayItem item = new PlayItem();
 			item.setAlbumSeq(BokslMusicConstant.ALBUM_TEMP);
@@ -151,6 +151,24 @@ public class GlobalPlayerInfo {
 			playerStat.setPlayArticle(playMusic);
 		}
 		return playerStat.getPlayIndex();
+	}
+
+	/**
+	 * 현재 재생 목록에 해당 하는 음악 아이디가 없으면 작업 요청을 무시한다.
+	 * 
+	 * @param musicId
+	 *            음악 아이디
+	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
+	 */
+	public static int play(String musicId) {
+		for (int i = 0; i < playList.size(); i++) {
+			MusicArticle a = playList.get(i);
+			if (a.getMusicId().equals(musicId)) {
+				playerStat.setPlayIndex(i);
+				break;
+			}
+		}
+		return play();
 	}
 
 	/**
