@@ -61,9 +61,10 @@
 <div id="wrap">
 	<div id="tabs">
 		<ul>
-			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.PLAY_LIST_FORM%>">Play List</a></li>
-			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.ALL_LIST_FORM%>">All List</a></li>			
-			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.SETTING_FORM%>">Setting</a></li>
+			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.PLAY_LIST_FORM%>">재생</a></li>
+			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.ALL_LIST_FORM%>">노래들</a></li>
+			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.ALBUM_FORM%>">앨범</a></li>			
+			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.SETTING_FORM%>">설정</a></li>
 		</ul>
 	</div>
 </div>

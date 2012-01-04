@@ -364,4 +364,3 @@
 		<input type="text" name="name" id="album_name" class="ui-widget-content ui-corner-all" />
 	</fieldset>
 </div>
-

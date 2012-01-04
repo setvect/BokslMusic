@@ -281,6 +281,32 @@ public class MusicDwrService {
 	}
 
 	/**
+	 * 앨범 불러 오기
+	 * 
+	 * @param albumSeq
+	 *            앨범 아이디
+	 * @return 앨범
+	 */
+	public static Album getAlbum(int albumSeq) {
+		Album album = musicService.getAlbum(albumSeq);
+		return album;
+	}
+
+	/**
+	 * 앨범 이름 수정
+	 * 
+	 * @param albumSeq
+	 *            앨범 아이디
+	 * @param name
+	 *            앨범 이름
+	 */
+	public static void updateAlbum(int albumSeq, String name) {
+		Album album = musicService.getAlbum(albumSeq);
+		album.setName(name);
+		musicService.updateAlbum(album);
+	}
+
+	/**
 	 * 현재 플레이 음악 앨범 저장
 	 * 
 	 * @param name
@@ -292,12 +318,22 @@ public class MusicDwrService {
 		musicService.createAlbum(saveAlbum);
 		List<MusicArticle> list = GlobalPlayerInfo.getPlayArticle();
 		int order = 0;
-		for(MusicArticle aa : list){
+		for (MusicArticle aa : list) {
 			PlayItem item = new PlayItem();
 			item.setAlbumSeq(saveAlbum.getAlbumSeq());
 			item.setMusicId(aa.getMusicId());
 			item.setOrderNo(order++);
-			musicService.createPlayItem(item );
+			musicService.createPlayItem(item);
 		}
+	}
+
+	/**
+	 * 앨범 삭제
+	 * 
+	 * @param albumSeq
+	 *            앨범 아이디
+	 */
+	public static void removeAlbum(int albumSeq) {
+		musicService.removeAlbum(albumSeq);
 	}
 }

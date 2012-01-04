@@ -24,7 +24,7 @@ public class MusicListController {
 	 * 서브 명령어 정의
 	 */
 	public static enum Mode {
-		ALL_LIST_FORM, PLAY_LIST_FORM, SETTING_FORM
+		ALL_LIST_FORM, PLAY_LIST_FORM, ALBUM_FORM, SETTING_FORM
 	}
 
 	/**
@@ -61,6 +61,9 @@ public class MusicListController {
 			List<MusicArticle> playList = GlobalPlayerInfo.getPlayArticle();
 			mav.addObject(AttributeKey.PLAY_LIST.name(), playList);
 			mav.setViewName("play/play_list");
+		}
+		else if (mode == Mode.ALBUM_FORM) {
+			mav.setViewName("play/album");
 		}
 		else if (mode == Mode.SETTING_FORM) {
 			mav.setViewName("play/setting");
