@@ -52,6 +52,12 @@
 </style>
 
 <script type="text/javascript">
+
+	var playerObj = new Object();
+	// 폴링 객체 
+	playerObj.polling;
+
+
 	$(function() {
 		$( "#tabs" ).tabs({
 			ajaxOptions: {

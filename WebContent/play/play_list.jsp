@@ -2,7 +2,9 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <script type="text/javascript">
-	var playerObj = new Object();
+	
+	// playerObj 객체는 상위 페이지(main.jsp)에서 선언됨. 여러번 선어되어 다수의 폴링이 발생하는 걸 방지
+	
 	// 현재 재생중인 음악 전체 길이(초)
 	playerObj.playLength = 0;
 	
@@ -10,9 +12,6 @@
 	playerObj.volumeOver = false;
 	// 재생 슬라이더 조정 중 
 	playerObj.seekOver = false;
-	
-	// 폴링 객체 
-	playerObj.polling;
 	
 	// 현재 재생 중인 음악 하일라이트
 	playerObj.tableHighlight = function(idx){
@@ -91,22 +90,17 @@
 	// 재생창 토글
 	function playlistToggle(){
 		var display = $("#playListTableLayer").css("display");
-		if(display == "none"){
-			$("#playListTableLayer").css("display", "block");
-		}
-		else{
-			$("#playListTableLayer").css("display", "none");
-		}
+		var value = display == "none" ? "block" : "none";
+		$("#playListTableLayer").css("display", value);
+		$u.COOKIE.setCookieInstacne("playListTableLayer", value, "/");
 	}
+	
 	// 가사창 토글
 	function lyricsToggle(){
 		var display = $("#lyricsLayer").css("display");
-		if(display == "none"){
-			$("#lyricsLayer").css("display", "block");
-		}
-		else{
-			$("#lyricsLayer").css("display", "none");
-		}
+		var value = display == "none" ? "block" : "none";
+		$("#lyricsLayer").css("display", value);
+		$u.COOKIE.setCookieInstacne("lyricsLayer", value, "/");
 	}
 
 	$(function () {
@@ -333,6 +327,18 @@
 				}
 			}
 		});
+		
+		// 재생창 토글
+		var display = $u.COOKIE.getCookie("playListTableLayer");
+		if(display != null){
+			$("#playListTableLayer").css("display", display);
+		}
+		
+		// 가사창 토글
+		display = $u.COOKIE.getCookie("lyricsLayer");
+		if(display != null){
+			$("#lyricsLayer").css("display", display);
+		}
 		
 		// 1초마다 설정 정보 갱신
 		if(playerObj.polling == null){

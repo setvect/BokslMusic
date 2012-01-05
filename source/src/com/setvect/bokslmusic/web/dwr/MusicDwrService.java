@@ -17,6 +17,7 @@ import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.bokslmusic.vo.music.PlayItem;
+import com.setvect.common.log.LogPrinter;
 
 /**
  * 프로젝트 목록 제공
@@ -195,7 +196,6 @@ public class MusicDwrService {
 	 * @return 상태 정보
 	 */
 	public static PlayerStat getPlayerStat() {
-		// LogPrinter.out.debug("요청");
 		return GlobalPlayerInfo.getPlayerStat();
 	}
 
