@@ -15,4 +15,7 @@ public class BokslMusicConstant {
 
 	/** 임시저장용으로 사용되는 앨범 번호 */
 	public static final int ALBUM_TEMP = 1;
+
+	/** 노래 가사 하일라이트 부분 태그 */
+	public static final String LYRICS_HIGHLIGHT_TAG = "strong";
 }

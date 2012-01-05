@@ -255,7 +255,14 @@ public class GlobalPlayerInfo {
 		playerStat.setPlayStatus(AudioPlayer.getStatus());
 		int volume = (int) (AudioPlayer.getVolume() * 100);
 		playerStat.setVolume(volume);
-		playerStat.setProgressRate(AudioPlayer.getProgressRate());
+		
+		double progressRate = AudioPlayer.getProgressRate();
+		playerStat.setProgressRate(progressRate);
+		MusicArticle a = playerStat.getPlayArticle();
+		if (a != null) {
+			int t = (int) (progressRate * a.getRunningTime());
+			a.setCurrentTime(t);
+		}
 		return playerStat;
 	}
 

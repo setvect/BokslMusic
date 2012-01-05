@@ -41,6 +41,14 @@
 		display: inline;
 		line-height: 1.1;
 	}	
+	
+	#lyricsLayer{
+		height: 80px; 
+		overflow: auto; 
+		background-color: #fea;
+		padding-left: 10px;
+		line-height: 150%;
+	}
 </style>
 
 <script type="text/javascript">

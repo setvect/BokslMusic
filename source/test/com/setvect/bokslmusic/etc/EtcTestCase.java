@@ -3,7 +3,8 @@ package com.setvect.bokslmusic.etc;
 import org.junit.Test;
 
 public class EtcTestCase {
-	@Test
+
+	// @Test
 	public void testFormat() {
 		System.out.println(String.format("%,d", 3223));
 

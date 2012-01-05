@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<soap:Body>
+		<GetLyric5Response xmlns="ALSongWebServer">
+			<GetLyric5Result>
+				<strStatusID>2</strStatusID>
+				<strInfoID>-1</strInfoID>
+				<strRegistDate />
+				<strTitle />
+				<strArtist />
+				<strAlbum />
+				<strCountGood>0</strCountGood>
+				<strCountBad>0</strCountBad>
+				<strLyric />
+				<strRegisterFirstName />
+				<strRegisterFirstEMail />
+				<strRegisterFirstURL />
+				<strRegisterFirstPhone />
+				<strRegisterFirstComment />
+				<strRegisterName />
+				<strRegisterEMail />
+				<strRegisterURL />
+				<strRegisterPhone />
+				<strRegisterComment />
+			</GetLyric5Result>
+		</GetLyric5Response>
+	</soap:Body>
+</soap:Envelope>

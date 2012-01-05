@@ -74,7 +74,6 @@ class AudioPlayer {
 	public static void play() {
 		try {
 			player.play();
-			status = PlayerStatus.PLAY;
 			resetVolume();
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
@@ -89,7 +88,6 @@ class AudioPlayer {
 	public static void pause() {
 		try {
 			player.pause();
-			status = PlayerStatus.PAUSE;
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
 			throw new RuntimeException(e);
@@ -102,7 +100,6 @@ class AudioPlayer {
 	public static void stop() {
 		try {
 			player.stop();
-			status = PlayerStatus.STOP;
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
 			throw new RuntimeException(e);
@@ -118,7 +115,6 @@ class AudioPlayer {
 	public static void resume() {
 		try {
 			player.resume();
-			status = PlayerStatus.PLAY;
 			resetVolume();
 		} catch (BasicPlayerException e) {
 			LogPrinter.out.warn(e);
@@ -230,11 +226,20 @@ class AudioPlayer {
 				state.event(event);
 			}
 
-			if (event.getCode() == BasicPlayerEvent.STOPPED) {
+			int code = event.getCode();
+			if (code == BasicPlayerEvent.STOPPED) {
 				AudioPlayer.status = PlayerStatus.STOP;
 				progressRate = 0;
 			}
-
+			else if (code == BasicPlayerEvent.PLAYING) {
+				AudioPlayer.status = PlayerStatus.PLAY;
+			}
+			else if (code == BasicPlayerEvent.PAUSED) {
+				AudioPlayer.status = PlayerStatus.PAUSE;
+			}
+			else if (code == BasicPlayerEvent.RESUMED) {
+				AudioPlayer.status = PlayerStatus.PLAY;
+			}
 		}
 
 		public void setController(BasicController controller) {

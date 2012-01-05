@@ -63,8 +63,23 @@
 				}
 				$( "#seekSlider" ).slider("value", statInfo.progressRate * 1000);				
 			}
+			if(statInfo.playArticle != null){
+				$("#lyricsLayer").html("");
+				$("#lyricsLayer").append(statInfo.playArticle.lyricsHighlight.replace(/\n/g,"<br/>"));
+
+				// 스코롤 자동이동
+				var div = $('#lyricsLayer').get(0);
+				var htline = $('#lyricsLayer strong').get(0);
+				if(htline!=null){
+					div.scrollTop = htline.offsetTop - div.offsetTop - 30;
+				}
+				else{
+					div.scrollTop = 0;
+				}
+			}
 		});
 		
+		$(".musicTitle").css("cursor","pointer");
 		$(".musicTitle").unbind("click");
 		$(".musicTitle").bind("click", function(event){
 			var obj = event.delegateTarget;
@@ -360,10 +375,7 @@
 		</table>	
 	</div>
 	<div class="toolbar ui-widget-header ui-corner-all" style="padding: 2px; cursor: pointer;" onclick="lyricsToggle()">가사</div>
-	<div id="lyricsLayer">
-		노래들..<br>
-		asfsfdsdf
-		
+	<div id="lyricsLayer" class="ui-widget-content ui-corner-all">
 	</div>	
 	
 	<div class="toolbar ui-widget-header ui-corner-all" style="margin-top: 10px;">

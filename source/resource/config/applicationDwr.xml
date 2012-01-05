@@ -25,7 +25,7 @@
 
 	<dwr:configuration>
 		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.MusicArticle">
-			<dwr:include method="musicId, name, runningTime"/>
+			<dwr:include method="musicId, name, runningTime, lyricsHighlight"/>
 		</dwr:convert>
 
 		<dwr:convert type="bean" class="com.setvect.bokslmusic.player.PlayerStat">

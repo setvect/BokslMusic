@@ -95,8 +95,8 @@ public final class AlSongMetadata {
 		sb.append("<ns1:GetLyric5>");
 		sb.append("<ns1:stQuery>");
 		sb.append("<ns1:strChecksum>").append(md5Str).append("</ns1:strChecksum>");
-		sb.append("<ns1:strVersion>1.93</ns1:strVersion>");
-		sb.append("<ns1:strMACAddress>005056C00001</ns1:strMACAddress>");
+		sb.append("<ns1:strVersion>2.7</ns1:strVersion>");
+		sb.append("<ns1:strMACAddress>01AF5C060D23</ns1:strMACAddress>");
 		sb.append("<ns1:strIPAddress>192.168.1.2</ns1:strIPAddress>");
 		sb.append("</ns1:stQuery>");
 		sb.append("</ns1:GetLyric5>");
@@ -117,7 +117,6 @@ public final class AlSongMetadata {
 			throw new RuntimeException(e);
 		}
 		resultXml = retValue;
-
 		try {
 			parsing();
 		} catch (Exception e) {
