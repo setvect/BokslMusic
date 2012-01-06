@@ -2,41 +2,10 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <script type="text/javascript">
-	function loadSyncList(){
-		musicDwr.getSyncDiretory(function(syncDiretory){
-			var tableObj = $("#syncListTable").get(0);
-			
-			var n = tableObj.rows.length;
-			for(var i=n-1; i>=0; i--){
-				tableObj.deleteRow(i);
-			}
-			
-			for(var i=0; i<syncDiretory.length; i++){
-				var row = tableObj.insertRow(i);
-				var cell = row.insertCell(0);
-				cell.innerHTML= syncDiretory[i].basePath;
-				cell = row.insertCell(1);
-				if(syncDiretory[i].syncDate == null){
-					cell.innerHTML= syncDiretory[i].syncDate="&nbsp;";
-				}
-				else{
-					cell.innerHTML= syncDiretory[i].syncDate.format("yyyy-MM-dd HH:mm:ss");	
-				}
-				 
-				cell = row.insertCell(2);
-				cell.innerHTML= "<button class='deleteDirectoryBtn' value='"+ syncDiretory[i].basePath +"'>삭제</button>";
-			}
-			$("button").button();
-			$(".deleteDirectoryBtn").bind("click", function(e){
-				musicDwr.removeSyncDirectory(e.delegateTarget.value, function(){
-					loadSyncList();
-				});
-			});
-		});
-	}
+
 	
 	$(function () {
-		loadSyncList();
+		SyncControl.loadSyncList();
 		$("#syncBtn").bind("click",function(){
 			musicDwr.syncAll(function(result){
 				if(result){
@@ -56,7 +25,7 @@
 			
 			musicDwr.addSyncDirectory(textForm.value, function(result){
 				if(result){
-					loadSyncList();
+					SyncControl.loadSyncList();
 				}	
 				else{
 					alert("동기화 디렉토리가 존재 하지 않습니다.");

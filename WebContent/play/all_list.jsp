@@ -6,7 +6,7 @@
 		$("#musicList").treeview({
 			persist: "cookie",
 			cookieId: "treeview-black",			
-			toggle: MusicControl.expandFolder
+			toggle: FolderControl.expandFolder
 		});
 		
 		$( "#playlist-dialog" ).dialog({
@@ -22,14 +22,14 @@
 			}
 		});
 		
-		MusicControl.playListTableId = "playListTable1";
+		PlayListControl.playListTableId = "playListTable1";
 		
 		$("button").button();
-		$("#musicList button").bind("click", MusicControl.addFolder);
-		$("#openPlayListBtn").bind("click", MusicControl.openPlayList);
-		$("#clearPlayListBtn").bind("click", MusicControl.clearPlayList);
-		$("#deduplicationBtn").bind("click", MusicControl.deduplication);
-		$("#shuffleBtn").bind("click", MusicControl.shuffle);
+		$("#musicList button").bind("click", PlayListControl.addFolder);
+		$("#openPlayListBtn").bind("click", PlayListControl.openPlayList);
+		$("#clearPlayListBtn").bind("click", PlayListControl.clearPlayList);
+		$("#deduplicationBtn").bind("click", PlayListControl.deduplication);
+		$("#shuffleBtn").bind("click", PlayListControl.shuffle);
 		$("#musicList .ui-button-text").css("display", "inline").css("line-height", "1.1");
 	});
 </script>

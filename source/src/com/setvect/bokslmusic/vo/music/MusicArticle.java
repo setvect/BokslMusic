@@ -225,14 +225,14 @@ public class MusicArticle {
 
 		int highlightIdx = -1;
 		for (int i = 0; i < lyricsTime.size(); i++) {
-			if (currentTime - 1 < lyricsTime.get(i).time) {
+			if (currentTime < lyricsTime.get(i).time) {
 				break;
 			}
 			highlightIdx = i;
 		}
 
 		StringBuffer lyr = new StringBuffer();
-		lyr.append(this.getTitleExt() + "\n\n");
+		lyr.append(this.getTitleExt() + "-" + this.getArtistExt() + "\n\n");
 		for (int i = 0; i < lyricsTime.size(); i++) {
 			LyricsTime lt = lyricsTime.get(i);
 			if (i == highlightIdx) {

@@ -2,59 +2,8 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <script type="text/javascript">
-	function listLoad(){
-		MusicControl.loadAlbumList(function(albumList){
-			var tableObj = $("#albumTableList").get(0);
-			var n = tableObj.rows.length;
-			for ( var i = n - 1; i >= 0; i--) {
-				tableObj.deleteRow(i);
-			}
-
-			for ( var i = 0; i < albumList.length; i++) {
-				var article = albumList[i];
-				var row = tableObj.insertRow(i);
-				var cell = row.insertCell(0);
-				cell.innerHTML = i + 1;
-
-				cell = row.insertCell(1);
-				cell.innerHTML = article.name;
-
-				cell = row.insertCell(2);
-				cell.innerHTML = article.musicArticleList.length;
-				
-				var time =0;
-				for(var j =0; j < article.musicArticleList.length;j++){
-					time += article.musicArticleList[i].runningTime;			
-				}
-				cell = row.insertCell(3);
-				cell.innerHTML = $u.DATE.toMinSec(time);
-				
-				cell = row.insertCell(4);
-				cell.innerHTML = "<button class='changeNameBtn' value='" + article.albumSeq + "'>변경</button>";
-				
-				cell = row.insertCell(5);
-				cell.innerHTML = "<button class='removeBtn' value='" + article.albumSeq + "'>삭제</button>";
-			}
-			
-			$(".changeNameBtn").button().click(function(event){
-				musicDwr.getAlbum(event.delegateTarget.value, function(album){
-					$("#album_update_name").get(0).value = album.name;;
-					$("#album_update_id").get(0).value = album.albumSeq;;
-					$("#album-update-dialog").dialog( "open" );
-				});
-			});
-			$(".removeBtn").button().click(function(event){
-				musicDwr.removeAlbum(event.delegateTarget.value, function(){
-					listLoad();					
-				});
-			});
-		});
-	}
-	
-	
 	$(function () {
-		listLoad();
-
+		AlbumControl.listLoad();
 		// 앨범이름 수정 다이얼로그
 		$( "#album-update-dialog" ).dialog({
 			autoOpen: false,
@@ -80,7 +29,7 @@
 				}
 			},
 			close: function() {
-				listLoad();		
+				AlbumControl.listLoad();		
 			}					
 		});
 	});

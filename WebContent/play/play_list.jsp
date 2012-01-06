@@ -2,91 +2,6 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <script type="text/javascript">
-	
-	// playerObj 객체는 상위 페이지(main.jsp)에서 선언됨. 여러번 선어되어 다수의 폴링이 발생하는 걸 방지
-	
-	// 현재 재생중인 음악 전체 길이(초)
-	playerObj.playLength = 0;
-	
-	// 볼륨 슬라이더 조정 중 
-	playerObj.volumeOver = false;
-	// 재생 슬라이더 조정 중 
-	playerObj.seekOver = false;
-	
-	// 현재 재생 중인 음악 하일라이트
-	playerObj.tableHighlight = function(idx){
-		$("#playListTable2 tr").css("background-color", "");
-		if(idx >=0){
-			$("#playListTable2 tr").eq(idx).css("background-color", "#ffeedd");
-		}
-	};
-	
-	// 현재 플레이어 설정되로 화면 
-	playerObj.initViewPage = function(){
-		musicDwr.getPlayerStat(function(statInfo){
-			playerObj.tableHighlight(statInfo.playIndex);
-			if(statInfo.repeat){
-				$("#repeatall").attr("checked", true);
-			}
-			else{
-				$("#repeat0").attr("checked", true);
-			}
-			$( "#repeat" ).buttonset();
-			var options;
-			if(statInfo.playStatus == "PLAY"){			
-				$("#play").text("pause");
-				options = {
-					label: "pause",
-					icons: {
-						primary: "ui-icon-pause"
-					}
-				};
-			}
-			else{
-				options = {
-					label: "play",
-					icons: {
-						primary: "ui-icon-play"
-					}
-				};
-			}
-			
-			$( "#play" ).button( "option", options );
-			if(!playerObj.volumeOver){
-				$( "#volumeSlider" ).slider("value", statInfo.volume);				
-			}
-
-			if(!playerObj.seekOver){
-				if(statInfo.playArticle != null){
-					playerObj.playLength = statInfo.playArticle.runningTime;
-				}
-				$( "#seekSlider" ).slider("value", statInfo.progressRate * 1000);				
-			}
-			if(statInfo.playArticle != null){
-				$("#lyricsLayer").html("");
-				$("#lyricsLayer").append(statInfo.playArticle.lyricsHighlight.replace(/\n/g,"<br/>"));
-
-				// 스코롤 자동이동
-				var div = $('#lyricsLayer').get(0);
-				var htline = $('#lyricsLayer strong').get(0);
-				if(htline!=null){
-					div.scrollTop = htline.offsetTop - div.offsetTop - 30;
-				}
-				else{
-					div.scrollTop = 0;
-				}
-			}
-		});
-		
-		$(".musicTitle").css("cursor","pointer");
-		$(".musicTitle").unbind("click");
-		$(".musicTitle").bind("click", function(event){
-			var obj = event.delegateTarget;
-			var musicId = $("input", obj).get(0).value;
-			musicDwr.play(musicId);
-		});
-	};
-	
 	// 재생창 토글
 	function playlistToggle(){
 		var display = $("#playListTableLayer").css("display");
@@ -113,7 +28,7 @@
 		})
 		.click(function() {
 			musicDwr.previous(function(idx){
-				playerObj.tableHighlight(idx);
+				PlayerControl.tableHighlight(idx);
 			});
 		});
 		
@@ -133,7 +48,7 @@
 					}
 				};
 				musicDwr.play(function(idx){
-					playerObj.tableHighlight(idx);
+					PlayerControl.tableHighlight(idx);
 				});
 			}
 			else {
@@ -177,7 +92,7 @@
 		})
 		.click(function() {
 			musicDwr.next(function(idx){
-				playerObj.tableHighlight(idx);
+				PlayerControl.tableHighlight(idx);
 			});
 		});
 
@@ -192,11 +107,12 @@
 		});
 		
 		// ====== 일반설정 		
-		MusicControl.playListTableId = "playListTable2";
-		MusicControl.playListPrintAfter = playerObj.initViewPage;
-		MusicControl.playListPrint();
+		PlayListControl.playListTableId = "playListTable2";
+		PlayListControl.playListPrintAfter = PlayerControl.initViewPage;
+		PlayListControl.playListPrint();
 		
 		// ====== 스라이더(볼륨, 진행)
+		// 볼륨 조절 
 		$( "#volumeSlider" ).slider({
 			range: "min",
 			value: 0,
@@ -209,16 +125,17 @@
 				$( "#volume" ).val( ui.value );
 			},
 			start: function(event, ui) {
-				playerObj.volumeOver = true;
+				PlayerControl.volumeOver = true;
 			},
 			stop: function(event, ui) { 
 				musicDwr.setVolume(ui.value, function(){
-					playerObj.volumeOver = false;
-					playerObj.initViewPage();
+					PlayerControl.volumeOver = false;
+					PlayerControl.initViewPage();
 				});
 			}
 		});
 
+		// 진행 이동
 		$( "#seekSlider" ).slider({
 			range: "min",
 			value: 0,
@@ -226,27 +143,27 @@
 			max: 1000,
 			step: 1,
 			slide: function( event, ui ) {
-				var sec = parseInt(playerObj.playLength * (ui.value / 1000.0));
+				var sec = parseInt(PlayerControl.playLength * (ui.value / 1000.0));
 				$( "#time" ).val( $u.DATE.toMinSec(sec) );
 			},
 			change: function(event, ui) { 
-				var sec = parseInt(playerObj.playLength * (ui.value / 1000.0));
+				var sec = parseInt(PlayerControl.playLength * (ui.value / 1000.0));
 				$( "#time" ).val( $u.DATE.toMinSec(sec) );
 			},
 			start: function(event, ui) {
-				playerObj.seekOver = true;
+				PlayerControl.seekOver = true;
 			},
 			stop: function(event, ui) { 
 				musicDwr.setProgressRate(ui.value / 1000.0, function(){
-					playerObj.seekOver  = false;
-					playerObj.initViewPage();
+					PlayerControl.seekOver  = false;
+					PlayerControl.initViewPage();
 				});
 			}			
 		});
 
 		// 하단 버튼
 		$( "#shuffle" ).button().click(function(){
-			MusicControl.shuffle();
+			PlayListControl.shuffle();
 		});
 
 		// 앨범 저장
@@ -258,7 +175,7 @@
 		$( "#albumList" ).button().click(function(){
 			var v = $("#albumChoiceTable").css("display");
 			if(v=="none"){
-				MusicControl.loadAlbumList(function(albumList){
+				AlbumControl.loadAlbumList(function(albumList){
 					var tableObj = $("#albumChoiceList").get(0);
 					var n = tableObj.rows.length;
 					for ( var i = n - 1; i >= 0; i--) {
@@ -292,7 +209,7 @@
 					$(".albumChoiceBtn").button();
 					$(".albumChoiceBtn").bind("click", function(event){
 						musicDwr.useAlbum(event.delegateTarget.value, function(){
-							MusicControl.playListPrint();
+							PlayListControl.playListPrint();
 						});
 					});
 					$("#albumChoiceTable").css("display", "block");
@@ -341,8 +258,8 @@
 		}
 		
 		// 1초마다 설정 정보 갱신
-		if(playerObj.polling == null){
-			playerObj.polling = setInterval( playerObj.initViewPage, 1000 );
+		if(PlayerControl.polling == null){
+			PlayerControl.polling = setInterval( PlayerControl.initViewPage, 1000 );
 		}
 	});
 </script>
