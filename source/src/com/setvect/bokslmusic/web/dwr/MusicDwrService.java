@@ -17,7 +17,6 @@ import com.setvect.bokslmusic.vo.music.Album;
 import com.setvect.bokslmusic.vo.music.MusicArticle;
 import com.setvect.bokslmusic.vo.music.MusicDirectory;
 import com.setvect.bokslmusic.vo.music.PlayItem;
-import com.setvect.common.log.LogPrinter;
 
 /**
  * 프로젝트 목록 제공
@@ -124,7 +123,7 @@ public class MusicDwrService {
 	 *            음악 아이디
 	 * @return 재생되는 음악 Index 번호, 플레이 할 수 없으면 -1
 	 */
-	public static int play(String musicId) {
+	public static int playId(String musicId) {
 		return GlobalPlayerInfo.play(musicId);
 	}
 
@@ -225,7 +224,8 @@ public class MusicDwrService {
 					musicService.updateMusicDirectory(dir);
 				}
 				return true;
-			} finally {
+			}
+			finally {
 				syncing = false;
 			}
 		}
@@ -346,5 +346,19 @@ public class MusicDwrService {
 	 */
 	public static void removeAlbum(int albumSeq) {
 		musicService.removeAlbum(albumSeq);
+	}
+
+	/**
+	 * 선택된 노래 가사 보기
+	 * 
+	 * @return 노래 가사
+	 */
+	public static String getLyrics() {
+		PlayerStat t = GlobalPlayerInfo.getPlayerStat();
+		MusicArticle a = t.getPlayArticle();
+		if (a == null) {
+			return null;
+		}
+		return a.getLyricsWithOutTime();
 	}
 }

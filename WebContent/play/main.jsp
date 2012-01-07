@@ -137,7 +137,7 @@
 		$(".musicTitle").bind("click", function(event){
 			var obj = event.delegateTarget;
 			var musicId = $("input", obj).get(0).value;
-			musicDwr.play(musicId);
+			musicDwr.playId(musicId);
 		});
 	};	
 	

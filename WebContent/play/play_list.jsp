@@ -162,6 +162,17 @@
 		});
 
 		// 하단 버튼
+		// 가사 보기
+		$( "#lyricsView" ).button().click(function(){
+			musicDwr.getLyrics(function(lyrics){
+				if(lyrics != null){
+					$( "#lyrics-dialog").dialog( "open" );
+					$( "#lyrics-dialog").html(lyrics.replace(/\n/g,"<br/>"));
+				}
+			});
+		});
+
+		// 재생 항목 적기
 		$( "#shuffle" ).button().click(function(){
 			PlayListControl.shuffle();
 		});
@@ -245,6 +256,13 @@
 			}
 		});
 		
+		$( "#lyrics-dialog" ).dialog({
+			autoOpen: false,
+			modal: true,
+			resizable: false,
+			height:250
+		});
+		
 		// 재생창 토글
 		var display = $u.COOKIE.getCookie("playListTableLayer");
 		if(display != null){
@@ -297,11 +315,12 @@
 			<tbody></tbody>
 		</table>	
 	</div>
-	<div class="toolbar ui-widget-header ui-corner-all" style="padding: 2px; cursor: pointer;" onclick="lyricsToggle()">가사</div>
+	<div class="toolbar ui-widget-header ui-corner-all" style="padding: 2px; cursor: pointer;" onclick="lyricsToggle()">가사창</div>
 	<div id="lyricsLayer" class="ui-widget-content ui-corner-all">
 	</div>	
 	
 	<div class="toolbar ui-widget-header ui-corner-all" style="margin-top: 10px;">
+		<button id="lyricsView">가사보기</button>
 		<button id="shuffle">뒤죽박죽</button>
 		<button id="albumSave">앨범저장</button>
 		<button id="albumList">앨범목록</button>
@@ -328,4 +347,7 @@
 		<label for="name">이름</label>
 		<input type="text" name="name" id="album_name" class="ui-widget-content ui-corner-all" />
 	</fieldset>
+</div>
+
+<div id="lyrics-dialog" title="노래가사">
 </div>

@@ -14,7 +14,6 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.setvect.bokslmusic.config.BokslMusicConstant;
-import com.setvect.common.log.LogPrinter;
 
 /**
  * 음악 정보<br>
@@ -249,6 +248,20 @@ public class MusicArticle {
 	}
 
 	/**
+	 * 시간 정보가 빠진 가사
+	 * 
+	 * @return 가사
+	 */
+	public String getLyricsWithOutTime() {
+		StringBuffer a = new StringBuffer();
+		List<LyricsTime> ls = loadLyricsTime();
+		for (LyricsTime s : ls) {
+			a.append(s.lyrics + "\n");
+		}
+		return a.toString();
+	}
+
+	/**
 	 * 시간별 노래 가사
 	 * 
 	 * @return 시간별 노래 가사
@@ -256,11 +269,17 @@ public class MusicArticle {
 	private List<LyricsTime> loadLyricsTime() {
 		List<LyricsTime> l = new ArrayList<LyricsTime>();
 		String[] lines = lyrics.split("\n");
+		String beforeTime = "";
 		for (String line : lines) {
 			if (line.length() < 10 || !line.startsWith("[") || line.startsWith("[00:00.00]")) {
 				continue;
 			}
 			int second = second(line);
+			String cTime = line.substring(0, 10);
+			if (cTime.equals(beforeTime)) {
+				continue;
+			}
+			beforeTime = cTime;
 			String substring = line.substring(10);
 			LyricsTime time = new LyricsTime(second, substring);
 			l.add(time);
