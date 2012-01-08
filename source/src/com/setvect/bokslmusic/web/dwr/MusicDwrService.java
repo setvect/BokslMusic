@@ -32,6 +32,18 @@ public class MusicDwrService {
 	private static boolean syncing = false;
 
 	/**
+	 * 디렉토리 목록
+	 * 
+	 * @param searchWord
+	 *            디렉토리 또는 파일명 검색어
+	 * @return 디렉토리 목록
+	 */
+	public static List<String> getPath(String searchWord) {
+		List<String> allPath = musicService.getMusicArticlePath();
+		return allPath;
+	}
+
+	/**
 	 * 음악 파일 목록을 조회 함
 	 * 
 	 * @param folder
@@ -224,8 +236,7 @@ public class MusicDwrService {
 					musicService.updateMusicDirectory(dir);
 				}
 				return true;
-			}
-			finally {
+			} finally {
 				syncing = false;
 			}
 		}

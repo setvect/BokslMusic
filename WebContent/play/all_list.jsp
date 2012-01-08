@@ -2,13 +2,30 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <script type="text/javascript">
-	$(function () {
-		$("#musicList").treeview({
-			persist: "cookie",
-			cookieId: "treeview-black",			
-			toggle: FolderControl.expandFolder
+	function init(){
+		musicDwr.getPath("", function(folder){
+			var tree = $("#musicList");
+			tree.html("");
+			for(var i=0;i<folder.length;i++){
+				var d = folder[i];
+				var t="<li class='closed'>";
+				t+="<span class='folder close'>"+d+"<button style='float: right' value='"+d+"'>모두추가</button></span>";
+				t+="<ul title='"+d+"'></ul>";
+				t+="</li>";
+				tree.append(t);
+			}
+			$("#musicList").treeview({
+				persist: "cookie",
+				cookieId: "treeview-black",			
+				toggle: FolderControl.expandFolder
+			});
+			$("button").button();
+			$("#musicList .ui-button-text").css("display", "inline").css("line-height", "1.1");
 		});
-		
+	}
+
+	$(function () {
+		init();		
 		$( "#playlist-dialog" ).dialog({
 			modal: true,
 			autoOpen: false,
@@ -24,13 +41,11 @@
 		
 		PlayListControl.playListTableId = "playListTable1";
 		
-		$("button").button();
 		$("#musicList button").bind("click", PlayListControl.addFolder);
 		$("#openPlayListBtn").bind("click", PlayListControl.openPlayList);
 		$("#clearPlayListBtn").bind("click", PlayListControl.clearPlayList);
 		$("#deduplicationBtn").bind("click", PlayListControl.deduplication);
 		$("#shuffleBtn").bind("click", PlayListControl.shuffle);
-		$("#musicList .ui-button-text").css("display", "inline").css("line-height", "1.1");
 	});
 </script>
 
@@ -39,17 +54,6 @@
 </div>	
 <div>
 	<ul id="musicList" class="filetree">
-<%
-	List<String> folder = (List<String>)request.getAttribute(MusicListController.AttributeKey.FOLDER.name());
-	for(String f : folder){
-%>
-		<li class="closed">
-			<span class="folder close"><%=f%><button style="float: right" value="<%=f%>">모두추가</button></span>
-			<ul title="<%=f%>"></ul>
-		</li>
-<%
-	}
-%>	
 	</ul>
 </div>
 <div id="playlist-dialog" title="재생 목록">
