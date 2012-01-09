@@ -129,9 +129,20 @@ public abstract class AbstractMusicDao implements MusicDao {
 		return order;
 	}
 
-	public List<String> getMusicArticlePath() {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.setvect.bokslmusic.db.MusicDao#getMusicArticlePath(java.lang.String)
+	 */
+	public List<String> getMusicArticlePath(String searchWord) {
 		Session session = sessionFactory.getCurrentSession();
-		String q = "SELECT DISTINCT path  from MusicArticle order by path";
+		String q = "SELECT DISTINCT path  from MusicArticle ";
+		if (StringUtilAd.isNotEmpty(searchWord)) {
+			q += " where path like " + StringUtilAd.getSqlStringLike(searchWord) + " ";
+			q += " OR name like " + StringUtilAd.getSqlStringLike(searchWord) + " ";
+		}
+		q += " order by path";
 		Query query = session.createQuery(q);
 
 		query = session.createQuery(q);
@@ -153,6 +164,7 @@ public abstract class AbstractMusicDao implements MusicDao {
 		String title = pageCondition.getSearchTitle();
 		String path = pageCondition.getSearchPath();
 		String pathParent = pageCondition.getSearchPathParent();
+		String pathAndName = pageCondition.getSearchPathAndName();
 
 		String where;
 		UnionCondition cnd = pageCondition.getUnionCondition();
@@ -188,6 +200,12 @@ public abstract class AbstractMusicDao implements MusicDao {
 		if (StringUtilAd.isNotEmpty(pathParent)) {
 			where += cnd + " path like " + StringUtilAd.getSqlStringLikeRight(pathParent.replace("\\", "\\\\")) + " ";
 		}
+
+		if (StringUtilAd.isNotEmpty(pathAndName)) {
+			where += cnd + " ( path like " + StringUtilAd.getSqlStringLike(pathAndName) + " ";
+			where += " OR name like " + StringUtilAd.getSqlStringLike(pathAndName) + ") ";
+		}
+
 		return where;
 	}
 

@@ -2,30 +2,11 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" pageEncoding="utf-8" isELIgnored="false" %>
 <script type="text/javascript">
-	function init(){
-		musicDwr.getPath("", function(folder){
-			var tree = $("#musicList");
-			tree.html("");
-			for(var i=0;i<folder.length;i++){
-				var d = folder[i];
-				var t="<li class='closed'>";
-				t+="<span class='folder close'>"+d+"<button style='float: right' value='"+d+"'>모두추가</button></span>";
-				t+="<ul title='"+d+"'></ul>";
-				t+="</li>";
-				tree.append(t);
-			}
-			$("#musicList").treeview({
-				persist: "cookie",
-				cookieId: "treeview-black",			
-				toggle: FolderControl.expandFolder
-			});
-			$("button").button();
-			$("#musicList .ui-button-text").css("display", "inline").css("line-height", "1.1");
-		});
-	}
-
 	$(function () {
-		init();		
+		var searchValue = $u.COOKIE.getCookie("searchValue");
+		$("#search_field").get(0).value = searchValue ;
+		
+		AllListControl.init();
 		$( "#playlist-dialog" ).dialog({
 			modal: true,
 			autoOpen: false,
@@ -38,10 +19,9 @@
 				}
 			}
 		});
-		
+
 		PlayListControl.playListTableId = "playListTable1";
-		
-		$("#musicList button").bind("click", PlayListControl.addFolder);
+		$("#searchBtn").bind("click", AllListControl.init);
 		$("#openPlayListBtn").bind("click", PlayListControl.openPlayList);
 		$("#clearPlayListBtn").bind("click", PlayListControl.clearPlayList);
 		$("#deduplicationBtn").bind("click", PlayListControl.deduplication);
@@ -50,6 +30,8 @@
 </script>
 
 <div class="toolbar ui-widget-header ui-corner-all">
+	<input type="text" name="search" id="search_field" value="" class="ui-widget-content ui-corner-all" />
+	<button id="searchBtn">검색</button>
 	<button id="openPlayListBtn">재생목록</button>
 </div>	
 <div>

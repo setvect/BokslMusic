@@ -152,11 +152,39 @@
 	});
 	
 	
-	// ================================= 폴더 관리 
-	var FolderControl = new Object();
+	// ================================= 전체목록 관리 
+	var AllListControl = new Object();
+	
+	AllListControl.init = function(){
+		var searchValue =  $("#search_field").get(0).value;
+		$u.COOKIE.setCookieInstacne("searchValue", escape(searchValue), "/");
+		musicDwr.getPath(searchValue, function(folder){
+			var tree = $("#musicList");
+			tree.html("");
+			for(var i=0;i<folder.length;i++){
+				var d = folder[i];
+				var t="<li class='closed'>";
+				t+="<span class='folder close'>"+d+"<button style='float: right' value='"+d+"'>모두추가</button></span>";
+				t+="<ul title='"+d+"'></ul>";
+				t+="</li>";
+				tree.append(t);
+			}
+			$("#musicList").treeview({
+				persist: "cookie",
+				cookieId: "treeview-black",			
+				toggle: AllListControl.expandFolder
+			});
+			$("button").button();
+			$("#musicList .ui-button-text").css("display", "inline").css("line-height", "1.1");
+			$("#musicList button").bind("click", PlayListControl.addFolder);
+		});
+	};
+
+	
 	// 서브 폴더 확장
-	FolderControl.expandFolder = function(i, object) {
-		musicDwr.getPlayListFolder(object.title, function(data) {
+	AllListControl.expandFolder = function(i, object) {
+		var searchValue =  $("#search_field").get(0).value;
+		musicDwr.getPlayListFolder(object.title, searchValue, function(data) {
 			$(object).html("");
 			for ( var i = 0; i < data.length; i++) {
 				var m = data[i];

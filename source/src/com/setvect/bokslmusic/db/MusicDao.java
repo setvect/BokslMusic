@@ -70,9 +70,16 @@ public interface MusicDao {
 	public GenericPage<MusicArticle> getMusicArticlePagingList(MusicArticleSearch pageCondition);
 
 	/**
-	 * @return 중복제거된 파일 저장 경로
+	 * 검색 조건에 부합되는 결과<br>
+	 * 아래 경우 검색 됨<br>
+	 * 1. 경로가 맵칭되는 것이 있으면<br>
+	 * 2. 폴더 하위에 포함되 노래가 하나 이상 들어 있을 경우<br>
+	 * 
+	 * @param searchWord
+	 *            경로, 노래제목 검색 필드. null이면 검색 조건 없음
+	 * @return 결과 목록
 	 */
-	public List<String> getMusicArticlePath();
+	public List<String> getMusicArticlePath(String searchWord);
 
 	/**
 	 * 음악 등록
@@ -191,7 +198,7 @@ public interface MusicDao {
 	public void removePlayItem(int playItemSeq);
 
 	/**
-	 * 앨범에 있는 모든 항목 삭제 
+	 * 앨범에 있는 모든 항목 삭제
 	 * 
 	 * @param albumSeq
 	 *            재생 파일 일련번호

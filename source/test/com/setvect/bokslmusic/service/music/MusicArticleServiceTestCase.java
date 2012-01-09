@@ -75,7 +75,7 @@ public class MusicArticleServiceTestCase extends TestSystem {
 	@Test
 	public void testMusicArticlePath() {
 		System.out.println("testMusicArticlePath()");
-		List<String> path = service.getMusicArticlePath();
+		List<String> path = service.getMusicArticlePath(null);
 		for (String p : path) {
 			System.out.println(p);
 		}

@@ -39,7 +39,7 @@ public class MusicDwrService {
 	 * @return 디렉토리 목록
 	 */
 	public static List<String> getPath(String searchWord) {
-		List<String> allPath = musicService.getMusicArticlePath();
+		List<String> allPath = musicService.getMusicArticlePath(searchWord);
 		return allPath;
 	}
 
@@ -48,10 +48,12 @@ public class MusicDwrService {
 	 * 
 	 * @param folder
 	 *            폴더명
+	 * @param searchWord
+	 *            디렉토리 또는 파일명 검색어
 	 * @return 음악 파일 목록
 	 */
-	public static List<MusicArticle> getPlayListFolder(String folder) {
-		List<MusicArticle> result = musicService.getPlayListFolder(folder);
+	public static List<MusicArticle> getPlayListFolder(String folder, String searchWord) {
+		List<MusicArticle> result = musicService.getPlayListFolder(folder, searchWord);
 		return result;
 	}
 
@@ -74,7 +76,7 @@ public class MusicDwrService {
 	 * @return 등록한 음악 갯수
 	 */
 	public static int addPlayListFolder(String folder) {
-		List<MusicArticle> items = musicService.getPlayListFolder(folder);
+		List<MusicArticle> items = musicService.getPlayListFolder(folder, null);
 		GlobalPlayerInfo.addPlayArticle(items);
 		return items.size();
 	}

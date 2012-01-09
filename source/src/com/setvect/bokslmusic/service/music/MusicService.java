@@ -58,13 +58,16 @@ public class MusicService {
 	 * 
 	 * @param folder
 	 *            폴더명
+	 * @param searchWord
+	 *            디렉토리 또는 파일명 검색어
 	 * @return 폴더에 포함된 음악 목록
 	 */
-	public List<MusicArticle> getPlayListFolder(String folder) {
+	public List<MusicArticle> getPlayListFolder(String folder, String searchWord) {
 		// 검색조건: 디렉토리 이름 매칭
 		MusicArticleSearch pageCondition = new MusicArticleSearch(1);
 		pageCondition.setPagePerItemCount(Integer.MAX_VALUE);
 		pageCondition.setSearchPath(folder);
+		pageCondition.setSearchPathAndName(searchWord);
 
 		GenericPage<MusicArticle> pageSearch = getMusicArticlePagingList(pageCondition);
 		Collection<MusicArticle> temp = pageSearch.getList();
@@ -73,25 +76,18 @@ public class MusicService {
 		return result;
 	}
 
-	public List<String> getMusicArticlePath() {
-		return musicArticleDao.getMusicArticlePath();
-	}
-
 	/**
-	 * @param basePath
-	 *            시작 경로
-	 * @return basePath로 시작하는 음원 디렉토리 경로
+	 * 검색 조건에 부합되는 결과<br>
+	 * 아래 경우 검색 됨<br>
+	 * 1. 경로가 맵칭되는 것이 있으면<br>
+	 * 2. 폴더 하위에 포함되 노래가 하나 이상 들어 있을 경우<br>
+	 * 
+	 * @param searchWord
+	 *            경로, 노래제목 검색 필드. null이면 검색 조건 없음
+	 * @return 결과 목록
 	 */
-	public List<String> getMusicArticlePath(String basePath) {
-		List<String> musicArticlePath = musicArticleDao.getMusicArticlePath();
-		List<String> rtn = new ArrayList<String>();
-		for (String d : musicArticlePath) {
-			if (!d.startsWith(basePath)) {
-				continue;
-			}
-			rtn.add(d);
-		}
-		return rtn;
+	public List<String> getMusicArticlePath(String searchWord) {
+		return musicArticleDao.getMusicArticlePath(searchWord);
 	}
 
 	/**

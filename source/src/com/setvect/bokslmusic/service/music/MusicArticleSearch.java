@@ -2,10 +2,15 @@ package com.setvect.bokslmusic.service.music;
 
 import com.setvect.common.util.SearchListVo;
 
+/**
+ * 노래 검색 조건
+ * 
+ * @version $Id$
+ */
 public class MusicArticleSearch extends SearchListVo {
 
 	/** */
-	private static final long serialVersionUID = 7408199949914095804L;
+	private static final long serialVersionUID = 7844402224528909683L;
 
 	/**
 	 * 정렬 조건
@@ -37,6 +42,8 @@ public class MusicArticleSearch extends SearchListVo {
 
 	/** 디렉토리 경로(우측 like 검색 'abcde%') */
 	private String searchPathParent;
+	/** 경로 및 파일 이름 검색(둘간의 관계는 OR) */
+	private String searchPathAndName;
 
 	public MusicArticleSearch(int currentPage) {
 		super(currentPage);
@@ -113,7 +120,24 @@ public class MusicArticleSearch extends SearchListVo {
 		this.searchPathParent = searchPathParent;
 	}
 
-	/* (non-Javadoc)
+	/**
+	 * @return the searchPathAndName
+	 */
+	public String getSearchPathAndName() {
+		return searchPathAndName;
+	}
+
+	/**
+	 * @param searchPathAndName
+	 *            the searchPathAndName to set
+	 */
+	public void setSearchPathAndName(String searchPathAndName) {
+		this.searchPathAndName = searchPathAndName;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -125,13 +149,16 @@ public class MusicArticleSearch extends SearchListVo {
 		result = prime * result + ((searchFileName == null) ? 0 : searchFileName.hashCode());
 		result = prime * result + ((searchLyrics == null) ? 0 : searchLyrics.hashCode());
 		result = prime * result + ((searchPath == null) ? 0 : searchPath.hashCode());
+		result = prime * result + ((searchPathAndName == null) ? 0 : searchPathAndName.hashCode());
 		result = prime * result + ((searchPathParent == null) ? 0 : searchPathParent.hashCode());
 		result = prime * result + ((searchTitle == null) ? 0 : searchTitle.hashCode());
 		result = prime * result + ((unionCondition == null) ? 0 : unionCondition.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -179,6 +206,14 @@ public class MusicArticleSearch extends SearchListVo {
 			}
 		}
 		else if (!searchPath.equals(other.searchPath)) {
+			return false;
+		}
+		if (searchPathAndName == null) {
+			if (other.searchPathAndName != null) {
+				return false;
+			}
+		}
+		else if (!searchPathAndName.equals(other.searchPathAndName)) {
 			return false;
 		}
 		if (searchPathParent == null) {
