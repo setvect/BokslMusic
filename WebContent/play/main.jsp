@@ -12,7 +12,7 @@
 	var BASE_URL = "<%= CommonUtil.getContextUrl(request)%>";	
 </script>
 <base href="<%= CommonUtil.getContextUrl(request)%>/"/>
-<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.16.custom.css"/>
+<link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css"/>
 <link rel="stylesheet" type="text/css" href="css/play.css"/>
 <link rel="stylesheet" type="text/css" href="tree/jquery.treeview.css"/>
 
