@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.setvect.bokslmusic.config.BokslMusicConstant;
@@ -21,6 +22,7 @@ import com.setvect.common.util.GenericPage;
 @Service("MusicService")
 public class MusicService {
 	@Autowired
+	@Qualifier("H2")
 	private MusicDao musicArticleDao;
 
 	// ------ 음악 경로 관리

@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.setvect.bokslmusic.db.CodeDao;
@@ -20,6 +21,7 @@ import com.setvect.common.util.GenericPage;
 public class CodeService {
 
 	@Autowired
+	@Qualifier("H2")
 	private CodeDao codeDao;
 
 	/**

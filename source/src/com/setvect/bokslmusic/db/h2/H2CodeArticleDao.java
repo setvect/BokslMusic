@@ -1,5 +1,6 @@
 package com.setvect.bokslmusic.db.h2;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.setvect.bokslmusic.db.common.AbstractCodeDao;
@@ -10,5 +11,6 @@ import com.setvect.bokslmusic.db.common.AbstractCodeDao;
  * @version $Id$
  */
 @Service
+@Qualifier("H2")
 public class H2CodeArticleDao extends AbstractCodeDao {
 }
