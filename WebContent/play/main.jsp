@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 <head>
 <!-- <%=request.getRequestURI()%> -->
-<title>Boksl Music</title>
+<title>복슬Music</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
 <script type="text/javascript">
@@ -384,6 +384,7 @@
 			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.ALL_LIST_FORM%>">노래들</a></li>
 			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.ALBUM_FORM%>">앨범</a></li>			
 			<li><a href="play/music_list.do?mode=<%=MusicListController.Mode.SETTING_FORM%>">설정</a></li>
+			<li><div style="margin: 2px 0 0 10px; padding:4px; background-color: #ffc;">복슬Music ♡</div></li>   
 		</ul>
 	</div>
 </div>
