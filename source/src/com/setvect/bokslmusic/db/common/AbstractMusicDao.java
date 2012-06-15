@@ -396,6 +396,14 @@ public abstract class AbstractMusicDao implements MusicDao {
 		query.setParameter(1, musicId);
 		query.executeUpdate();
 	}
+	
+	public void removePlayItem(String musicId) {
+		Session session = sessionFactory.getCurrentSession();
+		String q = "delete from PlayItem where musicId =?";
+		Query query = session.createQuery(q);
+		query.setParameter(0, musicId);
+		query.executeUpdate();
+	}
 
 	// ------ Play Time 정보
 	public PlayTime getPlayTime(int playTimeSeq) {

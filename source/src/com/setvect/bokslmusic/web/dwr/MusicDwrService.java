@@ -236,6 +236,7 @@ public class MusicDwrService {
 				List<MusicDirectory> dirs = musicService.getMusicDirectory();
 				for (MusicDirectory dir : dirs) {
 					syncService.syncDirectory(dir.getPath());
+					syncService.syncDb();
 					dir.setSyncDate(new Date());
 					musicService.updateMusicDirectory(dir);
 				}

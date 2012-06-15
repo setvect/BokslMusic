@@ -221,7 +221,10 @@ public class MusicService {
 	public void removePlayItem(int album, String musicId) {
 		musicArticleDao.removePlayItem(album, musicId);
 	}
-
+	
+	public void removePlayItem(String musicId) {
+		musicArticleDao.removePlayItem(musicId);
+	}
 	// ------ Play Time 정보
 
 	public PlayTime getPlayTime(int playTimeSeq) {

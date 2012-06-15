@@ -155,6 +155,7 @@ public class MusicSyncService {
 			}
 
 			if (delete) {
+				service.removePlayItem(article.getMusicId());
 				service.removeMusicArticle(article.getMusicId());
 				deleteCount++;
 

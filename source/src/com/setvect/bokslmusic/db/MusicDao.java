@@ -212,6 +212,12 @@ public interface MusicDao {
 	 *            음악 파일 ID
 	 */
 	public void removePlayItem(int album, String musicId);
+	
+	/**
+	 * @param musicId
+	 *            음악 파일 ID
+	 */
+	public void removePlayItem(String musicId);
 
 	// ------ Play Time 정보
 
