@@ -7,9 +7,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 
-import com.setvect.bokslmusic.boot.EnvirmentInit;
 import com.setvect.bokslmusic.player.GlobalPlayerInfo;
 import com.setvect.bokslmusic.player.PlayerStat;
 import com.setvect.bokslmusic.service.music.MusicService;
@@ -24,11 +23,12 @@ import com.setvect.bokslmusic.vo.music.PlayItem;
  * 
  * @version $Id$
  */
-@Service
+@Controller
 public class MusicDwrService {
-	// TODO 스프링 시작시점에서 Bind가 되지 않는다.
 	@Autowired
 	private MusicService musicService;
+	@Autowired
+	private MusicSyncService syncService;
 
 	/** 동기화 중 */
 	private boolean syncing = false;
@@ -231,8 +231,6 @@ public class MusicDwrService {
 		if (!syncing) {
 			try {
 				syncing = true;
-				MusicSyncService syncService = (MusicSyncService) EnvirmentInit.getConfigSpring().getBean(
-						"MusicSyncService");
 				List<MusicDirectory> dirs = musicService.getMusicDirectory();
 				for (MusicDirectory dir : dirs) {
 					syncService.syncDirectory(dir.getPath());

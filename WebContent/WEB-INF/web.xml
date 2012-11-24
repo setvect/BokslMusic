@@ -9,7 +9,18 @@
 		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
 		<param-value>message/message</param-value>
 	</context-param>
-
+ 	
+ 	<context-param>
+ 		<param-name>contextClass</param-name>
+ 		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+ 	</context-param>
+ 		
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+				com.setvect.bokslmusic.context.AppContext
+		</param-value>
+	</context-param>
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -20,34 +31,27 @@
 		</init-param>
 	</filter>
 	
-	<!-- GWT 서비스 객체에서 rquest 인스턴스를 사용하기 위해서 -->
-	<filter>
-		<filter-name>springRequestFilter</filter-name>
-		<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
-	</filter>
-	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<filter-mapping>
-		<filter-name>springRequestFilter</filter-name>
-		<url-pattern>/bokslmusic/service/*</url-pattern>
-	</filter-mapping>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	
-	<servlet>
-		<servlet-name>EnvirmentInit</servlet-name>
-		<servlet-class>com.setvect.bokslmusic.boot.EnvirmentInit</servlet-class>
-		<load-on-startup>10</load-on-startup>
-	</servlet>
+	<listener>
+		<listener-class>com.setvect.bokslmusic.boot.EnvirmentInit</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>action</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:/config/applicationContext.xml</param-value>
+			<param-value>
+				classpath:/config/applicationWeb.xml
+			</param-value>
 		</init-param>		
 	</servlet>
 
@@ -58,7 +62,6 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				classpath:/config/applicationDwr.xml
-				classpath:/config/applicationContext.xml
 			</param-value>
 		</init-param>		
 	</servlet>

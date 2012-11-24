@@ -3,15 +3,16 @@ package com.setvect.bokslmusic.boot;
 import java.net.URL;
 import java.util.logging.Level;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.tag.datatype.AbstractDataType;
 import org.jaudiotagger.tag.id3.AbstractTagItem;
 import org.springframework.aop.Advisor;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.setvect.bokslmusic.config.BokslMusicConstant;
 import com.setvect.bokslmusic.config.EnvirmentProperty;
@@ -25,28 +26,27 @@ import com.setvect.common.log.LogPrinter;
 /**
  * WAS가 실행되면 어플리케이션에 기본적인 설정값, 로그설정등을 해준다. <br>
  */
-@SuppressWarnings("serial")
-public class EnvirmentInit extends HttpServlet {
-	private static final String CONFIG_SPRING = "classpath:config/applicationContext.xml";
+public class EnvirmentInit implements ServletContextListener {
 	private static final String CONFIG_LOG4J_XML = "/config/log4j.xml";
 	private static final String CONFIG_CONFIG_PROPERTIES = "/config/config.properties";
 
 	/** 초기화 여부 */
 	private static boolean initialize = false;
-	private static ClassPathXmlApplicationContext springContext;
+	private static WebApplicationContext springContext;
 
-	public EnvirmentInit() {
+	public void contextInitialized(ServletContextEvent paramServletContextEvent) {
+		springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(paramServletContextEvent
+				.getServletContext());
+		bootUp();
 	}
 
-	public void init() throws ServletException {
-		super.init();
-		bootUp();
+	public void contextDestroyed(ServletContextEvent paramServletContextEvent) {
 	}
 
 	/**
 	 * @return the springContext
 	 */
-	public static ClassPathXmlApplicationContext getConfigSpring() {
+	public static WebApplicationContext getConfigSpring() {
 		return springContext;
 	}
 
@@ -71,11 +71,6 @@ public class EnvirmentInit extends HttpServlet {
 
 		// Jetty 사용에서 발생되는 오류 해결
 		loadForSpringJarFile();
-
-		springContext = new ClassPathXmlApplicationContext(new String[] { CONFIG_SPRING }, false);
-		springContext.refresh();
-
-		LogPrinter.out.info("Spring Initialized");
 
 		// DB init
 		// H2 데이터 베이스 파일 생성 경로 지정. Spring Initialized 전에 해야됨
@@ -119,9 +114,5 @@ public class EnvirmentInit extends HttpServlet {
 	private static void loadForSpringJarFile() {
 		Class<Advisor> aop = Advisor.class;
 		Class<TransactionStatus> tx = TransactionStatus.class;
-	}
-
-	public void destroy() {
-		super.destroy();
 	}
 }

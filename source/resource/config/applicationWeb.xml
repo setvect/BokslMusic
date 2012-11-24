@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+	Controller는 어노테이션을 이용해서 스캔 하고, DB 관련 DAO는 명시적으로 선언 하였음
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+   		 "
+       default-lazy-init="true"
+       >
+	<aop:aspectj-autoproxy />
+	<context:component-scan base-package="com.setvect.bokslmusic.web" scoped-proxy="no" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>	
+       
+	<!-- =============================== -->
+	<!-- ======  WEB MVC Mapping ======= -->
+	<!-- =============================== -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
+		<property name="interceptors">
+			<list><ref bean="loginCheckInterceptor"/></list>
+		</property>
+	</bean>
+	 
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<!-- multipart resolver -->
+	<bean id="multipartResolver" class="com.setvect.common.http.MultiFileCommonsMultipartResolver">
+		<property name="maxUploadSize">
+			<value>10000000</value>
+		</property>
+	</bean>
+
+	<!-- Login Check Interceptor -->
+	<bean id="loginCheckInterceptor" class="com.setvect.bokslmusic.web.SessionCheckInterceptor"/>
+
+</beans>
