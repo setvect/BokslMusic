@@ -72,12 +72,6 @@ public class EnvirmentInit implements ServletContextListener {
 		// Jetty 사용에서 발생되는 오류 해결
 		loadForSpringJarFile();
 
-		// DB init
-		// H2 데이터 베이스 파일 생성 경로 지정. Spring Initialized 전에 해야됨
-		if (System.getProperty("h2.baseDir") == null) {
-			System.setProperty("h2.baseDir", BokslMusicConstant.DB_PATH);
-		}
-
 		DBInitializer conn = (DBInitializer) springContext.getBean("db.initializer");
 		conn.init();
 
