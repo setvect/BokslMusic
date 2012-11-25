@@ -18,7 +18,7 @@ import com.setvect.bokslmusic.web.SessionCheckInterceptor;
 import com.setvect.common.http.MultiFileCommonsMultipartResolver;
 
 @Configuration
-@ImportResource({ "classpath:/config/applicationWeb.xml" })
+@ImportResource({ "classpath:/config/applicationDwr.xml" })
 @ComponentScan(basePackages = "com.setvect.bokslmusic.web", useDefaultFilters = false, includeFilters = @Filter(type = ANNOTATION, value = Controller.class), excludeFilters = @Filter(type = ANNOTATION, value = Service.class))
 public class WebContext {
 	@Autowired

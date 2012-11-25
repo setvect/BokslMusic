@@ -1,36 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Spring Java Configuration을 이용.
+	대부분의 Bean 설정은 "com.setvect.bokslmusic.context.DwrContext" 있음.
+-->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
-	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   
-       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-3.0.xsd       
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
        http://www.directwebremoting.org/schema/spring-dwr
        http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd">
-       
-	<context:component-scan base-package="com.setvect.bokslmusic.web" scoped-proxy="no" use-default-filters="false">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-	</context:component-scan>	
-	       
-	<bean
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>
-				<prop key="/engine.js">dwrController</prop>
-				<prop key="/util.js">dwrController</prop>
-				<prop key="/interface/**">dwrController</prop>
-				<prop key="/call/**">dwrController</prop>
-				<prop key="/*">dwrController</prop>
-			</props>
-		</property>
-	</bean>
-
 	<dwr:controller id="dwrController" debug="true" />
 
 	<dwr:configuration>
@@ -51,7 +31,6 @@
 		<dwr:convert type="enum" class="com.setvect.bokslmusic.player.AudioPlayer$PlayerStatus">
 		</dwr:convert>				
 	</dwr:configuration>
-
 
 	<bean id="musicService" class="com.setvect.bokslmusic.web.dwr.MusicDwrService">
 		<dwr:remote javascript="musicDwr">
