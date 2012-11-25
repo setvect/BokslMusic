@@ -5,16 +5,21 @@ import static org.springframework.context.annotation.FilterType.ANNOTATION;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 
 import com.setvect.bokslmusic.vo.code.Code;
 import com.setvect.bokslmusic.vo.music.Album;
@@ -25,25 +30,31 @@ import com.setvect.bokslmusic.vo.music.PlayTime;
 
 @Configuration
 @ImportResource({ "classpath:/config/applicationContext.xml" })
-@ComponentScan(basePackages = "com.setvect.bokslmusic", useDefaultFilters = false, 
-	includeFilters = { @Filter(type = ANNOTATION, value = Service.class) }, 
-	excludeFilters = @Filter(type = ANNOTATION, value = Controller.class)
-)
+@ComponentScan(basePackages = "com.setvect.bokslmusic", useDefaultFilters = false, includeFilters = { @Filter(type = ANNOTATION, value = Service.class) }, excludeFilters = @Filter(type = ANNOTATION, value = Controller.class))
+@PropertySource("classpath:/config/config.properties")
 public class AppContext {
+	@Autowired
+	private Environment env;
 
 	@Autowired
 	private AnnotationSessionFactoryBean sessionFactory;
+
+	@Bean
+	public PathMatcher antPathMater() {
+		return new AntPathMatcher();
+	}
 
 	@Bean
 	public AnnotationSessionFactoryBean sessionFactory() {
 		AnnotationSessionFactoryBean sessionFactory = new AnnotationSessionFactoryBean();
 
 		Properties hibernateProperties = new Properties();
-		hibernateProperties.setProperty("hibernate.connection.driver_class", "org.h2.Driver");
-		hibernateProperties.setProperty("hibernate.connection.url", "jdbc:h2:D:/work/git/BokslMusic/db/boksl_music");
-		hibernateProperties.setProperty("hibernate.connection.username", "sa");
-		hibernateProperties.setProperty("hibernate.connection.password", "");
-		hibernateProperties.setProperty("hibernate.connection.poolsize", "20");
+		hibernateProperties.setProperty("hibernate.connection.driver_class",
+				env.getProperty("com.setvect.bokslmusic.db.driver"));
+		hibernateProperties.setProperty("hibernate.connection.url", env.getProperty("com.setvect.bokslmusic.db.url"));
+		hibernateProperties.setProperty("hibernate.connection.username", env.getProperty("com.setvect.bokslmusic.db.user"));
+		hibernateProperties.setProperty("hibernate.connection.password", env.getProperty("com.setvect.bokslmusic.db.passwd"));
+		hibernateProperties.setProperty("hibernate.connection.poolsize", env.getProperty("com.setvect.bokslmusic.db.poolsize"));
 		hibernateProperties.setProperty("hibernate.cache.provider_class", "org.hibernate.cache.EhCacheProvider");
 		hibernateProperties.setProperty("hibernate.cache.use_query_cache", "true");
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
