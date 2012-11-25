@@ -1,84 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
-	Controller는 어노테이션을 이용해서 스캔 하고, DB 관련 DAO는 명시적으로 선언 하였음
+	Spring Java Configuration을 이용.
+	대부분의 Bean 설정은 "com.setvect.bokslmusic.context.AppContext" 있음.
 -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   
-       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
        http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
    		 "
        default-lazy-init="true"
        >
 	       
-	<!--  Message Resources -->
-	<bean id="messageSource" 
-		class="org.springframework.context.support.ResourceBundleMessageSource">	
-		<property name="basenames">
-			<list>
-				<value>message/message</value>
-			</list>
-		</property>
-	</bean>	       
-	       
-	<!-- DB Connection -->
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"
-		lazy-init="true">
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.connection.driver_class">org.h2.Driver</prop>
-				<prop key="hibernate.connection.url">jdbc:h2:D:/work/git/BokslMusic/db/boksl_music</prop>
-				<prop key="hibernate.connection.username">sa</prop>
-				<prop key="hibernate.connection.password"></prop>
-				<prop key="hibernate.connection.poolsize">20</prop>
-				
-				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
-				<prop key="hibernate.cache.use_query_cache">true</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
-				<prop key="current_session_context_class">thread</prop>  
-				<prop key="hibernate.show_sql">false</prop>
-				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.connection.shutdown">true</prop>
-			</props>
-		</property>
-		<property name="annotatedClasses">
-			<list>
-				<value>com.setvect.bokslmusic.vo.music.MusicDirectory</value>			
-				<value>com.setvect.bokslmusic.vo.music.MusicArticle</value>	
-				<value>com.setvect.bokslmusic.vo.music.Album</value>		
-				<value>com.setvect.bokslmusic.vo.music.PlayItem</value>		
-				<value>com.setvect.bokslmusic.vo.music.PlayTime</value>
-				<value>com.setvect.bokslmusic.vo.code.Code</value>			
-			</list>
-		</property>
-		<property name="packagesToScan">
-			<list>
-				<!-- Add new Packages to scan here -->
-			</list>
-		</property>
-	</bean>
-
- 	
- 	<bean id="hibernateTemplate"
-    class="org.springframework.orm.hibernate3.HibernateTemplate"
-    p:sessionFactory-ref="sessionFactory" />	
-	
 	<!-- Transaction -->	
-	<bean id="hibernateTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-
 	<tx:advice id="hibernateTxAdvice" transaction-manager="hibernateTxManager">
 		<tx:attributes>
 			<tx:method name="*" rollback-for="Exception" propagation="REQUIRED"/>
