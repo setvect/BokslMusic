@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	Spring Java Configuration을 이용.
+	대부분의 Bean 설정은 "com.setvect.bokslmusic.context.DwrContext" 있음.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.directwebremoting.org/schema/spring-dwr
+       http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd">
+	<dwr:controller id="dwrController" debug="true" />
+
+	<dwr:configuration>
+		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.MusicArticle">
+			<dwr:include method="musicId, name, runningTime, lyricsHighlight"/>
+		</dwr:convert>
+
+		<dwr:convert type="bean" class="com.setvect.bokslmusic.player.PlayerStat">
+		</dwr:convert>
+
+		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.MusicDirectory">
+			<dwr:exclude method="path"/>
+		</dwr:convert>
+
+		<dwr:convert type="bean" class="com.setvect.bokslmusic.vo.music.Album">
+		</dwr:convert>
+		
+		<dwr:convert type="enum" class="com.setvect.bokslmusic.player.AudioPlayer$PlayerStatus">
+		</dwr:convert>				
+	</dwr:configuration>
+
+	<bean id="musicService" class="com.setvect.bokslmusic.web.dwr.MusicDwrService">
+		<dwr:remote javascript="musicDwr">
+		</dwr:remote>
+	</bean>
+
+</beans>
